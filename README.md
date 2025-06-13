@@ -4,7 +4,7 @@ A high-performance API gateway for the Vision Group ecosystem, providing central
 
 ![CI Pipeline](https://github.com/vision-group-vgad/api/workflows/API%20Gateway%20CI%20Pipeline/badge.svg)
 ![License](https://img.shields.io/badge/license-Proprietary-red)
-![Node](https://img.shields.io/badge/node-20.x-green)
+![Node](https://img.shields.io/badge/node-22.16-green)
 ![API Version](https://img.shields.io/badge/api-v1-blue)
 
 ## 🚀 Overview
@@ -32,7 +32,7 @@ The Vision Group API Gateway serves as the single entry point for all client app
 
 ## 📋 Prerequisites
 
-- Node.js 20.x (LTS)
+- Node.js 22.x (LTS)
 - npm package manager
 - Git
 
@@ -200,7 +200,7 @@ curl http:4000//localhost:4000/api/v1/health
 
 ## 🤝 Contributing
 
-We welcome contributions! Please read our [Contributing Guidelines](./CONTRIBUTING.md) for:
+We welcome contributions! Please read our [Contributing Guidelines](./CONTRIBUTION.md) for:
 
 - Development workflow and branch strategy
 - Code standards and best practices
