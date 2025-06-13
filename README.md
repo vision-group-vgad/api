@@ -136,7 +136,7 @@ We follow **trunk-based development** with short-lived feature branches:
 - ✅ **CI checks must pass** before merge
 - ✅ **Branch must be up-to-date** before merge
 
-For detailed workflow guidelines, see [CONTRIBUTION.md](./CONTRIBUTION.md).
+For detailed workflow guidelines, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## 🔍 CI/CD Pipeline
 
@@ -200,7 +200,7 @@ curl http:4000//localhost:4000/api/v1/health
 
 ## 🤝 Contributing
 
-We welcome contributions! Please read our [Contributing Guidelines](./CONTRIBUTION.md) for:
+We welcome contributions! Please read our [Contributing Guidelines](./CONTRIBUTING.md) for:
 
 - Development workflow and branch strategy
 - Code standards and best practices
@@ -210,7 +210,7 @@ We welcome contributions! Please read our [Contributing Guidelines](./CONTRIBUTI
 
 ## 📚 Documentation
 
-- [Contributing Guidelines](./CONTRIBUTION.md) - How to contribute to this project
+- [Contributing Guidelines](./CONTRIBUTING.md) - How to contribute to this project
 
 ## 📈 Performance
 
