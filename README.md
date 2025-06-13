@@ -210,11 +210,7 @@ We welcome contributions! Please read our [Contributing Guidelines](./CONTRIBUTI
 
 ## 📚 Documentation
 
-- [Contributing Guidelines](./CONTRIBUTING.md) - How to contribute to this project
-- [API Documentation](./docs/api.md) - Complete API reference
-- [Architecture Guide](./docs/architecture.md) - System design and architecture
-- [Deployment Guide](./docs/deployment.md) - Deployment procedures
-- [Security Guide](./docs/security.md) - Security best practices
+- [Contributing Guidelines](./CONTRIBUTION.md) - How to contribute to this project
 
 ## 🐛 Issues & Support
 
@@ -230,14 +226,10 @@ We welcome contributions! Please read our [Contributing Guidelines](./CONTRIBUTI
 
 - Authentication: < 100ms
 - User queries: < 150ms
-- Order processing: < 300ms
-- Health check: < 50ms
 
 ### Rate Limits
 
 - **Authenticated users**: 1000 requests/15min
-- **Anonymous users**: 100 requests/15min
-- **Admin users**: 5000 requests/15min
 
 ## 📄 License
 
