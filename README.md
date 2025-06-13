@@ -212,14 +212,6 @@ We welcome contributions! Please read our [Contributing Guidelines](./CONTRIBUTI
 
 - [Contributing Guidelines](./CONTRIBUTION.md) - How to contribute to this project
 
-## 🐛 Issues & Support
-
-- 🐛 **Bug Reports**: [Create an issue](https://github.com/vision-group-vgad/api/issues/new?template=bug_report.md)
-- 💡 **Feature Requests**: [Create an issue](https://github.com/vision-group-vgad/api/issues/new?template=feature_request.md)
-- ❓ **Questions**: Use [GitHub Discussions](https://github.com/vision-group-vgad/api/discussions)
-- 🚨 **Security Issues**: Email security@visiongroup.com
-- 🆘 **Urgent Issues**: Contact @vision-group-vgad/backend-team
-
 ## 📈 Performance
 
 ### Response Times (95th percentile)
