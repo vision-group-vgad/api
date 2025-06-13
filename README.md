@@ -136,7 +136,7 @@ We follow **trunk-based development** with short-lived feature branches:
 - ✅ **CI checks must pass** before merge
 - ✅ **Branch must be up-to-date** before merge
 
-For detailed workflow guidelines, see [CONTRIBUTING.md](./CONTRIBUTING.md).
+For detailed workflow guidelines, see [CONTRIBUTION.md](./CONTRIBUTION.md).
 
 ## 🔍 CI/CD Pipeline
 
