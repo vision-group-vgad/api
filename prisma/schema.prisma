@@ -8,3 +8,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model sessions {
+  id        Int     @id @default(autoincrement()) @map("id")
+  sessionId BigInt  @map("session_id")
+
+  @@index([sessionId])
+
+   @@map("sessions")
+}
+
+model User {
+  userId     Int    @id @default(autoincrement()) @map("user_id")
+  department String @map("department")
+  position   String @map("position")
+
+  @@index([department])
+  @@map("users")
+}
+
+

@@ -8,6 +8,11 @@ class Utils {
     const randomPart = crypto.randomBytes(16).toString("hex");
     return `${timestamp}-${randomPart}`;
   }
+
+  static isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email.trim());
+  }
 }
 
 export default Utils;

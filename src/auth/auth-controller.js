@@ -1,8 +1,10 @@
 import axios from "axios";
-import Utils from "./utils";
-import errorResponse from "./error-response";
+import Utils from "../utils.js";
+import errorResponse from "../error-response.js";
+import Jwt from "./jwt.js";
+import { saveSession, getSession, deleteSession } from "../config/sql.js";
 
-class Authentication {
+class AuthenticationController {
   constructor() {
     this.API_URL = "http://localhost:8080/api/auth/";
     this.sessionId = null;
@@ -14,6 +16,7 @@ class Authentication {
     this.username = username;
     this.password = password;
     this.sessionId = Utils.getSessionId();
+    saveSession(this.sessionId);
     const response = await axios.post(this.API_URL + "signin", {
       username,
       password,
@@ -22,17 +25,24 @@ class Authentication {
     return response;
   }
 
+  #validateSessionId(response) {
+    return response.data.sessionId === getSession(this.sessionId);
+  }
+
   #validateResponse(response) {
     if (
       response.status === 200 &&
-      response.data.sessionId === this.sessionId &&
+      this.#validateSessionId(response) &&
       response.data.username === this.username
     ) {
+      deleteSession(this.sessionId);
       const { email: userEmail, position, department } = response.data;
+      const token = Jwt.generateToken(userEmail);
       const user = {
         userEmail,
         position,
         department,
+        token,
       };
       return user;
     }
@@ -52,10 +62,10 @@ class Authentication {
   }
 
   async authenticate(username, password) {
-    return this.#submitLoginInfo(username, password).then(
-      this.#validateResponse
-    );
+    return Utils.isValidEmail(username)
+      ? this.#submitLoginInfo(username, password).then(this.#validateResponse())
+      : errorResponse(400, "Invalid email format");
   }
 }
 
-export default Authentication;
+export default AuthenticationController;
