@@ -1,4 +1,5 @@
 import pool from "./db.js";
+import Utils from "../utils/utils.js";
 
 async function saveSession(sessionId) {
   const result = await pool.query(
@@ -24,10 +25,100 @@ async function deleteSession(sessionId) {
   return result;
 }
 
-async function createUser(department, position) {
+async function createDepartment(name) {
   const result = await pool.query(
-    `INSERT INTO users (department, position) VALUES ($1, $2) RETURNING *`,
-    [department, position]
+    "INSERT INTO departments (name) VALUES ($1) RETURNING *",
+    [name]
+  );
+  return result.rows[0];
+}
+
+async function createPosition(name) {
+  const result = await pool.query(
+    "INSERT INTO position (name) VALUES ($1) RETURNING *",
+    [name]
+  );
+  return result.rows[0];
+}
+
+async function getPositionByName(name) {
+  const result = await pool.query("SELECT * FROM position WHERE name = $1", [
+    name,
+  ]);
+  return result.rows[0];
+}
+
+async function getDeparmentByName(name) {
+  const result = await pool.query("SELECT * FROM department WHERE name = $1", [
+    name,
+  ]);
+  return result.rows[0];
+}
+
+async function createUser(
+  email,
+  firstName,
+  lastName,
+  departmentName,
+  positionName
+) {
+  const department = await getDeparmentByName(departmentName);
+  const position = await getPositionByName(positionName);
+  const departmentId = department ? department.department_id : null;
+  const positionId = position ? position.position_id : null;
+  const profilePicture = Utils.getImageBuffer();
+
+  const result = await pool.query(
+    `INSERT INTO users (email, first_name, last_name, profile_picture, department, position)
+     VALUES ($1, $2, $3, $4, $5, $6)
+     RETURNING *`,
+    [email, firstName, lastName, profilePicture, departmentId, positionId]
+  );
+  return result.rows[0];
+}
+
+async function updateUserImageByEmail(email, imagePath) {
+  const imageBuffer = Utils.getImageBuffer(imagePath);
+
+  const result = await pool.query(
+    `UPDATE users
+     SET profile_picture = $1
+     WHERE email = $2
+     RETURNING *`,
+    [imageBuffer, email]
+  );
+
+  return result.rows[0];
+}
+
+async function updateUser(
+  userId,
+  email,
+  firstName,
+  lastName,
+  profilePicture,
+  departmentId,
+  positionId
+) {
+  const result = await pool.query(
+    `UPDATE users
+     SET email = $1,
+         first_name = $2,
+         last_name = $3,
+         profile_picture = $4,
+         department = $5,
+         position = $6
+     WHERE user_id = $7
+     RETURNING *`,
+    [
+      email,
+      firstName,
+      lastName,
+      profilePicture,
+      departmentId,
+      positionId,
+      userId,
+    ]
   );
   return result.rows[0];
 }
@@ -36,14 +127,6 @@ async function getUserById(userId) {
   const result = await pool.query(`SELECT * FROM users WHERE user_id = $1`, [
     userId,
   ]);
-  return result.rows[0];
-}
-
-async function updateUser(userId, department, position) {
-  const result = await pool.query(
-    `UPDATE users SET department = $1, position = $2 WHERE user_id = $3 RETURNING *`,
-    [department, position, userId]
-  );
   return result.rows[0];
 }
 
@@ -60,6 +143,11 @@ async function getAllUsers() {
 }
 
 export {
+  updateUserImageByEmail,
+  createDepartment,
+  createPosition,
+  getPositionByName,
+  getDeparmentByName,
   saveSession,
   getSession,
   deleteSession,
