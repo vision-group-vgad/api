@@ -39,7 +39,7 @@ model User {
   email          String
   firstName      String   @map("first_name")
   lastName       String   @map("last_name")
-  profilePicture Bytes?   @map("profile_picture")
+  profilePicture String   @map("profile_picture")
 
   departmentId   Int      @map("department")
   positionId     Int      @map("position")

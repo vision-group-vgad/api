@@ -2,14 +2,7 @@ import axios from "axios";
 import Utils from "../utils/utils.js";
 import errorResponse from "../utils/error-response.js";
 import Jwt from "./jwt.js";
-import {
-  saveSession,
-  getSession,
-  deleteSession,
-  createDepartment,
-  createPosition,
-  createUser,
-} from "../config/sql.js";
+import * as SQL from "../config/sql.js";
 import logger from "../utils/logger.js";
 
 class AuthenticationController {
@@ -24,7 +17,7 @@ class AuthenticationController {
     this.username = username;
     this.password = password;
     this.sessionId = Utils.getSessionId();
-    saveSession(this.sessionId);
+    SQL.saveSession(this.sessionId);
     logger.info(`[${this.sessionId}] ${this.username} is logging in.`);
     const response = await axios.post(this.API_URL + "signin", {
       username,
@@ -35,7 +28,7 @@ class AuthenticationController {
   }
 
   #validateSessionId(response) {
-    return response.data.sessionId === getSession(this.sessionId);
+    return response.data.sessionId === SQL.getSession(this.sessionId);
   }
 
   #validateResponse(response) {
@@ -44,7 +37,7 @@ class AuthenticationController {
       this.#validateSessionId(response) &&
       response.data.username === this.username
     ) {
-      deleteSession(this.sessionId);
+      SQL.deleteSession(this.sessionId);
       const {
         email: userEmail,
         position,
@@ -52,9 +45,9 @@ class AuthenticationController {
         first_name: firstName,
         last_name: lastName,
       } = response.data;
-      createDepartment(department);
-      createPosition(position);
-      createUser(userEmail, firstName, lastName, position, department);
+      SQL.createDepartment(department);
+      SQL.createPosition(position);
+      SQL.createUser(userEmail, firstName, lastName, position, department);
       const token = Jwt.generateToken(userEmail);
       const user = {
         userEmail,
@@ -83,7 +76,9 @@ class AuthenticationController {
 
   async authenticate(username, password) {
     return Utils.isValidEmail(username)
-      ? this.#submitLoginInfo(username, password).then(this.#validateResponse())
+      ? this.#submitLoginInfo(username, password).then((res) =>
+          this.#validateResponse(res)
+        )
       : errorResponse(400, "Invalid email format");
   }
 }

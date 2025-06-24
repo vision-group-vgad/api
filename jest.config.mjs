@@ -16,6 +16,8 @@ const config = {
 
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
+  transform: {},
+  coveragePathIgnorePatterns: ["/node_modules/", "/generated/", "/prisma/"],
 
   // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
@@ -195,9 +197,6 @@ const config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-  transform: {}, // disables transforms for native ESM support
-
-  testEnvironment: "node",
 };
 
 export default config;

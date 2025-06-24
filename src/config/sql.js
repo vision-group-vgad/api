@@ -1,7 +1,7 @@
 import pool from "./db.js";
 import Utils from "../utils/utils.js";
 
-async function saveSession(sessionId) {
+export async function saveSession(sessionId) {
   const result = await pool.query(
     "INSERT INTO sessions (session_id) VALUES ($1)",
     [sessionId]
@@ -9,7 +9,7 @@ async function saveSession(sessionId) {
   return result.rows[0];
 }
 
-async function getSession(sessionId) {
+export async function getSession(sessionId) {
   const result = await pool.query(
     "SELECT * FROM sessions WHERE session_id = $1",
     [sessionId]
@@ -17,7 +17,7 @@ async function getSession(sessionId) {
   return result;
 }
 
-async function deleteSession(sessionId) {
+export async function deleteSession(sessionId) {
   const result = await pool.query(
     "DELETE FROM sessions WHERE session_id = $1",
     [sessionId]
@@ -25,7 +25,7 @@ async function deleteSession(sessionId) {
   return result;
 }
 
-async function createDepartment(name) {
+export async function createDepartment(name) {
   const result = await pool.query(
     "INSERT INTO departments (name) VALUES ($1) RETURNING *",
     [name]
@@ -33,7 +33,7 @@ async function createDepartment(name) {
   return result.rows[0];
 }
 
-async function createPosition(name) {
+export async function createPosition(name) {
   const result = await pool.query(
     "INSERT INTO position (name) VALUES ($1) RETURNING *",
     [name]
@@ -41,21 +41,21 @@ async function createPosition(name) {
   return result.rows[0];
 }
 
-async function getPositionByName(name) {
+export async function getPositionByName(name) {
   const result = await pool.query("SELECT * FROM position WHERE name = $1", [
     name,
   ]);
   return result.rows[0];
 }
 
-async function getDeparmentByName(name) {
+export async function getDeparmentByName(name) {
   const result = await pool.query("SELECT * FROM department WHERE name = $1", [
     name,
   ]);
   return result.rows[0];
 }
 
-async function createUser(
+export async function createUser(
   email,
   firstName,
   lastName,
@@ -64,9 +64,9 @@ async function createUser(
 ) {
   const department = await getDeparmentByName(departmentName);
   const position = await getPositionByName(positionName);
-  const departmentId = department ? department.department_id : null;
-  const positionId = position ? position.position_id : null;
-  const profilePicture = Utils.getImageBuffer();
+  const departmentId = department?.id ?? null;
+  const positionId = position?.id ?? null;
+  const profilePicture = Utils.getImagePath(email);
 
   const result = await pool.query(
     `INSERT INTO users (email, first_name, last_name, profile_picture, department, position)
@@ -74,11 +74,12 @@ async function createUser(
      RETURNING *`,
     [email, firstName, lastName, profilePicture, departmentId, positionId]
   );
+
   return result.rows[0];
 }
 
-async function updateUserImageByEmail(email, imagePath) {
-  const imageBuffer = Utils.getImageBuffer(imagePath);
+export async function updateUserImageByEmail(email) {
+  const imageBuffer = Utils.getImagePath(email);
 
   const result = await pool.query(
     `UPDATE users
@@ -87,11 +88,10 @@ async function updateUserImageByEmail(email, imagePath) {
      RETURNING *`,
     [imageBuffer, email]
   );
-
   return result.rows[0];
 }
 
-async function updateUser(
+export async function updateUser(
   userId,
   email,
   firstName,
@@ -123,37 +123,21 @@ async function updateUser(
   return result.rows[0];
 }
 
-async function getUserById(userId) {
+export async function getUserById(userId) {
   const result = await pool.query(`SELECT * FROM users WHERE user_id = $1`, [
     userId,
   ]);
   return result.rows[0];
 }
 
-async function deleteUser(userId) {
+export async function deleteUser(userId) {
   const result = await pool.query(`DELETE FROM users WHERE user_id = $1`, [
     userId,
   ]);
   return result;
 }
 
-async function getAllUsers() {
+export async function getAllUsers() {
   const result = await pool.query(`SELECT * FROM users`);
   return result.rows;
 }
-
-export {
-  updateUserImageByEmail,
-  createDepartment,
-  createPosition,
-  getPositionByName,
-  getDeparmentByName,
-  saveSession,
-  getSession,
-  deleteSession,
-  createUser,
-  getUserById,
-  updateUser,
-  deleteUser,
-  getAllUsers,
-};
