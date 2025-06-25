@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model sessions {
+  id        Int     @id @default(autoincrement()) @map("id")
+  sessionId String  @map("session_id") @unique
+
+  @@map("sessions")
+}
+
+
+model Department {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  users User[]
+
+  @@index([name])
+  @@map("department")
+}
+
+model Position {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  users User[]
+
+  @@index([name])
+  @@map("position")
+}
+
+model User {
+  userId         Int      @id @default(autoincrement()) @map("user_id")
+  email          String
+  firstName      String   @map("first_name")
+  lastName       String   @map("last_name")
+  profilePicture String   @map("profile_picture")
+
+  departmentId   Int      @map("department")
+  positionId     Int      @map("position")
+
+  department     Department @relation(fields: [departmentId], references: [id])
+  position       Position   @relation(fields: [positionId], references: [id])
+
+  @@map("users")
+}
+
+model Log {
+  id        Int      @id @default(autoincrement())
+  level     String
+  message   String
+  timestamp DateTime @default(now())
+
+  @@index([level])
+  @@map("logs")
+}
+
