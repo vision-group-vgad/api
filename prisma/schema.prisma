@@ -10,11 +10,11 @@ datasource db {
 
 model sessions {
   id        Int     @id @default(autoincrement()) @map("id")
-  sessionId BigInt  @map("session_id")
+  sessionId String  @map("session_id") @unique
 
-  @@index([sessionId])
   @@map("sessions")
 }
+
 
 model Department {
   id    Int    @id @default(autoincrement())

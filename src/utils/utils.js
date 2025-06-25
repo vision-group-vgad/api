@@ -12,24 +12,19 @@ class Utils {
     return `${timestamp}-${randomPart}`;
   }
 
-  static isValidEmail(email) {
+  static isValidEmail(userEmail) {
+    if (!userEmail) return false;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email.trim());
+    return emailRegex.test(userEmail.trim());
   }
 
   static getImagePath(userEmail) {
+    if (!userEmail) return null;
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    const profileImagesPath = join(__dirname, "..", "assets", "profile-images");
+
     try {
-      const __filename = fileURLToPath(import.meta.url);
-      const __dirname = dirname(__filename);
-
-      const profileImagesPath = join(
-        __dirname,
-        "..",
-        "..",
-        "assets",
-        "profile-images"
-      );
-
       if (!fs.existsSync(profileImagesPath)) {
         console.warn(
           `Profile images directory not found: ${profileImagesPath}`
@@ -70,15 +65,6 @@ class Utils {
       return join(profileImagesPath, "profile_pic.png");
     } catch (error) {
       console.error("Error accessing profile images:", error);
-      const __filename = fileURLToPath(import.meta.url);
-      const __dirname = dirname(__filename);
-      const profileImagesPath = join(
-        __dirname,
-        "..",
-        "..",
-        "assets",
-        "profile-images"
-      );
       return join(profileImagesPath, "profile_pic.png");
     }
   }

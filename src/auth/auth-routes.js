@@ -8,10 +8,15 @@ const authController = new AuthenticationController();
 authRouter.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    res.json(authController.authenticate(email, password));
+    const response = await authController.authenticate(email, password);
+    res.json(response);
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
+});
+
+authRouter.get("/ping", async (req, res) => {
+  res.json("pong");
 });
 
 authRouter.get("/protected", Jwt.verifyToken, (req, res) => {

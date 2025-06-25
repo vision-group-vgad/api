@@ -2,10 +2,20 @@ import pool from "./db.js";
 import Utils from "../utils/utils.js";
 
 export async function saveSession(sessionId) {
-  const result = await pool.query(
-    "INSERT INTO sessions (session_id) VALUES ($1)",
+  const existing = await pool.query(
+    "SELECT * FROM sessions WHERE session_id = $1",
     [sessionId]
   );
+
+  if (existing.rows.length > 0) {
+    return existing.rows[0];
+  }
+
+  const result = await pool.query(
+    "INSERT INTO sessions (session_id) VALUES ($1) RETURNING *",
+    [sessionId]
+  );
+
   return result.rows[0];
 }
 
@@ -26,18 +36,37 @@ export async function deleteSession(sessionId) {
 }
 
 export async function createDepartment(name) {
-  const result = await pool.query(
-    "INSERT INTO departments (name) VALUES ($1) RETURNING *",
+  const existing = await pool.query(
+    "SELECT * FROM department WHERE name = $1",
     [name]
   );
+
+  if (existing.rows.length > 0) {
+    return existing.rows[0];
+  }
+
+  const result = await pool.query(
+    "INSERT INTO department (name) VALUES ($1) RETURNING *",
+    [name]
+  );
+
   return result.rows[0];
 }
 
 export async function createPosition(name) {
+  const existing = await pool.query("SELECT * FROM position WHERE name = $1", [
+    name,
+  ]);
+
+  if (existing.rows.length > 0) {
+    return existing.rows[0];
+  }
+
   const result = await pool.query(
     "INSERT INTO position (name) VALUES ($1) RETURNING *",
     [name]
   );
+
   return result.rows[0];
 }
 
@@ -62,31 +91,45 @@ export async function createUser(
   departmentName,
   positionName
 ) {
-  const department = await getDeparmentByName(departmentName);
-  const position = await getPositionByName(positionName);
-  const departmentId = department?.id ?? null;
-  const positionId = position?.id ?? null;
+  let department = await getDeparmentByName(departmentName);
+  if (!department) {
+    department = await createDepartment(departmentName);
+  }
+
+  let position = await getPositionByName(positionName);
+  if (!position) {
+    position = await createPosition(positionName);
+  }
+
   const profilePicture = Utils.getImagePath(email);
+
+  const existing = await pool.query("SELECT * FROM users WHERE email = $1", [
+    email,
+  ]);
+
+  if (existing.rows.length > 0) {
+    return existing.rows[0];
+  }
 
   const result = await pool.query(
     `INSERT INTO users (email, first_name, last_name, profile_picture, department, position)
      VALUES ($1, $2, $3, $4, $5, $6)
      RETURNING *`,
-    [email, firstName, lastName, profilePicture, departmentId, positionId]
+    [email, firstName, lastName, profilePicture, department.id, position.id]
   );
 
   return result.rows[0];
 }
 
 export async function updateUserImageByEmail(email) {
-  const imageBuffer = Utils.getImagePath(email);
+  const imagePath = Utils.getImagePath(email);
 
   const result = await pool.query(
     `UPDATE users
      SET profile_picture = $1
      WHERE email = $2
      RETURNING *`,
-    [imageBuffer, email]
+    [imagePath, email]
   );
   return result.rows[0];
 }
@@ -139,5 +182,23 @@ export async function deleteUser(userId) {
 
 export async function getAllUsers() {
   const result = await pool.query(`SELECT * FROM users`);
+  return result.rows;
+}
+
+export async function saveLog(level, message) {
+  const result = await pool.query(
+    `INSERT INTO logs (level, message, timestamp)
+     VALUES ($1, $2, NOW())
+     RETURNING *`,
+    [level, message]
+  );
+  return result.rows[0];
+}
+
+export async function getAllLogs() {
+  const result = await pool.query(
+    `SELECT * FROM logs
+     ORDER BY timestamp DESC`
+  );
   return result.rows;
 }
