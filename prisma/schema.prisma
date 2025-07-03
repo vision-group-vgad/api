@@ -25,13 +25,13 @@ model Department {
   @@map("department")
 }
 
-model Position {
+model Positions {
   id    Int    @id @default(autoincrement())
   name  String @unique
   users User[]
 
   @@index([name])
-  @@map("position")
+  @@map("positions")
 }
 
 model User {
@@ -45,10 +45,11 @@ model User {
   positionId     Int      @map("position")
 
   department     Department @relation(fields: [departmentId], references: [id])
-  position       Position   @relation(fields: [positionId], references: [id])
+  position       Positions   @relation(fields: [positionId], references: [id])
 
   @@map("users")
 }
+
 
 model Log {
   id        Int      @id @default(autoincrement())
@@ -58,5 +59,18 @@ model Log {
 
   @@index([level])
   @@map("logs")
+}
+
+model Notification {
+    id         Int      @id @default(autoincrement())
+    body       String
+    time       DateTime @default(now())
+    image_url  String
+    recepient  String
+    is_starred Boolean @default(false)
+    is_read    Boolean @default(false)
+
+    @@index([recepient])
+    @@map("notifications")
 }
 

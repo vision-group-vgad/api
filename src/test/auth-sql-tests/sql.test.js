@@ -1,4 +1,4 @@
-import pool from "../config/db";
+import pool from "../../config/db";
 import {
   saveSession,
   getSession,
@@ -15,8 +15,8 @@ import {
   getAllUsers,
   saveLog,
   getAllLogs,
-} from "../config/sql";
-import Utils from "../utils/utils";
+} from "../../auth/sql";
+import Utils from "../../utils/auth-utils/utils";
 import { it, expect, afterAll, jest, beforeAll, describe } from "@jest/globals";
 
 describe("SQL Operations", () => {

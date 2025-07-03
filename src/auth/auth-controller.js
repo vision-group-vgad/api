@@ -1,12 +1,12 @@
-import Utils from "../utils/utils.js";
-import errorResponse from "../utils/error-response.js";
+import Utils from "../utils/auth-utils/utils.js";
+import errorResponse from "../utils/auth-utils/error-response.js";
 import Jwt from "./jwt.js";
-import * as SQL from "../config/sql.js";
-import logger from "../utils/logger.js";
+import * as SQL from "./sql.js";
+import logger from "../utils/auth-utils/logger.js";
 
 class AuthenticationController {
   constructor() {
-    this.API_URL = "http://localhost:8080/api/auth/";
+    this.API_URL = process.env.API_URL || "http://localhost:8080/api/auth/";
     this.sessionId = null;
     this.email = null;
     this.password = null;

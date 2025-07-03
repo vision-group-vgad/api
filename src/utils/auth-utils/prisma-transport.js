@@ -1,6 +1,6 @@
 import Transport from "winston-transport";
-import { PrismaClient } from "../../generated/prisma/index-browser.js";
-import { saveLog } from "../config/sql.js";
+import { PrismaClient } from "../../../generated/prisma/index-browser.js";
+import { saveLog } from "../../auth/sql.js";
 
 const prisma = new PrismaClient();
 

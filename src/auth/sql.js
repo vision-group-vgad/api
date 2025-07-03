@@ -1,5 +1,5 @@
-import pool from "./db.js";
-import Utils from "../utils/utils.js";
+import pool from "../config/db.js";
+import Utils from "../utils/auth-utils/utils.js";
 
 export async function saveSession(sessionId) {
   const existing = await pool.query(

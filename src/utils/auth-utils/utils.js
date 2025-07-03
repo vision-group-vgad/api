@@ -22,7 +22,13 @@ class Utils {
     if (!userEmail) return null;
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = dirname(__filename);
-    const profileImagesPath = join(__dirname, "..", "assets", "profile-images");
+    const profileImagesPath = join(
+      __dirname,
+      "..",
+      "..",
+      "assets",
+      "profile-images"
+    );
 
     try {
       if (!fs.existsSync(profileImagesPath)) {

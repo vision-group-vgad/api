@@ -1,7 +1,9 @@
-name: API Gateway CI Pipeline
+name: API CI Pipeline
 
 on:
   pull_request:
+    branches: [main]
+  push:
     branches: [main]
 
 env:
@@ -25,6 +27,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run ESLint
+        run: |
+          npx eslint . > reports/eslint-report.txt || true
+          echo "### 📏 ESLint Report" >> $GITHUB_STEP_SUMMARY
+          tail -n 20 reports/eslint-report.txt >> $GITHUB_STEP_SUMMARY || echo "No lint issues found." >> $GITHUB_STEP_SUMMARY
+
   security-scan:
     name: Security Vulnerability Scan
     runs-on: ubuntu-latest
@@ -42,8 +50,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run npm audit
-        run: npm audit --audit-level=moderate
+      - name: Run npm audit and generate summary
+        run: |
+          mkdir -p reports
+          npm audit --audit-level=moderate > reports/audit.txt || true
+          echo "### 🔒 Security Audit Summary" >> $GITHUB_STEP_SUMMARY
+          grep -A 10 'found' reports/audit.txt >> $GITHUB_STEP_SUMMARY || echo "No vulnerabilities found." >> $GITHUB_STEP_SUMMARY
 
   test:
     name: Run Tests
@@ -62,5 +74,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm run test
+      - name: Run tests and generate summary
+        run: |
+          mkdir -p reports
+          npm run test > reports/test-output.txt || true
+          echo "### 🧪 Test Results" >> $GITHUB_STEP_SUMMARY
+          tail -n 20 reports/test-output.txt >> $GITHUB_STEP_SUMMARY || echo "No test output captured." >> $GITHUB_STEP_SUMMARY

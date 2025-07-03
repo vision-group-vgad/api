@@ -1,4 +1,4 @@
-import Utils from "../utils/utils.js";
+import Utils from "../../utils/auth-utils/utils.js";
 import {
   describe,
   it,
@@ -72,7 +72,13 @@ describe("Utils", () => {
 
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-    const profileImagesPath = join(__dirname, "..", "assets", "profile-images");
+    const profileImagesPath = join(
+      __dirname,
+      "..",
+      "..",
+      "assets",
+      "profile-images"
+    );
 
     afterEach(() => {
       jest.resetAllMocks();
