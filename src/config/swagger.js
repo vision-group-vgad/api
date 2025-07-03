@@ -34,7 +34,7 @@ export const swaggerOptions = {
   },
   apis: [
     path.join(__dirname, "../departments/administrative/*.js"),
-    path.join(__dirname, "../departments/common-features/*.js"),
+    path.join(__dirname, "../departments/common-features/notification/*.js"),
     path.join(__dirname, "../departments/editorial/*.js"),
     path.join(__dirname, "../departments/executive/*.js"),
     path.join(__dirname, "../departments/finance/*.js"),
