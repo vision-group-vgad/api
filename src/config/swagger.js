@@ -39,6 +39,7 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/executive/*.js"),
     path.join(__dirname, "../departments/finance/*.js"),
     path.join(__dirname, "../departments/it/server-load-piechart/*.js"),
+    path.join(__dirname, "../departments/it/cyber-posture/*.js"),
     path.join(__dirname, "../departments/operations/*.js"),
     path.join(__dirname, "../departments/sales/*.js"),
     path.join(__dirname, "../departments/specialized/*.js"),
