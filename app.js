@@ -6,6 +6,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import { swaggerOptions } from "./src/config/swagger.js";
 import storageRoutes from "./src/departments/it/storage-utilization-donutchart/storageController.js";
+import cyberPostureRoutes from "./src/departments/it/cyber-posture/cyberPostureRoutes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -21,5 +22,6 @@ app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/server-load", serverLoadRouter);
 app.use("/api/v1/storageUtilization", storageRoutes);
+app.use('/api/v1/cyber-posture', cyberPostureRoutes);
 
 export default app;
