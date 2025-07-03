@@ -6,7 +6,7 @@ import logger from "../utils/auth-utils/logger.js";
 
 class AuthenticationController {
   constructor() {
-    this.API_URL = process.env.API_URL || "http://localhost:8080/api/auth/";
+    this.VISION_GROUP_CMS_ROOT_URL = process.env.VISION_GROUP_CMS_ROOT_URL;
     this.sessionId = null;
     this.email = null;
     this.password = null;
@@ -19,7 +19,7 @@ class AuthenticationController {
     await SQL.saveSession(this.sessionId);
     logger.info(`[${this.sessionId}] ${this.email} is logging in.`);
     //Uncomment the block below in production & import axios
-    // const response = await axios.post(this.API_URL + "signin", {
+    // const response = await axios.post(this.VISION_GROUP_CMS_ROOT_URL + "signin", {
     //   email,
     //   password,
     //   sessionId: this.sessionId,

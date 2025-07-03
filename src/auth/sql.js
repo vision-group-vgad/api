@@ -54,7 +54,7 @@ export async function createDepartment(name) {
 }
 
 export async function createPosition(name) {
-  const existing = await pool.query("SELECT * FROM position WHERE name = $1", [
+  const existing = await pool.query("SELECT * FROM positions WHERE name = $1", [
     name,
   ]);
 
@@ -63,7 +63,7 @@ export async function createPosition(name) {
   }
 
   const result = await pool.query(
-    "INSERT INTO position (name) VALUES ($1) RETURNING *",
+    "INSERT INTO positions (name) VALUES ($1) RETURNING *",
     [name]
   );
 
@@ -71,7 +71,7 @@ export async function createPosition(name) {
 }
 
 export async function getPositionByName(name) {
-  const result = await pool.query("SELECT * FROM position WHERE name = $1", [
+  const result = await pool.query("SELECT * FROM positions WHERE name = $1", [
     name,
   ]);
   return result.rows[0];

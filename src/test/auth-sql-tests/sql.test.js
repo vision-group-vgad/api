@@ -158,12 +158,12 @@ describe("SQL Operations", () => {
     const result = await createPosition(positionName);
 
     expect(querySpy).toHaveBeenCalledWith(
-      "SELECT * FROM position WHERE name = $1",
+      "SELECT * FROM positions WHERE name = $1",
       [positionName]
     );
 
     expect(querySpy).toHaveBeenCalledWith(
-      "INSERT INTO position (name) VALUES ($1) RETURNING *",
+      "INSERT INTO positions (name) VALUES ($1) RETURNING *",
       [positionName]
     );
 
@@ -181,7 +181,7 @@ describe("SQL Operations", () => {
     const result = await createPosition(positionName);
 
     expect(querySpy).toHaveBeenCalledWith(
-      "SELECT * FROM position WHERE name = $1",
+      "SELECT * FROM positions WHERE name = $1",
       [positionName]
     );
 
@@ -197,7 +197,7 @@ describe("SQL Operations", () => {
     const result = await getPositionByName(positionName);
 
     expect(pool.query).toHaveBeenCalledWith(
-      "SELECT * FROM position WHERE name = $1",
+      "SELECT * FROM positions WHERE name = $1",
       [positionName]
     );
     expect(result).toEqual(mockRow);
