@@ -1,11 +1,23 @@
 import express from "express";
 import authRouter from "./src/auth/auth-routes.js";
+import serverLoadRouter from "./src/departments/it/server-load-piechart/server-load-routes.js";
 import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+import swaggerJSDoc from "swagger-jsdoc";
+import { swaggerOptions } from "./src/config/swagger.js";
 
 const app = express();
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+const corsOption = {
+  origin: process.env.ALLOWED_ORIGIN,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+};
 
+app.use(cors(corsOption));
 app.use(express.json());
-app.use(cors());
+app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/server-load", serverLoadRouter);
 
 export default app;
