@@ -68,14 +68,10 @@ const authController = new AuthenticationController();
  */
 authRouter.post("/login", async (req, res) => {
   try {
-    console.log("Incoming login payload:", req.body); // 👈
-
     const { email, password } = req.body;
     const response = await authController.authenticate(email, password);
     res.json(response);
   } catch (error) {
-    console.error("Login error:", error); // 👈
-
     res.status(401).json({ error: error.message });
   }
 });
