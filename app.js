@@ -9,6 +9,7 @@ import notificationRouter from "./src/departments/common-features/notification/n
 import storageRoutes from "./src/departments/it/storage-utilization-donutchart/storageController.js";
 import cyberPostureController from "./src/departments/it/cyber-posture/cyberPostureRoutes.js";
 import accountSettingsRouter from "./src/accountSettings/controller.js";
+import patchComplianceController from "./src/departments/it/patch-compliance/patchComplianceRoutes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -27,5 +28,7 @@ app.use("/api/v1/notifications", notificationRouter);
 app.use("/api/v1/storageUtilization", storageRoutes);
 app.use("/api/v1/cyber-posture", cyberPostureController);
 app.use("/api/v1/accountSettings", accountSettingsRouter);
+app.use("/api/v1/patch-compliance", patchComplianceController);
+
 
 export default app;
