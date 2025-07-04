@@ -44,5 +44,6 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/sales/*.js"),
     path.join(__dirname, "../departments/specialized/*.js"),
     path.join(__dirname, "../auth/*.js"),
+    path.join(__dirname, "../departments/it/storage-utilization-donutchart/*.js"),
   ],
 };
