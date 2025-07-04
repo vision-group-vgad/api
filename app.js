@@ -5,8 +5,9 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import { swaggerOptions } from "./src/config/swagger.js";
-import cyberPostureRoutes from "./src/departments/it/cyber-posture/cyberPostureRoutes.js";
 import notificationRouter from "./src/departments/common-features/notification/noty-routes.js";
+import storageRoutes from "./src/departments/it/storage-utilization-donutchart/storageController.js";
+import cyberPostureController from "./src/departments/it/cyber-posture/cyberPostureRoutes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -21,7 +22,8 @@ app.use(express.json());
 app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/server-load", serverLoadRouter);
-app.use("/api/v1/cyber-posture", cyberPostureRoutes);
 app.use("/api/v1/notifications", notificationRouter);
+app.use("/api/v1/storageUtilization", storageRoutes);
+app.use("/api/v1/cyber-posture", cyberPostureController);
 
 export default app;

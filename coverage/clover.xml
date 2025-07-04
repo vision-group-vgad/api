@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1751634331505" clover="3.2.0">
-  <project timestamp="1751634331505" name="All files">
-    <metrics statements="471" coveredstatements="438" conditionals="60" coveredconditionals="57" methods="39" coveredmethods="35" elements="570" coveredelements="530" complexity="0" loc="471" ncloc="471" packages="5" files="6" classes="6"/>
+<coverage generated="1751587005979" clover="3.2.0">
+  <project timestamp="1751587005979" name="All files">
+    <metrics statements="439" coveredstatements="404" conditionals="58" coveredconditionals="54" methods="34" coveredmethods="31" elements="531" coveredelements="489" complexity="0" loc="439" ncloc="439" packages="5" files="6" classes="6"/>
     <package name="auth">
       <metrics statements="204" coveredstatements="200" conditionals="22" coveredconditionals="20" methods="15" coveredmethods="15"/>
-      <file name="sql.js" path="C:\Users\G-Tech\Documents\Refactory\dashboard\api\src\auth\sql.js">
+      <file name="sql.js" path="C:\Users\Tech Witch\Documents\GitHub\api\src\auth\sql.js">
         <metrics statements="204" coveredstatements="200" conditionals="22" coveredconditionals="20" methods="15" coveredmethods="15"/>
         <line num="1" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="2" count="1" type="stmt"/>
@@ -214,7 +214,7 @@
     </package>
     <package name="config">
       <metrics statements="17" coveredstatements="17" conditionals="1" coveredconditionals="1" methods="0" coveredmethods="0"/>
-      <file name="db.js" path="C:\Users\G-Tech\Documents\Refactory\dashboard\api\src\config\db.js">
+      <file name="db.js" path="C:\Users\Tech Witch\Documents\GitHub\api\src\config\db.js">
         <metrics statements="17" coveredstatements="17" conditionals="1" coveredconditionals="1" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="cond" truecount="1" falsecount="0"/>
         <line num="2" count="2" type="stmt"/>
@@ -301,9 +301,43 @@
         <line num="60" count="1" type="stmt"/>
       </file>
     </package>
+    <package name="departments.it.cyber-posture">
+      <metrics statements="28" coveredstatements="19" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
+      <file name="cyberPostureController.js" path="C:\Users\Tech Witch\Documents\GitHub\api\src\departments\it\cyber-posture\cyberPostureController.js">
+        <metrics statements="28" coveredstatements="19" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+      </file>
+    </package>
     <package name="departments.it.server-load-piechart">
       <metrics statements="111" coveredstatements="89" conditionals="16" coveredconditionals="16" methods="14" coveredmethods="12"/>
-      <file name="Server.js" path="C:\Users\G-Tech\Documents\Refactory\dashboard\api\src\departments\it\server-load-piechart\Server.js">
+      <file name="Server.js" path="C:\Users\Tech Witch\Documents\GitHub\api\src\departments\it\server-load-piechart\Server.js">
         <metrics statements="33" coveredstatements="33" conditionals="8" coveredconditionals="8" methods="7" coveredmethods="7"/>
         <line num="1" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="2" count="1" type="cond" truecount="1" falsecount="0"/>
@@ -339,7 +373,7 @@
         <line num="32" count="1" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
       </file>
-      <file name="ServerController.js" path="C:\Users\G-Tech\Documents\Refactory\dashboard\api\src\departments\it\server-load-piechart\ServerController.js">
+      <file name="ServerController.js" path="C:\Users\Tech Witch\Documents\GitHub\api\src\departments\it\server-load-piechart\ServerController.js">
         <metrics statements="78" coveredstatements="56" conditionals="8" coveredconditionals="8" methods="7" coveredmethods="5"/>
         <line num="1" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="2" count="1" type="stmt"/>
@@ -423,7 +457,7 @@
     </package>
     <package name="utils.auth-utils">
       <metrics statements="79" coveredstatements="79" conditionals="15" coveredconditionals="14" methods="4" coveredmethods="3"/>
-      <file name="utils.js" path="C:\Users\G-Tech\Documents\Refactory\dashboard\api\src\utils\auth-utils\utils.js">
+      <file name="utils.js" path="C:\Users\Tech Witch\Documents\GitHub\api\src\utils\auth-utils\utils.js">
         <metrics statements="79" coveredstatements="79" conditionals="15" coveredconditionals="14" methods="4" coveredmethods="3"/>
         <line num="1" count="2" type="cond" truecount="1" falsecount="0"/>
         <line num="2" count="2" type="stmt"/>
