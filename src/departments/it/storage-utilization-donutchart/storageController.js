@@ -21,7 +21,7 @@ const router = express.Router();
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A list of storage utilization metrics
+ *         description: Successfully retrieved storage utilization data
  *         content:
  *           application/json:
  *             schema:
@@ -32,7 +32,7 @@ const router = express.Router();
  *                   label:
  *                     type: string
  *                     example: "Disk A"
- *                   total:
+ *                   totalCapacity:
  *                     type: number
  *                     example: 1000
  *                   available:
@@ -41,14 +41,10 @@ const router = express.Router();
  *                   used:
  *                     type: number
  *                     example: 700
- *       
- *             
- *       200:
- *        description: Successfully retrieved storage utilization data     
  *       401:
  *         description: Unauthorized - Missing or invalid token
- * *     500:
- *        description: Internal Server Error - An error occurred while processing the request
+ *       500:
+ *         description: Internal Server Error - An error occurred while processing the request
  */
 
 
