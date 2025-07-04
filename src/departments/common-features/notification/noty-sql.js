@@ -2,7 +2,9 @@ import pool from "../../../config/db.js";
 
 async function createNotification(body, image_url, recepient) {
   const result = await pool.query(
-    "INSERT INTO notifications (body, image_url, recepient) VALUES ($1, $2, $3)",
+    `INSERT INTO notifications (body, image_url, recepient)
+     VALUES ($1, $2, $3)
+     RETURNING id, body, time, image_url, recepient, is_starred, is_read`,
     [body, image_url, recepient]
   );
   return result.rows[0];
@@ -19,6 +21,14 @@ async function markAsRead(id) {
 async function markAsStarred(id) {
   const result = await pool.query(
     "UPDATE notifications SET is_starred = TRUE WHERE id = $1 RETURNING *",
+    [id]
+  );
+  return result.rows[0];
+}
+
+async function unStarNotification(id) {
+  const result = await pool.query(
+    "UPDATE notifications SET is_starred = FALSE WHERE id = $1 RETURNING *",
     [id]
   );
   return result.rows[0];
@@ -46,4 +56,5 @@ export {
   markAsStarred,
   getNotificationsByRecepient,
   deleteNotification,
+  unStarNotification,
 };

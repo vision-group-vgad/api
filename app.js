@@ -22,6 +22,6 @@ app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/server-load", serverLoadRouter);
 app.use("/api/v1/cyber-posture", cyberPostureRoutes);
-app.use("api/v1/notification", notificationRouter);
+app.use("/api/v1/notifications", notificationRouter);
 
 export default app;

@@ -24,9 +24,10 @@ describe("Notification SQL queries", () => {
       );
 
       expect(db.default.query).toHaveBeenCalledWith(
-        "INSERT INTO notifications (body, image_url, recepient) VALUES ($1, $2, $3)",
+        expect.stringContaining("INSERT INTO notifications"),
         ["Hello", "img.png", "user@example.com"]
       );
+
       expect(result).toEqual(mockRow);
     });
   });

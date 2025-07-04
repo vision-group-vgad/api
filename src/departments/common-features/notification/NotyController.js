@@ -7,6 +7,7 @@ import {
   createNotification,
   markAsRead,
   markAsStarred,
+  unStarNotification,
   getNotificationsByRecepient,
   deleteNotification,
 } from "./noty-sql.js";
@@ -38,14 +39,15 @@ class NotyController {
       const imagePath = await Utils.getImagePath(this.imageDirPath, recepient);
       image_url = imagePath || this.defaultImageUrl;
 
-      await this.#sendEmailNotification(
-        recepient,
-        this.defaultEmailSubject,
-        body
-      );
+      //Uncomment this code when we connect to the Vision Group Custom Api
+      // await this.#sendEmailNotification(
+      //   recepient,
+      //   this.defaultEmailSubject,
+      //   body
+      // );
 
       logger.info(`${recepient} is receiving a notification.`);
-      const notification = await createNotification(recepient, body, image_url);
+      const notification = await createNotification(body, image_url, recepient);
 
       if (!notification) {
         return errorResponse(500, "Failed to create notification");
@@ -79,6 +81,15 @@ class NotyController {
     return notification;
   }
 
+  async unmark(id) {
+    logger.info(`Unmarking a notification with id ${id}`);
+    const notification = await unStarNotification(id);
+    if (!notification) {
+      return errorResponse(500, "Failed to unmark notification");
+    }
+    return notification;
+  }
+
   async getNotificationsByRecepient(recepient) {
     logger.info(`Getting notifications for ${recepient}.`);
     const notifications = await getNotificationsByRecepient(recepient);
@@ -97,6 +108,7 @@ class NotyController {
     return notification;
   }
 
+  //Do not delete even when it shows a red underline warning
   async #sendEmailNotification(recepient, subject, body) {
     try {
       logger.info(`Sending email notification to ${recepient}.`);

@@ -14,7 +14,7 @@ const notificationController = new NotyController();
 
 /**
  * @swagger
- * /api/notifications/create:
+ * /api/v1/notifications/create:
  *   post:
  *     summary: Create a new notification
  *     tags: [Notifications]
@@ -55,7 +55,7 @@ notificationRouter.post("/create", Jwt.verifyToken, async (req, res) => {
 
 /**
  * @swagger
- * /api/notifications/get-notifications:
+ * /api/v1/notifications/get-notifications:
  *   get:
  *     summary: Get all notifications for a recepient
  *     tags: [Notifications]
@@ -88,7 +88,7 @@ notificationRouter.get(
 
 /**
  * @swagger
- * /api/notifications/mark-as-read:
+ * /api/v1/notifications/mark-as-read:
  *   put:
  *     summary: Mark a notification as read
  *     tags: [Notifications]
@@ -120,7 +120,7 @@ notificationRouter.put("/mark-as-read", Jwt.verifyToken, async (req, res) => {
 
 /**
  * @swagger
- * /api/notifications/mark-as-starred:
+ * /api/v1/notifications/mark-as-starred:
  *   put:
  *     summary: Mark a notification as starred
  *     tags: [Notifications]
@@ -156,7 +156,39 @@ notificationRouter.put(
 
 /**
  * @swagger
- * /api/notifications/delete:
+ * /api/v1/notifications/unmark:
+ *   put:
+ *     summary: Unmark a notification
+ *     tags: [Notifications]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - id
+ *             properties:
+ *               id:
+ *                 type: integer
+ *                 example: 2
+ *     responses:
+ *       200:
+ *         description: Notification unmarked
+ *       500:
+ *         description: Failed to unmark notification
+ */
+notificationRouter.put("/unmark", Jwt.verifyToken, async (req, res) => {
+  const { id } = req.body;
+  const result = await notificationController.unmark(id);
+  res.json(result);
+});
+
+/**
+ * @swagger
+ * /api/v1/notifications/delete:
  *   delete:
  *     summary: Delete a notification
  *     tags: [Notifications]

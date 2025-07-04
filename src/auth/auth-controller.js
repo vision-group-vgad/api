@@ -59,7 +59,8 @@ class AuthenticationController {
       } = response.data;
       await SQL.createDepartment(department);
       await SQL.createPosition(position);
-      await SQL.createUser(email, firstName, lastName, position, department);
+      await SQL.createUser(email, firstName, lastName, department, position);
+
       const token = Jwt.generateToken(email);
       const user = {
         firstName,
