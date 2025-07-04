@@ -5,14 +5,14 @@ export function getStorageUtilization(diskLabel = null) {
     ? storageData.filter((disk) => disk.label === diskLabel)
     : storageData;
 
-  return data.map(({ label, total, used }) => {
-    const available = total - used;
-    const usedPercent = ((used / total) * 100).toFixed(2);
+  return data.map(({ label, totalCapacity, used }) => {
+    const available = totalCapacity - used;
+    const usedPercent = ((used / totalCapacity) * 100).toFixed(2);
     const availablePercent = (100 - usedPercent).toFixed(2);
 
     return {
       label,
-      total,
+      totalCapacity,
       used,
       available,
       chartData: {
