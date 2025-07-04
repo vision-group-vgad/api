@@ -1,7 +1,16 @@
 import express from 'express';
-import { getCyberPosture } from './cyberPostureController.js';
+import CyberPostureController from './cyberPostureController.js';
+import Jwt from '../../../auth/jwt.js';
 
 const router = express.Router();
+const cyberPostureController = new CyberPostureController();
+
+/**
+ * @swagger
+ * tags:
+ *   name: Cybersecurity
+ *   description: Cybersecurity posture metrics
+ */
 
 /**
  * @swagger
@@ -9,8 +18,9 @@ const router = express.Router();
  *   get:
  *     summary: Get cybersecurity posture scores
  *     description: Returns posture scores for each cybersecurity domain (Network, Endpoint, etc.)
- *     tags:
- *       - Cybersecurity
+ *     tags: [Cybersecurity]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Cybersecurity posture data retrieved
@@ -39,9 +49,13 @@ const router = express.Router();
  *                 message:
  *                   type: string
  *                   example: Cybersecurity posture retrieved successfully
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
  *       500:
  *         description: Server error retrieving posture data
  */
-router.get('/', getCyberPosture);
+router.get('/', Jwt.verifyToken, (req, res) =>
+  cyberPostureController.getCyberPosture(req, res)
+);
 
 export default router;
