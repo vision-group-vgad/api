@@ -11,6 +11,7 @@ import cyberPostureController from "./src/departments/it/cyber-posture/cyberPost
 import accountSettingsRouter from "./src/accountSettings/controller.js";
 import patchComplianceController from "./src/departments/it/patch-compliance/patchComplianceRoutes.js";
 import systemHealthRoutes from "./src/departments/it/systemHealth/controller.js";
+import infraRoutes from "./src/departments/it/infrastructure/InfraRoutes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -31,6 +32,6 @@ app.use("/api/v1/cyber-posture", cyberPostureController);
 app.use("/api/v1/accountSettings", accountSettingsRouter);
 app.use("/api/v1/patch-compliance", patchComplianceController);
 app.use("/api/v1/system-health", systemHealthRoutes);
-
+app.use("/api/v1/infrastructure", infraRoutes);
 
 export default app;
