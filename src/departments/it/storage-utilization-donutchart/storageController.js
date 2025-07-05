@@ -19,37 +19,45 @@ const router = express.Router();
  *     tags: [Storage Utilization]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: label
+ *         schema:
+ *           type: string
+ *         description: Filter by disk label (e.g. "Disk A")
  *     responses:
  *       200:
  *         description: Successfully retrieved storage utilization data
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   label:
- *                     type: string
- *                     example: "Disk A"
- *                   totalCapacity:
- *                     type: number
- *                     example: 1000
- *                   available:
- *                     type: number
- *                     example: 500
- *                   used:
- *                     type: number
- *                     example: 700
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       label:
+ *                         type: string
+ *                         example: "Disk A"
+ *                       totalCapacity:
+ *                         type: number
+ *                         example: 1000
+ *                       used:
+ *                         type: number
+ *                         example: 700
+ *                       available:
+ *                         type: number
+ *                         example: 300
  *       401:
- *         description: Unauthorized - Missing or invalid token
+ *         description: Unauthorized
  *       500:
- *         description: Internal Server Error - An error occurred while processing the request
+ *         description: Internal Server Error
  */
 
-
-
-// GET storage utilization data
 router.get("/", Jwt.verifyToken, (req, res) => {
   try {
     const { label } = req.query;
