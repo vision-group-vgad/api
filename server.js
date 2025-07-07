@@ -1,9 +1,9 @@
-import app from "./app.js";
 import dotenv from "dotenv";
-
 dotenv.config();
-const PORT = process.env.PORT || 4000;
+import { server } from "./src/departments/common-features/notification/noty-socket.js";
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const PORT = process.env.PORT;
+
+server.listen(PORT, () => {
+  console.log(`Server + WebSocket listening on port ${PORT}`);
 });

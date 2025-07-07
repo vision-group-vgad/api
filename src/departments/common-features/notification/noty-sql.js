@@ -1,4 +1,5 @@
 import pool from "../../../config/db.js";
+import { sendNotification } from "./noty-socket.js";
 
 async function createNotification(body, image_url, recepient) {
   const result = await pool.query(
@@ -7,6 +8,7 @@ async function createNotification(body, image_url, recepient) {
      RETURNING id, body, time, image_url, recepient, is_starred, is_read`,
     [body, image_url, recepient]
   );
+  sendNotification(result.rows[0]);
   return result.rows[0];
 }
 
