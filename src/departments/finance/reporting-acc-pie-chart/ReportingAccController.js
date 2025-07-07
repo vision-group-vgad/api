@@ -6,8 +6,8 @@ class ReportingAccController {
     this.CMS_API_KEY = process.env.CMS_API_KEY;
     this.response = "";
     this.reports = [];
-    this.totalReports = "";
-    this.totalModifiedReports = "";
+    this.totalReports = 0;
+    this.totalModifiedReports = 0;
   }
 
   async _fetchData(duration) {
