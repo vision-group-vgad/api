@@ -1,3 +1,7 @@
+// Finance Controller for CMC API Integration
+// Last updated: 2025-07-08 - Working version with real CMC data
+// Deployment verification timestamp: July 8, 2025 11:06 AM
+
 // finance/FinanceController.js
 // Controller for Financial data endpoints
 
