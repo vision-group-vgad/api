@@ -12,6 +12,7 @@ import accountSettingsRouter from "./src/accountSettings/controller.js";
 import patchComplianceController from "./src/departments/it/patch-compliance/patchComplianceRoutes.js";
 import systemHealthRoutes from "./src/departments/it/systemHealth/controller.js";
 import infraRoutes from "./src/departments/it/infrastructure/InfraRoutes.js";
+import financeRoutes from "./src/departments/finance/FinanceRoutes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -33,5 +34,6 @@ app.use("/api/v1/accountSettings", accountSettingsRouter);
 app.use("/api/v1/patch-compliance", patchComplianceController);
 app.use("/api/v1/system-health", systemHealthRoutes);
 app.use("/api/v1/infrastructure", infraRoutes);
+app.use("/api/v1/finance", financeRoutes);
 
 export default app;

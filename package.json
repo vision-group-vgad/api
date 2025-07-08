@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.10.1",
+    "lodash": "^4.17.21",
     "multer": "^2.0.1",
     "swagger-autogen": "^2.23.7",
     "swagger-jsdoc": "^6.2.8",
