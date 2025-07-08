@@ -9,7 +9,8 @@ import {
   getFinancialData,
   getFinancialChartData,
   getGLAccountNames,
-  getDocumentTypes
+  getDocumentTypes,
+  getDiagnosticInfo
 } from './FinanceController.js';
 
 const router = express.Router();
@@ -511,5 +512,44 @@ router.get('/gl-accounts', getGLAccountNames);
  *         description: Server error
  */
 router.get('/document-types', getDocumentTypes);
+
+/**
+ * @swagger
+ * /api/v1/finance/diagnostics:
+ *   get:
+ *     summary: Get Environment Diagnostic Information
+ *     description: Returns diagnostic information about the environment configuration for troubleshooting API connectivity issues.
+ *     tags:
+ *       - Finance
+ *     responses:
+ *       200:
+ *         description: Diagnostic information retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 diagnostics:
+ *                   type: object
+ *                   properties:
+ *                     hasApiUrl:
+ *                       type: boolean
+ *                     hasApiToken:
+ *                       type: boolean
+ *                     apiUrlValue:
+ *                       type: string
+ *                     tokenLength:
+ *                       type: number
+ *                     nodeEnv:
+ *                       type: string
+ *                     timestamp:
+ *                       type: string
+ *                       format: date-time
+ *       500:
+ *         description: Server error
+ */
+router.get('/diagnostics', getDiagnosticInfo);
 
 export default router;

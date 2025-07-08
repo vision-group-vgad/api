@@ -219,6 +219,32 @@ export const getDocumentTypes = async (req, res) => {
   }
 };
 
+// Diagnostic endpoint to check environment configuration
+export const getDiagnosticInfo = async (req, res) => {
+  try {
+    const diagnostics = {
+      hasApiUrl: !!process.env.CMC_API_BASE_URL,
+      hasApiToken: !!process.env.CMC_API_BEARER_TOKEN,
+      apiUrlValue: process.env.CMC_API_BASE_URL || 'NOT_SET',
+      tokenLength: process.env.CMC_API_BEARER_TOKEN ? process.env.CMC_API_BEARER_TOKEN.length : 0,
+      nodeEnv: process.env.NODE_ENV,
+      timestamp: new Date().toISOString()
+    };
+    
+    res.status(200).json({ 
+      success: true, 
+      diagnostics,
+      message: 'Environment diagnostic information'
+    });
+  } catch (error) {
+    console.error('Error in diagnostics:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: 'Failed to get diagnostic info'
+    });
+  }
+};
+
 // Helper function to format data for different chart types
 function formatDataForCharts(data, chartType, metric) {
   switch (chartType) {
