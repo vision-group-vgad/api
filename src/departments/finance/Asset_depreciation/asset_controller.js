@@ -3,9 +3,47 @@ import express from "express";
 
 const router = express.Router();
 
-const CMS_API_URL =
-  "https://cms-vgad.visiongroup.co.ug/api/bc-datasets/2021-08-01/2021-10-31";
+const CMS_API_URL = "https://cms-vgad.visiongroup.co.ug/api/bc-datasets/2021-08-01/2021-10-31";
 const BEARER_TOKEN = process.env.CMS_API_KEY;
+
+
+/**
+ * @swagger
+ * /api/asset-depreciation:
+ *   get:
+ *     summary: Fetch live asset depreciation entries from CMS API
+ *     tags: [Asset Depreciation]
+ *     responses:
+ *       200:
+ *         description: List of depreciation entries
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 source:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       account:
+ *                         type: string
+ *                       gl_no:
+ *                         type: string
+ *                       posting_date:
+ *                         type: string
+ *                         format: date
+ *                       debit:
+ *                         type: number
+ *                       credit:
+ *                         type: number
+ *                       amount:
+ *                         type: number
+ */
+
+
 
 router.get("/", async (req, res) => {
   try {
@@ -87,6 +125,59 @@ router.get("/", async (req, res) => {
 });
   
 
+
+
+
+/**
+ * @swagger
+ * /api/asset-depreciation/dummy:
+ *   get:
+ *     summary: Get dummy asset depreciation data
+ *     tags: [Asset Depreciation]
+ *     responses:
+ *       200:
+ *         description: Sample depreciation data for testing
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 source:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       asset_id:
+ *                         type: string
+ *                       asset_name:
+ *                         type: string
+ *                       acquisition_date:
+ *                         type: string
+ *                         format: date
+ *                       acquisition_cost:
+ *                         type: number
+ *                       useful_life_years:
+ *                         type: number
+ *                       residual_value:
+ *                         type: number
+ *                       depreciation_method:
+ *                         type: string
+ *                       accumulated_depreciation:
+ *                         type: number
+ *                       current_value:
+ *                         type: number
+ *                       schedule:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             year:
+ *                               type: integer
+ *                             amount:
+ *                               type: number
+ */
 
 router.get("/dummy", (req, res) => {
   const dummyDepreciation = [

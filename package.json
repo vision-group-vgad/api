@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.10.1",
+    "date-fns": "^4.1.0",
     "lodash": "^4.17.21",
     "multer": "^2.0.1",
     "swagger-autogen": "^2.23.7",

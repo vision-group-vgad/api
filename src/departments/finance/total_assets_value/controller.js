@@ -43,7 +43,8 @@ export const getTotalAssetValue = async (req, res) => {
     console.error("Asset Value Error:", error.message);
     res.status(500).json({
       success: false,
-      message: "Failed to compute total asset value",
+      message:
+        "Failed to compute total asset value because im assuming G_L_Account_Category or flag exists for assets",
     });
   }
 };
