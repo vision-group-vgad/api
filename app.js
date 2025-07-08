@@ -19,6 +19,8 @@ import capExPieChartRouter from "./src/departments/finance/capex/capex-piechart-
 import ageRouter from "./src/departments/finance/age-analysis/apArRoutes.js"; 
 import expenseRouter from "./src/departments/finance/expense-cat/expenseCategoryRoutes.js";
 import budVarienceRouter from "./src/departments/finance/budget-variance/budgetVarianceRouter.js";
+import assetDepreciationRoutes from "./src/departments/finance/Asset_depreciation/asset_controller.js";
+
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -45,6 +47,8 @@ app.use("/api/v1/reporting-accu-piechart", repoAccRouter);
 app.use("/api/v1/capex", capExCardRouter);
 app.use("/api/v1/ap-ar-aging", ageRouter);
 app.use("/api/v1/capex-piechart", capExPieChartRouter);
+app.use("/api/v1/total-assets-value", AssetValueRoutes);
+app.use("/api/v1/asset-depreciation", assetDepreciationRoutes);
 app.use("/api/v1/expense-cat", expenseRouter);
 app.use("/api/v1/budget-variance", budVarienceRouter);
 
