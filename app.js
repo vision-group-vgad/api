@@ -15,6 +15,7 @@ import infraRoutes from "./src/departments/it/infrastructure/InfraRoutes.js";
 import repoAccRouter from "./src/departments/finance/reporting-acc-pie-chart/reporting-acc-piechart-routes.js";
 import capExCardRouter from "./src/departments/finance/capex/capex-card-route.js";
 import capExPieChartRouter from "./src/departments/finance/capex/capex-piechart-route.js";
+import AssetValueRoutes from "./src/departments/finance/total_assets_value/routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -39,5 +40,6 @@ app.use("/api/v1/infrastructure", infraRoutes);
 app.use("/api/v1/reporting-accu-piechart", repoAccRouter);
 app.use("/api/v1/capex", capExCardRouter);
 app.use("/api/v1/capex-piechart", capExPieChartRouter);
+app.use("/api/v1/total-assets-value", AssetValueRoutes);
 
 export default app;
