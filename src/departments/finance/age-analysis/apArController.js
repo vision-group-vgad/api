@@ -57,6 +57,19 @@ export const getApArAging = async (req, res) => {
     res.status(200).json({ agingBuckets });
   } catch (err) {
     console.error('🛑 Error fetching AP/AR aging data:', err.message);
+    if (err.response) {
+      // Axios error: response received from server
+      console.error('Response status:', err.response.status);
+      console.error('Response data:', err.response.data);
+      console.error('Response headers:', err.response.headers);
+    } else if (err.request) {
+      // Axios error: request made but no response
+      console.error('No response received. Request:', err.request);
+    } else {
+      // Other errors
+      console.error('Error details:', err);
+    }
+    console.error('Stack trace:', err.stack);
     res.status(500).json({ error: 'Failed to retrieve AP/AR aging data' });
   }
 };
