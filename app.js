@@ -23,7 +23,7 @@ import assetDepreciationRoutes from "./src/departments/finance/Asset_depreciatio
 
 
 import expenseRouter from "./src/departments/finance/expense-category/expenseCategoryRoutes.js";
-import budVarienceRouter from "./src/departments/finance/budget-variance/budgetVarianceRouter.js
+import budVarienceRouter from "./src/departments/finance/budget-variance/budgetVarianceRouter.js";
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const corsOption = {
@@ -53,7 +53,6 @@ app.use("/api/v1/budget-variance", budVarienceRouter);
 app.use("/api/v1/capex-piechart", capExPieChartRouter);
 app.use("/api/v1/total-assets-value", AssetValueRoutes);
 app.use("/api/v1/asset-depreciation", assetDepreciationRoutes);
-app.use("/api/v1/expense-cat", expenseRouter);
-app.use("/api/v1/budget-variance", budVarienceRouter);
+
 
 export default app;
