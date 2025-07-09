@@ -8,7 +8,6 @@ const CMS_API_URL = "https://cms-vgad.visiongroup.co.ug/api/bc-datasets/2021-08-
 const BEARER_TOKEN = process.env.CMS_API_KEY;
 
 
-
 /**
  * @swagger
  * /api/asset-depreciation:
@@ -30,8 +29,6 @@ const BEARER_TOKEN = process.env.CMS_API_KEY;
  *                   items:
  *                     type: object
  *                     properties:
-//  *                       account:
-//  *                         type: string
  *                       gl_no:
  *                         type: string
  *                       gl_name:
@@ -42,9 +39,10 @@ const BEARER_TOKEN = process.env.CMS_API_KEY;
  *                         type: number
  *                       amount:
  *                         type: number
- * *                     document_type:
+ *                       document_type:
  *                         type: string
  */
+
 
 
 
