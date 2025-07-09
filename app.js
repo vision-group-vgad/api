@@ -23,7 +23,7 @@ import AssetDepreciationRoutes from "./src/departments/finance/Asset_depreciatio
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const corsOption = {
-  origin: process.env.ALLOWED_ORIGIN,
+  origin: ["https://localhost:5173", "https://vgad.vercel.app"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 };
