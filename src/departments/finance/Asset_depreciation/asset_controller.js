@@ -30,19 +30,20 @@ const BEARER_TOKEN = process.env.CMS_API_KEY;
  *                   items:
  *                     type: object
  *                     properties:
- *                       account:
- *                         type: string
+//  *                       account:
+//  *                         type: string
  *                       gl_no:
  *                         type: string
- *                       posting_date:
+ *                       gl_name:
  *                         type: string
- *                         format: date
  *                       debit:
  *                         type: number
  *                       credit:
  *                         type: number
  *                       amount:
  *                         type: number
+ * *                     document_type:
+ *                         type: string
  */
 
 
@@ -59,19 +60,19 @@ router.get("/", async (req, res) => {
 
     const allEntries = response.data.data;
 
-    const names = new Set();
+    const result = allEntries.map((entry) => ({
+      gl_no: entry.attributes.G_L_Account_No,
+      gl_name: entry.attributes.G_L_Account_Name,
+      debit: parseFloat(entry.attributes.Debit_Amount || "0"),
+      credit: parseFloat(entry.attributes.Credit_Amount || "0"),
+      amount: parseFloat(entry.attributes.Amount || "0"),
+      document_type: entry.attributes.Document_Type,
+    }));
 
-    allEntries.forEach((entry) => {
-      const name = entry.attributes.G_L_Account_Name;
-      if (name) names.add(name.trim());
-    });
+    // Filter out rows with no G/L Account Name
+    //const filtered = result.filter((e) => e.gl_name);
 
-    const sortedNames = Array.from(names).sort();
-
-    res.json({
-      count: sortedNames.length,
-      names: sortedNames,
-    });
+    res.json({ source: "live", count: result.length, data: result });
   } catch (error) {
     console.error("Error fetching G/L names:", error.message);
     res.status(500).json({ error: "Failed to fetch account names" });

@@ -19,11 +19,13 @@ import capExPieChartRouter from "./src/departments/finance/capex/capex-piechart-
 import AssetValueRoutes from "./src/departments/finance/total_assets_value/routes.js";
 import ageRouter from "./src/departments/finance/age-analysis/apArRoutes.js";
 import AssetDepreciationRoutes from "./src/departments/finance/Asset_depreciation/asset_controller.js";
+import expenseRouter from "./src/departments/finance/expense-cat/expenseCategoryRoutes.js";
+import budVarienceRouter from "./src/departments/finance/budget-variance/budgetVarianceRouter.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const corsOption = {
-  origin: process.env.ALLOWED_ORIGIN,
+  origin: ["http://localhost", "https://vgad.vercel.app"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 };
@@ -47,6 +49,7 @@ app.use("/api/v1/ap-ar-aging", ageRouter);
 app.use("/api/v1/capex-piechart", capExPieChartRouter);
 app.use("/api/v1/total-assets-value", AssetValueRoutes);
 app.use("/api/v1/asset-depreciation", AssetDepreciationRoutes);
-
+app.use("/api/v1/expense-cat", expenseRouter);
+app.use("/api/v1/budget-variance", budVarienceRouter);
 
 export default app;
