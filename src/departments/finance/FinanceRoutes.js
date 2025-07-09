@@ -1,7 +1,7 @@
 // finance/FinanceRoutes.js
 // Routes for Financial data endpoints
 
-import express from 'express';
+import express from "express";
 import {
   getFinancialCloseMetrics,
   getAuditTrailAnalysis,
@@ -10,8 +10,9 @@ import {
   getFinancialChartData,
   getGLAccountNames,
   getDocumentTypes,
-  getDiagnosticInfo
-} from './FinanceController.js';
+  getDiagnosticInfo,
+} from "./FinanceController.js";
+import Jwt from "../../auth/jwt.js";
 
 const router = express.Router();
 
@@ -99,7 +100,7 @@ const router = express.Router();
  *                 granularity: "monthly"
  *                 limit: 1000
  */
-router.get('/close-metrics', getFinancialCloseMetrics);
+router.get("/close-metrics", Jwt.verifyToken, getFinancialCloseMetrics);
 
 /**
  * @swagger
@@ -155,7 +156,7 @@ router.get('/close-metrics', getFinancialCloseMetrics);
  *                     count: 450
  *                     percentage: 36
  */
-router.get('/audit-trail', getAuditTrailAnalysis);
+router.get("/audit-trail", Jwt.verifyToken, getAuditTrailAnalysis);
 
 /**
  * @swagger
@@ -205,7 +206,7 @@ router.get('/audit-trail', getAuditTrailAnalysis);
  *                   - errorType: "Unbalanced Entry"
  *                     count: 10
  */
-router.get('/reporting-accuracy', getReportingAccuracy);
+router.get("/reporting-accuracy", Jwt.verifyToken, getReportingAccuracy);
 
 /**
  * @swagger
@@ -351,7 +352,7 @@ router.get('/reporting-accuracy', getReportingAccuracy);
  *       500:
  *         description: Server error
  */
-router.get('/raw-data', getFinancialData);
+router.get("/raw-data", Jwt.verifyToken, getFinancialData);
 
 /**
  * @swagger
@@ -415,7 +416,7 @@ router.get('/raw-data', getFinancialData);
  *               chartType: "line"
  *               metric: "closeMetrics"
  */
-router.get('/chart-data', getFinancialChartData);
+router.get("/chart-data", Jwt.verifyToken, getFinancialChartData);
 
 /**
  * @swagger
@@ -463,7 +464,7 @@ router.get('/chart-data', getFinancialChartData);
  *       500:
  *         description: Server error
  */
-router.get('/gl-accounts', getGLAccountNames);
+router.get("/gl-accounts", Jwt.verifyToken, getGLAccountNames);
 
 /**
  * @swagger
@@ -511,7 +512,7 @@ router.get('/gl-accounts', getGLAccountNames);
  *       500:
  *         description: Server error
  */
-router.get('/document-types', getDocumentTypes);
+router.get("/document-types", Jwt.verifyToken, getDocumentTypes);
 
 /**
  * @swagger
@@ -550,6 +551,6 @@ router.get('/document-types', getDocumentTypes);
  *       500:
  *         description: Server error
  */
-router.get('/diagnostics', getDiagnosticInfo);
+router.get("/diagnostics", Jwt.verifyToken, getDiagnosticInfo);
 
 export default router;
