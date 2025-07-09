@@ -23,7 +23,7 @@ import AssetDepreciationRoutes from "./src/departments/finance/Asset_depreciatio
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const corsOption = {
-  origin: ["https://localhost:5173", "https://vgad.vercel.app"],
+  origin: ["https://localhost", "https://vgad.vercel.app"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 };
@@ -47,6 +47,5 @@ app.use("/api/v1/ap-ar-aging", ageRouter);
 app.use("/api/v1/capex-piechart", capExPieChartRouter);
 app.use("/api/v1/total-assets-value", AssetValueRoutes);
 app.use("/api/v1/asset-depreciation", AssetDepreciationRoutes);
-
 
 export default app;
