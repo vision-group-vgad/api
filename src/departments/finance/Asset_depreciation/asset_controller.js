@@ -1,5 +1,6 @@
 import axios from "axios";
 import express from "express";
+// import dotenv from "dotenv";
 
 const router = express.Router();
 
@@ -28,20 +29,20 @@ const BEARER_TOKEN = process.env.CMS_API_KEY;
  *                   items:
  *                     type: object
  *                     properties:
- *                       account:
- *                         type: string
  *                       gl_no:
  *                         type: string
- *                       posting_date:
+ *                       gl_name:
  *                         type: string
- *                         format: date
  *                       debit:
  *                         type: number
  *                       credit:
  *                         type: number
  *                       amount:
  *                         type: number
+ *                       document_type:
+ *                         type: string
  */
+
 
 
 
@@ -50,82 +51,31 @@ router.get("/", async (req, res) => {
     const response = await axios.get(CMS_API_URL, {
       headers: {
         Authorization: `Bearer ${BEARER_TOKEN}`,
+        Accept: "application/json",
       },
-      timeout: 10000, // 10 seconds max to wait
+      timeout: 50000,
     });
 
     const allEntries = response.data.data;
 
-    const depreciationEntries = allEntries.filter((entry) => {
-      const name = entry.attributes.G_L_Account_Name?.toLowerCase() || "";
-      return name.includes("depreciation");
-    });
-
-    const result = depreciationEntries.map((entry) => ({
-      account: entry.attributes.G_L_Account_Name,
+    const result = allEntries.map((entry) => ({
       gl_no: entry.attributes.G_L_Account_No,
-      posting_date: entry.attributes.Posting_Date,
+      gl_name: entry.attributes.G_L_Account_Name,
       debit: parseFloat(entry.attributes.Debit_Amount || "0"),
       credit: parseFloat(entry.attributes.Credit_Amount || "0"),
       amount: parseFloat(entry.attributes.Amount || "0"),
+      document_type: entry.attributes.Document_Type,
     }));
 
-    res.json({ source: "live", data: result });
+    // Filter out rows with no G/L Account Name
+    //const filtered = result.filter((e) => e.gl_name);
+
+    res.json({ source: "live", count: result.length, data: result });
   } catch (error) {
-    
-    console.error("Fetch Error:", error.message);
-
-    
-    if (error.code === "ECONNABORTED" || error.message.includes("ETIMEDOUT")) {
-      console.error("Network Timeout..API server is unreachable.");
-      return res
-        .status(504)
-        .json({
-          error:
-            "Timeout CMS API is unreachable (network or firewall issue).",
-        });
-    }
-
-    // Unauthorized (bad token or no token)
-    if (error.response && error.response.status === 401) {
-      console.error("Unauthorized, Bad or missing API token.");
-      return res
-        .status(401)
-        .json({ error: "Unauthorized, Invalid or missing API token." });
-    }
-
-    // Forbidden – Token is valid but has no permission
-    if (error.response && error.response.status === 403) {
-      console.error(
-        "Forbidden, Token is valid but lacks access permissions."
-      );
-      return res
-        .status(403)
-        .json({
-          error: "Forbidden, Token does not have access to this dataset.",
-        });
-    }
-
-    // Other API errors (non-200 status codes)
-    if (error.response) {
-      console.error("API Error Received non-200 status code");
-      console.error("Status:", error.response.status);
-      console.error("Data:", error.response.data);
-      return res.status(500).json({
-        error: `API responded with status ${error.response.status}`,
-        details: error.response.data,
-      });
-    }
-
-    
-    res
-      .status(500)
-      .json({ error: "Unknown error fetching asset depreciation entries" });
+    console.error("Error fetching G/L names:", error.message);
+    res.status(500).json({ error: "Failed to fetch account names" });
   }
 });
-  
-
-
 
 
 /**
