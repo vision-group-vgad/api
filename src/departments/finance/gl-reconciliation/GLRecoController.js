@@ -8,9 +8,8 @@ class GLRecoController {
   initialize() {
     if (this.initialized) return;
 
-    this.BC_URL = "https://cms-vgad.visiongroup.co.ug/api";
-    this.BC_API_KEY =
-      "38d79da61a89bf9e65dc1dcac80138a35c542a57832337d0e08bbfa4e4269e6f8ccb2bc1065717d50b29db806272ffec9593dd09c9bb8b13c013e98b687b2ca6f8edde07b57b246a464301e3f0ea63d0b0e6b30b09709ed7f06e1aa39dfd0c54ac632a2fa25f20500acce9d1633cbf2406652154c6f8bb7cf5d5b1c3dd9ce043";
+    this.BC_URL = process.env.BC_URL;
+    this.BC_API_KEY = process.env.BC_API_KEY;
 
     this.apiClient = axios.create({
       baseURL: this.BC_URL,
