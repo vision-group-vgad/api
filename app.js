@@ -27,7 +27,7 @@ const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const corsOption = {
   origin: [
-    "http://localhost",
+    "http://localhost:3001",
     "https://vgad.vercel.app",
     "https://frontend-2q4l.onrender.com",
   ],
