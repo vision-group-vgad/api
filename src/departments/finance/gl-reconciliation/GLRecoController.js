@@ -1,15 +1,16 @@
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
 class GLRecoController {
   constructor() {
     this.initialized = false;
+    this.BC_URL = process.env.CMC_API_BASE_URL;
+    this.BC_API_KEY = process.env.CMS_API_KEY;
   }
 
   initialize() {
     if (this.initialized) return;
-
-    this.BC_URL = process.env.BC_URL;
-    this.BC_API_KEY = process.env.BC_API_KEY;
 
     this.apiClient = axios.create({
       baseURL: this.BC_URL,
