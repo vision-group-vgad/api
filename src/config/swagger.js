@@ -60,5 +60,6 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/finance/total_assets_value/*.js"),
     path.join(__dirname, "../departments/finance/Asset_depreciation/*.js"),
     path.join(__dirname, "../departments/finance/gl-reconciliation/*.js"),
+    path.join(__dirname, "../departments/finance/tax-provisioning/*.js"),
   ],
 };

@@ -11,7 +11,7 @@ const glRecController = new GLRecoController();
  *   get:
  *     summary: Fetch GL reconciliation data from Business Central
  *     description: Retrieves General Ledger and Sub Ledger balances filtered by a date range.
- *     tags: [GL Reconciliation]
+ *     tags: [Finance]
  *     parameters:
  *       - in: query
  *         name: startDate
