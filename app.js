@@ -26,7 +26,11 @@ import financeForecastingRouter from "./src/departments/finance/finance_forecast
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const corsOption = {
-  origin: ["http://localhost", "https://vgad.vercel.app"],
+  origin: [
+    "http://localhost",
+    "https://vgad.vercel.app",
+    "https://frontend-2q4l.onrender.com",
+  ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 };
@@ -53,6 +57,5 @@ app.use("/api/v1/asset-depreciation", AssetDepreciationRoutes);
 app.use("/api/v1/expense-cat", expenseRouter);
 app.use("/api/v1/budget-variance", budVarienceRouter);
 app.use("/api/v1/finance-forecasting", financeForecastingRouter);
-
 
 export default app;
