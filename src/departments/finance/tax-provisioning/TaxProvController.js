@@ -6,6 +6,79 @@ class TaxProvController {
     this.BC_URL = process.env.CMC_API_BASE_URL;
     this.BC_API_KEY = process.env.CMS_API_KEY;
     this.transformed = [];
+    this.dummyTaxes = [
+      {
+        taxType: "Corporate Income Tax",
+        provisionedAmount: 20000000,
+        totalSpent: 19500000,
+        transactions: [
+          { date: "2021-03-15", amount: 12000000 },
+          { date: "2021-06-15", amount: 7500000 },
+        ],
+      },
+      {
+        taxType: "Withholding Tax",
+        provisionedAmount: 3000000,
+        totalSpent: 2800000,
+        transactions: [
+          { date: "2021-05-10", amount: 1500000 },
+          { date: "2021-06-10", amount: 1300000 },
+        ],
+      },
+      {
+        taxType: "Pay As You Earn (PAYE)",
+        provisionedAmount: 10000000,
+        totalSpent: 10250000,
+        transactions: [
+          { date: "2021-01-31", amount: 2500000 },
+          { date: "2021-02-28", amount: 2500000 },
+          { date: "2021-03-31", amount: 2500000 },
+          { date: "2021-04-30", amount: 2750000 },
+        ],
+      },
+      {
+        taxType: "Local Service Tax",
+        provisionedAmount: 1200000,
+        totalSpent: 1200000,
+        transactions: [
+          { date: "2021-07-01", amount: 600000 },
+          { date: "2021-12-01", amount: 600000 },
+        ],
+      },
+      {
+        taxType: "Excise Duty",
+        provisionedAmount: 8500000,
+        totalSpent: 9100000,
+        transactions: [
+          { date: "2021-06-18", amount: 4500000 },
+          { date: "2021-07-18", amount: 4600000 },
+        ],
+      },
+      {
+        taxType: "Stamp Duty",
+        provisionedAmount: 1000000,
+        totalSpent: 980000,
+        transactions: [
+          { date: "2021-02-11", amount: 480000 },
+          { date: "2021-04-25", amount: 500000 },
+        ],
+      },
+      {
+        taxType: "Environmental Levy",
+        provisionedAmount: 2000000,
+        totalSpent: 1850000,
+        transactions: [
+          { date: "2021-08-20", amount: 900000 },
+          { date: "2021-09-20", amount: 950000 },
+        ],
+      },
+      {
+        taxType: "Taxes Summary",
+        totalProvisionedAmount: 200000000,
+        totalSpent: 185000000,
+        transactions: [],
+      },
+    ];
   }
 
   initialize() {
@@ -92,7 +165,8 @@ class TaxProvController {
       taxEntry.transactions.push(transaction);
     });
 
-    return Array.from(taxMap.values());
+    this.dummyTaxes.push(Array.from(taxMap.values())[0]);
+    return Array.from(this.dummyTaxes);
   }
 }
 
