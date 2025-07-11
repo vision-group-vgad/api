@@ -23,6 +23,7 @@ import expenseRouter from "./src/departments/finance/expense-cat/expenseCategory
 import budVarienceRouter from "./src/departments/finance/budget-variance/budgetVarianceRouter.js";
 import financeForecastingRouter from "./src/departments/finance/finance_forecasting/controller.js";
 import glRecRouter from "./src/departments/finance/gl-reconciliation/gl-reco-route.js";
+import taxProvRouter from "./src/departments/finance/tax-provisioning/tax-prov-route.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -59,5 +60,6 @@ app.use("/api/v1/expense-cat", expenseRouter);
 app.use("/api/v1/budget-variance", budVarienceRouter);
 app.use("/api/v1/finance-forecasting", financeForecastingRouter);
 app.use("/api/v1/gl-reconciliation", glRecRouter);
+app.use("/api/v1/tax-provisioning", taxProvRouter);
 
 export default app;

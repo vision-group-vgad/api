@@ -1,5 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
 import { server } from "./src/departments/common-features/notification/noty-socket.js";
 
 const PORT = process.env.PORT;
