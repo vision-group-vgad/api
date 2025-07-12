@@ -25,6 +25,7 @@ import financeForecastingRouter from "./src/departments/finance/finance_forecast
 import glRecRouter from "./src/departments/finance/gl-reconciliation/gl-reco-route.js";
 import taxProvRouter from "./src/departments/finance/tax-provisioning/tax-prov-route.js";
 import statVarRouter from "./src/departments/finance/statement-variance/stat-var-routes.js";
+import dsoRouter from "./src/departments/finance/dso/dso-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -59,5 +60,6 @@ app.use("/api/v1/finance-forecasting", financeForecastingRouter);
 app.use("/api/v1/gl-reconciliation", glRecRouter);
 app.use("/api/v1/tax-provisioning", taxProvRouter);
 app.use("/api/v1/fin-statement-variance", statVarRouter);
+app.use("/api/v1/dso", dsoRouter);
 
 export default app;
