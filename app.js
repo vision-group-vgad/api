@@ -22,7 +22,7 @@ import ageRouter from "./src/departments/finance/age-analysis/apArRoutes.js";
 import AssetDepreciationRoutes from "./src/departments/finance/Asset_depreciation/asset_controller.js";
 import expenseRouter from "./src/departments/finance/expense-cat/expenseCategoryRoutes.js";
 import budVarienceRouter from "./src/departments/finance/budget-variance/budgetVarianceRouter.js";
-import financeForecastingRouter from "./src/departments/finance/finance_forecasting/controller.js";
+import financeForecastingRouter from "./src/departments/finance/finance_forecasting/forecastingController.js";
 import glRecRouter from "./src/departments/finance/gl-reconciliation/gl-reco-route.js";
 import taxProvRouter from "./src/departments/finance/tax-provisioning/tax-prov-route.js";
 import statVarRouter from "./src/departments/finance/statement-variance/stat-var-routes.js";
