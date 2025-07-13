@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path"
 import authRouter from "./src/auth/auth-routes.js";
 import serverLoadRouter from "./src/departments/it/server-load-piechart/server-load-routes.js";
 import cors from "cors";
@@ -8,7 +9,7 @@ import { swaggerOptions } from "./src/config/swagger.js";
 import notificationRouter from "./src/departments/common-features/notification/noty-routes.js";
 import storageRoutes from "./src/departments/it/storage-utilization-donutchart/storageController.js";
 import cyberPostureController from "./src/departments/it/cyber-posture/cyberPostureRoutes.js";
-import accountSettingsRouter from "./src/accountSettings/controller.js";
+//import accountSettingsRouter from "./src/accountSettings/controller.js";
 import patchComplianceController from "./src/departments/it/patch-compliance/patchComplianceRoutes.js";
 import systemHealthRoutes from "./src/departments/it/systemHealth/controller.js";
 import infraRoutes from "./src/departments/it/infrastructure/InfraRoutes.js";
@@ -40,12 +41,13 @@ const corsOption = {
 app.use(cors(corsOption));
 app.use(express.json());
 app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/assets/profile_pics", express.static(path.join(process.cwd(), "assets/profile_pics")));
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/server-load", serverLoadRouter);
 app.use("/api/v1/notifications", notificationRouter);
 app.use("/api/v1/storageUtilization", storageRoutes);
 app.use("/api/v1/cyber-posture", cyberPostureController);
-app.use("/api/v1/accountSettings", accountSettingsRouter);
+//app.use("/api/v1/accountSettings", accountSettingsRouter);
 app.use("/api/v1/patch-compliance", patchComplianceController);
 app.use("/api/v1/system-health", systemHealthRoutes);
 app.use("/api/v1/infrastructure", infraRoutes);

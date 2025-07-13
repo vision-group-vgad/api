@@ -10,7 +10,7 @@ const BEARER_TOKEN = process.env.CMS_API_KEY;
 
 /**
  * @swagger
- * /api/asset-depreciation:
+ * /api/v1/asset-depreciation:
  *   get:
  *     summary: Fetch live asset depreciation entries from CMS API
  *     tags: [Asset Depreciation]
@@ -80,7 +80,7 @@ router.get("/", async (req, res) => {
 
 /**
  * @swagger
- * /api/asset-depreciation/dummy:
+ * /api/v1/asset-depreciation/dummy:
  *   get:
  *     summary: Get dummy asset depreciation data
  *     tags: [Asset Depreciation]
