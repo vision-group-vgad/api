@@ -61,5 +61,8 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/finance/finance_forecasting/*.js"),
     path.join(__dirname, "../departments/finance/statement-variance/*.js"),
     path.join(__dirname, "../departments/finance/capex/capexController.js"),
+    path.join(__dirname, "../departments/finance/dso/*.js"),
+    path.join(__dirname, "../departments/finance/bad-debt-ratios/*.js"),
+    path.join(__dirname, "../departments/finance/collection-efficiency/*.js"),
   ],
 };
