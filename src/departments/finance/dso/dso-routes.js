@@ -10,7 +10,7 @@ const dsoController = new DsoController();
  * /api/v1/dso:
  *   get:
  *     summary: Retrieve Days Sales Outstanding (DSO) data
- *     description: Returns DSO information within the specified date range.
+ *     description: Returns DSO data including monthly, quarterly, and annual metrics within the specified date range.
  *     tags:
  *       - DSO
  *     parameters:
@@ -34,26 +34,48 @@ const dsoController = new DsoController();
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               example:
- *                 dsoValue: 45.2
- *                 period: "2025-01-01 to 2025-03-31"
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   month:
+ *                     type: string
+ *                     example: January
+ *                   creditSales:
+ *                     type: number
+ *                     example: 10000
+ *                   accountsReceivable:
+ *                     type: number
+ *                     example: 12000
+ *                   monthlyDSO:
+ *                     type: number
+ *                     example: 36
+ *                   quarterlyDSO:
+ *                     type: number
+ *                     example: 0
+ *                   annualDSO:
+ *                     type: number
+ *                     example: 0
  *       400:
  *         description: Missing required query parameters
  *         content:
  *           application/json:
  *             schema:
  *               type: object
- *               example:
- *                 error: "Missing required query parameters: startDate and endDate"
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Missing required query parameters, startDate and endDate
  *       500:
  *         description: Internal server error while fetching DSO data
  *         content:
  *           application/json:
  *             schema:
  *               type: object
- *               example:
- *                 error: "Failed to fetch DSO datasets. [error message]"
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Failed to fetch DSO datasets. [error message]
  */
 dsoRouter.get("/", Jwt.verifyToken, async (req, res) => {
   const { startDate, endDate } = req.query;
@@ -66,7 +88,6 @@ dsoRouter.get("/", Jwt.verifyToken, async (req, res) => {
 
   try {
     const response = await dsoController.fetchData(startDate, endDate);
-    console.log("Response", response);
     res.json(response);
   } catch (err) {
     res.status(500).json({ error: `Failed to fetch DSO datasets. ${err}` });
