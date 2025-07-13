@@ -2,6 +2,7 @@ import axios from 'axios';
 import { parseISO, differenceInDays, addDays } from 'date-fns';
 import dotenv from 'dotenv';
 dotenv.config();
+
 export const getApArAging = async (req, res) => {
   try {
     const url = `${process.env.VGAD_API_BASE_URL}`;
@@ -58,15 +59,12 @@ export const getApArAging = async (req, res) => {
   } catch (err) {
     console.error('🛑 Error fetching AP/AR aging data:', err.message);
     if (err.response) {
-      // Axios error: response received from server
       console.error('Response status:', err.response.status);
       console.error('Response data:', err.response.data);
       console.error('Response headers:', err.response.headers);
     } else if (err.request) {
-      // Axios error: request made but no response
       console.error('No response received. Request:', err.request);
     } else {
-      // Other errors
       console.error('Error details:', err);
     }
     console.error('Stack trace:', err.stack);
