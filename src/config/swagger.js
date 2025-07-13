@@ -49,10 +49,7 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/sales/*.js"),
     path.join(__dirname, "../departments/specialized/*.js"),
     path.join(__dirname, "../auth/*.js"),
-    path.join(
-      __dirname,
-      "../departments/it/storage-utilization-donutchart/*.js"
-    ),
+    path.join(__dirname, "../departments/it/storage-utilization-donutchart/*.js"),
     path.join(__dirname, "../accountSettings/*.js"),
     path.join(__dirname, "../departments/it/systemHealth/*.js"),
     path.join(__dirname, "../departments/finance/reporting-acc-pie-chart/*.js"),
@@ -63,5 +60,6 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/finance/tax-provisioning/*.js"),
     path.join(__dirname, "../departments/finance/finance_forecasting/*.js"),
     path.join(__dirname, "../departments/finance/statement-variance/*.js"),
+    path.join(__dirname, "../departments/finance/capex/capexController.js"),
   ],
 };
