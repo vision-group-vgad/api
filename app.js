@@ -26,6 +26,7 @@ import financeForecastingRouter from "./src/departments/finance/finance_forecast
 import glRecRouter from "./src/departments/finance/gl-reconciliation/gl-reco-route.js";
 import taxProvRouter from "./src/departments/finance/tax-provisioning/tax-prov-route.js";
 import statVarRouter from "./src/departments/finance/statement-variance/stat-var-routes.js";
+import capExController from "./src/departments/finance/capex/capexController.js";
 import dsoRouter from "./src/departments/finance/dso/dso-routes.js";
 import badDebtRatiosRouter from "./src/departments/finance/bad-debt-ratios/bad-debt-ratios-routes.js";
 import collEffRouter from "./src/departments/finance/collection-efficiency/coll-eff-routes.js";
@@ -64,6 +65,7 @@ app.use("/api/v1/finance-forecasting", financeForecastingRouter);
 app.use("/api/v1/gl-reconciliation", glRecRouter);
 app.use("/api/v1/tax-provisioning", taxProvRouter);
 app.use("/api/v1/fin-statement-variance", statVarRouter);
+app.use("/api/v1/capEx", capExController);
 app.use("/api/v1/dso", dsoRouter);
 app.use("/api/v1/bad-debt-ratios", badDebtRatiosRouter);
 app.use("/api/v1/collection-efficiency", collEffRouter);
