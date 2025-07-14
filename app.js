@@ -30,6 +30,7 @@ import capExController from "./src/departments/finance/capex/capexController.js"
 import dsoRouter from "./src/departments/finance/dso/dso-routes.js";
 import badDebtRatiosRouter from "./src/departments/finance/bad-debt-ratios/bad-debt-ratios-routes.js";
 import collEffRouter from "./src/departments/finance/collection-efficiency/coll-eff-routes.js";
+import systemIntegrationHealthRoutes from "./src/departments/finance/systemIntegrationHealth/controller.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -69,5 +70,6 @@ app.use("/api/v1/capEx", capExController);
 app.use("/api/v1/dso", dsoRouter);
 app.use("/api/v1/bad-debt-ratios", badDebtRatiosRouter);
 app.use("/api/v1/collection-efficiency", collEffRouter);
+app.use("/api/v1/integration-health", systemIntegrationHealthRoutes);
 
 export default app;

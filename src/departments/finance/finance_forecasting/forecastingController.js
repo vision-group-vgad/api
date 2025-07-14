@@ -1,6 +1,7 @@
 import express from "express";
 import axios from "axios";
 import { groupByMonth, groupCashFlow, mergeNetIncome } from "./util.js";
+import generateDummyEntries from "./dummyEntries.js";
 
 const router = express.Router();
 
@@ -41,6 +42,22 @@ const EXPENSE_ACCOUNTS = [
 const isRevenue = (name) => REVENUE_ACCOUNTS.includes(name);
 const isExpense = (name) => EXPENSE_ACCOUNTS.includes(name);
 
+const filterByTime = (entries, year, quarter, month) => {
+  return entries.filter((entry) => {
+    if (!entry.Posting_Date) return false;
+    const date = new Date(entry.Posting_Date);
+    const entryYear = date.getFullYear();
+    const entryMonth = date.getMonth() + 1;
+    const entryQuarter = Math.floor((entryMonth - 1) / 3) + 1;
+
+    if (year && parseInt(year) !== entryYear) return false;
+    if (quarter && parseInt(quarter) !== entryQuarter) return false;
+    if (month && parseInt(month) !== entryMonth) return false;
+
+    return true;
+  });
+};
+
 /**
  * @swagger
  * tags:
@@ -52,34 +69,30 @@ const isExpense = (name) => EXPENSE_ACCOUNTS.includes(name);
  * @swagger
  * /api/v1/finance-forecasting/revenue:
  *   get:
- *     summary: Get monthly actual revenue totals
+ *     summary: Get monthly actual revenue totals (includes dummy data)
  *     tags: [Finance Forecasting]
+ *     parameters:
+ *       - in: query
+ *         name: year
+ *         schema:
+ *           type: integer
+ *         description: Filter by year (e.g. 2022)
+ *       - in: query
+ *         name: quarter
+ *         schema:
+ *           type: integer
+ *         description: Filter by quarter (1-4)
+ *       - in: query
+ *         name: month
+ *         schema:
+ *           type: integer
+ *         description: Filter by month (1-12)
  *     responses:
  *       200:
  *         description: Monthly revenue data
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 type:
- *                   type: string
- *                   example: revenue
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       month:
- *                         type: string
- *                         example: 2021-08
- *                       total:
- *                         type: number
- *                         example: 105000000
  */
-
-// Revenue route
 router.get("/revenue", async (req, res) => {
+  const { year, quarter, month } = req.query;
   try {
     const response = await axios.get(CMS_API_URL, {
       headers: {
@@ -89,13 +102,16 @@ router.get("/revenue", async (req, res) => {
     });
 
     const allEntries = response.data.data || [];
-    const filtered = allEntries
-      .map((e) => e.attributes)
-      .filter((e) => isRevenue(e.G_L_Account_Name));
-    const monthly = groupByMonth(filtered, "Credit_Amount");
+    const realData = allEntries.map((e) => e.attributes);
+    const dummy = generateDummyEntries("revenue");
+    const combined = [...realData, ...dummy];
+    const filtered = combined.filter((e) => isRevenue(e.G_L_Account_Name));
+    const timeFiltered = filterByTime(filtered, year, quarter, month);
+    const monthly = groupByMonth(timeFiltered, "Credit_Amount");
 
     res.json({ type: "revenue", data: monthly });
   } catch (err) {
+    console.error("Error fetching revenue data:", err);
     res.status(500).json({ error: "Failed to compute revenue actuals" });
   }
 });
@@ -104,34 +120,30 @@ router.get("/revenue", async (req, res) => {
  * @swagger
  * /api/v1/finance-forecasting/expense:
  *   get:
- *     summary: Get monthly actual expense totals
+ *     summary: Get monthly actual expense totals (includes dummy data)
  *     tags: [Finance Forecasting]
+ *     parameters:
+ *       - in: query
+ *         name: year
+ *         schema:
+ *           type: integer
+ *         description: Filter by year (e.g. 2022)
+ *       - in: query
+ *         name: quarter
+ *         schema:
+ *           type: integer
+ *         description: Filter by quarter (1-4)
+ *       - in: query
+ *         name: month
+ *         schema:
+ *           type: integer
+ *         description: Filter by month (1-12)
  *     responses:
  *       200:
  *         description: Monthly expense data
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 type:
- *                   type: string
- *                   example: expense
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       month:
- *                         type: string
- *                         example: 2021-08
- *                       total:
- *                         type: number
- *                         example: 42000000
  */
-
-// Expense route
 router.get("/expense", async (req, res) => {
+  const { year, quarter, month } = req.query;
   try {
     const response = await axios.get(CMS_API_URL, {
       headers: {
@@ -141,13 +153,16 @@ router.get("/expense", async (req, res) => {
     });
 
     const allEntries = response.data.data || [];
-    const filtered = allEntries
-      .map((e) => e.attributes)
-      .filter((e) => isExpense(e.G_L_Account_Name));
-    const monthly = groupByMonth(filtered, "Debit_Amount");
+    const realData = allEntries.map((e) => e.attributes);
+    const dummy = generateDummyEntries("expense");
+    const combined = [...realData, ...dummy];
+    const filtered = combined.filter((e) => isExpense(e.G_L_Account_Name));
+    const timeFiltered = filterByTime(filtered, year, quarter, month);
+    const monthly = groupByMonth(timeFiltered, "Debit_Amount");
 
     res.json({ type: "expense", data: monthly });
   } catch (err) {
+    console.error("Error fetching expense data:", err);
     res.status(500).json({ error: "Failed to compute expense actuals" });
   }
 });
@@ -156,34 +171,30 @@ router.get("/expense", async (req, res) => {
  * @swagger
  * /api/v1/finance-forecasting/net-income:
  *   get:
- *     summary: Get net income (revenue - expense) per month
+ *     summary: Get net income (revenue - expense) per month (includes dummy data)
  *     tags: [Finance Forecasting]
+ *     parameters:
+ *       - in: query
+ *         name: year
+ *         schema:
+ *           type: integer
+ *         description: Filter by year (e.g. 2022)
+ *       - in: query
+ *         name: quarter
+ *         schema:
+ *           type: integer
+ *         description: Filter by quarter (1-4)
+ *       - in: query
+ *         name: month
+ *         schema:
+ *           type: integer
+ *         description: Filter by month (1-12)
  *     responses:
  *       200:
- *         description: Monthly net income
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 type:
- *                   type: string
- *                   example: net-income
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       month:
- *                         type: string
- *                         example: 2021-08
- *                       total:
- *                         type: number
- *                         example: 63000000
+ *         description: Monthly net income data
  */
-
-// Net Income route
 router.get("/net-income", async (req, res) => {
+  const { year, quarter, month } = req.query;
   try {
     const response = await axios.get(CMS_API_URL, {
       headers: {
@@ -193,21 +204,28 @@ router.get("/net-income", async (req, res) => {
     });
 
     const allEntries = response.data.data || [];
-    const allAttrs = allEntries.map((e) => e.attributes);
+    const realData = allEntries.map((e) => e.attributes);
+    const dummyRevenue = generateDummyEntries("revenue");
+    const dummyExpense = generateDummyEntries("expense");
 
-    const revenues = groupByMonth(
-      allAttrs.filter((e) => isRevenue(e.G_L_Account_Name)),
-      "Credit_Amount"
+    const allRevenues = [...realData, ...dummyRevenue].filter((e) =>
+      isRevenue(e.G_L_Account_Name)
     );
-    const expenses = groupByMonth(
-      allAttrs.filter((e) => isExpense(e.G_L_Account_Name)),
-      "Debit_Amount"
+    const allExpenses = [...realData, ...dummyExpense].filter((e) =>
+      isExpense(e.G_L_Account_Name)
     );
+
+    const filteredRev = filterByTime(allRevenues, year, quarter, month);
+    const filteredExp = filterByTime(allExpenses, year, quarter, month);
+
+    const revenues = groupByMonth(filteredRev, "Credit_Amount");
+    const expenses = groupByMonth(filteredExp, "Debit_Amount");
 
     const net = mergeNetIncome(revenues, expenses);
 
     res.json({ type: "net-income", data: net });
   } catch (err) {
+    console.error("Error fetching net income data:", err);
     res.status(500).json({ error: "Failed to compute net income actuals" });
   }
 });
@@ -216,34 +234,30 @@ router.get("/net-income", async (req, res) => {
  * @swagger
  * /api/v1/finance-forecasting/cashflow:
  *   get:
- *     summary: Get cashflow (debit - credit) per month
+ *     summary: Get cashflow (debit - credit) per month (includes dummy data)
  *     tags: [Finance Forecasting]
+ *     parameters:
+ *       - in: query
+ *         name: year
+ *         schema:
+ *           type: integer
+ *         description: Filter by year (e.g. 2022)
+ *       - in: query
+ *         name: quarter
+ *         schema:
+ *           type: integer
+ *         description: Filter by quarter (1-4)
+ *       - in: query
+ *         name: month
+ *         schema:
+ *           type: integer
+ *         description: Filter by month (1-12)
  *     responses:
  *       200:
  *         description: Monthly cashflow data
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 type:
- *                   type: string
- *                   example: cashflow
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       month:
- *                         type: string
- *                         example: 2021-08
- *                       total:
- *                         type: number
- *                         example: 32000000
  */
-
-// Cash Flow route
 router.get("/cashflow", async (req, res) => {
+  const { year, quarter, month } = req.query;
   try {
     const response = await axios.get(CMS_API_URL, {
       headers: {
@@ -253,11 +267,15 @@ router.get("/cashflow", async (req, res) => {
     });
 
     const allEntries = response.data.data || [];
-    const allAttrs = allEntries.map((e) => e.attributes);
-    const monthly = groupCashFlow(allAttrs);
+    const realData = allEntries.map((e) => e.attributes);
+    const dummy = generateDummyEntries("all");
+    const combined = [...realData, ...dummy];
+    const timeFiltered = filterByTime(combined, year, quarter, month);
+    const monthly = groupCashFlow(timeFiltered);
 
     res.json({ type: "cashflow", data: monthly });
   } catch (err) {
+    console.error("Error fetching cashflow data:", err);
     res.status(500).json({ error: "Failed to compute cashflow actuals" });
   }
 });
