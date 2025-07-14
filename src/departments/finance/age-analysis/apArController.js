@@ -14,7 +14,7 @@ export const getApArAging = async (req, res) => {
 
     const url = `${process.env.VGAD_API_BASE_URL}`;
     const headers = {
-      Authorization: `Bearer ${process.env.VGAD_API_TOKEN}`,
+      Authorization: `Bearer ${process.env.CMS_API_KEY}`,
     };
 
     const response = await axios.get(url, { headers });
