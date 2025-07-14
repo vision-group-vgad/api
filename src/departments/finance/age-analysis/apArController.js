@@ -12,11 +12,11 @@ export const getApArAging = async (req, res) => {
       return res.status(400).json({ error: "startDate and endDate are required query parameters." });
     }
 
-    const url = `${process.env.VGAD_API_BASE_URL}`;
+    const url = `${process.env.CMC_API_BASE_URL}/bc-datasets/2021-08-01/2021-10-31`;
     const headers = {
       Authorization: `Bearer ${process.env.CMS_API_KEY}`,
     };
-
+    
     const response = await axios.get(url, { headers });
     let records = response.data.data;
 
