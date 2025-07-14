@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { parseISO, differenceInDays, addDays } from 'date-fns';
+import { parseISO, differenceInDays } from 'date-fns';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -45,12 +45,11 @@ export const getApArAging = async (req, res) => {
 
       if (!['Invoice', 'Payment'].includes(docType)) return;
 
-      const rawDate = entry.Document_Date || entry.Posting_Date;
-      if (!rawDate) return;
+      const postingDate = entry.Posting_Date;
+      const dueDate = "2021-10-31"; 
 
-      const documentDate = parseISO(rawDate);
-      const dueDate = addDays(documentDate, 30); // simulate due date
-      const age = differenceInDays(new Date(), dueDate);
+      // Calculate age as the difference between dueDate and postingDate
+      const age = differenceInDays(parseISO(dueDate), parseISO(postingDate));
 
       if (isNaN(age)) return;
 
@@ -58,8 +57,8 @@ export const getApArAging = async (req, res) => {
         Entry_No: entry.Entry_No,
         Document_No: entry.Document_No,
         Document_Date: entry.Document_Date,
-        Posting_Date: entry.Posting_Date,
-        Due_Date: dueDate.toISOString().split('T')[0], // simulated
+        Posting_Date: postingDate,
+        Due_Date: dueDate,
         Amount: parseFloat(entry.Amount),
         Document_Type: entry.Document_Type,
         G_L_Account_No: entry.G_L_Account_No,

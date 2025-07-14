@@ -1,6 +1,7 @@
 // routes/financeRoutes.js
 import express from 'express';
 import { getBudgetVariance } from './budgetVarianceController.js';
+import Jwt from '../../../auth/jwt.js';
 
 const budVarienceRouter = express.Router();
 
@@ -30,6 +31,6 @@ const budVarienceRouter = express.Router();
  */
 
 
-budVarienceRouter.get('/', getBudgetVariance);
+budVarienceRouter.get('/',Jwt.verifyToken, getBudgetVariance);
 
 export default budVarienceRouter;
