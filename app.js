@@ -21,7 +21,6 @@ import AssetValueRoutes from "./src/departments/finance/total_assets_value/route
 import ageRouter from "./src/departments/finance/age-analysis/apArRoutes.js";
 import AssetDepreciationRoutes from "./src/departments/finance/Asset_depreciation/asset_controller.js";
 import expenseRouter from "./src/departments/finance/expense-category/expenseCategoryRoutes.js";
-import budVarienceRouter from "./src/departments/finance/budget-variance/budgetVarianceRouter.js";
 import financeForecastingRouter from "./src/departments/finance/finance_forecasting/forecastingController.js";
 import glRecRouter from "./src/departments/finance/gl-reconciliation/gl-reco-route.js";
 import taxProvRouter from "./src/departments/finance/tax-provisioning/tax-prov-route.js";
@@ -31,6 +30,7 @@ import dsoRouter from "./src/departments/finance/dso/dso-routes.js";
 import badDebtRatiosRouter from "./src/departments/finance/bad-debt-ratios/bad-debt-ratios-routes.js";
 import collEffRouter from "./src/departments/finance/collection-efficiency/coll-eff-routes.js";
 import systemIntegrationHealthRoutes from "./src/departments/finance/systemIntegrationHealth/controller.js";
+import budVarienceRouter from "./src/departments/finance/budget-variance/budgetVarianceRouter.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
