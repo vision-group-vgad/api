@@ -20,7 +20,7 @@ import capExPieChartRouter from "./src/departments/finance/capex/capex-piechart-
 import AssetValueRoutes from "./src/departments/finance/total_assets_value/routes.js";
 import ageRouter from "./src/departments/finance/age-analysis/apArRoutes.js";
 import AssetDepreciationRoutes from "./src/departments/finance/Asset_depreciation/asset_controller.js";
-import expenseRouter from "./src/departments/finance/expense-cat/expenseCategoryRoutes.js";
+import expenseRouter from "./src/departments/finance/expense-category/expenseCategoryRoutes.js";
 import budVarienceRouter from "./src/departments/finance/budget-variance/budgetVarianceRouter.js";
 import financeForecastingRouter from "./src/departments/finance/finance_forecasting/forecastingController.js";
 import glRecRouter from "./src/departments/finance/gl-reconciliation/gl-reco-route.js";
@@ -59,7 +59,7 @@ app.use("/api/v1/ap-ar-aging", ageRouter);
 app.use("/api/v1/capex-piechart", capExPieChartRouter);
 app.use("/api/v1/total-assets-value", AssetValueRoutes);
 app.use("/api/v1/asset-depreciation", AssetDepreciationRoutes);
-app.use("/api/v1/expense-cat", expenseRouter);
+app.use("/api/v1/expense-category", expenseRouter);
 app.use("/api/v1/budget-variance", budVarienceRouter);
 app.use("/api/v1/finance-forecasting", financeForecastingRouter);
 app.use("/api/v1/gl-reconciliation", glRecRouter);

@@ -5,7 +5,7 @@ const expenseRouter = express.Router();
 
 /**
  * @swagger
- * /api/v1/expenses/categories:
+ * /api/v1/expense-category:
  *   get:
  *     summary: Get total expenses grouped by category (with optional filter)
  *     tags: [Finance]

@@ -11,7 +11,7 @@ export const getExpenseCategories = async (req, res) => {
 
     const response = await axios.get(url, { headers });
     const records = response.data.data;
-    const categoryFilter = req.query.category;
+    // const categoryFilter = req.query.category;
 
     const categorized = {};
 
