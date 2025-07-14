@@ -4,9 +4,9 @@ dotenv.config();
 
 export const getBudgetVariance = async (req, res) => {
   try {
-    const url = `${process.env.VGAD_API_BASE_URL}`;
+    const url = `${process.env.CMC_API_BASE_URL}/bc-datasets/2021-08-01/2021-10-31`;
     const headers = {
-      Authorization: `Bearer ${process.env.VGAD_API_TOKEN}`,
+      Authorization: `Bearer ${process.env.CMS_API_KEY}`,
     };
 
     const response = await axios.get(url, { headers });
