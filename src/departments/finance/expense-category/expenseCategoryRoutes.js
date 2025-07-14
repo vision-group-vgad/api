@@ -7,18 +7,39 @@ const expenseRouter = express.Router();
  * @swagger
  * /api/v1/expense-category:
  *   get:
- *     summary: Get total expenses grouped by category (with optional filter)
+ *     summary: Get categorized expenses with budgets per account
  *     tags: [Finance]
  *     parameters:
  *       - in: query
- *         name: category
+ *         name: startDate
+ *         required: true
  *         schema:
  *           type: string
- *         description: Filter results by specific expense category
- *         example: Utilities
+ *           format: date
+ *         description: Filter records from this date (inclusive)
+ *       - in: query
+ *         name: endDate
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Filter records up to this date (inclusive)
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 25000
+ *         description: Maximum number of records to process
+ *       - in: query
+ *         name: category
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter by expense category
  *     responses:
  *       200:
- *         description: Grouped expense totals by category
+ *         description: Categorized expenses with budgets
  *         content:
  *           application/json:
  *             schema:
@@ -31,17 +52,23 @@ const expenseRouter = express.Router();
  *                     properties:
  *                       category:
  *                         type: string
- *                         example: Travel
  *                       total:
  *                         type: number
- *                         example: 56000
  *                       accounts:
  *                         type: array
  *                         items:
- *                           type: string
+ *                           type: object
+ *                           properties:
+ *                             name:
+ *                               type: string
+ *                             budget:
+ *                               type: number
+ *       400:
+ *         description: Missing required query parameters
  *       500:
- *         description: Server error
+ *         description: Failed to retrieve categorized expenses
  */
+
 expenseRouter.get('/', getExpenseCategories);
 
 export default expenseRouter;
