@@ -5,13 +5,32 @@ dotenv.config();
 
 export const getApArAging = async (req, res) => {
   try {
+    const { startDate, endDate, limit = 50 } = req.query;
+
+    // Validate required parameters
+    if (!startDate || !endDate) {
+      return res.status(400).json({ error: "startDate and endDate are required query parameters." });
+    }
+
     const url = `${process.env.VGAD_API_BASE_URL}`;
     const headers = {
       Authorization: `Bearer ${process.env.VGAD_API_TOKEN}`,
     };
 
     const response = await axios.get(url, { headers });
-    const records = response.data.data;
+    let records = response.data.data;
+
+    // Filter records by date range
+    records = records.filter((record) => {
+      const entry = record.attributes;
+      const rawDate = entry.Document_Date || entry.Posting_Date;
+      if (!rawDate) return false;
+      const documentDate = parseISO(rawDate);
+      return documentDate >= parseISO(startDate) && documentDate <= parseISO(endDate);
+    });
+
+    // Apply limit (optional, default 50)
+    records = records.slice(0, limit);
 
     const agingBuckets = {
       '0–30 Days': [],

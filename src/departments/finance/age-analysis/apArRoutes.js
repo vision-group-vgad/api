@@ -11,6 +11,28 @@ const ageRouter = express.Router();
  *     summary: Get AP/AR aging analysis
  *     tags: [Finance]
  *     description: Returns AP/AR records grouped into aging buckets (0–30, 31–60, 61–90, 90+ days)
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Filter records from this date (inclusive)
+ *       - in: query
+ *         name: endDate
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Filter records up to this date (inclusive)
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 50
+ *         description: Maximum number of records to process
  *     responses:
  *       200:
  *         description: Aging data grouped by time buckets
@@ -45,7 +67,6 @@ const ageRouter = express.Router();
 /**
  * @route GET /api/v1/ap-ar-aging
  */
-
 
 ageRouter.get('/', getApArAging);
 
