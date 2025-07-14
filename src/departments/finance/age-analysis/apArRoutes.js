@@ -1,5 +1,6 @@
 // routes/apArRoutes.js
 import express from 'express';
+import Jwt from '../../../auth/jwt.js';
 import { getApArAging } from './apArController.js';
 
 const ageRouter = express.Router();
@@ -68,6 +69,6 @@ const ageRouter = express.Router();
  * @route GET /api/v1/ap-ar-aging
  */
 
-ageRouter.get('/', getApArAging);
+ageRouter.get('/',Jwt.verifyToken, getApArAging);
 
 export default ageRouter;
