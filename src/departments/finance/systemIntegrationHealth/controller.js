@@ -5,7 +5,7 @@ const router = express.Router();
 // Dummy system integration health data
 const systemHealth = [
   {
-    system: "ERP",
+    system: "Business Central",
     status: "online",
     lastSynced: "2025-07-14T08:30:00Z",
     uptime: 99.9,
@@ -21,7 +21,15 @@ const systemHealth = [
     latency: 900,
   },
   {
-    system: "Bank API",
+    system: "Sharepoint",
+    status: "offline",
+    lastSynced: "2025-07-13T22:00:00Z",
+    uptime: 89.2,
+    failedSyncs: 7,
+    latency: null,
+  },
+  {
+    system: "Custom API",
     status: "offline",
     lastSynced: "2025-07-13T22:00:00Z",
     uptime: 89.2,
