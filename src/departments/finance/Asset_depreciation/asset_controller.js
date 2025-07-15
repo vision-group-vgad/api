@@ -152,9 +152,9 @@ router.get("/dummy", (req, res) => {
       asset_id: "EQUIP-2019-07",
       asset_name: "Office Printer X500",
       acquisition_date: "2019-07-15",
-      acquisition_cost: 8000000, 
+      acquisition_cost: 8000000,
       useful_life_years: 4,
-      residual_value: 500000, 
+      residual_value: 500000,
       depreciation_method: "straight_line",
       accumulated_depreciation: 6000000, // UGX 6M depreciated so far
       current_value: 2000000, //  value today
@@ -162,6 +162,37 @@ router.get("/dummy", (req, res) => {
         { year: 2019, amount: 1875000 },
         { year: 2020, amount: 2000000 },
         { year: 2021, amount: 2125000 },
+      ],
+    },
+    {
+      asset_id: "EQUIP-2020-09",
+      asset_name: "Office Shredder",
+      acquisition_date: "2020-09-15",
+      acquisition_cost: 9000000,
+      useful_life_years: 4,
+      residual_value: 500000,
+      depreciation_method: "straight_line",
+      accumulated_depreciation: 6000000, // UGX 6M depreciated so far
+      current_value: 2000000, //  value today
+      schedule: [
+        { year: 2020, amount: 2000000 },
+        { year: 2021, amount: 2125000 },
+      ],
+    },
+    {
+      asset_id: "LAP-2019-05",
+      asset_name: "Company laptops",
+      acquisition_date: "2019-05-05",
+      acquisition_cost: 20000000,
+      useful_life_years: 6,
+      residual_value: 500000,
+      depreciation_method: "straight_line",
+      accumulated_depreciation: 6000000, // UGX 6M depreciated so far
+      current_value: 2000000, //  value today
+      schedule: [
+        { year: 2019, amount: 18075000 },
+        { year: 2020, amount: 20000000 },
+        { year: 2021, amount: 21205000 },
       ],
     },
   ];
