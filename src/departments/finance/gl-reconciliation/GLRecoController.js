@@ -1,4 +1,5 @@
 import axios from "axios";
+import dummyData from "./dummyData.js";
 
 class GLRecoController {
   constructor() {
@@ -53,56 +54,106 @@ class GLRecoController {
 
       return transformed;
     } catch (error) {
-      console.error("Fetch error:", error.response?.data || error.message);
-      return { error: "Failed to fetch GL reconciliation data" };
+      return {
+        statusCode: 500,
+        error: "Failed to fetch GL reconciliation data",
+        details: error.response?.data || error.message,
+      };
     }
   }
 
-  async getTransformedLedgers(startDate, endDate, limit = 100) {
-    const data = await this.#fetchData(startDate, endDate, limit);
+  async getDataUptoDate(startYear) {
+    if (startYear < 2021 || startYear > 2025)
+      return "No data from that year, the least is 2021 and latest 2025.";
 
-    if (!Array.isArray(data)) return data;
+    if (startYear == "2021") {
+      const results = await this.getTransformedLedgers(
+        "2021-08-01",
+        "2021-08-31"
+      );
+      const entries = [results, ...dummyData];
+      return entries;
+    }
 
-    const entries = [];
-    let totalDebit = 0;
-    let totalCredit = 0;
+    if (startYear > "2021") {
+      const results = dummyData.filter(
+        (element) =>
+          new Date(element.summary.periodStart).getFullYear() >= startYear
+      );
+      return results;
+    }
+  }
 
-    data.forEach((entry) => {
-      const debit = parseFloat(entry.Debit_Amount || "0");
-      const credit = parseFloat(entry.Credit_Amount || "0");
+  async getTransformedLedgers(startDate, endDate) {
+    if (
+      new Date(startDate).getFullYear() < 2021 ||
+      new Date(endDate).getFullYear() > 2025
+    )
+      return "No data from that year, the least is 2021 and latest 2025.";
 
-      const isDebit = debit > 0;
-      const amount = isDebit ? debit : credit;
-      const type = isDebit ? "Debit" : "Credit";
+    if (new Date(startDate).getFullYear() == "2021") {
+      const data = await this.#fetchData(startDate, endDate, 100);
 
-      entries.push({
-        date: entry.Posting_Date,
-        accountName: entry.G_L_Account_Name,
-        entryType: type,
-        amount: amount,
+      if (!Array.isArray(data)) return data;
+
+      const entries = [];
+      let totalDebit = 0;
+      let totalCredit = 0;
+
+      data.forEach((entry) => {
+        const debit = parseFloat(entry.Debit_Amount || "0");
+        const credit = parseFloat(entry.Credit_Amount || "0");
+
+        const isDebit = debit > 0;
+        const amount = isDebit ? debit : credit;
+        const type = isDebit ? "Debit" : "Credit";
+
+        entries.push({
+          date: entry.Posting_Date,
+          accountName: entry.G_L_Account_Name,
+          entryType: type,
+          amount: amount,
+        });
+
+        totalDebit += debit;
+        totalCredit += credit;
       });
 
-      totalDebit += debit;
-      totalCredit += credit;
-    });
+      const generalLedgerDebitBalance = totalDebit + 5000;
+      const generalLedgerCreditBalance = totalCredit + 2000;
 
-    const generalLedgerDebitBalance = totalDebit + 5000;
-    const generalLedgerCreditBalance = totalCredit + 2000;
+      const summary = {
+        periodStart: startDate,
+        periodEnd: endDate,
+        totalDebitAmount: totalDebit,
+        totalCreditAmount: totalCredit,
+        generalLedgerDebitBalance,
+        generalLedgerCreditBalance,
+      };
 
-    const summary = {
-      periodStart: startDate,
-      periodEnd: endDate,
-      totalDebitAmount: totalDebit,
-      totalCreditAmount: totalCredit,
-      generalLedgerDebitBalance,
-      generalLedgerCreditBalance,
-      entryCount: entries.length,
-    };
+      const results2021 = { summary, entries };
 
-    return {
-      summary,
-      entries,
-    };
+      const results = dummyData.filter(
+        (element) =>
+          new Date(element.summary.periodStart).getFullYear() >=
+            new Date(startDate).getFullYear() &&
+          new Date(element.summary.periodStart).getFullYear() <=
+            new Date(endDate).getFullYear()
+      );
+
+      return [results2021, ...results];
+    }
+
+    if (new Date(startDate).getFullYear() > "2021") {
+      const results = dummyData.filter(
+        (element) =>
+          new Date(element.summary.periodStart).getFullYear() >=
+            new Date(startDate).getFullYear() &&
+          new Date(element.summary.periodStart).getFullYear() <=
+            new Date(endDate).getFullYear()
+      );
+      return results;
+    }
   }
 }
 
