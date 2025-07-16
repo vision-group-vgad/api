@@ -29,7 +29,7 @@ const systemHealth = [
     latency: null,
   },
   {
-    system: "Custom API",
+    system: "GA4",
     status: "offline",
     lastSynced: "2025-07-13T22:00:00Z",
     uptime: 89.2,
