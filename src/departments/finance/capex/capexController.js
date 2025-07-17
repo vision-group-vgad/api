@@ -1,6 +1,6 @@
 import express from "express";
 import dayjs from "dayjs";
-import Jwt from "../../../utils/jwt.js";
+import Jwt from "../../../auth/jwt.js";
 
 const router = express.Router();
 
@@ -15,8 +15,8 @@ const router = express.Router();
  *       Defaults to latest available year if no filter is provided.
  *     tags:
  *       - Capital Expenditure
- *    security:
- *      - bearerAuth: []
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: year
@@ -86,7 +86,7 @@ const router = express.Router();
  */
 
 
-router.get("/capex-dummy", Jwt.verifyToken, (req, res) => {
+router.get("/capex-dummy", Jwt.verifyToken, async(req, res) => {
   const dummyCapexData = [
     {
       Posting_Date: "2021-08-10",

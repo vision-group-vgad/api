@@ -1,7 +1,7 @@
 import axios from "axios";
 import express from "express";
 // import dotenv from "dotenv";
-import Jwt from "../../../utils/jwt.js";
+import Jwt from "../../../auth/jwt.js";
 
 const router = express.Router();
 
