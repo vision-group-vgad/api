@@ -1,5 +1,8 @@
 import axios from "axios";
-import { getRandomDate } from "../../../utils/common/common-functionalities.js";
+import {
+  getRandomDate,
+  getRandomNumber0to5,
+} from "../../../utils/common/common-functionalities.js";
 
 class ErrorRateController {
   constructor() {
@@ -58,9 +61,8 @@ class ErrorRateController {
     return new Date(date).getFullYear();
   }
 
-  async #getProcessedData() {
-    const results = await this.#fetchData();
-    const mappedArticles = results.map((element) => {
+  #processArticles(articlesArray) {
+    const mappedArticles = articlesArray.map((element) => {
       return {
         pageTitle: element.pageTitle,
         streamName: element.streamName,
@@ -68,26 +70,67 @@ class ErrorRateController {
         averageDuration: element.averageDuration,
         percentageScrolled: element.percentageScrolled,
         bounceRate: element.bounceRate,
+        updates: getRandomNumber0to5(),
         date: getRandomDate(),
       };
     });
+
+    const updatesSum = mappedArticles
+      .map((article) => article.updates)
+      .reduce((prevCount, nxtCount) => prevCount + nxtCount, 0);
+
+    const totalArticles = mappedArticles.length;
+
+    const averageUpdates = Math.round(updatesSum / totalArticles);
+
     const processedData = {
-      count: mappedArticles.length,
+      averageUpdates: averageUpdates,
+      articleCount: totalArticles,
       articles: mappedArticles,
     };
     return processedData;
   }
 
-  fetchFilteredData(startDate, endDate) {
+  async getAnnualArticles(startDate, endDate) {
     const extractedStartYear = this.#extractYearFromDate(startDate);
     const extractedEndYear = this.#extractYearFromDate(endDate);
     const validYear = 2025;
     if (extractedStartYear == validYear && extractedEndYear == validYear) {
-      return this.#getProcessedData();
+      const results = await this.#fetchData();
+      return this.#processArticles(results);
     } else {
       throw new ReferenceError(
         "Date out of range, available data runs from Jan - April 2025."
       );
+    }
+  }
+
+  #getMonthFromDate(date) {
+    return new Date(date).getMonth() + 1;
+  }
+
+  async getMonthlyArticles(month) {
+    month = parseInt(month);
+    if (month <= 12 && month >= 1) {
+      if (month <= 4) {
+        const annualArticles = await this.#fetchData();
+
+        const monthlyArticles = this.#processArticles(
+          annualArticles
+        ).articles.filter((article) => {
+          return this.#getMonthFromDate(article.date) === month;
+        });
+        const processedMonthlyArticles = this.#processArticles(monthlyArticles);
+        return {
+          month: month,
+          processedMonthlyArticles,
+        };
+      }
+      throw new ReferenceError(
+        `No data for that month, enter January to April.`
+      );
+    } else {
+      throw new ReferenceError("Invalid month.");
     }
   }
 }
