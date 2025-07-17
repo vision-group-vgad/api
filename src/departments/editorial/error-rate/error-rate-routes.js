@@ -10,7 +10,7 @@ const errorRateRouter = express.Router();
  * /api/v1/editorial/error-rate:
  *   get:
  *     tags:
- *       - Error Rates
+ *       - Editorial Error Rates
  *     summary: Get error rate data
  *     description: Retrieve error rate statistics for editorial department, filtered by date range
  *     parameters:
@@ -31,10 +31,10 @@ const errorRateRouter = express.Router();
  *     responses:
  *       200:
  *         description: Successfully retrieved error rate data
- *       404:
- *         description: Request dates out of range
  *       400:
  *         description: Missing required fields
+ *       404:
+ *         description: Request dates out of range
  *       500:
  *         description: Internal server error
  */
@@ -47,7 +47,50 @@ errorRateRouter.get("/", Jwt.verifyToken, async (req, res) => {
       });
     }
 
-    const results = await errorController.fetchFilteredData(startDate, endDate);
+    const results = await errorController.getAnnualArticles(startDate, endDate);
+    res.json(results);
+  } catch (error) {
+    return res.status(404).json({ message: `${error.message}` });
+  }
+});
+
+/**
+ * @swagger
+ * /api/v1/editorial/error-rate/monthly:
+ *   get:
+ *     tags:
+ *       - Editorial Error Rates
+ *     summary: Get monthly error rate data
+ *     description: Retrieve error rate statistics for a specific month
+ *     parameters:
+ *       - in: query
+ *         name: month
+ *         schema:
+ *           type: string
+ *           format: date
+ *         required: true
+ *         description: The month to retrieve data for (YYYY-MM)
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved monthly error rate data
+ *       400:
+ *         description: Missing required query parameter
+ *       404:
+ *         description: Monthly data not found
+ *       500:
+ *         description: Internal server error
+ */
+errorRateRouter.get("/monthly", Jwt.verifyToken, async (req, res) => {
+  const { month } = req.query;
+
+  try {
+    if (!month) {
+      return res.status(400).json({
+        message: "Missing required query parameter: month",
+      });
+    }
+
+    const results = await errorController.getMonthlyArticles(month);
     res.json(results);
   } catch (error) {
     return res.status(404).json({ message: `${error.message}` });

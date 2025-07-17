@@ -14,3 +14,7 @@ export const getRandomDate = () => {
 
   return `${formattedDate}`;
 };
+
+export const getRandomNumber0to5 = () => {
+  return Math.floor(Math.random() * 6);
+};
