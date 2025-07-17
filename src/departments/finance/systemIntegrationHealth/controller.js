@@ -1,5 +1,5 @@
 import express from "express";
-
+import Jwt from "../../../auth/jwt.js";
 const router = express.Router();
 
 // Dummy system integration health data
@@ -70,7 +70,7 @@ const systemHealth = [
  *                   latency:
  *                     type: number
  */
-router.get("/", (req, res) => {
+router.get("/", Jwt.verifyToken, async(req, res) => {
   res.status(200).json(systemHealth);
 });
 
