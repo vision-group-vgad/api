@@ -1,12 +1,13 @@
 import axios from "axios";
 import express from "express";
 // import dotenv from "dotenv";
+import Jwt from "../../../auth/jwt.js";
 
 const router = express.Router();
 
-const CMS_API_URL = "https://cms-vgad.visiongroup.co.ug/api/bc-datasets/2021-08-01/2021-10-31";
+const CMS_API_URL =
+  "https://cms-vgad.visiongroup.co.ug/api/bc-datasets/2021-08-01/2021-10-31";
 const BEARER_TOKEN = process.env.CMS_API_KEY;
-
 
 /**
  * @swagger
@@ -14,6 +15,8 @@ const BEARER_TOKEN = process.env.CMS_API_KEY;
  *   get:
  *     summary: Fetch live asset depreciation entries from CMS API
  *     tags: [Asset Depreciation]
+ *     security:
+ *      - bearerAuth: []
  *     responses:
  *       200:
  *         description: List of depreciation entries
@@ -43,10 +46,7 @@ const BEARER_TOKEN = process.env.CMS_API_KEY;
  *                         type: string
  */
 
-
-
-
-router.get("/", async (req, res) => {
+router.get("/", Jwt.verifyToken, async (req, res) => {
   try {
     const response = await axios.get(CMS_API_URL, {
       headers: {
@@ -77,13 +77,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-
 /**
  * @swagger
  * /api/v1/asset-depreciation/dummy:
  *   get:
  *     summary: Get dummy asset depreciation data
  *     tags: [Asset Depreciation]
+ *     security:
+ *      - bearerAuth: []
  *     responses:
  *       200:
  *         description: Sample depreciation data for testing
@@ -129,7 +130,7 @@ router.get("/", async (req, res) => {
  *                               type: number
  */
 
-router.get("/dummy", (req, res) => {
+router.get("/dummy", Jwt.verifyToken, async (req, res) => {
   const dummyDepreciation = [
     {
       asset_id: "VEH-2020-01",
@@ -199,5 +200,5 @@ router.get("/dummy", (req, res) => {
 
   res.json({ source: "dummy", data: dummyDepreciation });
 });
-  
+
 export default router;
