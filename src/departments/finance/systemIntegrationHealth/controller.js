@@ -45,6 +45,8 @@ const systemHealth = [
  *   get:
  *     summary: Get system integration health status
  *     tags: [System Integration Health]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: List of system health statuses
@@ -70,7 +72,7 @@ const systemHealth = [
  *                   latency:
  *                     type: number
  */
-router.get("/", Jwt.verifyToken, async(req, res) => {
+router.get("/", Jwt.verifyToken, async (req, res) => {
   res.status(200).json(systemHealth);
 });
 
