@@ -1,4 +1,4 @@
-import { uniqueNamesGenerator, names } from "unique-names-generator";
+import { uniqueNamesGenerator, names, places } from "unique-names-generator";
 
 export const getRandomDate = () => {
   const start = new Date("2025-01-01");
@@ -39,4 +39,21 @@ export const getUniqueName = () => {
   };
 
   return `${uniqueNamesGenerator(config)} ${uniqueNamesGenerator(config)}`;
+};
+
+export const getPlaceNames = (count) => {
+  const config = {
+    dictionaries: [places],
+    length: 1,
+    style: "capital",
+  };
+
+  const names = [];
+
+  for (let i = 0; i < count; i++) {
+    const placeName = uniqueNamesGenerator(config);
+    names.push(placeName);
+  }
+
+  return names;
 };

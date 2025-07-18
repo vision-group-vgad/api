@@ -32,10 +32,6 @@ class ErrorRateController {
     this.apiClient.interceptors.response.use(
       (response) => response,
       (error) => {
-        console.error(
-          "Share point endpoint error:",
-          error.response?.data || error.message
-        );
         throw error;
       }
     );
