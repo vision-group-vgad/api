@@ -1,5 +1,5 @@
 import express from "express";
-import path from "path"
+import path from "path";
 import authRouter from "./src/auth/auth-routes.js";
 import serverLoadRouter from "./src/departments/it/server-load-piechart/server-load-routes.js";
 import cors from "cors";
@@ -31,6 +31,7 @@ import badDebtRatiosRouter from "./src/departments/finance/bad-debt-ratios/bad-d
 import collEffRouter from "./src/departments/finance/collection-efficiency/coll-eff-routes.js";
 import systemIntegrationHealthRoutes from "./src/departments/finance/systemIntegrationHealth/controller.js";
 import budVarienceRouter from "./src/departments/finance/budget-variance/budgetVarianceRouter.js";
+import errorRateRouter from "./src/departments/editorial/error-rate/error-rate-routes.js";
 
 
 const app = express();
@@ -44,7 +45,10 @@ const corsOption = {
 app.use(cors(corsOption));
 app.use(express.json());
 app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use("/assets/profile_pics", express.static(path.join(process.cwd(), "assets/profile_pics")));
+app.use(
+  "/assets/profile_pics",
+  express.static(path.join(process.cwd(), "assets/profile_pics"))
+);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/server-load", serverLoadRouter);
 app.use("/api/v1/notifications", notificationRouter);
@@ -72,6 +76,7 @@ app.use("/api/v1/dso", dsoRouter);
 app.use("/api/v1/bad-debt-ratios", badDebtRatiosRouter);
 app.use("/api/v1/collection-efficiency", collEffRouter);
 app.use("/api/v1/integration-health", systemIntegrationHealthRoutes);
+app.use("/api/v1/editorial/error-rate", errorRateRouter);
 
 
 export default app;
