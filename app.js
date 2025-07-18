@@ -32,6 +32,7 @@ import collEffRouter from "./src/departments/finance/collection-efficiency/coll-
 import systemIntegrationHealthRoutes from "./src/departments/finance/systemIntegrationHealth/controller.js";
 import budVarienceRouter from "./src/departments/finance/budget-variance/budgetVarianceRouter.js";
 
+
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const corsOption = {
@@ -71,5 +72,6 @@ app.use("/api/v1/dso", dsoRouter);
 app.use("/api/v1/bad-debt-ratios", badDebtRatiosRouter);
 app.use("/api/v1/collection-efficiency", collEffRouter);
 app.use("/api/v1/integration-health", systemIntegrationHealthRoutes);
+
 
 export default app;
