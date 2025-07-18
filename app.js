@@ -32,6 +32,7 @@ import collEffRouter from "./src/departments/finance/collection-efficiency/coll-
 import systemIntegrationHealthRoutes from "./src/departments/finance/systemIntegrationHealth/controller.js";
 import budVarienceRouter from "./src/departments/finance/budget-variance/budgetVarianceRouter.js";
 import errorRateRouter from "./src/departments/editorial/error-rate/error-rate-routes.js";
+import editCycTimesRouter from "./src/departments/editorial/editing-cycle-times/edit-cycle-times-routes.js";
 
 
 const app = express();
@@ -77,6 +78,7 @@ app.use("/api/v1/bad-debt-ratios", badDebtRatiosRouter);
 app.use("/api/v1/collection-efficiency", collEffRouter);
 app.use("/api/v1/integration-health", systemIntegrationHealthRoutes);
 app.use("/api/v1/editorial/error-rate", errorRateRouter);
+app.use("/api/v1/editorial/editing-cycle-times", editCycTimesRouter);
 
 
 export default app;
