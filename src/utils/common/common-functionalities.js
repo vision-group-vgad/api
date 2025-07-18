@@ -1,3 +1,5 @@
+import { uniqueNamesGenerator, names } from "unique-names-generator";
+
 export const getRandomDate = () => {
   const start = new Date("2025-01-01");
   const end = new Date("2025-04-30");
@@ -15,6 +17,26 @@ export const getRandomDate = () => {
   return `${formattedDate}`;
 };
 
-export const getRandomNumber0to5 = () => {
-  return Math.floor(Math.random() * 6);
+export const getMonthFromDate = (date) => {
+  return parseInt(new Date(date).getMonth() + 1);
+};
+
+export const getDayFromDate = (date) => {
+  return parseInt(new Date(date).getDay() + 1);
+};
+
+export const getRandomNumInRange = (start, end) => {
+  return Math.floor(Math.random() * (end - start + 1)) + start;
+};
+
+export const extractYearFromDate = (date) => {
+  return parseInt(new Date(date).getFullYear());
+};
+
+export const getUniqueName = () => {
+  const config = {
+    dictionaries: [names],
+  };
+
+  return `${uniqueNamesGenerator(config)} ${uniqueNamesGenerator(config)}`;
 };
