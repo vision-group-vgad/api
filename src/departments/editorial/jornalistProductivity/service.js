@@ -28,9 +28,7 @@ async function fetchAllArticles() {
 
   // Create a list of promises for all pages
   const pageOffsets = Array.from({ length: totalPages }, (_, i) => i * 10);
-  const requests = pageOffsets.map((offset) =>
-    axiosInstance.get(ARTICLE_API(offset))
-  );
+  const requests = pageOffsets.map((offset) => axiosInstance.get(ARTICLE_API(offset)));
 
   // Fire all requests in parallel
   const responses = await Promise.all(requests);
