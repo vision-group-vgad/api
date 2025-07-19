@@ -1,97 +1,118 @@
 import axios from "axios";
+import { extractExternalId } from "./utils.js";
 
-const CMS_API_URL = "https://cms-vgad.visiongroup.co.ug/api/bc-datasets";
-const CMS_TOKEN = process.env.CMS_TOKEN;
+const TOKEN = process.env.CMS_API_KEY;
 
-export async function fetchCMSData(startDate, endDate) {
-  const url = `${CMS_API_URL}/${startDate}/${endDate}`;
-  const headers = { Authorization: `Bearer ${CMS_TOKEN}` };
-  const { data } = await axios.get(url, { headers });
-  return data.data || [];
+if (!TOKEN) {
+  throw new Error("Missing CMS_API_KEY in environment variables.");
 }
 
-export function enhanceArticles(data) {
-  const authors = [
-    "Mukisa Brian",
-    "Sarah Akena",
-    "Daniel Lutaaya",
-    "Mary Nabunya",
-  ];
-  return data.map((item, i) => {
-    const author = authors[i % authors.length];
-    const views = Math.floor(Math.random() * 1000) + 100;
-    const likes = Math.floor(Math.random() * 200);
-    const comments = Math.floor(Math.random() * 50);
-    const publishedAt = new Date(
-      Date.now() - Math.random() * 1e10
-    ).toISOString();
-    return {
-      ...item,
-      author,
-      views,
-      likes,
-      comments,
-      publishedAt,
-    };
-  });
+const axiosInstance = axios.create({
+  headers: {
+    Authorization: `Bearer ${TOKEN}`,
+  },
+});
+
+const SESSION_API =
+  "https://cms-vgad.visiongroup.co.ug/api/api-listings/article-session-duration/2025-01-01/2025-04-30";
+const ARTICLE_API = (offset) =>
+  `https://cms-vgad.visiongroup.co.ug/api/api-listings/articles/2025-01-01/2025-04-30/${offset}`;
+
+// Fetch all article metadata using pagination
+async function fetchAllArticles() {
+  // First fetch page 0 to get totalCount
+  const firstRes = await axiosInstance.get(ARTICLE_API(0));
+  const firstPageData = firstRes.data.data;
+  const totalCount = firstRes.data.meta.totalCount;
+  const totalPages = Math.ceil(totalCount / 10);
+
+  // Create a list of promises for all pages
+  const pageOffsets = Array.from({ length: totalPages }, (_, i) => i * 10);
+  const requests = pageOffsets.map((offset) =>
+    axiosInstance.get(ARTICLE_API(offset))
+  );
+
+  // Fire all requests in parallel
+  const responses = await Promise.all(requests);
+  const allArticles = responses.flatMap((res) => res.data.data);
+
+  return allArticles;
 }
 
-export function computeJournalistMetrics(articles) {
-  const grouped = {};
 
-  articles.forEach((a) => {
-    if (!grouped[a.author]) grouped[a.author] = [];
-    grouped[a.author].push(a);
-  });
-
-  const leaderboard = Object.entries(grouped).map(([author, arts]) => {
-    const totalArticles = arts.length;
-    const totalViews = arts.reduce((sum, a) => sum + a.views, 0);
-    const avgViews = +(totalViews / totalArticles).toFixed(1);
-    return { author, totalArticles, totalViews, avgViews };
-  });
-
-  const timeseries = articles.map((a) => ({
-    author: a.author,
-    date: new Date(a.publishedAt).toISOString().split("T")[0],
-    views: a.views,
-  }));
-
-  return { leaderboard, timeseries, allArticles: articles, grouped };
-}
-
-export function getOverviewStats(articles) {
-  const totalArticles = articles.length;
-  const totalViews = articles.reduce((sum, a) => sum + a.views, 0);
-  const avgViews = +(totalViews / totalArticles).toFixed(1);
-  const bounceRate = +(
-    articles.reduce((sum, a) => sum + parseFloat(a.bounceRate || 0), 0) /
-    totalArticles
-  ).toFixed(1);
-  const averageDuration =
-    articles.reduce((sum, a) => sum + parseDuration(a.averageDuration), 0) /
-    totalArticles;
-
-  return {
-    totalArticles,
-    totalViews,
-    avgViews,
-    averageDuration: formatSeconds(averageDuration),
-    bounceRate: bounceRate + "%",
-  };
-}
-
-function parseDuration(str = "00:00:00") {
-  //const parts = str.split(":".repeat(3));
-  const [h, m, s] = str.split(":").map(Number);
-  return h * 3600 + m * 60 + s;
-}
-
-function formatSeconds(seconds) {
+// Format seconds to HH:MM:SS
+function formatDuration(seconds) {
   const h = Math.floor(seconds / 3600);
   const m = Math.floor((seconds % 3600) / 60);
   const s = Math.floor(seconds % 60);
-  return `${h}:${m.toString().padStart(2, "0")}:${s
-    .toString()
-    .padStart(2, "0")}`;
+  return [h, m, s].map((v) => String(v).padStart(2, "0")).join(":");
+}
+
+// Main function to aggregate journalist productivity
+export async function getJournalistProductivity() {
+  const sessionRes = await axiosInstance.get(SESSION_API);
+  const sessionData = sessionRes.data.data;
+
+  const articles = await fetchAllArticles();
+  const articleMap = new Map();
+  for (const article of articles) {
+    articleMap.set(article.externalId, article);
+  }
+
+  const authorStats = {};
+
+  for (const session of sessionData) {
+    const externalId = extractExternalId(session.pagePath);
+    if (!externalId) continue;
+
+    const article = articleMap.get(externalId);
+    if (!article || !article.author) continue;
+
+    const authorName =
+      `${article.author.first_name} ${article.author.last_name}`.trim();
+
+    if (!authorStats[authorName]) {
+      authorStats[authorName] = {
+        articleCount: 0,
+        totalDurationSeconds: 0,
+        totalBounceRate: 0,
+        bounceCount: 0,
+        categories: new Set(),
+      };
+    }
+
+    const stat = authorStats[authorName];
+    stat.articleCount++;
+
+    // Parse HH:MM:SS into total seconds
+    const durationParts = session.averageDuration?.split(":");
+    if (durationParts?.length === 3) {
+      const [h, m, s] = durationParts.map(Number);
+      stat.totalDurationSeconds += h * 3600 + m * 60 + s;
+    }
+
+    if (session.bounceRate !== "") {
+      stat.totalBounceRate += Number(session.bounceRate);
+      stat.bounceCount++;
+    }
+
+    if (article.category?.name) {
+      stat.categories.add(article.category.name);
+    }
+  }
+
+  // Format the final output
+  const final = Object.entries(authorStats).map(([author, stat]) => ({
+    author,
+    articleCount: stat.articleCount,
+    avgDuration: formatDuration(stat.totalDurationSeconds / stat.articleCount),
+    totalDuration: formatDuration(stat.totalDurationSeconds),
+    avgBounceRate:
+      stat.bounceCount > 0
+        ? +(stat.totalBounceRate / stat.bounceCount).toFixed(2)
+        : 0,
+    categories: Array.from(stat.categories),
+  }));
+
+  return final;
 }
