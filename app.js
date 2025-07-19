@@ -33,6 +33,7 @@ import systemIntegrationHealthRoutes from "./src/departments/finance/systemInteg
 import budVarienceRouter from "./src/departments/finance/budget-variance/budgetVarianceRouter.js";
 import errorRateRouter from "./src/departments/editorial/error-rate/error-rate-routes.js";
 import editCycTimesRouter from "./src/departments/editorial/editing-cycle-times/edit-cycle-times-routes.js";
+import journalistProductivity from "./src/departments/editorial/jornalistProductivity/controller.js"
 
 
 const app = express();
@@ -79,6 +80,7 @@ app.use("/api/v1/collection-efficiency", collEffRouter);
 app.use("/api/v1/integration-health", systemIntegrationHealthRoutes);
 app.use("/api/v1/editorial/error-rate", errorRateRouter);
 app.use("/api/v1/editorial/editing-cycle-times", editCycTimesRouter);
+app.use("/api/v1/editorial/journalist-productivity", journalistProductivity);
 
 
 export default app;
