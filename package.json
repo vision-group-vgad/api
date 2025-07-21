@@ -48,9 +48,11 @@
   },
   "dependencies": {
     "@prisma/client": "^6.10.1",
+    "axios-retry": "^4.5.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
+    "moment": "^2.30.1",
     "multer": "^2.0.1",
     "swagger-autogen": "^2.23.7",
     "swagger-jsdoc": "^6.2.8",
