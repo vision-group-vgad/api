@@ -42,10 +42,9 @@ class ReadershipTrendController {
     this.initialized = true;
   }
 
-  async #fetchData() {
+  async #fetchData(url) {
     this.initialize();
     // const url = `/api-listings/article-session-duration/${startDate}/${endDate}`;
-    const url = `/api-listings/article-session-duration/2025-01-01/2025-04-30`;
 
     try {
       const response = await this.apiClient.get(url);
@@ -58,15 +57,41 @@ class ReadershipTrendController {
     }
   }
 
-  async #processArticles(articles) {
+  async #aggregateData() {
+    const dataset1Url = `/api-listings/articles/2025-01-02/2025-02-02/0`;
+    const dataset2Url = `/api-listings/articles/2025-01-02/2025-02-02/10`;
+    const dataset3Url = `/api-listings/articles/2025-01-02/2025-02-02/20`;
+
+    const dataset1 = await this.#fetchData(dataset1Url);
+    const dataset2 = await this.#fetchData(dataset2Url);
+    const dataset3 = await this.#fetchData(dataset3Url);
+
+    let aggregatedArticles = [];
+    aggregatedArticles = [...dataset1.data, ...dataset2.data, ...dataset3.data];
+
+    return aggregatedArticles;
+  }
+
+  #extractArticleObjects(dataset) {
+    const articleObjects = [];
+    dataset.data.forEach((element) => {
+      articleObjects.push(element);
+    });
+
+    return articleObjects;
+  }
+
+  #processArticles(articles) {
     const processedArticles = articles.map((article) => {
       const noOfReaders = getRandomNumInRange(0, 300);
       const noOfUniqueReaders = Math.round(noOfReaders / 2);
       const males = getRandomNumInRange(0, noOfReaders);
       const females = noOfReaders - males;
+      const author = getUniqueName();
       const locations = getPlaceNames(getRandomNumInRange(0, 5));
       return {
         articleTitle: article.pageTitle,
+        author: author,
         noOfReaders: noOfReaders,
         noOfUniqueReaders: noOfUniqueReaders,
         demographics: {
@@ -80,6 +105,21 @@ class ReadershipTrendController {
         percentageScrolled: article.percentageScrolled,
       };
     });
+    return processedArticles;
+  }
+
+  async getAnnualReadershipTrends(year) {
+    const url = `/api-listings/article-session-duration/${year}-01-01/${year}-12-31`;
+    const rawData = await this.#fetchData(url);
+    const processedArticles = this.#processArticles(rawData);
+    return processedArticles;
+  }
+
+  async getInRangeReadershipTrends(startDate, endDate) {
+    const url = `/api-listings/article-session-duration/${startDate}/${endDate}`;
+    const rawData = await this.#fetchData(url);
+    const processedArticles = this.#processArticles(rawData);
+    return processedArticles;
   }
 }
 
