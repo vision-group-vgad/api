@@ -1,10 +1,6 @@
 import axios from "axios";
 import {
-  getRandomDate,
   getRandomNumInRange,
-  getMonthFromDate,
-  getDayFromDate,
-  extractYearFromDate,
   getUniqueName,
   getPlaceNames,
 } from "../../../utils/common/common-functionalities.js";
@@ -55,30 +51,6 @@ class ReadershipTrendController {
     } catch (error) {
       throw new error();
     }
-  }
-
-  async #aggregateData() {
-    const dataset1Url = `/api-listings/articles/2025-01-02/2025-02-02/0`;
-    const dataset2Url = `/api-listings/articles/2025-01-02/2025-02-02/10`;
-    const dataset3Url = `/api-listings/articles/2025-01-02/2025-02-02/20`;
-
-    const dataset1 = await this.#fetchData(dataset1Url);
-    const dataset2 = await this.#fetchData(dataset2Url);
-    const dataset3 = await this.#fetchData(dataset3Url);
-
-    let aggregatedArticles = [];
-    aggregatedArticles = [...dataset1.data, ...dataset2.data, ...dataset3.data];
-
-    return aggregatedArticles;
-  }
-
-  #extractArticleObjects(dataset) {
-    const articleObjects = [];
-    dataset.data.forEach((element) => {
-      articleObjects.push(element);
-    });
-
-    return articleObjects;
   }
 
   #processArticles(articles) {
