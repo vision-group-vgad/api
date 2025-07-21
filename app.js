@@ -35,7 +35,7 @@ import errorRateRouter from "./src/departments/editorial/error-rate/error-rate-r
 import editCycTimesRouter from "./src/departments/editorial/editing-cycle-times/edit-cycle-times-routes.js";
 import journalistProductivity from "./src/departments/editorial/jornalistProductivity/routes.js"
 import editorialAnalyticsRoutes from "./src/departments/editorial/editorialAnalytics/editorialAnalyticsRoutes.js";
-
+import readershipRouter from "./src/departments/editorial/readership-trends/readership-trend-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -83,5 +83,6 @@ app.use("/api/v1/editorial/error-rate", errorRateRouter);
 app.use("/api/v1/editorial/editing-cycle-times", editCycTimesRouter);
 app.use("/api/v1/editorial/journalist-productivity", journalistProductivity);
 app.use("/api/v1/editorial", editorialAnalyticsRoutes);
+app.use("/api/v1/editorial/readership-trends", readershipRouter);
 
 export default app;
