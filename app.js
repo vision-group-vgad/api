@@ -37,6 +37,7 @@ import journalistProductivity from "./src/departments/editorial/jornalistProduct
 import editorialAnalyticsRoutes from "./src/departments/editorial/editorialAnalytics/editorialAnalyticsRoutes.js";
 import breakingNewsRoutes from "./src/departments/editorial/breakingNewsTraction/routes.js"
 import segmentPopularityRoutes from "./src/departments/editorial/segmentPopularity/controller.js";
+import readershipRouter from "./src/departments/editorial/readership-trends/readership-trend-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -86,5 +87,6 @@ app.use("/api/v1/editorial/journalist-productivity", journalistProductivity);
 app.use("/api/v1/editorial", editorialAnalyticsRoutes);
 app.use("/api/v1/editorial/breakingNews", breakingNewsRoutes);
 app.use("/api/v1/editorial/segment-popularity", segmentPopularityRoutes);
+app.use("/api/v1/editorial/readership-trends", readershipRouter);
 
 export default app;
