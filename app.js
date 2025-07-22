@@ -35,10 +35,11 @@ import errorRateRouter from "./src/departments/editorial/error-rate/error-rate-r
 import editCycTimesRouter from "./src/departments/editorial/editing-cycle-times/edit-cycle-times-routes.js";
 import journalistProductivity from "./src/departments/editorial/jornalistProductivity/routes.js";
 import editorialAnalyticsRoutes from "./src/departments/editorial/editorialAnalytics/editorialAnalyticsRoutes.js";
-import breakingNewsRoutes from "./src/departments/editorial/breakingNewsTraction/routes.js"
+import breakingNewsRoutes from "./src/departments/editorial/breakingNewsTraction/routes.js";
 import segmentPopularityRoutes from "./src/departments/editorial/segmentPopularity/controller.js";
 import readershipRouter from "./src/departments/editorial/readership-trends/readership-trend-routes.js";
 import sectPerRouter from "./src/departments/editorial/sect-performance/sect-perform-routes.js";
+import socialSentimentRouter from "./src/departments/editorial/social-sentiment/social-sentiment-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -90,5 +91,6 @@ app.use("/api/v1/editorial/breakingNews", breakingNewsRoutes);
 app.use("/api/v1/editorial/segment-popularity", segmentPopularityRoutes);
 app.use("/api/v1/editorial/readership-trends", readershipRouter);
 app.use("/api/v1/editorial/section-perfromance", sectPerRouter);
+app.use("/api/v1/editorial/social-sentiment", socialSentimentRouter);
 
 export default app;
