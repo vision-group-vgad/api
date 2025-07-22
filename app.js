@@ -40,6 +40,7 @@ import segmentPopularityRoutes from "./src/departments/editorial/segmentPopulari
 import readershipRouter from "./src/departments/editorial/readership-trends/readership-trend-routes.js";
 import sectPerRouter from "./src/departments/editorial/sect-performance/sect-perform-routes.js";
 import socialSentimentRouter from "./src/departments/editorial/social-sentiment/social-sentiment-routes.js";
+import versionContRouter from "./src/departments/editorial/version-control/version-control-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -92,5 +93,6 @@ app.use("/api/v1/editorial/segment-popularity", segmentPopularityRoutes);
 app.use("/api/v1/editorial/readership-trends", readershipRouter);
 app.use("/api/v1/editorial/section-perfromance", sectPerRouter);
 app.use("/api/v1/editorial/social-sentiment", socialSentimentRouter);
+app.use("/api/v1/editorial/version-control", versionContRouter);
 
 export default app;
