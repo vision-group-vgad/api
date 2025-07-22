@@ -4,6 +4,18 @@ import axios from "axios";
 const cache = new Map();
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
+// Helper to format dates as YYYY-MM-DD
+const formatDate = (date) => date.toISOString().slice(0, 10);
+// Helper to add days to a Date object
+const addDays = (date, days) => {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+};
+
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+
 class EditorialAnalyticsService {
   constructor() {
     this.apiClient = null;
@@ -87,39 +99,73 @@ class EditorialAnalyticsService {
     }
   }
 
-  // Fetch ALL session data for the date range (NO pagination in URL)
+// Fetch ALL session data for the date range (split into manageable chunks to avoid timeout)
   async fetchAllSessions({ startDate, endDate, platform, sessionMedium, streamName }) {
     this.initialize();
     console.log("🔍 [Service] fetchAllSessions called", { startDate, endDate, platform, sessionMedium, streamName });
     const cacheKey = `sessions_${startDate}_${endDate}_${platform || "all"}_${sessionMedium || "all"}_${streamName || "all"}`;
     if (cache.has(cacheKey)) {
-      const { data, timestamp } = cache.get(cacheKey);
+      const { data, totalCount, timestamp } = cache.get(cacheKey);
       if (Date.now() - timestamp < CACHE_TTL) {
         console.log("💾 [Service] Returning cached sessions:", data.length);
-        return { sessions: data, totalCount: data.length };
+        return { sessions: data, totalCount };
       }
     }
-    const endpoint = `/api-listings/article-session-duration/${startDate}/${endDate}`;
-    const params = {};
-    if (platform) params.platform = platform;
-    if (sessionMedium) params.sessionMedium = sessionMedium;
-    if (streamName) params.streamName = streamName;
-    try {
-      console.log(`🌐 [Service] Fetching all sessions for range, no offset`);
-      const res = await this.apiClient.get(endpoint, { params });
-      const sessions = res.data.data || [];
-      const totalCount = sessions.length;
-      cache.set(cacheKey, { data: sessions, totalCount, timestamp: Date.now() });
-      console.log(`✅ [Service] Fetched sessions: ${sessions.length}`);
-      return { sessions, totalCount };
-    } catch (error) {
-      if (error.response && error.response.status === 404) {
-        console.warn("⚠️ [Service] No sessions found for range, returning empty array");
-        return { sessions: [], totalCount: 0 };
+
+    // Break up the date range if needed
+    const maxDaysPerChunk = 30; // adjust as needed to avoid API timeouts
+    let allSessions = [];
+    let totalCount = 0;
+    let chunkStart = new Date(startDate);
+    const chunkEndDate = new Date(endDate);
+    
+
+    // Improved chunking: only request if chunkStart < chunkEnd
+// ...inside fetchAllSessions...
+// ...inside fetchAllSessions...
+    while (chunkStart < chunkEndDate) {
+      // Make chunkEnd exclusive
+      const chunkEnd = addDays(chunkStart, maxDaysPerChunk);
+      const actualChunkEnd = chunkEnd > addDays(chunkEndDate, 1) ? addDays(chunkEndDate, 1) : chunkEnd;
+      const chunkStartStr = formatDate(chunkStart);
+      const chunkEndStr = formatDate(actualChunkEnd);
+
+      // Only request if chunkEnd > chunkStart
+      if (chunkStartStr < chunkEndStr) {
+        const endpoint = `/api-listings/article-session-duration/${chunkStartStr}/${chunkEndStr}`;
+        const params = {};
+        if (platform) params.platform = platform;
+        if (sessionMedium) params.sessionMedium = sessionMedium;
+        if (streamName) params.streamName = streamName;
+
+        try {
+          console.log(`🌐 [Service] Fetching sessions for chunk: ${chunkStartStr} - ${chunkEndStr}`);
+          const res = await this.apiClient.get(endpoint, { params });
+          const sessions = res.data.data || [];
+          allSessions = allSessions.concat(sessions);
+          totalCount += sessions.length;
+          if (res.data.total >= 12000) {
+            console.warn(`⚠️ [Service] Chunk ${chunkStartStr} - ${chunkEndStr} hit 10,000 record limit! Data may be incomplete for this chunk.`);
+          }
+        } catch (error) {
+          if (error.response && error.response.status === 404) {
+            console.warn(`⚠️ [Service] No sessions found for chunk ${chunkStartStr} - ${chunkEndStr}, skipping.`);
+          } else {
+            console.error("❌ [Service] Error in fetchAllSessions:", error.message);
+            throw error;
+          }
+        }
+        await sleep(300); // Add a 300ms pause between requests
+
+
       }
-      console.error("❌ [Service] Error in fetchAllSessions:", error.message);
-      throw error;
+
+      chunkStart = actualChunkEnd;
     }
+
+    cache.set(cacheKey, { data: allSessions, totalCount, timestamp: Date.now() });
+    console.log(`✅ [Service] Fetched sessions: ${allSessions.length}`);
+    return { sessions: allSessions, totalCount: allSessions.length };
   }
 
   // Join session and article data by externalId/pagePath or title, filter as needed, and paginate results
@@ -135,7 +181,7 @@ class EditorialAnalyticsService {
     } = filters;
 
     // Only fetch the current page of articles!
-    const { articles, totalCount: articleTotalCount } = await this.fetchAllArticles({ ...sessionFilters, category, page, pageSize });
+    const { articles } = await this.fetchAllArticles({ ...sessionFilters, category, page, pageSize });
     const { sessions, totalCount: sessionTotalCount } = await this.fetchAllSessions(sessionFilters);
 
     // Build lookup
@@ -177,18 +223,22 @@ class EditorialAnalyticsService {
     if (category) joined = joined.filter(j => j.category && j.category.toLowerCase().includes(category.toLowerCase()));
 
     // Pagination meta
-    const totalPages = Math.ceil(articleTotalCount / pageSize);
+    const totalPages = Math.ceil(joined.length / pageSize); // Use joined.length for pagination
 
-    console.log(`📄 [Service] Paginated records: page=${page} size=${pageSize} totalPages=${totalPages}, returned=${joined.length}`);
+    const startIdx = (page - 1) * pageSize;
+    const paginated = joined.slice(startIdx, startIdx + pageSize);
+
+    console.log(`📄 [Service] Paginated records: page=${page} size=${pageSize} totalPages=${totalPages}, returned=${paginated.length}`);
 
     return {
-      data: joined,
-      total: articleTotalCount,
+      data: paginated,
+      total: joined.length,
       page: Number(page),
       pageSize: Number(pageSize),
       totalPages,
       sessionTotal: sessionTotalCount
     };
+  
   }
 
   async getKPIs(filters) {
