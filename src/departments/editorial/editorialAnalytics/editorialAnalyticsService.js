@@ -1,21 +1,17 @@
 import axios from "axios";
 
-/**
- * EditorialAnalyticsService
- * Handles fetching and transforming editorial analytics data from CMC API.
- */
+// Simple in-memory cache for batch fetches
+const cache = new Map();
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
 class EditorialAnalyticsService {
   constructor() {
     this.apiClient = null;
     this.initialized = false;
   }
 
-  /**
-   * Initialize Axios client with authentication.
-   */
   initialize() {
     if (this.initialized) return;
-
     this.baseURL = process.env.CMC_API_BASE_URL || "https://cms-vgad.visiongroup.co.ug/api";
     this.bearerToken = process.env.CMC_API_BEARER_TOKEN;
     this.credentials = {
@@ -29,14 +25,22 @@ class EditorialAnalyticsService {
       headers: { "Content-Type": "application/json" },
     });
 
+    this.setupAuthentication();
+    this.initialized = true;
+    console.log("🔧 [Service] EditorialAnalyticsService initialized");
+  }
+
+  setupAuthentication() {
     this.apiClient.interceptors.request.use((config) => {
       if (this.bearerToken) {
         config.headers.Authorization = `Bearer ${this.bearerToken}`;
+        console.log("🔐 [Service] Using Bearer token authentication");
       } else {
         const token = Buffer.from(
           `${this.credentials.username}:${this.credentials.password}`
         ).toString("base64");
         config.headers.Authorization = `Basic ${token}`;
+        console.log("🔐 [Service] Using Basic authentication");
       }
       return config;
     });
@@ -44,158 +48,283 @@ class EditorialAnalyticsService {
     this.apiClient.interceptors.response.use(
       (response) => response,
       (error) => {
-        console.error("Editorial API Error:", error.response?.data || error.message);
+        console.error("❌ [Service] Editorial API Error:", error.response?.data || error.message);
         throw error;
       }
     );
-
-    this.initialized = true;
   }
 
-  /**
-   * Fetch editorial session analytics from CMC API.
-   * @param {Object} filters - Filtering options (may include limit/offset)
-   * @returns {Promise<Array>} - Array of editorial analytics objects
-   */
-  async getEditorialSessionAnalytics(filters = {}) {
+  // Fetch ONE page of article metadata (true pagination)
+  async fetchAllArticles({ startDate, endDate, category, page = 1, pageSize = 10 }) {
     this.initialize();
+    console.log("🔍 [Service] fetchAllArticles called", { startDate, endDate, category, page, pageSize });
+    const cacheKey = `articles_${startDate}_${endDate}_${category || "all"}_${page}_${pageSize}`;
+    if (cache.has(cacheKey)) {
+      const { data, totalCount, timestamp } = cache.get(cacheKey);
+      if (Date.now() - timestamp < CACHE_TTL) {
+        console.log("💾 [Service] Returning cached articles:", data.length);
+        return { articles: data, totalCount };
+      }
+    }
+
+    const offset = (Number(page) - 1) * Number(pageSize);
+    const endpoint = `/api-listings/articles/${startDate}/${endDate}/${offset}`;
+    const params = {};
+    if (category) params.category = category;
 
     try {
-      let endpoint = "/api-listings/article-session-duration";
-      if (filters.startDate && filters.endDate) {
-        endpoint = `/api-listings/article-session-duration/${filters.startDate}/${filters.endDate}`;
-      }
+      console.log(`🌐 [Service] Fetching articles at offset ${offset}, pageSize ${pageSize}`);
+      const res = await this.apiClient.get(endpoint, { params });
+      const articles = res.data.data || [];
+      const totalCount = res.data.meta?.totalCount || articles.length;
 
-      const params = {};
-      if (filters.platform) params.platform = filters.platform;
-      if (filters.streamName) params.streamName = filters.streamName;
-      if (filters.pageTitle) params.pageTitle = filters.pageTitle;
-      if (filters.sessionMedium) params.sessionMedium = filters.sessionMedium;
-      // Pass limit and offset if present (for API-side pagination)
-      if (filters.limit) params.limit = filters.limit;
-      if (filters.offset) params.offset = filters.offset;
-
-      console.log("Editorial API request:", endpoint, params);
-
-      const response = await this.apiClient.get(endpoint, { params });
-      const data = response.data.data || [];
-
-      console.log("Editorial API response data length:", data.length);
-
-      return this.transformEditorialData(data);
+      cache.set(cacheKey, { data: articles, totalCount, timestamp: Date.now() });
+      console.log(`✅ [Service] Fetched articles: ${articles.length} (page ${page}, totalCount: ${totalCount})`);
+      return { articles, totalCount };
     } catch (error) {
-      console.warn("⚠️ Using dummy editorial data - API not available:", error.message);
-      return this.getDummyEditorialData();
+      console.error("❌ [Service] Error in fetchAllArticles:", error.message);
+      throw error;
     }
   }
 
-  /**
-   * Transform raw CMC API data to analytics-ready structure.
-   * @param {Array} data
-   * @returns {Array}
-   */
-  transformEditorialData(data) {
-    if (!Array.isArray(data)) return [];
-
-    return data.map((entry) => ({
-      pageTitle: entry.attributes?.Page_Title || entry.pageTitle,
-      pagePath: entry.attributes?.Page_Path || entry.pagePath,
-      streamName: entry.attributes?.Stream_Name || entry.streamName,
-      platform: entry.attributes?.Platform || entry.platform,
-      pageLocation: entry.attributes?.Page_Location || entry.pageLocation,
-      pageReferrer: entry.attributes?.Page_Referrer || entry.pageReferrer,
-      sessionMedium: entry.attributes?.Session_Medium || entry.sessionMedium,
-      percentScrolled: entry.attributes?.Percent_Scrolled || entry.percentScrolled,
-      outbound: entry.attributes?.Outbound || entry.outbound,
-      // Always return averageDuration as seconds (number)
-      averageDuration: this.convertDurationToSeconds(
-        entry.attributes?.Average_Duration ?? entry.averageDuration
-      ),
-      bounceRate: parseFloat(entry.attributes?.Bounce_Rate ?? entry.bounceRate) || 0,
-    }));
-  }
-
-  /**
-   * Convert duration string "HH:MM:SS" or numeric seconds to seconds (number).
-   * @param {string|number} duration
-   * @returns {number}
-   */
-  convertDurationToSeconds(duration) {
-    if (!duration) return 0;
-    if (typeof duration === "number") return duration;
-    if (typeof duration !== "string") return 0;
-
-    const parts = duration.split(":").map(Number);
-    if (parts.length === 3) {
-      const [h, m, s] = parts;
-      return h * 3600 + m * 60 + s;
-    } else if (parts.length === 2) {
-      const [m, s] = parts;
-      return m * 60 + s;
+  // Fetch ALL session data for the date range (NO pagination in URL)
+  async fetchAllSessions({ startDate, endDate, platform, sessionMedium, streamName }) {
+    this.initialize();
+    console.log("🔍 [Service] fetchAllSessions called", { startDate, endDate, platform, sessionMedium, streamName });
+    const cacheKey = `sessions_${startDate}_${endDate}_${platform || "all"}_${sessionMedium || "all"}_${streamName || "all"}`;
+    if (cache.has(cacheKey)) {
+      const { data, timestamp } = cache.get(cacheKey);
+      if (Date.now() - timestamp < CACHE_TTL) {
+        console.log("💾 [Service] Returning cached sessions:", data.length);
+        return { sessions: data, totalCount: data.length };
+      }
     }
-    return 0;
+    const endpoint = `/api-listings/article-session-duration/${startDate}/${endDate}`;
+    const params = {};
+    if (platform) params.platform = platform;
+    if (sessionMedium) params.sessionMedium = sessionMedium;
+    if (streamName) params.streamName = streamName;
+    try {
+      console.log(`🌐 [Service] Fetching all sessions for range, no offset`);
+      const res = await this.apiClient.get(endpoint, { params });
+      const sessions = res.data.data || [];
+      const totalCount = sessions.length;
+      cache.set(cacheKey, { data: sessions, totalCount, timestamp: Date.now() });
+      console.log(`✅ [Service] Fetched sessions: ${sessions.length}`);
+      return { sessions, totalCount };
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        console.warn("⚠️ [Service] No sessions found for range, returning empty array");
+        return { sessions: [], totalCount: 0 };
+      }
+      console.error("❌ [Service] Error in fetchAllSessions:", error.message);
+      throw error;
+    }
   }
 
-  /**
-   * Get high-level KPIs for editorial analytics.
-   * @param {Object} filters
-   * @returns {Promise<Object>}
-   */
-  async getEditorialKPIs(filters = {}) {
-    const data = await this.getEditorialSessionAnalytics(filters);
+  // Join session and article data by externalId/pagePath or title, filter as needed, and paginate results
+  async fetchJoinedData(filters) {
+    console.log("🔗 [Service] fetchJoinedData called", filters);
+    const {
+      category,
+      author,
+      editor,
+      page = 1,
+      pageSize = 10,
+      ...sessionFilters
+    } = filters;
 
-    const totalArticles = data.length;
-    const averageDuration =
-      data.reduce((acc, d) => acc + d.averageDuration, 0) / (data.length || 1);
-    const bounceRate =
-      data.reduce((acc, d) => acc + d.bounceRate, 0) / (data.length || 1);
+    // Only fetch the current page of articles!
+    const { articles, totalCount: articleTotalCount } = await this.fetchAllArticles({ ...sessionFilters, category, page, pageSize });
+    const { sessions, totalCount: sessionTotalCount } = await this.fetchAllSessions(sessionFilters);
 
-    const platforms = data.reduce((acc, d) => {
-      acc[d.platform] = (acc[d.platform] || 0) + 1;
-      return acc;
-    }, {});
+    // Build lookup
+    const articleByExternalId = new Map();
+    const articleByTitle = new Map();
+    articles.forEach(a => {
+      if (a.externalId) articleByExternalId.set(a.externalId, a);
+      if (a.title) articleByTitle.set(a.title.trim(), a);
+    });
+
+    // Join
+    let joined = sessions.map(session => {
+      let article = null;
+      if (session.pagePath) {
+        const match = session.pagePath.match(/([A-Z]+_\d+)/);
+        if (match) article = articleByExternalId.get(match[1]);
+      }
+      if (!article && session.pageTitle) article = articleByTitle.get(session.pageTitle.trim());
+
+      return {
+        ...session,
+        articleId: article?.id,
+        articleExternalId: article?.externalId,
+        title: article?.title || session.pageTitle,
+        category: article?.category?.name || null,
+        author: article?.author ? `${article.author.first_name} ${article.author.last_name}` : null,
+        authors: article?.authors?.map(a => `${a.first_name} ${a.last_name}`),
+        editor: article?.editor
+          ? `${article.editor.first_name} ${article.editor.last_name}`
+          : null,
+        published_on: article?.published_on,
+        tags: article?.tags || [],
+      };
+    });
+
+    // Filter by author/editor/category if provided
+    if (author) joined = joined.filter(j => j.author && j.author.toLowerCase().includes(author.toLowerCase()));
+    if (editor) joined = joined.filter(j => j.editor && j.editor.toLowerCase().includes(editor.toLowerCase()));
+    if (category) joined = joined.filter(j => j.category && j.category.toLowerCase().includes(category.toLowerCase()));
+
+    // Pagination meta
+    const totalPages = Math.ceil(articleTotalCount / pageSize);
+
+    console.log(`📄 [Service] Paginated records: page=${page} size=${pageSize} totalPages=${totalPages}, returned=${joined.length}`);
 
     return {
-      totalArticles,
-      averageDuration: Math.round(averageDuration),
-      bounceRate: bounceRate.toFixed(2),
-      platformDistribution: platforms,
+      data: joined,
+      total: articleTotalCount,
+      page: Number(page),
+      pageSize: Number(pageSize),
+      totalPages,
+      sessionTotal: sessionTotalCount
     };
   }
 
-  /**
-   * Dummy data for development/fallback.
-   * @returns {Array}
-   */
-  getDummyEditorialData() {
-    return [
-      {
-        pageTitle: "404 Not Found - New Vision Official",
-        pagePath: "/articledetails/NV_205125",
-        streamName: "New Vision Website",
-        platform: "web",
-        pageLocation: "https://www.newvision.co.ug/articledetails/NV_205125",
-        pageReferrer: "https://preview.page.link/",
-        sessionMedium: "referral",
-        percentScrolled: "",
-        outbound: "",
-        averageDuration: this.convertDurationToSeconds("03:39:56"),
-        bounceRate: 0,
-      },
-      {
-        pageTitle: "Eyasasaanyizza akatambi ka Nampeera...",
-        pagePath: "/articledetails/BUK_140198",
-        streamName: "New Vision Website",
-        platform: "web",
-        pageLocation: "https://www.newvision.co.ug/category/amawulire/eyasasaanyizza-akatambi-ka-nampeera-ngakola-s-BUK_140198",
-        pageReferrer: "",
-        sessionMedium: "organic",
-        percentScrolled: "",
-        outbound: "",
-        averageDuration: this.convertDurationToSeconds("23:15:56"),
-        bounceRate: 1,
-      },
-    ];
+  async getKPIs(filters) {
+    console.log("📊 [Service] getKPIs called", filters);
+    // Use first 1000 articles for KPIs to avoid huge memory use
+    const { articles } = await this.fetchAllArticles({ ...filters, page: 1, pageSize: 1000 });
+    const { sessions } = await this.fetchAllSessions(filters);
+
+    // Build lookup maps
+    const articleByExternalId = new Map();
+    const articleByTitle = new Map();
+    articles.forEach(a => {
+      if (a.externalId) articleByExternalId.set(a.externalId, a);
+      if (a.title) articleByTitle.set(a.title.trim(), a);
+    });
+
+    let joined = sessions.map(session => {
+      let article = null;
+      if (session.pagePath) {
+        const match = session.pagePath.match(/([A-Z]+_\d+)/);
+        if (match) article = articleByExternalId.get(match[1]);
+      }
+      if (!article && session.pageTitle) article = articleByTitle.get(session.pageTitle.trim());
+
+      return {
+        ...session,
+        articleId: article?.id,
+        articleExternalId: article?.externalId,
+        title: article?.title || session.pageTitle,
+        category: article?.category?.name || null,
+        author: article?.author ? `${article.author.first_name} ${article.author.last_name}` : null,
+        authors: article?.authors?.map(a => `${a.first_name} ${a.last_name}`),
+        editor: article?.editor
+          ? `${article.editor.first_name} ${article.editor.last_name}`
+          : null,
+        published_on: article?.published_on,
+        tags: article?.tags || [],
+      };
+    });
+
+    const data = joined;
+    const total = data.length;
+    const totalDuration = data.reduce((s, d) => s + this.toSeconds(d.averageDuration), 0);
+    const totalBounce = data.reduce((s, d) => s + Number(d.bounceRate || 0), 0);
+    const uniquePlatforms = [...new Set(data.map((d) => d.platform))];
+    const uniqueStreams = [...new Set(data.map((d) => d.streamName))];
+    const uniqueMediums = [...new Set(data.map((d) => d.sessionMedium))];
+    const uniqueTitles = [...new Set(data.map((d) => d.title))];
+    const uniqueAuthors = [...new Set(data.map((d) => d.author))];
+    const uniqueEditors = [...new Set(data.map((d) => d.editor))];
+    const uniqueCategories = [...new Set(data.map((d) => d.category))];
+    const outboundCount = data.filter((d) => d.outbound === "true").length;
+
+    console.log(`📊 [Service] KPIs calculated: total=${total}, avgDuration=${Math.round(totalDuration / (total || 1))}`);
+
+    return {
+      totalArticles: total,
+      totalPlatforms: uniquePlatforms.length,
+      totalStreams: uniqueStreams.length,
+      totalSessionMediums: uniqueMediums.length,
+      totalPageTitles: uniqueTitles.length,
+      totalAuthors: uniqueAuthors.length,
+      totalEditors: uniqueEditors.length,
+      totalCategories: uniqueCategories.length,
+      averageDurationInSec: Math.round(totalDuration / (total || 1)),
+      averageBounceRate: (totalBounce / (total || 1)).toFixed(2),
+      outboundEngagementRate: (outboundCount / (total || 1)).toFixed(2),
+      totalOutboundArticles: outboundCount,
+    };
+  }
+
+  async getChartData({ metric, groupBy, ...filters }) {
+    console.log("📈 [Service] getChartData called", { metric, groupBy, ...filters });
+    // Use first 1000 articles for charts to avoid huge memory use
+    const { articles } = await this.fetchAllArticles({ ...filters, page: 1, pageSize: 1000 });
+    const { sessions } = await this.fetchAllSessions(filters);
+
+    // Build lookup maps
+    const articleByExternalId = new Map();
+    const articleByTitle = new Map();
+    articles.forEach(a => {
+      if (a.externalId) articleByExternalId.set(a.externalId, a);
+      if (a.title) articleByTitle.set(a.title.trim(), a);
+    });
+
+    let joined = sessions.map(session => {
+      let article = null;
+      if (session.pagePath) {
+        const match = session.pagePath.match(/([A-Z]+_\d+)/);
+        if (match) article = articleByExternalId.get(match[1]);
+      }
+      if (!article && session.pageTitle) article = articleByTitle.get(session.pageTitle.trim());
+
+      return {
+        ...session,
+        articleId: article?.id,
+        articleExternalId: article?.externalId,
+        title: article?.title || session.pageTitle,
+        category: article?.category?.name || null,
+        author: article?.author ? `${article.author.first_name} ${article.author.last_name}` : null,
+        authors: article?.authors?.map(a => `${a.first_name} ${a.last_name}`),
+        editor: article?.editor
+          ? `${article.editor.first_name} ${article.editor.last_name}`
+          : null,
+        published_on: article?.published_on,
+        tags: article?.tags || [],
+      };
+    });
+
+    // Group by key, aggregate metric
+    const groups = {};
+    joined.forEach((item) => {
+      const key = item[groupBy] || "Unknown";
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(item);
+    });
+    // Aggregate per group
+    const chartData = Object.entries(groups).map(([key, items]) => ({
+      label: key,
+      value: items.reduce((sum, d) => sum + this.toSeconds(d[metric] || 0), 0) / items.length,
+      count: items.length,
+    }));
+    console.log(`📈 [Service] Chart data generated: ${chartData.length} groups`);
+    return chartData;
+  }
+
+  toSeconds(time) {
+    if (typeof time === 'number') return time;
+    if (typeof time !== 'string') return 0;
+    const parts = time.split(':').map(Number);
+    if (parts.length === 3) {
+      return parts[0] * 3600 + parts[1] * 60 + parts[2];
+    }
+    // Handle numeric strings
+    if (!isNaN(Number(time))) return Number(time);
+    return 0;
   }
 }
 

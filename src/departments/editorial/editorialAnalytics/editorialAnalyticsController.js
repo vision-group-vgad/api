@@ -1,213 +1,219 @@
 import EditorialAnalyticsService from './editorialAnalyticsService.js';
-import {
-  formatEditorialBarChart,
-  formatEditorialLineChart,
-  formatEditorialPieChart
-} from './editorialAnalyticsUtils.js';
 
-// 🔁 Convert HH:MM:SS string to seconds safely
-const toSeconds = (time) => {
-  if (typeof time === 'number') return time; // already in seconds
-  if (typeof time !== 'string') return 0;
-  const parts = time.split(':').map(Number);
-  if (parts.length === 3) {
-    return parts[0] * 3600 + parts[1] * 60 + parts[2];
-  }
-  return 0;
-};
-
-// 📅 Get default 30-day date range
-const getDefaultDateRange = () => {
-  const end = new Date();
-  const start = new Date();
-  start.setDate(end.getDate() - 30);
-  return {
-    startDate: start.toISOString().split('T')[0],
-    endDate: end.toISOString().split('T')[0]
-  };
-};
-
-// Helper to treat "all" or empty as no filter (undefined)
-const normalizeFilter = (val) => {
-  if (!val) return undefined;
-  return val.toLowerCase() === 'all' ? undefined : val;
-};
-
-// 📊 Get All Editorial Sessions + KPI Summary (with pagination)
+// ---- Unified Endpoints ----
 export const getEditorialSessionAnalytics = async (req, res) => {
   try {
-    const { startDate, endDate } = req.query.startDate && req.query.endDate
-      ? { startDate: req.query.startDate, endDate: req.query.endDate }
-      : getDefaultDateRange();
+    console.log("➡️ [Controller] session-duration HIT", req.query);
 
-    // Pagination params
-    const page = parseInt(req.query.page, 10) || 1;
-    const pageSize = parseInt(req.query.pageSize, 10) || 50;
-    const offset = (page - 1) * pageSize;
+    const {
+      startDate, endDate, platform, streamName, sessionMedium, author,
+      editor, category,
+      page = 1, pageSize = 10 // Default values for pagination
+    } = req.query;
 
-    // Apply normalized filters
     const filters = {
-      startDate,
-      endDate,
-      platform: normalizeFilter(req.query.platform),
-      streamName: normalizeFilter(req.query.streamName),
-      pageTitle: normalizeFilter(req.query.pageTitle),
-      sessionMedium: normalizeFilter(req.query.sessionMedium),
-      // Optionally pass limit to service if CMC API supports it
-      // limit: pageSize,
-      // offset,
+      startDate, endDate, platform, streamName, sessionMedium, author, editor, category,
+      page: Number(page), pageSize: Number(pageSize)
     };
 
-    const data = await EditorialAnalyticsService.getEditorialSessionAnalytics(filters);
-
-    // In-memory pagination (if CMC API doesn't support offset/limit)
-    const paginatedData = data.slice(offset, offset + pageSize);
-
-    const totalArticles = data.length;
-
-    // Unique value sets
-    const uniquePlatforms = new Set();
-    const uniquePageTitles = new Set();
-    const uniqueSessionMediums = new Set();
-    const uniqueStreamNames = new Set();
-
-    // Metrics initialization
-    let totalDuration = 0;
-    let totalBounceRate = 0;
-    let outboundCount = 0;
-
-    paginatedData.forEach(item => {
-      uniquePlatforms.add(item.platform);
-      uniquePageTitles.add(item.pageTitle);
-      uniqueSessionMediums.add(item.sessionMedium);
-      uniqueStreamNames.add(item.streamName);
-
-      totalDuration += toSeconds(item.averageDuration);
-      totalBounceRate += Number(item.bounceRate || 0);
-
-      if (item.outbound === 'true') outboundCount++;
-    });
-
-    const avgDuration = paginatedData.length ? totalDuration / paginatedData.length : 0;
-    const bounceRate = paginatedData.length ? totalBounceRate / paginatedData.length : 0;
-    const outboundRate = paginatedData.length ? outboundCount / paginatedData.length : 0;
+    console.log("🟡 [Controller] Calling fetchJoinedData with filters:", filters);
+    const result = await EditorialAnalyticsService.fetchJoinedData(filters);
+    console.log("✅ [Controller] Data joined, sending response");
 
     res.status(200).json({
       success: true,
       filters,
-      page,
-      pageSize,
-      total: totalArticles,
-      totalPages: Math.ceil(totalArticles / pageSize),
-      kpis: {
-        totalArticles: paginatedData.length,
-        totalPlatforms: uniquePlatforms.size,
-        totalPageTitles: uniquePageTitles.size,
-        totalSessionMediums: uniqueSessionMediums.size,
-        totalStreams: uniqueStreamNames.size,
-        averageDurationInSec: Math.round(avgDuration),
-        averageBounceRate: bounceRate.toFixed(2),
-        outboundEngagementRate: outboundRate.toFixed(2),
-        totalOutboundArticles: outboundCount
-      },
-      summary: {
-        platforms: Array.from(uniquePlatforms),
-        streams: Array.from(uniqueStreamNames),
-        sessionMediums: Array.from(uniqueSessionMediums),
-        pageTitles: Array.from(uniquePageTitles),
-        dateRange: `${startDate} to ${endDate}`
-      },
-      data: paginatedData,
-      timestamp: new Date().toISOString()
-    });
-  } catch (error) {
-    console.error('❌ Error in Editorial Analytics:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to fetch editorial analytics',
-      error: error.message
-    });
-  }
-};
-
-// 🩺 Environment Diagnostics Endpoint
-export const getEditorialDiagnostics = (req, res) => {
-  try {
-    const diagnostics = {
-      hasApiUrl: Boolean(process.env.API_URL),
-      hasApiToken: Boolean(process.env.API_TOKEN),
-      apiUrlValue: process.env.API_URL || null,
-      tokenLength: process.env.API_TOKEN ? process.env.API_TOKEN.length : 0,
-      nodeEnv: process.env.NODE_ENV || 'unknown',
+      ...result, // data, total, page, pageSize, totalPages
       timestamp: new Date().toISOString(),
-    };
-
-    res.status(200).json({
-      success: true,
-      diagnostics,
-      message: "Editorial analytics environment diagnostic information",
     });
+    return;
   } catch (error) {
-    console.error("❌ Error in diagnostics:", error);
-    res.status(500).json({
-      success: false,
-      message: "Failed to fetch diagnostics info",
-      error: error.message,
-    });
+    console.error("❌ [Controller] Error:", error);
+    if (res.headersSent) return;
+    res.status(500).json({ success: false, message: error.message });
+    return;
   }
 };
 
-// 📈 Chart Data Endpoint
+export const getEditorialKPIs = async (req, res) => {
+  try {
+    console.log("➡️ [Controller] kpis HIT", req.query);
+    const {
+      startDate, endDate, platform, streamName, sessionMedium, author, editor, category
+    } = req.query;
+    const filters = { startDate, endDate, platform, streamName, sessionMedium, author, editor, category };
+    console.log("🟡 [Controller] Calling getKPIs with filters:", filters);
+    const kpis = await EditorialAnalyticsService.getKPIs(filters);
+    console.log("✅ [Controller] KPIs calculated, sending response");
+    res.status(200).json({ success: true, filters, kpis, timestamp: new Date().toISOString() });
+    return;
+  } catch (error) {
+    console.error("❌ [Controller] Error:", error);
+    if (res.headersSent) return;
+    res.status(500).json({ success: false, message: error.message });
+    return;
+  }
+};
+
 export const getEditorialChartData = async (req, res) => {
   try {
+    console.log("➡️ [Controller] chart-data HIT", req.query);
     const {
-      chartType = 'line',
-      metric = 'averageDuration',
-      groupBy = 'platform',
-      startDate,
-      endDate,
-      platform,
-      sessionMedium,
-      streamName
+      chartType = 'bar', metric = 'averageDuration', groupBy = 'platform',
+      startDate, endDate, author, editor, category, platform, streamName, sessionMedium
     } = req.query;
-
-    const filters = {
-      ...(startDate && endDate ? { startDate, endDate } : getDefaultDateRange()),
-      platform: normalizeFilter(platform),
-      sessionMedium: normalizeFilter(sessionMedium),
-      streamName: normalizeFilter(streamName)
-    };
-
-    const rawData = await EditorialAnalyticsService.getEditorialSessionAnalytics(filters);
-
-    let formattedData;
-    switch (chartType.toLowerCase()) {
-      case 'bar':
-        formattedData = formatEditorialBarChart(rawData, metric, groupBy);
-        break;
-      case 'pie':
-        formattedData = formatEditorialPieChart(rawData, metric, groupBy);
-        break;
-      case 'line':
-      default:
-        formattedData = formatEditorialLineChart(rawData, metric, groupBy);
-        break;
-    }
-
+    const filters = { startDate, endDate, author, editor, category, platform, streamName, sessionMedium };
+    console.log("🟡 [Controller] Calling getChartData with:", { chartType, metric, groupBy, ...filters });
+    const chartData = await EditorialAnalyticsService.getChartData({ chartType, metric, groupBy, ...filters });
+    console.log("✅ [Controller] Chart data ready, sending response");
     res.status(200).json({
       success: true,
       chartType,
       metric,
       groupBy,
       filters,
-      chartData: formattedData
+      chartData,
+      timestamp: new Date().toISOString(),
     });
+    return;
   } catch (error) {
-    console.error('❌ Error generating chart data:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to generate chart data',
-      error: error.message
+    console.error("❌ [Controller] Error:", error);
+    if (res.headersSent) return;
+    res.status(500).json({ success: false, message: error.message });
+    return;
+  }
+};
+
+// ---- Feature-Specific Endpoints ----
+export const getCrossPlatformEngagement = async (req, res) => {
+  try {
+    console.log("➡️ [Controller] cross-platform-engagement HIT", req.query);
+    const { startDate, endDate } = req.query;
+    const chartData = await EditorialAnalyticsService.getChartData({
+      groupBy: "platform",
+      metric: "averageDuration",
+      startDate, endDate
     });
+    res.status(200).json({ success: true, chartType: "bar", metric: "averageDuration", groupBy: "platform", chartData });
+    return;
+  } catch (error) {
+    console.error("❌ [Controller] Error:", error);
+    if (res.headersSent) return;
+    res.status(500).json({ success: false, message: error.message });
+    return;
+  }
+};
+
+export const getContentROI = async (req, res) => {
+  try {
+    console.log("➡️ [Controller] content-roi HIT", req.query);
+    const { startDate, endDate } = req.query;
+    const chartData = await EditorialAnalyticsService.getChartData({
+      groupBy: "title",
+      metric: "averageDuration",
+      startDate, endDate
+    });
+    res.status(200).json({ success: true, chartType: "bar", metric: "averageDuration", groupBy: "title", chartData });
+    return;
+  } catch (error) {
+    console.error("❌ [Controller] Error:", error);
+    if (res.headersSent) return;
+    res.status(500).json({ success: false, message: error.message });
+    return;
+  }
+};
+
+export const getAudienceDemographics = async (req, res) => {
+  try {
+    console.log("➡️ [Controller] audience-demographics HIT", req.query);
+    const { startDate, endDate } = req.query;
+    const chartData = await EditorialAnalyticsService.getChartData({
+      groupBy: "sessionMedium",
+      metric: "averageDuration",
+      startDate, endDate
+    });
+    res.status(200).json({ success: true, chartType: "pie", metric: "averageDuration", groupBy: "sessionMedium", chartData });
+    return;
+  } catch (error) {
+    console.error("❌ [Controller] Error:", error);
+    if (res.headersSent) return;
+    res.status(500).json({ success: false, message: error.message });
+    return;
+  }
+};
+
+export const getPersonalBylinePerformance = async (req, res) => {
+  try {
+    console.log("➡️ [Controller] personal-byline-performance HIT", req.query);
+    const { startDate, endDate } = req.query;
+    const chartData = await EditorialAnalyticsService.getChartData({
+      groupBy: "author",
+      metric: "averageDuration",
+      startDate, endDate
+    });
+    res.status(200).json({ success: true, chartType: "bar", metric: "averageDuration", groupBy: "author", chartData });
+    return;
+  } catch (error) {
+    console.error("❌ [Controller] Error:", error);
+    if (res.headersSent) return;
+    res.status(500).json({ success: false, message: error.message });
+    return;
+  }
+};
+
+export const getSourceEffectiveness = async (req, res) => {
+  try {
+    console.log("➡️ [Controller] source-effectiveness HIT", req.query);
+    const { startDate, endDate } = req.query;
+    const chartData = await EditorialAnalyticsService.getChartData({
+      groupBy: "pageReferrer",
+      metric: "averageDuration",
+      startDate, endDate
+    });
+    res.status(200).json({ success: true, chartType: "bar", metric: "averageDuration", groupBy: "pageReferrer", chartData });
+    return;
+  } catch (error) {
+    console.error("❌ [Controller] Error:", error);
+    if (res.headersSent) return;
+    res.status(500).json({ success: false, message: error.message });
+    return;
+  }
+};
+
+export const getSocialAmplification = async (req, res) => {
+  try {
+    console.log("➡️ [Controller] social-amplification HIT", req.query);
+    const { startDate, endDate } = req.query;
+    const chartData = await EditorialAnalyticsService.getChartData({
+      groupBy: "title",
+      metric: "averageDuration",
+      startDate, endDate, sessionMedium: "social"
+    });
+    res.status(200).json({ success: true, chartType: "bar", metric: "averageDuration", groupBy: "title", chartData });
+    return;
+  } catch (error) {
+    console.error("❌ [Controller] Error:", error);
+    if (res.headersSent) return;
+    res.status(500).json({ success: false, message: error.message });
+    return;
+  }
+};
+
+export const getAudienceRetention = async (req, res) => {
+  try {
+    console.log("➡️ [Controller] audience-retention HIT", req.query);
+    const { startDate, endDate } = req.query;
+    const chartData = await EditorialAnalyticsService.getChartData({
+      groupBy: "title",
+      metric: "bounceRate",
+      startDate, endDate
+    });
+    res.status(200).json({ success: true, chartType: "bar", metric: "bounceRate", groupBy: "title", chartData });
+    return;
+  } catch (error) {
+    console.error("❌ [Controller] Error:", error);
+    if (res.headersSent) return;
+    res.status(500).json({ success: false, message: error.message });
+    return;
   }
 };

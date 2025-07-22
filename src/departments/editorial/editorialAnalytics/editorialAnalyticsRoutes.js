@@ -1,188 +1,324 @@
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 import {
   getEditorialSessionAnalytics,
+  getEditorialKPIs,
   getEditorialChartData,
-  getEditorialDiagnostics,
+  getCrossPlatformEngagement,
+  getContentROI,
+  getAudienceDemographics,
+  getPersonalBylinePerformance,
+  getSourceEffectiveness,
+  getSocialAmplification,
+  getAudienceRetention
 } from "./editorialAnalyticsController.js";
+import Jwt from "../../../auth/jwt.js";
 
 const router = express.Router();
 
 /**
  * @swagger
+ * components:
+ *   securitySchemes:
+ *     BearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ * security:
+ *   - BearerAuth: []
+ * tags:
+ *   - name: Editorial Analytics
+ *     description: Editorial analytics unified and feature-specific endpoints
+ */
+
+/**
+ * @swagger
  * /api/v1/editorial/analytics/session-duration:
  *   get:
- *     summary: Get Editorial Session Analytics
- *     description: Returns editorial session analytics with filters for cross-platform engagement, content ROI, and audience demographics.
- *     tags:
- *       - Editorial Analytics
+ *     summary: Get Editorial Session Analytics (joined)
+ *     description: Returns editorial session analytics with all filters and pagination.
+ *     tags: [Editorial Analytics]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: startDate
- *         schema:
- *           type: string
- *           format: date
- *         description: Start date for filtering (YYYY-MM-DD)
+ *         schema: { type: string, format: date }
  *       - in: query
  *         name: endDate
- *         schema:
- *           type: string
- *           format: date
- *         description: End date for filtering (YYYY-MM-DD)
+ *         schema: { type: string, format: date }
  *       - in: query
  *         name: platform
- *         schema:
- *           type: string
- *         description: Platform filter (web, mobile, etc.)
+ *         schema: { type: string }
  *       - in: query
  *         name: streamName
- *         schema:
- *           type: string
- *         description: Stream name filter
- *       - in: query
- *         name: pageTitle
- *         schema:
- *           type: string
- *         description: Page title filter
+ *         schema: { type: string }
  *       - in: query
  *         name: sessionMedium
- *         schema:
- *           type: string
- *         description: Session medium filter (organic, referral, etc.)
+ *         schema: { type: string }
  *       - in: query
- *         name: limit
- *         schema:
- *           type: integer
- *           default: 1000
- *         description: Maximum number of records to return
+ *         name: author
+ *         schema: { type: string }
+ *       - in: query
+ *         name: editor
+ *         schema: { type: string }
+ *       - in: query
+ *         name: category
+ *         schema: { type: string }
+ *       - in: query
+ *         name: page
+ *         schema: { type: integer, default: 1 }
+ *       - in: query
+ *         name: pageSize
+ *         schema: { type: integer, default: 50 }
  *     responses:
  *       200:
  *         description: Editorial session analytics retrieved successfully
- *         content:
- *           application/json:
- *             example:
- *               success: true
- *               data:
- *                 - pageTitle: "404 Not Found - New Vision Official"
- *                   platform: "web"
- *                   streamName: "New Vision Website"
- *                   averageDuration: "03:39:56"
- *                   bounceRate: "0"
- *               filters:
- *                 startDate: "2025-01-01"
- *                 endDate: "2025-04-30"
- *               summary:
- *                 totalArticles: 2
- *                 platforms: ["web"]
- *                 streams: ["New Vision Website"]
- *                 dateRange: "2025-01-01 to 2025-04-30"
- *               timestamp: "2025-07-17T12:00:00.000Z"
  */
 router.get("/analytics/session-duration", Jwt.verifyToken, getEditorialSessionAnalytics);
 
 /**
  * @swagger
- * /api/v1/editorial/analytics/chart-data:
+ * /api/v1/editorial/analytics/kpis:
  *   get:
- *     summary: Get Editorial Analytics Chart Data
- *     description: Returns chart-ready data for editorial analytics (line, bar, pie).
- *     tags:
- *       - Editorial Analytics
+ *     summary: Get Editorial KPIs Summary (joined)
+ *     description: Returns summary KPIs for all editorial analytics. Supports all filters including byline, editor, category.
+ *     tags: [Editorial Analytics]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     parameters:
  *       - in: query
- *         name: chartType
- *         schema:
- *           type: string
- *           enum: [line, bar, pie]
- *           default: line
- *         description: Type of chart to format data for
- *       - in: query
- *         name: metric
- *         schema:
- *           type: string
- *           enum: [averageDuration, bounceRate, sessionMedium]
- *           default: averageDuration
- *         description: Which metric to format for charts
- *       - in: query
  *         name: startDate
- *         schema:
- *           type: string
- *           format: date
- *         description: Start date for filtering
+ *         schema: { type: string, format: date }
  *       - in: query
  *         name: endDate
- *         schema:
- *           type: string
- *           format: date
- *         description: End date for filtering
+ *         schema: { type: string, format: date }
  *       - in: query
  *         name: platform
- *         schema:
- *           type: string
- *         description: Platform filter
+ *         schema: { type: string }
  *       - in: query
  *         name: streamName
- *         schema:
- *           type: string
- *         description: Stream name filter
+ *         schema: { type: string }
  *       - in: query
- *         name: limit
- *         schema:
- *           type: integer
- *           default: 1000
- *         description: Maximum number of records to process
+ *         name: sessionMedium
+ *         schema: { type: string }
+ *       - in: query
+ *         name: author
+ *         schema: { type: string }
+ *       - in: query
+ *         name: editor
+ *         schema: { type: string }
+ *       - in: query
+ *         name: category
+ *         schema: { type: string }
  *     responses:
  *       200:
- *         description: Chart data formatted successfully
- *         content:
- *           application/json:
- *             example:
- *               success: true
- *               data:
- *                 labels: ["404 Not Found - New Vision Official", "Eyasasaanyizza ..."]
- *                 datasets:
- *                   - label: "averageDuration"
- *                     data: [13196, 83756]
- *                     borderColor: "rgb(54, 162, 235)"
- *               chartType: "line"
- *               metric: "averageDuration"
- *               filters:
- *                 startDate: "2025-01-01"
- *                 endDate: "2025-04-30"
- *               timestamp: "2025-07-17T12:00:00.000Z"
+ *         description: Editorial KPIs retrieved successfully
  */
-router.get("/analytics/chart-data", Jwt.verifyToken, getEditorialChartData);
+router.get("/analytics/kpis", Jwt.verifyToken, getEditorialKPIs);
 
 /**
  * @swagger
- * /api/v1/editorial/analytics/diagnostics:
+ * /api/v1/editorial/analytics/chart-data:
  *   get:
- *     summary: Get Editorial Analytics Diagnostics
- *     description: Returns environment diagnostics for editorial analytics.
- *     tags:
- *       - Editorial Analytics
+ *     summary: Get Editorial Analytics Chart Data (joined)
+ *     description: Returns chart-ready data for editorial analytics (bar/line/pie). Supports grouping/filtering by platform, author, editor, category, etc.
+ *     tags: [Editorial Analytics]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: chartType
+ *         schema: { type: string, enum: [line, bar, pie], default: bar }
+ *       - in: query
+ *         name: metric
+ *         schema: { type: string, default: averageDuration }
+ *       - in: query
+ *         name: groupBy
+ *         schema: { type: string, default: platform }
+ *       - in: query
+ *         name: startDate
+ *         schema: { type: string, format: date }
+ *       - in: query
+ *         name: endDate
+ *         schema: { type: string, format: date }
+ *       - in: query
+ *         name: platform
+ *         schema: { type: string }
+ *       - in: query
+ *         name: streamName
+ *         schema: { type: string }
+ *       - in: query
+ *         name: sessionMedium
+ *         schema: { type: string }
+ *       - in: query
+ *         name: author
+ *         schema: { type: string }
+ *       - in: query
+ *         name: editor
+ *         schema: { type: string }
+ *       - in: query
+ *         name: category
+ *         schema: { type: string }
  *     responses:
  *       200:
- *         description: Diagnostics info
- *         content:
- *           application/json:
- *             example:
- *               success: true
- *               diagnostics:
- *                 hasApiUrl: true
- *                 hasApiToken: true
- *                 apiUrlValue: "https://cms-vgad.visiongroup.co.ug"
- *                 tokenLength: 32
- *                 nodeEnv: "development"
- *                 timestamp: "2025-07-17T12:00:00.000Z"
- *               message: "Editorial analytics environment diagnostic information"
+ *         description: Chart data formatted successfully
  */
-router.get("/analytics/diagnostics", Jwt.verifyToken, getEditorialDiagnostics);
+router.get("/analytics/chart-data", Jwt.verifyToken, getEditorialChartData);
+
+// ----- Feature-Specific Endpoints -----
+
+/**
+ * @swagger
+ * /api/v1/editorial/analytics/cross-platform-engagement:
+ *   get:
+ *     summary: Cross-platform engagement analytics
+ *     description: Returns engagement (average duration) grouped by platform.
+ *     tags: [Editorial Analytics]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         schema: { type: string, format: date }
+ *       - in: query
+ *         name: endDate
+ *         schema: { type: string, format: date }
+ *     responses:
+ *       200:
+ *         description: Chart data for cross-platform engagement
+ */
+router.get("/analytics/cross-platform-engagement", Jwt.verifyToken, getCrossPlatformEngagement);
+
+/**
+ * @swagger
+ * /api/v1/editorial/analytics/content-roi:
+ *   get:
+ *     summary: Content ROI analytics
+ *     description: Returns ROI (average duration) grouped by article.
+ *     tags: [Editorial Analytics]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         schema: { type: string, format: date }
+ *       - in: query
+ *         name: endDate
+ *         schema: { type: string, format: date }
+ *     responses:
+ *       200:
+ *         description: Chart data for content ROI
+ */
+router.get("/analytics/content-roi", Jwt.verifyToken, getContentROI);
+
+/**
+ * @swagger
+ * /api/v1/editorial/analytics/audience-demographics:
+ *   get:
+ *     summary: Audience demographics analytics
+ *     description: Returns audience engagement grouped by session medium.
+ *     tags: [Editorial Analytics]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         schema: { type: string, format: date }
+ *       - in: query
+ *         name: endDate
+ *         schema: { type: string, format: date }
+ *     responses:
+ *       200:
+ *         description: Chart data for audience demographics
+ */
+router.get("/analytics/audience-demographics", Jwt.verifyToken, getAudienceDemographics);
+
+/**
+ * @swagger
+ * /api/v1/editorial/analytics/personal-byline-performance:
+ *   get:
+ *     summary: Personal byline performance analytics
+ *     description: Returns engagement grouped by author.
+ *     tags: [Editorial Analytics]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         schema: { type: string, format: date }
+ *       - in: query
+ *         name: endDate
+ *         schema: { type: string, format: date }
+ *     responses:
+ *       200:
+ *         description: Chart data for personal byline performance
+ */
+router.get("/analytics/personal-byline-performance", Jwt.verifyToken, getPersonalBylinePerformance);
+
+/**
+ * @swagger
+ * /api/v1/editorial/analytics/source-effectiveness:
+ *   get:
+ *     summary: Source effectiveness analytics
+ *     description: Returns engagement grouped by referrer.
+ *     tags: [Editorial Analytics]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         schema: { type: string, format: date }
+ *       - in: query
+ *         name: endDate
+ *         schema: { type: string, format: date }
+ *     responses:
+ *       200:
+ *         description: Chart data for source effectiveness
+ */
+router.get("/analytics/source-effectiveness", Jwt.verifyToken, getSourceEffectiveness);
+
+/**
+ * @swagger
+ * /api/v1/editorial/analytics/social-amplification:
+ *   get:
+ *     summary: Social amplification analytics
+ *     description: Returns engagement for articles from social sources.
+ *     tags: [Editorial Analytics]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         schema: { type: string, format: date }
+ *       - in: query
+ *         name: endDate
+ *         schema: { type: string, format: date }
+ *     responses:
+ *       200:
+ *         description: Chart data for social amplification
+ */
+router.get("/analytics/social-amplification", Jwt.verifyToken, getSocialAmplification);
+
+/**
+ * @swagger
+ * /api/v1/editorial/analytics/audience-retention:
+ *   get:
+ *     summary: Audience retention analytics
+ *     description: Returns retention (bounce rate) grouped by article.
+ *     tags: [Editorial Analytics]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         schema: { type: string, format: date }
+ *       - in: query
+ *         name: endDate
+ *         schema: { type: string, format: date }
+ *     responses:
+ *       200:
+ *         description: Chart data for audience retention
+ */
+router.get("/analytics/audience-retention", Jwt.verifyToken, getAudienceRetention);
 
 export default router;
