@@ -217,3 +217,57 @@ export const getAudienceRetention = async (req, res) => {
     return;
   }
 };
+
+export const getPlatforms = async (req, res) => {
+  try {
+    const platforms = await EditorialAnalyticsService.getPlatforms();
+    res.status(200).json({ success: true, platforms });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getStreams = async (req, res) => {
+  try {
+    const streams = await EditorialAnalyticsService.getStreams();
+    res.status(200).json({ success: true, streams });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getSessionMediums = async (req, res) => {
+  try {
+    const mediums = await EditorialAnalyticsService.getSessionMediums();
+    res.status(200).json({ success: true, sessionMediums: mediums });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getAuthors = async (req, res) => {
+  try {
+    const authors = await EditorialAnalyticsService.getAuthors();
+    res.status(200).json({ success: true, authors });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getEditors = async (req, res) => {
+  try {
+    const editors = await EditorialAnalyticsService.getEditors();
+    res.status(200).json({ success: true, editors });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getCategories = async (req, res) => {
+  try {
+    const categories = await EditorialAnalyticsService.getCategories();
+    res.status(200).json({ success: true, categories });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};

@@ -310,6 +310,160 @@ class EditorialAnalyticsService {
     };
   }
 
+  async getPlatforms() {
+    this.initialize();
+    const cacheKey = "all_platforms";
+    if (cache.has(cacheKey)) {
+      const { data, timestamp } = cache.get(cacheKey);
+      if (Date.now() - timestamp < CACHE_TTL) return data;
+    }
+    let allPlatforms = new Set();
+    let startYear = 2020; // adjust to earliest data year
+    let endYear = new Date().getFullYear();
+    for (let year = startYear; year <= endYear; year++) {
+      const chunkStart = `${year}-01-01`;
+      const chunkEnd = `${year}-12-31`;
+      const { sessions } = await this.fetchAllSessions({ startDate: chunkStart, endDate: chunkEnd });
+      sessions.forEach(s => s.platform && allPlatforms.add(s.platform));
+      await sleep(200);
+    }
+    const result = Array.from(allPlatforms);
+    cache.set(cacheKey, { data: result, timestamp: Date.now() });
+    return result;
+  }
+
+  async getStreams() {
+    this.initialize();
+    const cacheKey = "all_streams";
+    if (cache.has(cacheKey)) {
+      const { data, timestamp } = cache.get(cacheKey);
+      if (Date.now() - timestamp < CACHE_TTL) return data;
+    }
+    let allStreams = new Set();
+    let startYear = 2020;
+    let endYear = new Date().getFullYear();
+    for (let year = startYear; year <= endYear; year++) {
+      const chunkStart = `${year}-01-01`;
+      const chunkEnd = `${year}-12-31`;
+      const { sessions } = await this.fetchAllSessions({ startDate: chunkStart, endDate: chunkEnd });
+      sessions.forEach(s => s.streamName && allStreams.add(s.streamName));
+      await sleep(200);
+    }
+    const result = Array.from(allStreams);
+    cache.set(cacheKey, { data: result, timestamp: Date.now() });
+    return result;
+  }
+
+  async getSessionMediums() {
+    this.initialize();
+    const cacheKey = "all_session_mediums";
+    if (cache.has(cacheKey)) {
+      const { data, timestamp } = cache.get(cacheKey);
+      if (Date.now() - timestamp < CACHE_TTL) return data;
+    }
+    let allMediums = new Set();
+    let startYear = 2020;
+    let endYear = new Date().getFullYear();
+    for (let year = startYear; year <= endYear; year++) {
+      const chunkStart = `${year}-01-01`;
+      const chunkEnd = `${year}-12-31`;
+      const { sessions } = await this.fetchAllSessions({ startDate: chunkStart, endDate: chunkEnd });
+      sessions.forEach(s => s.sessionMedium && allMediums.add(s.sessionMedium));
+      await sleep(200);
+    }
+    const result = Array.from(allMediums);
+    cache.set(cacheKey, { data: result, timestamp: Date.now() });
+    return result;
+  }
+
+  async getAuthors() {
+    this.initialize();
+    const cacheKey = "all_authors";
+    if (cache.has(cacheKey)) {
+      const { data, timestamp } = cache.get(cacheKey);
+      if (Date.now() - timestamp < CACHE_TTL) return data;
+    }
+    let allAuthors = new Set();
+    let startYear = 2020;
+    let endYear = new Date().getFullYear();
+    for (let year = startYear; year <= endYear; year++) {
+      const chunkStart = `${year}-01-01`;
+      const chunkEnd = `${year}-12-31`;
+      // Loop through pages for each year
+      let page = 1, pageSize = 100, fetched = 0;
+      while (true) {
+        const { articles } = await this.fetchAllArticles({ startDate: chunkStart, endDate: chunkEnd, page, pageSize });
+        if (!articles.length) break;
+        articles.forEach(a => a.author && allAuthors.add(`${a.author.first_name} ${a.author.last_name}`));
+        fetched += articles.length;
+        if (articles.length < pageSize) break;
+        page++;
+        await sleep(200);
+      }
+    }
+    const result = Array.from(allAuthors);
+    cache.set(cacheKey, { data: result, timestamp: Date.now() });
+    return result;
+  }
+
+  async getEditors() {
+    this.initialize();
+    const cacheKey = "all_editors";
+    if (cache.has(cacheKey)) {
+      const { data, timestamp } = cache.get(cacheKey);
+      if (Date.now() - timestamp < CACHE_TTL) return data;
+    }
+    let allEditors = new Set();
+    let startYear = 2020;
+    let endYear = new Date().getFullYear();
+    for (let year = startYear; year <= endYear; year++) {
+      const chunkStart = `${year}-01-01`;
+      const chunkEnd = `${year}-12-31`;
+      let page = 1, pageSize = 100, fetched = 0;
+      while (true) {
+        const { articles } = await this.fetchAllArticles({ startDate: chunkStart, endDate: chunkEnd, page, pageSize });
+        if (!articles.length) break;
+        articles.forEach(a => a.editor && allEditors.add(`${a.editor.first_name} ${a.editor.last_name}`));
+        fetched += articles.length;
+        if (articles.length < pageSize) break;
+        page++;
+        await sleep(200);
+      }
+    }
+    const result = Array.from(allEditors);
+    cache.set(cacheKey, { data: result, timestamp: Date.now() });
+    return result;
+  }
+
+  async getCategories() {
+    this.initialize();
+    const cacheKey = "all_categories";
+    if (cache.has(cacheKey)) {
+      const { data, timestamp } = cache.get(cacheKey);
+      if (Date.now() - timestamp < CACHE_TTL) return data;
+    }
+    let allCategories = new Set();
+    let startYear = 2020;
+    let endYear = new Date().getFullYear();
+    for (let year = startYear; year <= endYear; year++) {
+      const chunkStart = `${year}-01-01`;
+      const chunkEnd = `${year}-12-31`;
+      let page = 1, pageSize = 100, fetched = 0;
+      while (true) {
+        const { articles } = await this.fetchAllArticles({ startDate: chunkStart, endDate: chunkEnd, page, pageSize });
+        if (!articles.length) break;
+        articles.forEach(a => a.category?.name && allCategories.add(a.category.name));
+        fetched += articles.length;
+        if (articles.length < pageSize) break;
+        page++;
+        await sleep(200);
+      }
+    }
+    const result = Array.from(allCategories);
+    cache.set(cacheKey, { data: result, timestamp: Date.now() });
+    return result;
+  }
+
   async getChartData({ metric, groupBy, ...filters }) {
     console.log("📈 [Service] getChartData called", { metric, groupBy, ...filters });
     // Use first 1000 articles for charts to avoid huge memory use

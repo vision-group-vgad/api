@@ -9,7 +9,13 @@ import {
   getPersonalBylinePerformance,
   getSourceEffectiveness,
   getSocialAmplification,
-  getAudienceRetention
+  getAudienceRetention,
+  getPlatforms,
+  getStreams,
+  getSessionMediums,
+  getAuthors,
+  getEditors,
+  getCategories,
 } from "./editorialAnalyticsController.js";
 import Jwt from "../../../auth/jwt.js";
 
@@ -320,5 +326,77 @@ router.get("/analytics/social-amplification", Jwt.verifyToken, getSocialAmplific
  *         description: Chart data for audience retention
  */
 router.get("/analytics/audience-retention", Jwt.verifyToken, getAudienceRetention);
+
+/**
+ * @swagger
+ * /api/v1/editorial/analytics/platforms:
+ *   get:
+ *     summary: Get available platforms for filtering
+ *     tags: [Editorial Analytics]
+ *     responses:
+ *       200:
+ *         description: Array of platforms
+ */
+router.get("/analytics/platforms", Jwt.verifyToken, getPlatforms);
+
+/**
+ * @swagger
+ * /api/v1/editorial/analytics/streams:
+ *   get:
+ *     summary: Get available streams for filtering
+ *     tags: [Editorial Analytics]
+ *     responses:
+ *       200:
+ *         description: Array of streams
+ */
+router.get("/analytics/streams", Jwt.verifyToken, getStreams);
+
+/**
+ * @swagger
+ * /api/v1/editorial/analytics/session-mediums:
+ *   get:
+ *     summary: Get available session mediums for filtering
+ *     tags: [Editorial Analytics]
+ *     responses:
+ *       200:
+ *         description: Array of session mediums
+ */
+router.get("/analytics/session-mediums", Jwt.verifyToken, getSessionMediums);
+
+/**
+ * @swagger
+ * /api/v1/editorial/analytics/authors:
+ *   get:
+ *     summary: Get available authors for filtering
+ *     tags: [Editorial Analytics]
+ *     responses:
+ *       200:
+ *         description: Array of authors
+ */
+router.get("/analytics/authors", Jwt.verifyToken, getAuthors);
+
+/**
+ * @swagger
+ * /api/v1/editorial/analytics/editors:
+ *   get:
+ *     summary: Get available editors for filtering
+ *     tags: [Editorial Analytics]
+ *     responses:
+ *       200:
+ *         description: Array of editors
+ */
+router.get("/analytics/editors", Jwt.verifyToken, getEditors);
+
+/**
+ * @swagger
+ * /api/v1/editorial/analytics/categories:
+ *   get:
+ *     summary: Get available categories for filtering
+ *     tags: [Editorial Analytics]
+ *     responses:
+ *       200:
+ *         description: Array of categories
+ */
+router.get("/analytics/categories", Jwt.verifyToken, getCategories);
 
 export default router;
