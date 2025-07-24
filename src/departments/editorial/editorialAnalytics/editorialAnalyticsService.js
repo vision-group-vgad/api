@@ -113,7 +113,7 @@ class EditorialAnalyticsService {
     }
 
     // Break up the date range if needed
-    const maxDaysPerChunk = 30; // adjust as needed to avoid API timeouts
+    const maxDaysPerChunk = 365; // adjust as needed to avoid API timeouts
     let allSessions = [];
     let totalCount = 0;
     let chunkStart = new Date(startDate);
