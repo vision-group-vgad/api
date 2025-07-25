@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
   getRandomNumInRange,
-  getUniqueName,
+  formatDate,
   getPlaceNames,
 } from "../../../utils/common/common-functionalities.js";
 
@@ -44,10 +44,10 @@ class ReadershipTrendController {
 
     try {
       const response = await this.apiClient.get(url);
-      const allData = response.data?.data || [];
-      const splicedData = allData.splice(0, 300);
+      const articles = response.data?.data || [];
+      const metaData = response.data?.meta || [];
 
-      return splicedData;
+      return { articles, metaData };
     } catch (error) {
       throw new error();
     }
@@ -59,11 +59,13 @@ class ReadershipTrendController {
       const noOfUniqueReaders = Math.round(noOfReaders / 2);
       const males = getRandomNumInRange(0, noOfReaders);
       const females = noOfReaders - males;
-      const author = getUniqueName();
+      const defaultPlatform = "web";
       const locations = getPlaceNames(getRandomNumInRange(0, 5));
       return {
-        articleTitle: article.pageTitle,
-        author: author,
+        articleTitle: article.title,
+        author: `${article.author.first_name} ${article.author.last_name}`,
+        publishedOn: formatDate(article.published_on),
+        platform: article.platform || defaultPlatform,
         noOfReaders: noOfReaders,
         noOfUniqueReaders: noOfUniqueReaders,
         demographics: {
@@ -81,16 +83,51 @@ class ReadershipTrendController {
   }
 
   async getAnnualReadershipTrends(year) {
-    const url = `/api-listings/article-session-duration/${year}-01-01/${year}-12-31`;
+    let allArticles = [];
+    const maxArticleLimit = 10;
+    const rawUrl = `/api-listings/articles/${year}-01-01/${year}-12-31`;
+    const url = `${rawUrl}/0`;
     const rawData = await this.#fetchData(url);
-    const processedArticles = this.#processArticles(rawData);
+    allArticles = [...rawData.articles];
+    const allArticleCount = rawData.metaData.pagination.total;
+    if (allArticleCount > maxArticleLimit) {
+      const remainingArticles = allArticleCount - maxArticleLimit;
+      await this.#fetchRemainingArticles(
+        allArticles,
+        remainingArticles,
+        rawUrl
+      );
+    }
+    const processedArticles = this.#processArticles(allArticles);
     return processedArticles;
   }
 
+  async #fetchRemainingArticles(allArticles, remainingArticles, url) {
+    for (let i = 10; i <= remainingArticles; i += 10) {
+      const endPoint = `${url}/${i}`;
+      const results = await this.#fetchData(endPoint);
+      allArticles = [...allArticles, ...results.articles];
+    }
+    return allArticles;
+  }
+
   async getInRangeReadershipTrends(startDate, endDate) {
-    const url = `/api-listings/article-session-duration/${startDate}/${endDate}`;
+    let allArticles = [];
+    const maxArticleLimit = 10;
+    const rawUrl = `/api-listings/articles/${startDate}/${endDate}`;
+    const url = `${rawUrl}/0`;
     const rawData = await this.#fetchData(url);
-    const processedArticles = this.#processArticles(rawData);
+    allArticles = [...rawData.articles];
+    const allArticleCount = rawData.metaData.pagination.total;
+    if (allArticleCount > maxArticleLimit) {
+      const remainingArticles = allArticleCount - maxArticleLimit;
+      await this.#fetchRemainingArticles(
+        allArticles,
+        remainingArticles,
+        rawUrl
+      );
+    }
+    const processedArticles = this.#processArticles(allArticles);
     return processedArticles;
   }
 }

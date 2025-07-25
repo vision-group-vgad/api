@@ -35,6 +35,13 @@ const readershipRouter = express.Router();
  *                 author:
  *                   type: string
  *                   example: "Sim Sim"
+ *                 publishedOn:
+ *                   type: string
+ *                   format: date-time
+ *                   example: "2025-03-15T12:30:00Z"
+ *                 platform:
+ *                   type: string
+ *                   example: "web"
  *                 noOfReaders:
  *                   type: integer
  *                   example: 1200
@@ -131,6 +138,13 @@ readershipRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
  *                   author:
  *                     type: string
  *                     example: "Jim Tim"
+ *                   publishedOn:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2025-02-20T09:15:00Z"
+ *                   platform:
+ *                     type: string
+ *                     example: "mobile"
  *                   noOfReaders:
  *                     type: integer
  *                     example: 620
