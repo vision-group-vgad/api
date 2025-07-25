@@ -60,6 +60,10 @@ class ReadershipTrendController {
       const males = getRandomNumInRange(0, noOfReaders);
       const females = noOfReaders - males;
       const defaultPlatform = "web";
+      const defaultRefererer = "https://www.newvision.co.ug/";
+      const defaultBounceRate = getRandomNumInRange(0, 2);
+      const defaultAvgDuration = getRandomNumInRange(0, 60);
+      const defaultScrolled = getRandomNumInRange(0, 100);
       const locations = getPlaceNames(getRandomNumInRange(0, 5));
       return {
         articleTitle: article.title,
@@ -73,10 +77,12 @@ class ReadershipTrendController {
           females: females,
           locations: locations,
         },
-        referrerSource: article.pageReferrer,
-        bounceRate: article.bounceRate,
-        averageDuration: article.averageDuration,
-        percentageScrolled: article.percentageScrolled,
+        referrerSource: article.pageReferrer || defaultRefererer,
+        bounceRate: article.bounceRate || defaultBounceRate,
+        averageDuration:
+          article.averageDuration ||
+          `00:${defaultAvgDuration}:${defaultAvgDuration}`,
+        percentageScrolled: article.percentageScrolled || defaultScrolled,
       };
     });
     return processedArticles;

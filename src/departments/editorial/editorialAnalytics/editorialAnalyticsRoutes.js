@@ -23,12 +23,6 @@ const router = express.Router();
 
 /**
  * @swagger
- * components:
- *   securitySchemes:
- *     BearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
  * security:
  *   - BearerAuth: []
  * tags:
@@ -80,7 +74,11 @@ const router = express.Router();
  *       200:
  *         description: Editorial session analytics retrieved successfully
  */
-router.get("/analytics/session-duration", Jwt.verifyToken, getEditorialSessionAnalytics);
+router.get(
+  "/analytics/session-duration",
+  Jwt.verifyToken,
+  getEditorialSessionAnalytics
+);
 
 /**
  * @swagger
@@ -193,7 +191,11 @@ router.get("/analytics/chart-data", Jwt.verifyToken, getEditorialChartData);
  *       200:
  *         description: Chart data for cross-platform engagement
  */
-router.get("/analytics/cross-platform-engagement", Jwt.verifyToken, getCrossPlatformEngagement);
+router.get(
+  "/analytics/cross-platform-engagement",
+  Jwt.verifyToken,
+  getCrossPlatformEngagement
+);
 
 /**
  * @swagger
@@ -237,7 +239,11 @@ router.get("/analytics/content-roi", Jwt.verifyToken, getContentROI);
  *       200:
  *         description: Chart data for audience demographics
  */
-router.get("/analytics/audience-demographics", Jwt.verifyToken, getAudienceDemographics);
+router.get(
+  "/analytics/audience-demographics",
+  Jwt.verifyToken,
+  getAudienceDemographics
+);
 
 /**
  * @swagger
@@ -259,7 +265,11 @@ router.get("/analytics/audience-demographics", Jwt.verifyToken, getAudienceDemog
  *       200:
  *         description: Chart data for personal byline performance
  */
-router.get("/analytics/personal-byline-performance", Jwt.verifyToken, getPersonalBylinePerformance);
+router.get(
+  "/analytics/personal-byline-performance",
+  Jwt.verifyToken,
+  getPersonalBylinePerformance
+);
 
 /**
  * @swagger
@@ -281,7 +291,11 @@ router.get("/analytics/personal-byline-performance", Jwt.verifyToken, getPersona
  *       200:
  *         description: Chart data for source effectiveness
  */
-router.get("/analytics/source-effectiveness", Jwt.verifyToken, getSourceEffectiveness);
+router.get(
+  "/analytics/source-effectiveness",
+  Jwt.verifyToken,
+  getSourceEffectiveness
+);
 
 /**
  * @swagger
@@ -303,7 +317,11 @@ router.get("/analytics/source-effectiveness", Jwt.verifyToken, getSourceEffectiv
  *       200:
  *         description: Chart data for social amplification
  */
-router.get("/analytics/social-amplification", Jwt.verifyToken, getSocialAmplification);
+router.get(
+  "/analytics/social-amplification",
+  Jwt.verifyToken,
+  getSocialAmplification
+);
 
 /**
  * @swagger
@@ -325,7 +343,11 @@ router.get("/analytics/social-amplification", Jwt.verifyToken, getSocialAmplific
  *       200:
  *         description: Chart data for audience retention
  */
-router.get("/analytics/audience-retention", Jwt.verifyToken, getAudienceRetention);
+router.get(
+  "/analytics/audience-retention",
+  Jwt.verifyToken,
+  getAudienceRetention
+);
 
 /**
  * @swagger
