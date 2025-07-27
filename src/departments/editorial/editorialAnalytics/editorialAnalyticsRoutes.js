@@ -28,8 +28,6 @@ const router = express.Router();
  *     summary: Get Editorial Session Analytics (joined)
  *     description: Returns editorial session analytics with all filters and pagination.
  *     tags: [Editorial Analytics]
- *     security:
- *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: startDate
