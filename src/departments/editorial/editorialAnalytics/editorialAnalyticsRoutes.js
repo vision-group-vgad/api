@@ -23,15 +23,6 @@ const router = express.Router();
 
 /**
  * @swagger
- * security:
- *   - BearerAuth: []
- * tags:
- *   - name: Editorial Analytics
- *     description: Editorial analytics unified and feature-specific endpoints
- */
-
-/**
- * @swagger
  * /api/v1/editorial/analytics/session-duration:
  *   get:
  *     summary: Get Editorial Session Analytics (joined)
@@ -87,8 +78,6 @@ router.get(
  *     summary: Get Editorial KPIs Summary (joined)
  *     description: Returns summary KPIs for all editorial analytics. Supports all filters including byline, editor, category.
  *     tags: [Editorial Analytics]
- *     security:
- *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: startDate
@@ -127,8 +116,6 @@ router.get("/analytics/kpis", Jwt.verifyToken, getEditorialKPIs);
  *     summary: Get Editorial Analytics Chart Data (joined)
  *     description: Returns chart-ready data for editorial analytics (bar/line/pie). Supports grouping/filtering by platform, author, editor, category, etc.
  *     tags: [Editorial Analytics]
- *     security:
- *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: chartType
@@ -178,8 +165,6 @@ router.get("/analytics/chart-data", Jwt.verifyToken, getEditorialChartData);
  *     summary: Cross-platform engagement analytics
  *     description: Returns engagement (average duration) grouped by platform.
  *     tags: [Editorial Analytics]
- *     security:
- *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: startDate
@@ -204,8 +189,6 @@ router.get(
  *     summary: Content ROI analytics
  *     description: Returns ROI (average duration) grouped by article.
  *     tags: [Editorial Analytics]
- *     security:
- *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: startDate
@@ -226,8 +209,6 @@ router.get("/analytics/content-roi", Jwt.verifyToken, getContentROI);
  *     summary: Audience demographics analytics
  *     description: Returns audience engagement grouped by session medium.
  *     tags: [Editorial Analytics]
- *     security:
- *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: startDate
@@ -252,8 +233,6 @@ router.get(
  *     summary: Personal byline performance analytics
  *     description: Returns engagement grouped by author.
  *     tags: [Editorial Analytics]
- *     security:
- *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: startDate
@@ -278,8 +257,6 @@ router.get(
  *     summary: Source effectiveness analytics
  *     description: Returns engagement grouped by referrer.
  *     tags: [Editorial Analytics]
- *     security:
- *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: startDate
@@ -304,8 +281,6 @@ router.get(
  *     summary: Social amplification analytics
  *     description: Returns engagement for articles from social sources.
  *     tags: [Editorial Analytics]
- *     security:
- *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: startDate
@@ -330,8 +305,6 @@ router.get(
  *     summary: Audience retention analytics
  *     description: Returns retention (bounce rate) grouped by article.
  *     tags: [Editorial Analytics]
- *     security:
- *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: startDate
