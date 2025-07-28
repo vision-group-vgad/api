@@ -39,7 +39,7 @@
     "morgan": "^1.10.0",
     "nodemon": "^3.1.10",
     "pg": "^8.16.0",
-    "prisma": "^6.10.1",
+    "prisma": "^6.12.0",
     "sinon": "^21.0.0",
     "socket.io": "^4.8.1",
     "supertest": "^7.1.1",
@@ -49,6 +49,7 @@
   "dependencies": {
     "@prisma/client": "^6.10.1",
     "axios-retry": "^4.5.0",
+    "body-parser": "^2.2.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
