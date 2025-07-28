@@ -1,8 +1,6 @@
 import Utils from "../utils/auth-utils/utils.js";
 import errorResponse from "../utils/auth-utils/error-response.js";
 import Jwt from "./jwt.js";
-import * as SQL from "./sql.js";
-import logger from "../utils/auth-utils/logger.js";
 
 class AuthenticationController {
   constructor() {
@@ -16,8 +14,6 @@ class AuthenticationController {
     this.email = email;
     this.password = password;
     this.sessionId = Utils.getSessionId();
-    await SQL.saveSession(this.sessionId);
-    logger.info(`[${this.sessionId}] ${this.email} is logging in.`);
     //Uncomment the block below in production & import axios
     // const response = await axios.post(this.VISION_GROUP_CMS_ROOT_URL + "signin", {
     //   email,
@@ -39,17 +35,8 @@ class AuthenticationController {
     return response;
   }
 
-  async #validateSessionId(response) {
-    return response.data.sessionId === (await SQL.getSession(this.sessionId));
-  }
-
   async #validateResponse(response) {
-    if (
-      response.status === 200 &&
-      this.#validateSessionId(response) &&
-      response.data.email === this.email
-    ) {
-      await SQL.deleteSession(this.sessionId);
+    if (response.status === 200 && response.data.email === this.email) {
       const {
         email,
         position,
@@ -57,9 +44,6 @@ class AuthenticationController {
         first_name: firstName,
         last_name: lastName,
       } = response.data;
-      await SQL.createDepartment(department);
-      await SQL.createPosition(position);
-      await SQL.createUser(email, firstName, lastName, department, position);
 
       const token = Jwt.generateToken(email);
       const user = {
@@ -70,10 +54,8 @@ class AuthenticationController {
         department,
         token,
       };
-      logger.info(`${this.email} is logged in.`);
       return user;
     }
-    logger.warn(`[${this.sessionId}] ${this.email} is not logged in.`);
 
     switch (response.status) {
       case 400:
