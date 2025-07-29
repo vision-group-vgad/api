@@ -65,9 +65,9 @@ const backlogMgtRouter = express.Router();
  *                       type: string
  *                     description: A list of editorial challenges encountered. (Empty by default)
  *       400:
- *         description; Missing required field, year.
+ *         description: Missing required field, year.
  *       404:
- *         description; No data found for the given year. Only 2025 is available.
+ *         description: No data found for the given year. Only 2025 is available.
  */
 backlogMgtRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
   let { year } = req.query;
