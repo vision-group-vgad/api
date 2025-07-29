@@ -1,22 +1,24 @@
-import TopicVirality from './TopicVirality.js';
+import * as TopicViralityService from "./service.js";
 
-export async function getTopicVirality(req, res) {
-  try {
-    const { year, month } = req.query;
-    const topicVirality = new TopicVirality();
-    let data;
+export const getTopicViralityController = async (req, res) => {
+  let { year, month } = req.query;
+  year = parseInt(year);
 
-    if (year && month) {
-      data = await topicVirality.getViralityByMonth(year, month);
-    } else if (year) {
-      data = await topicVirality.getViralityByYear(year);
-    } else {
-      return res.status(400).json({ error: "Year (and optionally month) required" });
-    }
-
-    res.json(data);
-  } catch (error) {
-    console.error("Error fetching productivity data:", error.message);
-    res.status(500).json({ error: "Internal Server Error" });
+  if (!year) {
+    return res.status(400).json({ message: "Missing required field: year." });
   }
-}
+
+  if (year < 2020 || year > new Date().getFullYear()) {
+    return res.status(400).json({
+      message: "Invalid year. Please provide a year between 2020 and the current year.",
+    });
+  }
+
+  try {
+    const data = await TopicViralityService.getTopicVirality(year, month);
+    return res.status(200).json(data);
+  } catch (error) {
+    console.error("Error in getTopicViralityController:", error);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+};
