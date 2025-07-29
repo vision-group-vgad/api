@@ -98,3 +98,20 @@ export const formatDate = (dateStr) => {
 
   return `${year}-${month}-${day}`;
 };
+
+export const getDurationInMinutes = (created_on, published_on) => {
+  if (published_on === "") return 0;
+
+  const createdDate = new Date(created_on);
+  const publishedDate = new Date(published_on);
+
+  if (isNaN(createdDate) || isNaN(publishedDate)) {
+    throw new Error("Invalid date format.");
+  }
+
+  const diffMs = publishedDate - createdDate;
+
+  const diffMinutes = Math.floor(diffMs / 60000);
+
+  return diffMinutes;
+};

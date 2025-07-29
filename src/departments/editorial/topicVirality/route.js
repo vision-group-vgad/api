@@ -1,4 +1,3 @@
-
 import express from "express";
 import Jwt from "../../../auth/jwt.js";
 import { getTopicViralityController } from "./controller.js";
@@ -15,12 +14,14 @@ const router = express.Router();
  *     parameters:
  *       - in: query
  *         name: year
- *         schema: { type: string }
+ *         schema:
+ *           type: string
  *         required: true
  *         description: Year to filter by (e.g. 2024)
  *       - in: query
  *         name: month
- *         schema: { type: string }
+ *         schema:
+ *           type: string
  *         required: false
  *         description: Month to filter by (e.g. 01)
  *     responses:

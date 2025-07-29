@@ -1,6 +1,5 @@
 import express from "express";
 import AuthenticationController from "./auth-controller.js";
-import Jwt from "./jwt.js";
 
 const authRouter = express.Router();
 const authController = new AuthenticationController();

@@ -6,7 +6,7 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import { swaggerOptions } from "./src/config/swagger.js";
-import notificationRouter from "./src/departments/common-features/notification/noty-routes.js";
+// import notificationRouter from "./src/departments/common-features/notification/noty-routes.js";
 import storageRoutes from "./src/departments/it/storage-utilization-donutchart/storageController.js";
 import cyberPostureController from "./src/departments/it/cyber-posture/cyberPostureRoutes.js";
 //import accountSettingsRouter from "./src/accountSettings/controller.js";
@@ -42,6 +42,7 @@ import sectPerRouter from "./src/departments/editorial/sect-performance/sect-per
 import socialSentimentRouter from "./src/departments/editorial/social-sentiment/social-sentiment-routes.js";
 import versionContRouter from "./src/departments/editorial/version-control/version-control-routes.js";
 import getTopicVirality from "./src/departments/editorial/topicVirality/route.js";
+import backlogMgtRouter from "./src/departments/editorial/backlog-mgt/backlog-mgt-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -60,7 +61,7 @@ app.use(
 );
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/server-load", serverLoadRouter);
-app.use("/api/v1/notifications", notificationRouter);
+// app.use("/api/v1/notifications", notificationRouter);
 app.use("/api/v1/storageUtilization", storageRoutes);
 app.use("/api/v1/cyber-posture", cyberPostureController);
 //app.use("/api/v1/accountSettings", accountSettingsRouter);
@@ -96,5 +97,6 @@ app.use("/api/v1/editorial/section-perfromance", sectPerRouter);
 app.use("/api/v1/editorial/social-sentiment", socialSentimentRouter);
 app.use("/api/v1/editorial/version-control", versionContRouter);
 app.use("/api/v1/editorial/topic-virality", getTopicVirality);
+app.use("/api/v1/editorial/backlog-mgt", backlogMgtRouter);
 
 export default app;
