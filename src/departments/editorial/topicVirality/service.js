@@ -1,20 +1,16 @@
 import axios from "axios";
 import axiosRetry from "axios-retry";
-import {
-  getRandomNumInRange,
-  formatDate,
-} from "../../../utils/common/common-functionalities.js";
 
 axiosRetry(axios, { retries: 3 });
 
 class TopicVirality {
   constructor() {
     this.initialized = false;
-    this.BACKEND_URL = process.env.CMC_API_BASE_URL;
+    this.BACKEND_URL = "https://cms-vgad.visiongroup.co.ug";
     this.API_KEY = process.env.CMS_API_KEY;
 
-    if (!this.BACKEND_URL || !this.API_KEY) {
-      throw new Error("Missing required environment variables: CMC_API_BASE_URL or CMS_API_KEY");
+    if (!this.API_KEY) {
+      throw new Error("Missing required environment variable: CMS_API_KEY");
     }
   }
 
@@ -26,12 +22,8 @@ class TopicVirality {
       timeout: 30000,
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${this.API_KEY}`,
       },
-    });
-
-    this.apiClient.interceptors.request.use((config) => {
-      config.headers.Authorization = `Bearer ${this.API_KEY}`;
-      return config;
     });
 
     this.apiClient.interceptors.response.use(
@@ -48,53 +40,93 @@ class TopicVirality {
     this.initialized = true;
   }
 
-  async #fetchData(url) {
+  #buildQueryParams({ category, author }) {
+    const params = new URLSearchParams();
+    if (category) params.append("category", category);
+    if (author) params.append("author", author);
+    return params.toString() ? `?${params.toString()}` : "";
+  }
+
+  async getArticlesByOffset({ startDate, endDate, offset = 0, category = null, author = null }) {
+    if (!startDate || !endDate) throw new Error("Both startDate and endDate must be provided.");
     this.initialize();
-    try {
-      const response = await this.apiClient.get(url);
-      const data = response?.data;
-      if (!data || !Array.isArray(data.data)) {
-        throw new Error("Invalid response format: expected data.data to be an array.");
-      }
-      return {
-        topics: data.data,
-        metaData: data.meta || {},
-      };
-    } catch (error) {
-      console.error(`[TopicVirality] Failed to fetch ${url}:`, error.message);
-      throw error;
-    }
-  }
 
-  #processTopics(topics) {
-    return topics.map((topic) => ({
-      topic: topic.name || "Unnamed Topic",
-      articlesPublished: topic.articlesPublished ?? getRandomNumInRange(1, 20),
-      engagements: topic.engagements ?? getRandomNumInRange(10, 1000),
-      mediaMentions: topic.mediaMentions ?? getRandomNumInRange(1, 50),
-      lastMentioned: formatDate(topic.lastMentioned || new Date()),
-    }));
-  }
+    const query = this.#buildQueryParams({ category, author });
+    const url = `/api/api-listings/articles/${startDate}/${endDate}/${offset}${query}`;
 
-  async getViralityByYear(year) {
-    if (!year || isNaN(year)) {
-      throw new Error("Invalid year provided.");
+    console.log("[TopicVirality] Requesting:", url);
+
+    const response = await this.apiClient.get(url);
+    const data = response?.data;
+
+    if (!data?.data || !Array.isArray(data.data)) {
+      throw new Error("Invalid response format: expected data.data to be an array.");
     }
 
-    const url = `/api-listings/topic-virality/${year}`;
-    const { topics } = await this.#fetchData(url);
-    return this.#processTopics(topics);
+    return {
+      data: data.data,
+      meta: data.meta || {},
+    };
   }
 
-  async getViralityByMonth(year, month) {
-    if (!year || isNaN(year) || !month) {
-      throw new Error("Invalid year or month provided.");
+  async getAllArticles({ startDate, endDate, category = null, author = null }) {
+    if (!startDate || !endDate) throw new Error("Both startDate and endDate must be provided.");
+    this.initialize();
+
+    const limit = 10;
+    let offset = 0;
+    let total = null;
+    const allArticles = [];
+
+    while (total === null || offset < total) {
+      const { data, meta } = await this.getArticlesByOffset({
+        startDate,
+        endDate,
+        offset,
+        category,
+        author,
+      });
+
+      allArticles.push(...data);
+      total = meta.totalCount;
+      offset += limit;
     }
 
-    const url = `/api-listings/topic-virality/${year}-${month}`;
-    const { topics } = await this.#fetchData(url);
-    return this.#processTopics(topics);
+    return {
+      data: allArticles,
+      meta: {
+        totalCount: allArticles.length,
+        pageSize: limit,
+        pageCount: Math.ceil(allArticles.length / limit),
+      },
+    };
   }
 }
 
-export default TopicVirality;
+const topicVirality = new TopicVirality();
+
+export const getTopicVirality = async ({ year, month, category, author }) => {
+  const paddedMonth = month ? String(month).padStart(2, "0") : null;
+
+  let start, end;
+
+  if (paddedMonth) {
+    start = `${year}-${paddedMonth}-01`;
+
+    // Calculate the last day of the month
+    const nextMonth = new Date(year, parseInt(paddedMonth), 1);
+    nextMonth.setDate(0); // Go back one day to get last day of current month
+    const lastDay = String(nextMonth.getDate()).padStart(2, "0");
+    end = `${year}-${paddedMonth}-${lastDay}`;
+  } else {
+    start = `${year}-01-01`;
+    end = `${year}-12-31`;
+  }
+
+  return await topicVirality.getAllArticles({
+    startDate: start,
+    endDate: end,
+    category,
+    author,
+  });
+};

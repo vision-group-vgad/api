@@ -1,8 +1,11 @@
 import * as TopicViralityService from "./service.js";
 
 export const getTopicViralityController = async (req, res) => {
-  let { year, month } = req.query;
+  let { year, month, category, author } = req.query;
   year = parseInt(year);
+  month = month ? parseInt(month) : null;
+
+  console.log("Received query:", { year, month, category, author });
 
   if (!year) {
     return res.status(400).json({ message: "Missing required field: year." });
@@ -15,10 +18,16 @@ export const getTopicViralityController = async (req, res) => {
   }
 
   try {
-    const data = await TopicViralityService.getTopicVirality(year, month);
+    const data = await TopicViralityService.getTopicVirality({
+      year,
+      month,
+      category,
+      author,
+    });
     return res.status(200).json(data);
   } catch (error) {
     console.error("Error in getTopicViralityController:", error);
-    return res.status(500).json({ message: "Internal server error." });
+    const statusCode = error.message?.includes("400") ? 400 : 500;
+    return res.status(statusCode).json({ message: error.message || "Internal server error." });
   }
 };
