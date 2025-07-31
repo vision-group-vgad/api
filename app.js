@@ -44,6 +44,7 @@ import versionContRouter from "./src/departments/editorial/version-control/versi
 // import getTopicVirality from "./src/departments/editorial/topicVirality/route.js";
 import router from "./src/departments/editorial/topicVirality/route.js";
 import backlogMgtRouter from "./src/departments/editorial/backlog-mgt/backlog-mgt-routes.js";
+import breakingNewsRouter from "./src/departments/editorial/breaking-news/breaking-news-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -99,5 +100,6 @@ app.use("/api/v1/editorial/social-sentiment", socialSentimentRouter);
 app.use("/api/v1/editorial/version-control", versionContRouter);
 app.use("/api/v1/editorial/topic-virality", router);
 app.use("/api/v1/editorial/backlog-mgt", backlogMgtRouter);
+app.use("/api/v1/editorial/breaking-news", breakingNewsRouter);
 
 export default app;
