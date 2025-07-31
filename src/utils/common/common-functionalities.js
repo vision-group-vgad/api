@@ -115,3 +115,49 @@ export const getDurationInMinutes = (created_on, published_on) => {
 
   return diffMinutes;
 };
+
+export const getDateFromTimestamp = (inputTimestamp) => {
+  const date = new Date(inputTimestamp);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
+export const validateYear = (year, res) => {
+  if (!year) {
+    res.status(400).json({ message: "Missing required field: year." });
+  }
+
+  if (parseInt(year) != 2025) {
+    res.status(404).json({
+      message: "No data found for that year, only 2025 data is available.",
+    });
+  }
+};
+
+export const validateRange = (startDate, endDate, res) => {
+  if (!startDate || !endDate) {
+    return res.status(400).json({
+      message: "Missing required fields: start-date and end-date.",
+    });
+  }
+
+  if (startDate === endDate) {
+    return res.status(400).json({
+      message:
+        "You can not fetch data for a single day. Kindly make them two (2) atleast.",
+    });
+  }
+  if (
+    extractYearFromDate(startDate) > 2025 ||
+    extractYearFromDate(endDate) < 2025
+  ) {
+    return res.status(404).json({
+      message:
+        "No data found for that year. Only 2025 Jan - April, data is available.",
+    });
+  }
+};

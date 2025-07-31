@@ -1,4 +1,6 @@
-import * as TopicViralityService from "./service.js";
+import TopicVirality from "./service.js";
+
+const topicViralityService = new TopicVirality();
 
 export const getTopicViralityController = async (req, res) => {
   let { year, month, category, author } = req.query;
@@ -13,17 +15,20 @@ export const getTopicViralityController = async (req, res) => {
 
   if (year < 2020 || year > new Date().getFullYear()) {
     return res.status(400).json({
-      message: "Invalid year. Please provide a year between 2020 and the current year.",
+      message:
+        "Invalid year. Please provide a year between 2020 and the current year.",
     });
   }
 
   try {
+
     const data = await TopicViralityService.getTopicVirality({
       year,
       month,
       category,
       author,
     });
+
     return res.status(200).json(data);
   } catch (error) {
     console.error("Error in getTopicViralityController:", error);

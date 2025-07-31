@@ -1,13 +1,17 @@
 import EditCycTimesController from "./EditingCycleTimesController.js";
 import express from "express";
 import Jwt from "../../../auth/jwt.js";
+import {
+  validateRange,
+  validateYear,
+} from "../../../utils/common/common-functionalities.js";
 
 const editCycTimesRouter = express.Router();
 const editCycTimesController = new EditCycTimesController();
 
 /**
  * @swagger
- * /api/v1/editorial/editing-cycle-times:
+ * /api/v1/editorial/editing-cycle-times/annual:
  *   get:
  *     summary: Get editing cycle time data for a specific year
  *     description: Returns editing cycle times for the year 2025. Other years return a 404.
@@ -77,64 +81,58 @@ const editCycTimesController = new EditCycTimesController();
  *       500:
  *         description: Internal server error
  */
-editCycTimesRouter.get("/", Jwt.verifyToken, async (req, res) => {
+editCycTimesRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
   const { year } = req.query;
 
-  if (!year) {
-    res.status(400).json({ message: "Missing required field: year." });
-  }
-  if (parseInt(year) === 2025) {
-    try {
-      const results = await editCycTimesController.getAnnualData();
-      res.json(results);
-    } catch (error) {
-      res.status(500).json({
-        message: `${error.message}`,
-      });
-    }
-  } else {
-    res.status(404).json({
-      message: "No data found for that year, only 2025 data is available.",
+  validateYear(year, res);
+
+  try {
+    const results = await editCycTimesController.getAnnualData(year);
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({
+      message: `${error.message}`,
     });
   }
 });
 
 /**
  * @swagger
- * /api/v1/editorial/editing-cycle-times/monthly:
+ * /api/v1/editorial/editing-cycle-times/in-range:
  *   get:
- *     summary: Get editing cycle time data for a specific month
- *     description: Returns editing cycle times for a given month in 2025 (January to April only). Other months return a 404.
+ *     summary: Get editing cycle time data for a specific range of time.
+ *     description: Returns editing cycle times for a specific range of time.
  *     tags:
  *       - Editing Cycle Times
  *     parameters:
  *       - in: query
- *         name: year
+ *         name: startDate
  *         required: true
  *         schema:
- *           type: integer
- *           example: 2025
- *         description: The year to fetch editing cycle time data for
+ *           type: string
+ *           format: date
+ *         description: Start date in YYYY-MM-DD format
  *       - in: query
- *         name: month
+ *         name: endDate
  *         required: true
  *         schema:
- *           type: integer
- *           minimum: 1
- *           maximum: 4
- *           example: 3
- *         description: The month to fetch editing cycle time data for (1 = January, 4 = April)
+ *           type: string
+ *           format: date
+ *         description: End date in YYYY-MM-DD format
  *     responses:
  *       200:
- *         description: Successfully retrieved editing cycle time data for the specified month
+ *         description: Editing cycle time data
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
+ *                 averageUpdates:
+ *                   type: integer
+ *                   example: 2
  *                 articleCount:
  *                   type: integer
- *                   example: 75
+ *                   example: 10
  *                 articles:
  *                   type: array
  *                   items:
@@ -142,78 +140,70 @@ editCycTimesRouter.get("/", Jwt.verifyToken, async (req, res) => {
  *                     properties:
  *                       pageTitle:
  *                         type: string
- *                         example: "Valentine's Day fever hits Kampala - Bukedde Online - Amawulire"
+ *                         example: "Bunyoro bishop condemns alcoholism"
  *                       author:
  *                         type: string
- *                         example: "Sissie"
+ *                         example: "null null"
  *                       streamName:
  *                         type: string
- *                         example: "Bukedde Website"
+ *                         example: "New Vision Website"
  *                       platform:
  *                         type: string
  *                         example: "web"
  *                       averageDuration:
  *                         type: string
- *                         example: "46:52:39"
+ *                         example: "00:10:21"
+ *                       percentageScrolled:
+ *                         type: number
+ *                         format: float
+ *                         example: 10
  *                       bounceRate:
+ *                         type: number
+ *                         format: float
+ *                         example: 1
+ *                       createdOn:
  *                         type: string
- *                         example: "0"
- *                       authoredOn:
+ *                         format: date-time
+ *                         example: "2025-01-01T16:50:02Z"
+ *                       publishedOn:
  *                         type: string
- *                         format: date
- *                         example: "2025-01-26"
+ *                         format: date-time
+ *                         example: "2025-01-01T19:57:00Z"
+ *                       editingDuration:
+ *                         type: integer
+ *                         example: 186
+ *                       editor:
+ *                         type: string
+ *                         example: "Douglas Mubiru"
  *                       updatesCount:
  *                         type: integer
- *                         example: 2
+ *                         example: 0
  *                       updateLogs:
  *                         type: array
  *                         items:
- *                           type: string
- *                           format: date
- *                           example: "2025-02-05"
+ *                           type: object
+ *                         example: []
  *       400:
- *         description: Missing required fields `year` and/or `month`
+ *         description: Missing required fields; start-date and end-date
  *       404:
- *         description: Data not available for the requested year/month combination
- *       500:
- *         description: Internal server error
+ *         description: No data found for the requested range. Only Jan–April 2025 is available.
  */
-editCycTimesRouter.get("/monthly", Jwt.verifyToken, async (req, res) => {
-  const { year, month } = req.query;
+editCycTimesRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+  let { startDate, endDate } = req.query;
 
-  if (!year || !month) {
-    res.status(400).json({ message: "Missing required fields: year & month" });
-  }
-  const convYear = parseInt(year);
-  const convMonth = parseInt(month);
-  const validYear = 2025;
-  const maxValidMonth = 4;
-  const minValidMonth = 1;
-  if (
-    convYear === validYear &&
-    isValidMonth(convMonth, minValidMonth, maxValidMonth)
-  ) {
-    try {
-      const results = await editCycTimesController.getMonthlyData(
-        convYear,
-        convMonth
-      );
-      res.json(results);
-    } catch (error) {
-      res.status(500).json({
-        message: `${error.message}`,
-      });
-    }
-  } else {
-    res.status(404).json({
-      message:
-        "No data found for that time, only 2025 January to April data is available.",
+  validateRange(startDate, endDate, res);
+
+  try {
+    const results = await editCycTimesController.getInRangeData(
+      startDate,
+      endDate
+    );
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({
+      message: `${error.message}`,
     });
   }
 });
-
-const isValidMonth = (target, minValidMonth, maxValidMonth) => {
-  return target <= maxValidMonth && target >= minValidMonth;
-};
 
 export default editCycTimesRouter;

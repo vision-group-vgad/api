@@ -59,7 +59,6 @@ const router = express.Router();
  *       500:
  *         description: Internal server error
  */
-
 router.get("/", Jwt.verifyToken, getTopicViralityController);
 
 export default router;

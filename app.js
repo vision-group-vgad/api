@@ -41,8 +41,11 @@ import readershipRouter from "./src/departments/editorial/readership-trends/read
 import sectPerRouter from "./src/departments/editorial/sect-performance/sect-perform-routes.js";
 import socialSentimentRouter from "./src/departments/editorial/social-sentiment/social-sentiment-routes.js";
 import versionContRouter from "./src/departments/editorial/version-control/version-control-routes.js";
-import getTopicVirality from "./src/departments/editorial/topicVirality/route.js";
+// import getTopicVirality from "./src/departments/editorial/topicVirality/route.js";
+import router from "./src/departments/editorial/topicVirality/route.js";
 import backlogMgtRouter from "./src/departments/editorial/backlog-mgt/backlog-mgt-routes.js";
+import contentFreshnessRouter from "./src/departments/editorial/contentFreshness/contentFreshnessRoute.js";
+
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -96,7 +99,8 @@ app.use("/api/v1/editorial/readership-trends", readershipRouter);
 app.use("/api/v1/editorial/section-perfromance", sectPerRouter);
 app.use("/api/v1/editorial/social-sentiment", socialSentimentRouter);
 app.use("/api/v1/editorial/version-control", versionContRouter);
-app.use("/api/v1/editorial/topic-virality", getTopicVirality);
+app.use("/api/v1/editorial/topic-virality", router);
 app.use("/api/v1/editorial/backlog-mgt", backlogMgtRouter);
+app.use("/api/v1/editorial/contentFreshness", contentFreshnessRouter);
 
 export default app;
