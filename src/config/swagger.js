@@ -85,13 +85,14 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/editorial/breakingNewsTraction/*.js"),
     path.join(__dirname, "../departments/editorial/segmentPopularity/*.js"),
     path.join(__dirname, "../departments/editorial/topicVirality/*.js"),
-
     path.join(__dirname, "../departments/editorial/error-rate/*.js"),
     path.join(__dirname, "../departments/editorial/editing-cycle-times/*.js"),
     path.join(__dirname, "../departments/editorial/sect-performance/*.js"),
     path.join(__dirname, "../departments/editorial/social-sentiment/*.js"),
     path.join(__dirname, "../departments/editorial/version-control/*.js"),
     path.join(__dirname, "../departments/editorial/backlog-mgt/*.js"),
+    path.join(__dirname, "../departments/editorial/contentFreshness/*.js"),
+
     path.join(__dirname, "../departments/editorial/breaking-news/*.js"),
   ],
 };

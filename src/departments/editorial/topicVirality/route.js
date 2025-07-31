@@ -3,7 +3,6 @@ import Jwt from "../../../auth/jwt.js";
 import { getTopicViralityController } from "./controller.js";
 
 const router = express.Router();
-
 /**
  * @swagger
  * /api/v1/editorial/topic-virality:
@@ -27,6 +26,38 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: Topic virality data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       title:
+ *                         type: string
+ *                       author:
+ *                         type: string
+ *                       category:
+ *                         type: string
+ *                       published_on:
+ *                         type: string
+ *                         format: date-time
+ *                 meta:
+ *                   type: object
+ *                   properties:
+ *                     totalCount:
+ *                       type: integer
+ *                     pageSize:
+ *                       type: integer
+ *                     pageCount:
+ *                       type: integer
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Internal server error
  */
 router.get("/", Jwt.verifyToken, getTopicViralityController);
 
