@@ -1,69 +1,33 @@
-import axios from "axios";
 import {
   getRandomDate,
   getRandomNumInRange,
-  getMonthFromDate,
-  extractYearFromDate,
+  getDurationInMinutes,
 } from "../../../utils/common/common-functionalities.js";
+import Article from "../../../utils/common/Article.js";
 
 class ErrorRateController {
+  #article;
   constructor() {
-    this.initialized = false;
-    this.BACKEND_URL = process.env.CMC_API_BASE_URL;
-    this.API_KEY = process.env.CMS_API_KEY;
-  }
-
-  initialize() {
-    if (this.initialized) return;
-
-    this.apiClient = axios.create({
-      baseURL: this.BACKEND_URL,
-      timeout: 30000,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    this.apiClient.interceptors.request.use((config) => {
-      config.headers.Authorization = `Bearer ${this.API_KEY}`;
-      return config;
-    });
-
-    this.apiClient.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        throw error;
-      }
-    );
-
-    this.initialized = true;
-  }
-
-  async #fetchData() {
-    this.initialize();
-    // const url = `/api-listings/article-session-duration/${startDate}/${endDate}`;
-    const url = `/api-listings/article-session-duration/2025-01-01/2025-04-30`;
-
-    try {
-      const response = await this.apiClient.get(url);
-      const allData = response.data?.data || [];
-      const splicedData = allData.splice(0, 300);
-
-      return splicedData;
-    } catch (error) {
-      throw new error();
-    }
+    this.#article = new Article();
   }
 
   #processArticles(articlesArray) {
-    const mappedArticles = articlesArray.map((element) => {
+    const mappedArticles = articlesArray.map((article) => {
+      const editingDuration = getDurationInMinutes(
+        article.created_on,
+        article.published_on
+      );
+      const fallbackPlatform = "web";
+      const fallbackStreamName = "New Vision Website";
       return {
-        pageTitle: element.pageTitle,
-        streamName: element.streamName,
-        platform: element.platform,
-        averageDuration: element.averageDuration,
-        percentageScrolled: element.percentageScrolled,
-        bounceRate: element.bounceRate,
+        pageTitle: article.title,
+        author: `${article.author.first_name} ${article.author.last_name}`,
+        streamName: article.streamName || fallbackStreamName,
+        platform: article.platform || fallbackPlatform,
+        createdOn: article.created_on,
+        publishedOn: article.published_on,
+        editingDuration: editingDuration,
+        editor: `${article.editor.first_name} ${article.editor.last_name}`,
         updates: getRandomNumInRange(0, 5),
         date: getRandomDate(),
       };
@@ -85,43 +49,19 @@ class ErrorRateController {
     return processedData;
   }
 
-  async getAnnualArticles(startDate, endDate) {
-    const extractedStartYear = extractYearFromDate(startDate);
-    const extractedEndYear = extractYearFromDate(endDate);
-    const validYear = 2025;
-    if (extractedStartYear == validYear && extractedEndYear == validYear) {
-      const results = await this.#fetchData();
-      return this.#processArticles(results);
-    } else {
-      throw new ReferenceError(
-        "Date out of range, available data runs from Jan - April 2025."
-      );
-    }
+  async getAnnualArticles(year) {
+    const annualData = await this.#article.getAnnualArticles(year);
+    const processedData = this.#processArticles(annualData);
+    return processedData;
   }
 
-  async getMonthlyArticles(month) {
-    month = parseInt(month);
-    if (month <= 12 && month >= 1) {
-      if (month <= 4) {
-        const annualArticles = await this.#fetchData();
-
-        const monthlyArticles = this.#processArticles(
-          annualArticles
-        ).articles.filter((article) => {
-          return getMonthFromDate(article.date) === month;
-        });
-        const processedMonthlyArticles = this.#processArticles(monthlyArticles);
-        return {
-          month: month,
-          processedMonthlyArticles,
-        };
-      }
-      throw new ReferenceError(
-        `No data for that month, enter January to April.`
-      );
-    } else {
-      throw new ReferenceError("Invalid month.");
-    }
+  async getInRangeArticles(startDate, endDate) {
+    const inRangeData = await this.#article.getInRangeArticles(
+      startDate,
+      endDate
+    );
+    const processedData = this.#processArticles(inRangeData);
+    return processedData;
   }
 }
 

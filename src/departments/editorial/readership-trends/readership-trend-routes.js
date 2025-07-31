@@ -1,6 +1,9 @@
 import express from "express";
 import ReadershipTrendController from "./ReadershipTrendController.js";
-import { extractYearFromDate } from "../../../utils/common/common-functionalities.js";
+import {
+  validateRange,
+  validateYear,
+} from "../../../utils/common/common-functionalities.js";
 import Jwt from "../../../auth/jwt.js";
 
 const readershipController = new ReadershipTrendController();
@@ -85,18 +88,16 @@ readershipRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
   let { year } = req.query;
   year = parseInt(year);
 
-  if (!year) {
-    return res.status(400).json({
-      message: "Missing required field: year.",
+  validateYear(year, res);
+
+  try {
+    const results = await readershipController.getAnnualReadershipTrends(year);
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({
+      message: `${error.message}`,
     });
   }
-  if (year > 2025 || year < 2025) {
-    return res.status(404).json({
-      message: "No data found for that year. Only 2025 data is available.",
-    });
-  }
-  const results = await readershipController.getAnnualReadershipTrends(year);
-  res.json(results);
 });
 
 /**
@@ -187,24 +188,18 @@ readershipRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
 readershipRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
   let { startDate, endDate } = req.query;
 
-  if (!startDate || !endDate) {
-    return res.status(400).json({
-      message: "Missing required fields: start-date and end-date.",
+  validateRange(startDate, endDate, res);
+
+  try {
+    const results = await readershipController.getInRangeReadershipTrends(
+      startDate,
+      endDate
+    );
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({
+      message: `${error.message}`,
     });
   }
-  if (
-    extractYearFromDate(startDate) > 2025 ||
-    extractYearFromDate(endDate) < 2025
-  ) {
-    return res.status(404).json({
-      message:
-        "No data found for that year. Only 2025 Jan - April, data is available.",
-    });
-  }
-  const results = await readershipController.getInRangeReadershipTrends(
-    startDate,
-    endDate
-  );
-  res.json(results);
 });
 export default readershipRouter;

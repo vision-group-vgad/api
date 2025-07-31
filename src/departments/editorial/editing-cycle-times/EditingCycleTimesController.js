@@ -1,60 +1,18 @@
-import axios from "axios";
 import {
-  getRandomDate,
   getRandomNumInRange,
   getMonthFromDate,
   getDayFromDate,
   extractYearFromDate,
-  getUniqueName,
+  getDurationInMinutes,
+  getDateFromTimestamp,
 } from "../../../utils/common/common-functionalities.js";
+import Article from "../../../utils/common/Article.js";
 
 class EditCycTimesController {
+  #article;
+
   constructor() {
-    this.initialized = false;
-    this.BACKEND_URL = process.env.CMC_API_BASE_URL;
-    this.API_KEY = process.env.CMS_API_KEY;
-  }
-
-  initialize() {
-    if (this.initialized) return;
-
-    this.apiClient = axios.create({
-      baseURL: this.BACKEND_URL,
-      timeout: 30000,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    this.apiClient.interceptors.request.use((config) => {
-      config.headers.Authorization = `Bearer ${this.API_KEY}`;
-      return config;
-    });
-
-    this.apiClient.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        throw error;
-      }
-    );
-
-    this.initialized = true;
-  }
-
-  async #fetchData() {
-    this.initialize();
-    // const url = `/api-listings/article-session-duration/${startDate}/${endDate}`;
-    const url = `/api-listings/article-session-duration/2025-01-01/2025-04-30`;
-
-    try {
-      const response = await this.apiClient.get(url);
-      const allData = response.data?.data || [];
-      const splicedData = allData.splice(0, 300);
-
-      return splicedData;
-    } catch (error) {
-      throw new error();
-    }
+    this.#article = new Article();
   }
 
   #getUpdateLogs(startDate, updatesCount) {
@@ -78,19 +36,33 @@ class EditCycTimesController {
   }
 
   #processData(articles) {
-    const mappedArticles = articles.map((element) => {
+    const mappedArticles = articles.map((article) => {
       const updatesCount = getRandomNumInRange(0, 5);
-      const authoredOn = getRandomDate();
-      const updateLogs = this.#getUpdateLogs(authoredOn, updatesCount);
+      const updateLogs = this.#getUpdateLogs(
+        getDateFromTimestamp(article.created_on),
+        updatesCount
+      );
+      const fallbackPlatform = "web";
+      const fallbackStreamName = "New Vision Website";
+      const fallbackDuration = "00:10:21";
+      const fallbackPercentage = 10;
+      const fallbackRate = 1;
+      const editingDuration = getDurationInMinutes(
+        article.created_on,
+        article.published_on
+      );
       return {
-        pageTitle: element.pageTitle,
-        author: getUniqueName(),
-        streamName: element.streamName,
-        platform: element.platform,
-        averageDuration: element.averageDuration,
-        percentageScrolled: element.percentageScrolled,
-        bounceRate: element.bounceRate,
-        authoredOn: authoredOn,
+        pageTitle: article.title,
+        author: `${article.author.first_name} ${article.author.last_name}`,
+        streamName: article.streamName || fallbackStreamName,
+        platform: article.platform || fallbackPlatform,
+        averageDuration: article.averageDuration || fallbackDuration,
+        percentageScrolled: article.percentageScrolled || fallbackPercentage,
+        bounceRate: article.bounceRate || fallbackRate,
+        createdOn: article.created_on,
+        publishedOn: article.published_on,
+        editingDuration: editingDuration,
+        editor: `${article.editor.first_name} ${article.editor.last_name}`,
         updatesCount: updatesCount,
         updateLogs: updateLogs,
       };
@@ -112,18 +84,17 @@ class EditCycTimesController {
     return processedData;
   }
 
-  async getAnnualData() {
-    const articles = await this.#fetchData();
+  async getAnnualData(year) {
+    const articles = await this.#article.getAnnualArticles(year);
     return this.#processData(articles);
   }
 
-  async getMonthlyData(year, month) {
-    const annualData = await this.getAnnualData();
-    const articles = annualData.articles.filter(
-      (article) =>
-        getMonthFromDate(article.authoredOn) === month &&
-        extractYearFromDate(article.authoredOn) === year
+  async getInRangeData(startDate, endDate) {
+    const inRangeData = await this.#article.getInRangeArticles(
+      startDate,
+      endDate
     );
+    const articles = this.#processData(inRangeData);
     return {
       articleCount: articles.length,
       articles: articles,

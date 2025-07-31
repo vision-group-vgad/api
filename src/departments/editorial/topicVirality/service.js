@@ -14,7 +14,9 @@ class TopicVirality {
     this.API_KEY = process.env.CMS_API_KEY;
 
     if (!this.BACKEND_URL || !this.API_KEY) {
-      throw new Error("Missing required environment variables: CMC_API_BASE_URL or CMS_API_KEY");
+      throw new Error(
+        "Missing required environment variables: CMC_API_BASE_URL or CMS_API_KEY"
+      );
     }
   }
 
@@ -54,7 +56,9 @@ class TopicVirality {
       const response = await this.apiClient.get(url);
       const data = response?.data;
       if (!data || !Array.isArray(data.data)) {
-        throw new Error("Invalid response format: expected data.data to be an array.");
+        throw new Error(
+          "Invalid response format: expected data.data to be an array."
+        );
       }
       return {
         topics: data.data,

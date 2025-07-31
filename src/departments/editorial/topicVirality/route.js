@@ -28,7 +28,6 @@ const router = express.Router();
  *       200:
  *         description: Topic virality data
  */
-
 router.get("/", Jwt.verifyToken, getTopicViralityController);
 
 export default router;
