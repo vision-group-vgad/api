@@ -6,13 +6,11 @@ axiosRetry(axios, { retries: 3 });
 class TopicVirality {
   constructor() {
     this.initialized = false;
-    this.BACKEND_URL = "https://cms-vgad.visiongroup.co.ug";
+    this.BACKEND_URL = "https://cms-vgad.visiongroup.co.ug"; // This is not right!
     this.API_KEY = process.env.CMS_API_KEY;
-
 
     if (!this.API_KEY) {
       throw new Error("Missing required environment variable: CMS_API_KEY");
-
     }
   }
 
@@ -42,17 +40,22 @@ class TopicVirality {
     this.initialized = true;
   }
 
-
   #buildQueryParams({ category, author }) {
     const params = new URLSearchParams();
     if (category) params.append("category", category);
     if (author) params.append("author", author);
     return params.toString() ? `?${params.toString()}` : "";
-
   }
 
-  async getArticlesByOffset({ startDate, endDate, offset = 0, category = null, author = null }) {
-    if (!startDate || !endDate) throw new Error("Both startDate and endDate must be provided.");
+  async getArticlesByOffset({
+    startDate,
+    endDate,
+    offset = 0,
+    category = null,
+    author = null,
+  }) {
+    if (!startDate || !endDate)
+      throw new Error("Both startDate and endDate must be provided.");
     this.initialize();
 
     const query = this.#buildQueryParams({ category, author });
@@ -64,7 +67,9 @@ class TopicVirality {
     const data = response?.data;
 
     if (!data?.data || !Array.isArray(data.data)) {
-      throw new Error("Invalid response format: expected data.data to be an array.");
+      throw new Error(
+        "Invalid response format: expected data.data to be an array."
+      );
     }
 
     return {
@@ -74,7 +79,8 @@ class TopicVirality {
   }
 
   async getAllArticles({ startDate, endDate, category = null, author = null }) {
-    if (!startDate || !endDate) throw new Error("Both startDate and endDate must be provided.");
+    if (!startDate || !endDate)
+      throw new Error("Both startDate and endDate must be provided.");
     this.initialize();
 
     const limit = 10;

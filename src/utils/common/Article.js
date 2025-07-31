@@ -90,8 +90,13 @@ class Article {
         rawUrl
       );
     }
-
     return allArticles;
+  }
+
+  async getSummarizedInRangeArticles() {
+    const url = `/api-listings/article-session-duration/2025-01-01/2025-04-30`;
+    const summarizedArticles = await this.#fetchData(url);
+    return summarizedArticles.articles;
   }
 }
 
