@@ -1,6 +1,6 @@
-import TopicVirality from "./service.js";
+import { getTopicVirality } from "./service.js";
 
-const topicViralityService = new TopicVirality();
+// const topicViralityService = new TopicVirality();
 
 export const getTopicViralityController = async (req, res) => {
   let { year, month, category, author } = req.query;
@@ -21,8 +21,7 @@ export const getTopicViralityController = async (req, res) => {
   }
 
   try {
-
-    const data = await TopicViralityService.getTopicVirality({
+    const data = await getTopicVirality({
       year,
       month,
       category,
@@ -33,6 +32,8 @@ export const getTopicViralityController = async (req, res) => {
   } catch (error) {
     console.error("Error in getTopicViralityController:", error);
     const statusCode = error.message?.includes("400") ? 400 : 500;
-    return res.status(statusCode).json({ message: error.message || "Internal server error." });
+    return res
+      .status(statusCode)
+      .json({ message: error.message || "Internal server error." });
   }
 };
