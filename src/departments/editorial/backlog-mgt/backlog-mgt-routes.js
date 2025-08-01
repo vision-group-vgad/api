@@ -1,6 +1,6 @@
 import express from "express";
 import BacklogMgtController from "./BacklogMgtController.js";
-import { extractYearFromDate } from "../../../utils/common/common-functionalities.js";
+import { validateRange } from "../../../utils/common/common-functionalities.js";
 import Jwt from "../../../auth/jwt.js";
 
 const backlogMgtController = new BacklogMgtController();
@@ -152,25 +152,19 @@ backlogMgtRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
 backlogMgtRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
   let { startDate, endDate } = req.query;
 
-  if (!startDate || !endDate) {
-    return res.status(400).json({
-      message: "Missing required fields: start-date and end-date.",
+  validateRange(startDate, endDate, res);
+
+  try {
+    const results = await backlogMgtController.getInRangeBacklogMgtMetrics(
+      startDate,
+      endDate
+    );
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({
+      message: `${error.message}`,
     });
   }
-  if (
-    extractYearFromDate(startDate) > 2025 ||
-    extractYearFromDate(endDate) < 2025
-  ) {
-    return res.status(404).json({
-      message:
-        "No data found for that year. Only 2025 Jan - April, data is available.",
-    });
-  }
-  const results = await backlogMgtController.getInRangeBacklogMgtMetrics(
-    startDate,
-    endDate
-  );
-  res.json(results);
 });
 
 export default backlogMgtRouter;

@@ -126,6 +126,20 @@ export const getDateFromTimestamp = (inputTimestamp) => {
   return `${year}-${month}-${day}`;
 };
 
+export const isValidDate = (dateStr) => {
+  const regex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!regex.test(dateStr)) return false;
+
+  const date = new Date(dateStr);
+  const [year, month, day] = dateStr.split("-").map(Number);
+
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day
+  );
+};
+
 export const validateYear = (year, res) => {
   if (!year) {
     res.status(400).json({ message: "Missing required field: year." });
@@ -142,6 +156,12 @@ export const validateRange = (startDate, endDate, res) => {
   if (!startDate || !endDate) {
     return res.status(400).json({
       message: "Missing required fields: start-date and end-date.",
+    });
+  }
+
+  if (!isValidDate(startDate) || !isValidDate(endDate)) {
+    return res.status(400).json({
+      message: "Invalid date(s) format.",
     });
   }
 

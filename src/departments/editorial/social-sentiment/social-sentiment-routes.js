@@ -1,6 +1,7 @@
 import express from "express";
 import SocialSentimentController from "./SocialSentimentController.js";
 import Jwt from "../../../auth/jwt.js";
+import { validateRange } from "../../../utils/common/common-functionalities.js";
 
 const socSentController = new SocialSentimentController();
 const socialSentimentRouter = express.Router();
@@ -12,15 +13,15 @@ const socialSentimentRouter = express.Router();
  *     tags:
  *       - Social Sentiment
  *     summary: Get annual social sentiment data
- *     description: Retrieve social sentiment data for a specific year. Only data for 2024 is available.
+ *     description: Retrieve social sentiment data for a specific year. Only data for 2025 is available.
  *     parameters:
  *       - in: query
  *         name: year
  *         schema:
  *           type: integer
- *           example: 2024
+ *           example: 2025
  *         required: true
- *         description: The year for which to retrieve social sentiment data (only 2024 supported)
+ *         description: The year for which to retrieve social sentiment data (only 2025 supported)
  *     responses:
  *       200:
  *         description: Successfully retrieved annual sentiment data
@@ -37,7 +38,7 @@ const socialSentimentRouter = express.Router();
  *                       date:
  *                         type: string
  *                         format: date
- *                         example: "2024-12-28"
+ *                         example: "2025-12-28"
  *                       mentions:
  *                         type: array
  *                         items:
@@ -52,7 +53,7 @@ const socialSentimentRouter = express.Router();
  *                             date:
  *                               type: string
  *                               format: date
- *                               example: "2024-12-28"
+ *                               example: "2025-12-28"
  *                       ratings:
  *                         type: array
  *                         items:
@@ -68,7 +69,7 @@ const socialSentimentRouter = express.Router();
  *                             date:
  *                               type: string
  *                               format: date
- *                               example: "2024-12-28"
+ *                               example: "2025-12-28"
  *                 summary:
  *                   type: object
  *                   properties:
@@ -101,7 +102,7 @@ const socialSentimentRouter = express.Router();
  *                   type: string
  *                   example: Missing required field, year
  *       404:
- *         description: Data for only 2024 is available
+ *         description: Data for only 2025 is available
  *         content:
  *           application/json:
  *             schema:
@@ -109,7 +110,7 @@ const socialSentimentRouter = express.Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Data for only 2024 is available
+ *                   example: Data for only 2025 is available
  */
 socialSentimentRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
   const { year } = req.query;
@@ -121,9 +122,9 @@ socialSentimentRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
   }
 
   const convYear = parseInt(year);
-  if (convYear != 2024) {
+  if (convYear != 2025) {
     return res.status(404).json({
-      message: `Data for only 2024 is available`,
+      message: `Data for only 2025 is available`,
     });
   }
   const results = socSentController.getAnnualSentiments(convYear);
@@ -138,15 +139,15 @@ socialSentimentRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
  *     tags:
  *       - Social Sentiment
  *     summary: Get monthly social sentiment data
- *     description: Retrieve social sentiment data for a specific month in 2024.
+ *     description: Retrieve social sentiment data for a specific month in 2025.
  *     parameters:
  *       - in: query
  *         name: year
  *         schema:
  *           type: integer
- *           example: 2024
+ *           example: 2025
  *         required: true
- *         description: The year to retrieve data for (only 2024 supported)
+ *         description: The year to retrieve data for (only 2025 supported)
  *       - in: query
  *         name: month
  *         schema:
@@ -172,7 +173,7 @@ socialSentimentRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
  *                       date:
  *                         type: string
  *                         format: date
- *                         example: "2024-12-28"
+ *                         example: "2025-12-28"
  *                       mentions:
  *                         type: array
  *                         items:
@@ -187,7 +188,7 @@ socialSentimentRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
  *                             date:
  *                               type: string
  *                               format: date
- *                               example: "2024-12-28"
+ *                               example: "2025-12-28"
  *                       ratings:
  *                         type: array
  *                         items:
@@ -203,7 +204,7 @@ socialSentimentRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
  *                             date:
  *                               type: string
  *                               format: date
- *                               example: "2024-12-28"
+ *                               example: "2025-12-28"
  *                 summary:
  *                   type: object
  *                   properties:
@@ -236,7 +237,7 @@ socialSentimentRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
  *                   type: string
  *                   example: Missing required fields, year and month
  *       404:
- *         description: Data is only available for 2024 between January and December
+ *         description: Data is only available for 2025 between January and December
  *         content:
  *           application/json:
  *             schema:
@@ -244,7 +245,7 @@ socialSentimentRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Data for only 2024 January - December is available
+ *                   example: Data for only 2025 January - December is available
  */
 socialSentimentRouter.get("/monthly", Jwt.verifyToken, async (req, res) => {
   const { year, month } = req.query;
@@ -257,7 +258,7 @@ socialSentimentRouter.get("/monthly", Jwt.verifyToken, async (req, res) => {
 
   const convYear = parseInt(year);
   const convMonth = parseInt(month);
-  const validYear = 2024;
+  const validYear = 2025;
   const validMinMonth = 1;
   const validMaxMonth = 12;
 
@@ -267,7 +268,7 @@ socialSentimentRouter.get("/monthly", Jwt.verifyToken, async (req, res) => {
     convMonth > validMaxMonth
   ) {
     return res.status(404).json({
-      message: `Data for only 2024 January - December is available`,
+      message: `Data for only 2025 January - December is available`,
     });
   }
   const results = socSentController.getMontlySentiements(convYear, convMonth);
@@ -282,24 +283,24 @@ socialSentimentRouter.get("/monthly", Jwt.verifyToken, async (req, res) => {
  *     tags:
  *       - Social Sentiment
  *     summary: Get social sentiment data within a date range
- *     description: Retrieve social sentiment data for a given date range within the year 2024.
+ *     description: Retrieve social sentiment data for a given date range within the year 2025.
  *     parameters:
  *       - in: query
  *         name: startDate
  *         schema:
  *           type: string
  *           format: date
- *           example: 2024-06-01
+ *           example: 2025-06-01
  *         required: true
- *         description: The start date of the range (must be within 2024)
+ *         description: The start date of the range (must be within 2025)
  *       - in: query
  *         name: endDate
  *         schema:
  *           type: string
  *           format: date
- *           example: 2024-06-30
+ *           example: 2025-06-30
  *         required: true
- *         description: The end date of the range (must be within 2024)
+ *         description: The end date of the range (must be within 2025)
  *     responses:
  *       200:
  *         description: Successfully retrieved annual sentiment data
@@ -316,7 +317,7 @@ socialSentimentRouter.get("/monthly", Jwt.verifyToken, async (req, res) => {
  *                       date:
  *                         type: string
  *                         format: date
- *                         example: "2024-12-28"
+ *                         example: "2025-12-28"
  *                       mentions:
  *                         type: array
  *                         items:
@@ -331,7 +332,7 @@ socialSentimentRouter.get("/monthly", Jwt.verifyToken, async (req, res) => {
  *                             date:
  *                               type: string
  *                               format: date
- *                               example: "2024-12-28"
+ *                               example: "2025-12-28"
  *                       ratings:
  *                         type: array
  *                         items:
@@ -347,7 +348,7 @@ socialSentimentRouter.get("/monthly", Jwt.verifyToken, async (req, res) => {
  *                             date:
  *                               type: string
  *                               format: date
- *                               example: "2024-12-28"
+ *                               example: "2025-12-28"
  *                 summary:
  *                   type: object
  *                   properties:
@@ -380,7 +381,7 @@ socialSentimentRouter.get("/monthly", Jwt.verifyToken, async (req, res) => {
  *                   type: string
  *                   example: Missing required fields; startDate and endDate
  *       404:
- *         description: Date range outside of supported 2024 range
+ *         description: Date range outside of supported 2025 range
  *         content:
  *           application/json:
  *             schema:
@@ -388,33 +389,21 @@ socialSentimentRouter.get("/monthly", Jwt.verifyToken, async (req, res) => {
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Data for only 2024 January - December is available
+ *                   example: Data for only 2025 January - December is available
  */
 socialSentimentRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
   const { startDate, endDate } = req.query;
 
-  if (!startDate || !endDate) {
-    return res.status(400).json({
-      message: `Missing required fields: startDate and endDate`,
+  validateRange(startDate, endDate);
+
+  try {
+    const results = socSentController.getInRangeSentiments(startDate, endDate);
+    res.status(200).json(results);
+  } catch (error) {
+    res.status(500).json({
+      message: `${error.message}`,
     });
   }
-
-  const validMinDate = "2024-01-01";
-  const validMaxDate = "2024-12-31";
-
-  if (
-    startDate < validMinDate ||
-    startDate > validMaxDate ||
-    endDate < validMinDate ||
-    endDate > validMaxDate
-  ) {
-    return res.status(404).json({
-      message: `Data for only 2024 January - December is available`,
-    });
-  }
-  const results = socSentController.getInRangeSentiments(startDate, endDate);
-
-  res.status(200).json(results);
 });
 
 export default socialSentimentRouter;
