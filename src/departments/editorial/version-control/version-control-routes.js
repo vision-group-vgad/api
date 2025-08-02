@@ -92,7 +92,7 @@ const versionContRouter = express.Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Missing required fields: startDate and endDate.
+ *                   example: Missing required fields; startDate and endDate.
  *       404:
  *         description: No data found for the given range.
  *         content:
