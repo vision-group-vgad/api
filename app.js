@@ -45,8 +45,9 @@ import versionContRouter from "./src/departments/editorial/version-control/versi
 import router from "./src/departments/editorial/topicVirality/route.js";
 import backlogMgtRouter from "./src/departments/editorial/backlog-mgt/backlog-mgt-routes.js";
 import contentFreshnessRouter from "./src/departments/editorial/contentFreshness/contentFreshnessRoute.js";
-
+import updateFrequencyRouter from "./src/departments/editorial/updateFrequency/updateFrequencyRoute.js";
 import breakingNewsRouter from "./src/departments/editorial/breaking-news/breaking-news-routes.js";
+import backlogAnalyticsRouter from "./src/departments/editorial/backlogAnalytics/backlogAnalyticsRoutes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -104,5 +105,6 @@ app.use("/api/v1/editorial/topic-virality", router);
 app.use("/api/v1/editorial/backlog-mgt", backlogMgtRouter);
 app.use("/api/v1/editorial/contentFreshness", contentFreshnessRouter);
 app.use("/api/v1/editorial/breaking-news", breakingNewsRouter);
-
+app.use("/api/v1/editorial/updateFrequency", updateFrequencyRouter);
+app.use("/api/v1/editorial/backlogAnalytics", backlogAnalyticsRouter);
 export default app;
