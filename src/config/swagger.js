@@ -49,14 +49,8 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/sales/*.js"),
     path.join(__dirname, "../departments/specialized/*.js"),
     path.join(__dirname, "../auth/*.js"),
-    path.join(
-      __dirname,
-      "../departments/it/storage-utilization-donutchart/*.js"
-    ),
-    path.join(
-      __dirname,
-      "../departments/it/storage-utilization-donutchart/*.js"
-    ),
+    path.join(__dirname, "../departments/it/storage-utilization-donutchart/*.js"),
+    path.join(__dirname, "../departments/it/storage-utilization-donutchart/*.js"),
     path.join(__dirname, "../accountSettings/*.js"),
     path.join(__dirname, "../departments/it/systemHealth/*.js"),
     path.join(__dirname, "../departments/finance/reporting-acc-pie-chart/*.js"),
@@ -71,14 +65,8 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/finance/dso/*.js"),
     path.join(__dirname, "../departments/finance/bad-debt-ratios/*.js"),
     path.join(__dirname, "../departments/finance/collection-efficiency/*.js"),
-    path.join(
-      __dirname,
-      "../departments/finance/finance_forecasting/forecastingController.js"
-    ),
-    path.join(
-      __dirname,
-      "../departments/finance/systemIntegrationHealth/controller.js"
-    ),
+    path.join(__dirname, "../departments/finance/finance_forecasting/forecastingController.js"),
+    path.join(__dirname, "../departments/finance/systemIntegrationHealth/controller.js"),
     path.join(__dirname, "../departments/editorial/editorialAnalytics/*.js"),
     path.join(__dirname, "../departments/editorial/readership-trends/*.js"),
     path.join(__dirname, "../departments/editorial/jornalistProductivity/*.js"),
@@ -92,7 +80,8 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/editorial/version-control/*.js"),
     path.join(__dirname, "../departments/editorial/backlog-mgt/*.js"),
     path.join(__dirname, "../departments/editorial/contentFreshness/*.js"),
-
+    path.join(__dirname, "../departments/editorial/updateFrequency/*.js"),
     path.join(__dirname, "../departments/editorial/breaking-news/*.js"),
+    path.join(__dirname, "../departments/editorial/backlogAnalytics/*.js"),
   ],
 };
