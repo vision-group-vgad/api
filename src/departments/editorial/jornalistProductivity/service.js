@@ -165,10 +165,10 @@ export async function getJournalistProductivity() {
       }); // 90s timeout
       sessionData = sessionRes.data.data;
       console.log(
-        `✅ Direct API success: ${sessionData.length} session records`
+        `Direct API success: ${sessionData.length} session records`
       );
     } catch (error) {
-      console.log(`❌ Direct API failed: ${error.message}`);
+      console.log(`Direct API failed: ${error.message}`);
       console.log("Falling back to chunked approach...");
 
       // Fallback to chunked approach
