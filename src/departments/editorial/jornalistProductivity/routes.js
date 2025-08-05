@@ -1,6 +1,7 @@
 import express from "express";
 import { getProductivity } from "./controller.js";
 
+
 const router = express.Router();
 
 /**
@@ -40,5 +41,7 @@ const router = express.Router();
  */
 
 router.get("/", getProductivity);
+
+
 
 export default router;

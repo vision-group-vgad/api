@@ -1,142 +1,130 @@
 import axios from "axios";
-import axiosRetry from "axios-retry";
 
-axiosRetry(axios, { retries: 3 });
+const SESSION_API = "https://cms-vgad.visiongroup.co.ug/api/api-listings/article-session-duration";
+const ARTICLES_API = "https://cms-vgad.visiongroup.co.ug/api/api-listings/articles";
 
-class TopicVirality {
-  constructor() {
-    this.initialized = false;
-    this.BACKEND_URL = "https://cms-vgad.visiongroup.co.ug"; // This is not right!
-    this.API_KEY = process.env.CMS_API_KEY;
-
-    if (!this.API_KEY) {
-      throw new Error("Missing required environment variable: CMS_API_KEY");
-    }
-  }
-
-  initialize() {
-    if (this.initialized) return;
-
-    this.apiClient = axios.create({
-      baseURL: this.BACKEND_URL,
-      timeout: 30000,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.API_KEY}`,
-      },
-    });
-
-    this.apiClient.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        const { response } = error;
-        const status = response?.status || "NO_STATUS";
-        const msg = response?.data?.message || error.message || "Unknown error";
-        console.error(`[TopicVirality] HTTP ${status}: ${msg}`);
-        return Promise.reject(new Error(`TopicVirality API Error: ${msg}`));
-      }
-    );
-
-    this.initialized = true;
-  }
-
-  #buildQueryParams({ category, author }) {
-    const params = new URLSearchParams();
-    if (category) params.append("category", category);
-    if (author) params.append("author", author);
-    return params.toString() ? `?${params.toString()}` : "";
-  }
-
-  async getArticlesByOffset({
-    startDate,
-    endDate,
-    offset = 0,
-    category = null,
-    author = null,
-  }) {
-    if (!startDate || !endDate)
-      throw new Error("Both startDate and endDate must be provided.");
-    this.initialize();
-
-    const query = this.#buildQueryParams({ category, author });
-    const url = `/api/api-listings/articles/${startDate}/${endDate}/${offset}${query}`;
-
-    console.log("[TopicVirality] Requesting:", url);
-
-    const response = await this.apiClient.get(url);
-    const data = response?.data;
-
-    if (!data?.data || !Array.isArray(data.data)) {
-      throw new Error(
-        "Invalid response format: expected data.data to be an array."
-      );
-    }
-
-    return {
-      data: data.data,
-      meta: data.meta || {},
-    };
-  }
-
-  async getAllArticles({ startDate, endDate, category = null, author = null }) {
-    if (!startDate || !endDate)
-      throw new Error("Both startDate and endDate must be provided.");
-    this.initialize();
-
-    const limit = 10;
-    let offset = 0;
-    let total = null;
-    const allArticles = [];
-
-    while (total === null || offset < total) {
-      const { data, meta } = await this.getArticlesByOffset({
-        startDate,
-        endDate,
-        offset,
-        category,
-        author,
-      });
-
-      allArticles.push(...data);
-      total = meta.totalCount;
-      offset += limit;
-    }
-
-    return {
-      data: allArticles,
-      meta: {
-        totalCount: allArticles.length,
-        pageSize: limit,
-        pageCount: Math.ceil(allArticles.length / limit),
-      },
-    };
-  }
+function extractExternalId(pagePath) {
+  const parts = pagePath.split("/");
+  const last = parts[parts.length - 1];
+  return last.startsWith("NV_") || last.startsWith("BUK_") ? last : null;
 }
 
-const topicVirality = new TopicVirality();
+function convertToSeconds(duration) {
+  if (!duration) return 0;
+  const [h, m, s] = duration.split(":").map(Number);
+  return (h * 3600) + (m * 60) + s;
+}
 
-export const getTopicVirality = async ({ year, month, category, author }) => {
-  const paddedMonth = month ? String(month).padStart(2, "0") : null;
+function computeVitality(duration, scroll, bounce) {
+  const durationScore = Math.min(duration / 300, 1); // max 5 min
+  const scrollScore = scroll / 100;
+  const bounceScore = 1 - bounce;
+  return (durationScore * 0.5) + (scrollScore * 0.3) + (bounceScore * 0.2);
+}
 
-  let start, end;
+async function fetchSessions(start, end) {
+  const url = `${SESSION_API}/${start}/${end}`;
+  const { data } = await axios.get(url);
+  return data.data;
+}
 
-  if (paddedMonth) {
-    start = `${year}-${paddedMonth}-01`;
+async function fetchArticlesPaginated(offset, start, end) {
+  const url = `${ARTICLES_API}/${start}/${end}/${offset}`;
+  const { data } = await axios.get(url);
+  return data.data || [];
+}
 
-    // Calculate the last day of the month
-    const nextMonth = new Date(year, parseInt(paddedMonth), 1);
-    nextMonth.setDate(0); // Go back one day to get last day of current month
-    const lastDay = String(nextMonth.getDate()).padStart(2, "0");
-    end = `${year}-${paddedMonth}-${lastDay}`;
-  } else {
-    start = `${year}-01-01`;
-    end = `${year}-12-31`;
+async function fetchArticlesByExternalIds(externalIds, start, end) {
+  const map = {};
+  let offset = 0;
+  const limit = 10;
+  let totalFetched = 0;
+
+  while (true) {
+    const articles = await fetchArticlesPaginated(offset, start, end);
+    if (articles.length === 0) break;
+
+    for (const article of articles) {
+      if (externalIds.includes(article.externalId)) {
+        map[article.externalId] = article;
+      }
+    }
+
+    totalFetched += articles.length;
+    if (totalFetched >= 1000) break;
+    offset += limit;
   }
 
-  return await topicVirality.getAllArticles({
-    startDate: start,
-    endDate: end,
-    category,
-    author,
+  return map;
+}
+
+export async function getTopicVitality(startDate, endDate) {
+  const sessions = await fetchSessions(startDate, endDate);
+  const externalIds = sessions
+    .map(s => extractExternalId(s.pagePath))
+    .filter(id => id !== null);
+
+  const articlesMap = await fetchArticlesByExternalIds(externalIds, startDate, endDate);
+
+  const topicMap = {};
+
+  for (const session of sessions) {
+    const externalId = extractExternalId(session.pagePath);
+    if (!externalId || !articlesMap[externalId]) continue;
+
+    const article = articlesMap[externalId];
+    const duration = convertToSeconds(session.averageDuration);
+    const scroll = parseInt(session.percentScrolled || "0", 10);
+    const bounce = parseFloat(session.bounceRate || "0");
+    const vitality = computeVitality(duration, scroll, bounce);
+    const date = article.published_on?.split(" ")[0];
+
+    (article.tags || []).forEach(tag => {
+      if (!topicMap[tag]) {
+        topicMap[tag] = {
+          tag,
+          totalArticles: 0,
+          totalDuration: 0,
+          totalScroll: 0,
+          totalBounceRate: 0,
+          vitalityScores: [],
+          dates: {}
+        };
+      }
+
+      const t = topicMap[tag];
+      t.totalArticles++;
+      t.totalDuration += duration;
+      t.totalScroll += scroll;
+      t.totalBounceRate += bounce;
+      t.vitalityScores.push(vitality);
+
+      if (!t.dates[date]) t.dates[date] = [];
+      t.dates[date].push(vitality);
+    });
+  }
+
+  const results = Object.values(topicMap).map(topic => {
+    const avgVitality = topic.vitalityScores.reduce((a, b) => a + b, 0) / topic.vitalityScores.length;
+    const avgDuration = topic.totalDuration / topic.totalArticles;
+    const avgScroll = topic.totalScroll / topic.totalArticles;
+    const avgBounce = topic.totalBounceRate / topic.totalArticles;
+
+    const trend = Object.entries(topic.dates).map(([date, values]) => ({
+      date,
+      vitalityScore: values.reduce((a, b) => a + b, 0) / values.length
+    }));
+
+    return {
+      tag: topic.tag,
+      totalArticles: topic.totalArticles,
+      averageDuration: Math.round(avgDuration),
+      averageScroll: Math.round(avgScroll),
+      bounceRate: parseFloat(avgBounce.toFixed(2)),
+      vitalityScore: parseFloat(avgVitality.toFixed(2)),
+      trend
+    };
   });
-};
+
+  return results.sort((a, b) => b.vitalityScore - a.vitalityScore);
+}

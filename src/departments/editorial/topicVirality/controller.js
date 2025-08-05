@@ -1,39 +1,48 @@
-import { getTopicVirality } from "./service.js";
+import express from "express";
+import { getTopicVitality } from "./service.js";
 
-// const topicViralityService = new TopicVirality();
+const router = express.Router();
 
-export const getTopicViralityController = async (req, res) => {
-  let { year, month, category, author } = req.query;
-  year = parseInt(year);
-  month = month ? parseInt(month) : null;
 
-  console.log("Received query:", { year, month, category, author });
+/**
+ * @swagger
+ * /api/v1/editorial/topic-virality:
+ *   get:
+ *     summary: Get topic vitality grouped by tags
+ *     description: Returns a list of topic vitality metrics based on engagement and metadata.
+ *     tags:
+ *       - Topic Vitality
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Start date in YYYY-MM-DD
+ *       - in: query
+ *         name: endDate
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: End date in YYYY-MM-DD
+ *     responses:
+ *       200:
+ *         description: Topic vitality data
+ */
 
-  if (!year) {
-    return res.status(400).json({ message: "Missing required field: year." });
-  }
 
-  if (year < 2020 || year > new Date().getFullYear()) {
-    return res.status(400).json({
-      message:
-        "Invalid year. Please provide a year between 2020 and the current year.",
-    });
-  }
-
+router.get("/", async (req, res) => {
+  const { startDate, endDate } = req.query;
   try {
-    const data = await getTopicVirality({
-      year,
-      month,
-      category,
-      author,
-    });
-
-    return res.status(200).json(data);
-  } catch (error) {
-    console.error("Error in getTopicViralityController:", error);
-    const statusCode = error.message?.includes("400") ? 400 : 500;
-    return res
-      .status(statusCode)
-      .json({ message: error.message || "Internal server error." });
+    const data = await getTopicVitality(startDate, endDate);
+    res.json(data);
+  } catch (err) {
+    console.error("Error fetching topic vitality:", err.message);
+    res.status(500).json({ error: "Failed to fetch topic vitality data" });
   }
-};
+});
+
+export default router;
+
