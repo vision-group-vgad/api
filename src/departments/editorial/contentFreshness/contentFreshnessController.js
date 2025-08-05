@@ -20,7 +20,13 @@ export const getFreshnessAnalytics = async (req, res) => {
 
     const response = await axios.get(apiUrl, { headers });
     const articles = response.data.data || [];
+    console.log("Fetched articles:", articles, articles.length, "items");
 
+    if (metric === "all articles"){
+      return res.json({
+        articles
+      });
+    }
 
     //Freshness metrics calculations
     if (metric === 'percentage') {
@@ -115,9 +121,8 @@ export const getFreshnessAnalytics = async (req, res) => {
 
     return res.json(distribution);
   }
+  return res.json("Fetched Aticles:",articles)
 
-
-    res.status(400).json({ error: 'Unsupported metric type.' });
   } catch (err) {
     console.error('❌ Freshness analytics error:', err);
     res.status(500).json({ error: 'Failed to retrieve freshness analytics' });

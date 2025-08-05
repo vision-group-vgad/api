@@ -32,7 +32,7 @@ const contentFreshnessRouter = express.Router();
  *         required: true
  *         schema:
  *           type: string
- *           enum: [percentage, heatmap, averageAge, distribution]
+ *           enum: [percentage, heatmap, averageAge, distribution, all articles]
  *         description: Choose the metric to retrieve
  *     responses:
  *       200:
