@@ -56,10 +56,10 @@ async function getSessionDataChunked(startDate, endDate, chunkDays = 14) {
     try {
       const url = `https://cms-vgad.visiongroup.co.ug/api/api-listings/article-session-duration/${chunk.start}/${chunk.end}`;
       const response = await axiosInstance.get(url);
-      console.log(`✅ Chunk ${index + 1} complete: ${response.data.data.length} records`);
+      console.log(`Chunk ${index + 1} complete: ${response.data.data.length} records`);
       return response.data.data;
     } catch (error) {
-      console.error(`❌ Chunk ${index + 1} failed: ${error.message}`);
+      console.error(`Chunk ${index + 1} failed: ${error.message}`);
       return [];
     }
   });
@@ -214,7 +214,7 @@ export async function getJournalistProductivity({
     // Pre-filter articles
     const filteredArticles = filterArticles(allArticles, author, category);
     
-    // Create optimized lookup map
+  
     const articleMap = new Map();
     for (const article of filteredArticles) {
       if (article.externalId) {
@@ -299,7 +299,7 @@ export async function getJournalistProductivity({
     const paginated = allResults.slice(startIndex, startIndex + limit);
 
     const totalTime = Date.now() - startTime;
-    console.log(`✅ Completed in ${totalTime}ms`);
+    console.log(`Completed in ${totalTime}ms`);
 
     return {
       success: true,
