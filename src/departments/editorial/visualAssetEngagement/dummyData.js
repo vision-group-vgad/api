@@ -1,0 +1,42 @@
+export const dummyMergedData = [
+  {
+    externalId: "NV_000001",
+    title: "Dummy Article One",
+    publishedDate: "2025-02-15",
+    category: "Politics",
+    tags: ["Dummy", "Politics"],
+    author: "John Doe",
+    editor: "Editor A",
+    platform: "web",
+    avgSessionTime: "05:30:00",
+    scrollDepth: 65,
+    bounceRate: 0.2,
+    views: 1234,
+    shares: 25,
+    comments: 7,
+    clicks: 18,
+    visualType: "image",
+    visualCount: 2,
+    visualEngagementScore: 0.84
+  },
+  {
+    externalId: "NV_000002",
+    title: "Dummy Article Two",
+    publishedDate: "2025-03-05",
+    category: "Health",
+    tags: ["Dummy", "Health"],
+    author: "Jane Smith",
+    editor: "Editor B",
+    platform: "web",
+    avgSessionTime: "03:00:00",
+    scrollDepth: 50,
+    bounceRate: 0.4,
+    views: 850,
+    shares: 10,
+    comments: 2,
+    clicks: 11,
+    visualType: "video",
+    visualCount: 1,
+    visualEngagementScore: 0.66
+  }
+];
