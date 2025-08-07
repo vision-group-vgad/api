@@ -9,7 +9,7 @@ const router = express.Router();
  * /api/v1/capEx/capex-dummy:
  *   get:
  *     summary: Get Capital Expenditure (CapEx) records
- *     description: >
+ *     description: 
  *       Retrieve a list of Capital Expenditure transactions.  
  *       Supports optional filtering by year or date range.  
  *       Defaults to latest available year if no filter is provided.
