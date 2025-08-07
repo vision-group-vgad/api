@@ -24,14 +24,14 @@ const backlogAnalyticsRouter = express.Router();
  *         required: false
  *         schema:
  *           type: integer
- *           default: 20
+ *           default: 100
  *         description: Number of articles or time units to fetch from API (defaults to 20)
  *       - in: query
  *         name: metric
  *         required: true
  *         schema:
  *           type: string
- *           enum: [backlogKPI, backlogStackedBar, backlogTrend]
+ *           enum: [backlogDetails, staleReadyArticles,bottlenecks]
  *         description: Type of backlog metric to retrieve
  *     responses:
  *       200:
