@@ -47,8 +47,9 @@ import contentFreshnessRouter from "./src/departments/editorial/contentFreshness
 import updateFrequencyRouter from "./src/departments/editorial/updateFrequency/updateFrequencyRoute.js";
 import breakingNewsRouter from "./src/departments/editorial/breaking-news/breaking-news-routes.js";
 import backlogAnalyticsRouter from "./src/departments/editorial/backlogAnalytics/backlogAnalyticsRoutes.js";
-import visualEngagementRoute from "./src/departments/editorial/visualAssetEngagement/controller.js"
-import usageTrackingRoute from "./src/departments/editorial/usageTracking/routes.js"
+import visualEngagementRoute from "./src/departments/editorial/visualAssetEngagement/controller.js";
+import usageTrackingRoute from "./src/departments/editorial/usageTracking/routes.js";
+import compBenchRouter from "./src/departments/editorial/competitor-benchmarking/comp-bench-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -110,5 +111,6 @@ app.use("/api/v1/editorial/updateFrequency", updateFrequencyRouter);
 app.use("/api/v1/editorial/backlogAnalytics", backlogAnalyticsRouter);
 app.use("/api/v1/editorial/visual-engagement", visualEngagementRoute);
 app.use("/api/v1/editorial/visual-usage", usageTrackingRoute);
+app.use("/api/v1/editorial/comp-bench", compBenchRouter);
 
 export default app;

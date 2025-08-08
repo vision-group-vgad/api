@@ -1,0 +1,472 @@
+[
+  {
+    "competitor": "Daily Monitor",
+    "totalArticles": 96,
+    "avgViews": 2649,
+    "avgEngagement": 405,
+    "socialMediaReach": 243049,
+    "totalTraffic": 304168,
+    "engagementRate": 12.8,
+    "articleCategoryBreakdown": {
+      "Politics": 26,
+      "Sports": 34,
+      "Entertainment": 43,
+      "Business": 48
+    },
+    "monthlyTrafficTrend": [
+      {
+        "month": "Jan",
+        "year": 2025,
+        "traffic": 35121
+      },
+      {
+        "month": "Feb",
+        "year": 2025,
+        "traffic": 51287
+      },
+      {
+        "month": "Mar",
+        "year": 2025,
+        "traffic": 48407
+      },
+      {
+        "month": "Apr",
+        "year": 2025,
+        "traffic": 39401
+      },
+      {
+        "month": "May",
+        "year": 2025,
+        "traffic": 35704
+      },
+      {
+        "month": "Jun",
+        "year": 2025,
+        "traffic": 30957
+      }
+    ]
+  },
+  {
+    "competitor": "The Observer",
+    "totalArticles": 91,
+    "avgViews": 3400,
+    "avgEngagement": 570,
+    "socialMediaReach": 146528,
+    "totalTraffic": 330010,
+    "engagementRate": 14.0,
+    "articleCategoryBreakdown": {
+      "Politics": 23,
+      "Sports": 34,
+      "Entertainment": 49,
+      "Business": 20
+    },
+    "monthlyTrafficTrend": [
+      {
+        "month": "Jan",
+        "year": 2025,
+        "traffic": 50453
+      },
+      {
+        "month": "Feb",
+        "year": 2025,
+        "traffic": 52240
+      },
+      {
+        "month": "Mar",
+        "year": 2025,
+        "traffic": 38339
+      },
+      {
+        "month": "Apr",
+        "year": 2025,
+        "traffic": 37348
+      },
+      {
+        "month": "May",
+        "year": 2025,
+        "traffic": 30454
+      },
+      {
+        "month": "Jun",
+        "year": 2025,
+        "traffic": 46178
+      }
+    ]
+  },
+  {
+    "competitor": "Bukedde",
+    "totalArticles": 116,
+    "avgViews": 3866,
+    "avgEngagement": 516,
+    "socialMediaReach": 220033,
+    "totalTraffic": 315973,
+    "engagementRate": 13.2,
+    "articleCategoryBreakdown": {
+      "Politics": 38,
+      "Sports": 41,
+      "Entertainment": 33,
+      "Business": 46
+    },
+    "monthlyTrafficTrend": [
+      {
+        "month": "Jan",
+        "year": 2025,
+        "traffic": 43940
+      },
+      {
+        "month": "Feb",
+        "year": 2025,
+        "traffic": 46503
+      },
+      {
+        "month": "Mar",
+        "year": 2025,
+        "traffic": 47874
+      },
+      {
+        "month": "Apr",
+        "year": 2025,
+        "traffic": 41139
+      },
+      {
+        "month": "May",
+        "year": 2025,
+        "traffic": 51261
+      },
+      {
+        "month": "Jun",
+        "year": 2025,
+        "traffic": 51070
+      }
+    ]
+  },
+  {
+    "competitor": "Red Pepper",
+    "totalArticles": 137,
+    "avgViews": 3592,
+    "avgEngagement": 453,
+    "socialMediaReach": 229080,
+    "totalTraffic": 419490,
+    "engagementRate": 13.9,
+    "articleCategoryBreakdown": {
+      "Politics": 19,
+      "Sports": 28,
+      "Entertainment": 23,
+      "Business": 36
+    },
+    "monthlyTrafficTrend": [
+      {
+        "month": "Jan",
+        "year": 2025,
+        "traffic": 53292
+      },
+      {
+        "month": "Feb",
+        "year": 2025,
+        "traffic": 35448
+      },
+      {
+        "month": "Mar",
+        "year": 2025,
+        "traffic": 43059
+      },
+      {
+        "month": "Apr",
+        "year": 2025,
+        "traffic": 53586
+      },
+      {
+        "month": "May",
+        "year": 2025,
+        "traffic": 49611
+      },
+      {
+        "month": "Jun",
+        "year": 2025,
+        "traffic": 38364
+      }
+    ]
+  },
+  {
+    "competitor": "Eagle Online",
+    "totalArticles": 118,
+    "avgViews": 3957,
+    "avgEngagement": 478,
+    "socialMediaReach": 214041,
+    "totalTraffic": 386351,
+    "engagementRate": 11.3,
+    "articleCategoryBreakdown": {
+      "Politics": 33,
+      "Sports": 39,
+      "Entertainment": 25,
+      "Business": 42
+    },
+    "monthlyTrafficTrend": [
+      {
+        "month": "Jan",
+        "year": 2025,
+        "traffic": 32631
+      },
+      {
+        "month": "Feb",
+        "year": 2025,
+        "traffic": 36326
+      },
+      {
+        "month": "Mar",
+        "year": 2025,
+        "traffic": 48408
+      },
+      {
+        "month": "Apr",
+        "year": 2025,
+        "traffic": 46302
+      },
+      {
+        "month": "May",
+        "year": 2025,
+        "traffic": 44371
+      },
+      {
+        "month": "Jun",
+        "year": 2025,
+        "traffic": 53910
+      }
+    ]
+  },
+  {
+    "competitor": "SoftPower News",
+    "totalArticles": 103,
+    "avgViews": 3553,
+    "avgEngagement": 555,
+    "socialMediaReach": 156564,
+    "totalTraffic": 358133,
+    "engagementRate": 12.6,
+    "articleCategoryBreakdown": {
+      "Politics": 38,
+      "Sports": 39,
+      "Entertainment": 25,
+      "Business": 46
+    },
+    "monthlyTrafficTrend": [
+      {
+        "month": "Jan",
+        "year": 2025,
+        "traffic": 34130
+      },
+      {
+        "month": "Feb",
+        "year": 2025,
+        "traffic": 51692
+      },
+      {
+        "month": "Mar",
+        "year": 2025,
+        "traffic": 52804
+      },
+      {
+        "month": "Apr",
+        "year": 2025,
+        "traffic": 38564
+      },
+      {
+        "month": "May",
+        "year": 2025,
+        "traffic": 52935
+      },
+      {
+        "month": "Jun",
+        "year": 2025,
+        "traffic": 34388
+      }
+    ]
+  },
+  {
+    "competitor": "ChimpReports",
+    "totalArticles": 148,
+    "avgViews": 3110,
+    "avgEngagement": 581,
+    "socialMediaReach": 190713,
+    "totalTraffic": 346349,
+    "engagementRate": 14.8,
+    "articleCategoryBreakdown": {
+      "Politics": 49,
+      "Sports": 18,
+      "Entertainment": 44,
+      "Business": 27
+    },
+    "monthlyTrafficTrend": [
+      {
+        "month": "Jan",
+        "year": 2025,
+        "traffic": 44017
+      },
+      {
+        "month": "Feb",
+        "year": 2025,
+        "traffic": 41496
+      },
+      {
+        "month": "Mar",
+        "year": 2025,
+        "traffic": 37877
+      },
+      {
+        "month": "Apr",
+        "year": 2025,
+        "traffic": 49474
+      },
+      {
+        "month": "May",
+        "year": 2025,
+        "traffic": 30058
+      },
+      {
+        "month": "Jun",
+        "year": 2025,
+        "traffic": 46098
+      }
+    ]
+  },
+  {
+    "competitor": "New Vision Digital",
+    "totalArticles": 118,
+    "avgViews": 3475,
+    "avgEngagement": 462,
+    "socialMediaReach": 226178,
+    "totalTraffic": 367732,
+    "engagementRate": 13.6,
+    "articleCategoryBreakdown": {
+      "Politics": 34,
+      "Sports": 22,
+      "Entertainment": 33,
+      "Business": 33
+    },
+    "monthlyTrafficTrend": [
+      {
+        "month": "Jan",
+        "year": 2025,
+        "traffic": 43221
+      },
+      {
+        "month": "Feb",
+        "year": 2025,
+        "traffic": 47005
+      },
+      {
+        "month": "Mar",
+        "year": 2025,
+        "traffic": 50512
+      },
+      {
+        "month": "Apr",
+        "year": 2025,
+        "traffic": 53694
+      },
+      {
+        "month": "May",
+        "year": 2025,
+        "traffic": 38805
+      },
+      {
+        "month": "Jun",
+        "year": 2025,
+        "traffic": 42919
+      }
+    ]
+  },
+  {
+    "competitor": "PML Daily",
+    "totalArticles": 131,
+    "avgViews": 3527,
+    "avgEngagement": 571,
+    "socialMediaReach": 232798,
+    "totalTraffic": 478601,
+    "engagementRate": 11.5,
+    "articleCategoryBreakdown": {
+      "Politics": 37,
+      "Sports": 17,
+      "Entertainment": 22,
+      "Business": 33
+    },
+    "monthlyTrafficTrend": [
+      {
+        "month": "Jan",
+        "year": 2025,
+        "traffic": 31941
+      },
+      {
+        "month": "Feb",
+        "year": 2025,
+        "traffic": 41807
+      },
+      {
+        "month": "Mar",
+        "year": 2025,
+        "traffic": 41077
+      },
+      {
+        "month": "Apr",
+        "year": 2025,
+        "traffic": 41265
+      },
+      {
+        "month": "May",
+        "year": 2025,
+        "traffic": 45655
+      },
+      {
+        "month": "Jun",
+        "year": 2025,
+        "traffic": 38403
+      }
+    ]
+  },
+  {
+    "competitor": "Independent",
+    "totalArticles": 138,
+    "avgViews": 3919,
+    "avgEngagement": 591,
+    "socialMediaReach": 184893,
+    "totalTraffic": 325284,
+    "engagementRate": 11.4,
+    "articleCategoryBreakdown": {
+      "Politics": 35,
+      "Sports": 43,
+      "Entertainment": 21,
+      "Business": 30
+    },
+    "monthlyTrafficTrend": [
+      {
+        "month": "Jan",
+        "year": 2025,
+        "traffic": 36712
+      },
+      {
+        "month": "Feb",
+        "year": 2025,
+        "traffic": 54236
+      },
+      {
+        "month": "Mar",
+        "year": 2025,
+        "traffic": 48213
+      },
+      {
+        "month": "Apr",
+        "year": 2025,
+        "traffic": 51038
+      },
+      {
+        "month": "May",
+        "year": 2025,
+        "traffic": 52116
+      },
+      {
+        "month": "Jun",
+        "year": 2025,
+        "traffic": 30826
+      }
+    ]
+  }
+]
