@@ -85,5 +85,6 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/editorial/backlogAnalytics/*.js"),
     path.join(__dirname, "../departments/editorial/visualAssetEngagement/*.js"),
     path.join(__dirname, "../departments/editorial/usageTracking/*.js"),
+    path.join(__dirname, "../departments/editorial/rightsManagement/*.js"),
   ],
 };
