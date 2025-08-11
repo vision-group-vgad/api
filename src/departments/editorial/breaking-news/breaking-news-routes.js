@@ -95,7 +95,7 @@ const brkNewsController = new BreakingNewsController();
  *       404:
  *         description: No data found for the requested range.
  */
-breakingNewsRouter.get("/in-range", async (req, res) => {
+breakingNewsRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
   let { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

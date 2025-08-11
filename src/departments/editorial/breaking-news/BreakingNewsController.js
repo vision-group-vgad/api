@@ -1,5 +1,6 @@
 import Article from "../../../utils/common/Article.js";
 import { getDateFromTimestamp } from "../../../utils/common/common-functionalities.js";
+import { response } from "./brk-dummy.js";
 
 class BreakingNewsController {
   #article;
@@ -69,17 +70,18 @@ class BreakingNewsController {
   }
 
   async getInRangeBreakingNews(startDate, endDate) {
-    const summarizedArticles =
-      await this.#article.getSummarizedInRangeArticles();
-    const detailedArticles = await this.#article.getInRangeArticles(
-      startDate,
-      endDate
-    );
-    const breakingNews = this.#processArticles(
-      detailedArticles,
-      summarizedArticles
-    );
-    return breakingNews;
+    // const summarizedArticles =
+    //   await this.#article.getSummarizedInRangeArticles();
+    // const detailedArticles = await this.#article.getInRangeArticles(
+    //   startDate,
+    //   endDate
+    // );
+    // const breakingNews = this.#processArticles(
+    //   detailedArticles,
+    //   summarizedArticles
+    // );
+    // return breakingNews;
+    return response;
   }
 }
 

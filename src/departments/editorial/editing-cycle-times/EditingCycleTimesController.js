@@ -7,6 +7,7 @@ import {
   getDateFromTimestamp,
 } from "../../../utils/common/common-functionalities.js";
 import Article from "../../../utils/common/Article.js";
+import { articles } from "./editing-cycle-dummy.js";
 
 class EditCycTimesController {
   #article;
@@ -90,15 +91,16 @@ class EditCycTimesController {
   }
 
   async getInRangeData(startDate, endDate) {
-    const inRangeData = await this.#article.getInRangeArticles(
-      startDate,
-      endDate
-    );
-    const articles = this.#processData(inRangeData);
-    return {
-      articleCount: articles.length,
-      articles: articles,
-    };
+    // const inRangeData = await this.#article.getInRangeArticles(
+    //   startDate,
+    //   endDate
+    // );
+    // const articles = this.#processData(inRangeData);
+    // return {
+    //   articleCount: articles.length,
+    //   articles: articles,
+    // };
+    return articles;
   }
 }
 
