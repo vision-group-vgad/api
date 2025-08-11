@@ -1,5 +1,6 @@
 import { truncateToDecimals } from "../../../utils/common/common-functionalities.js";
 import Article from "../../../utils/common/Article.js";
+import { vcData } from "./vc_dummy.js";
 
 class VersionControlController {
   #article;
@@ -8,11 +9,12 @@ class VersionControlController {
   }
 
   async getInRangeArticles(startDate, endDate) {
-    const fetchedData = await this.#article.getInRangeArticles(
-      startDate,
-      endDate
-    );
-    return this.#processArticles(fetchedData);
+    // const fetchedData = await this.#article.getInRangeArticles(
+    //   startDate,
+    //   endDate
+    // );
+    // return this.#processArticles(fetchedData);
+    return vcData;
   }
 
   #processArticles(articles) {

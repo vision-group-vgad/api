@@ -29,7 +29,7 @@ const versionContRouter = express.Router();
  *         schema:
  *           type: string
  *           format: date
- *           example: 2025-12-31
+ *           example: 2025-01-20
  *         description: The end date of the range in YYYY-MM-DD format.
  *     responses:
  *       200:
