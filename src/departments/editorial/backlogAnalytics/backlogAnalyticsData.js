@@ -23,7 +23,7 @@ function randomDateInApril2025() {
   const hour = Math.floor(Math.random() * 12) + 1;
   const minute = Math.floor(Math.random() * 60);
   const ampm = Math.random() > 0.5 ? "AM" : "PM";
-  return `4/${day}/2025 ${hour}:${minute.toString().padStart(2, "0")}:00 ${ampm}`;
+  return `7/${day}/2025 ${hour}:${minute.toString().padStart(2, "0")}:00 ${ampm}`;
 }
 
 // Fixed helper to shift date by X days with proper 12-hour formatting
@@ -46,7 +46,7 @@ function shiftDate(dateStr, days) {
 
 const mockBacklogArticles = [];
 
-for (let i = 1; i <= 100; i++) {
+for (let i = 1; i <= 1000; i++) {
   const category = categories[i % categories.length];
   const author = authors[i % authors.length];
   const status = statuses[Math.floor(Math.random() * statuses.length)];
