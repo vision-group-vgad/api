@@ -12,7 +12,7 @@ class Article {
 
     this.apiClient = axios.create({
       baseURL: this.BACKEND_URL,
-      //timeout: 30000,
+      timeout: 30000,
       headers: {
         "Content-Type": "application/json",
       },
