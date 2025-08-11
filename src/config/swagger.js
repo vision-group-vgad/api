@@ -102,5 +102,6 @@ export const swaggerOptions = {
       "../departments/editorial/competitor-benchmarking/*.js"
     ),
     path.join(__dirname, "../departments/editorial/editorial-adherence/*.js"),
+    path.join(__dirname, "../departments/editorial/rightsManagement/*.js"),
   ],
 };

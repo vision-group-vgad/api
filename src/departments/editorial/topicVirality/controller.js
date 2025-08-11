@@ -1,8 +1,8 @@
 import express from "express";
 import { getTopicVitality } from "./service.js";
+import dayjs from "dayjs";
 
 const router = express.Router();
-
 
 /**
  * @swagger
@@ -15,27 +15,30 @@ const router = express.Router();
  *     parameters:
  *       - in: query
  *         name: startDate
- *         required: true
+ *         required: false
  *         schema:
  *           type: string
  *           format: date
- *         description: Start date in YYYY-MM-DD
+ *         description: Start date in YYYY-MM-DD (defaults to first day of current month)
  *       - in: query
  *         name: endDate
- *         required: true
+ *         required: false
  *         schema:
  *           type: string
  *           format: date
- *         description: End date in YYYY-MM-DD
+ *         description: End date in YYYY-MM-DD (defaults to today)
  *     responses:
  *       200:
  *         description: Topic vitality data
  */
-
-
 router.get("/", async (req, res) => {
-  const { startDate, endDate } = req.query;
   try {
+    let { startDate, endDate } = req.query;
+
+    // Default to current month if not provided
+    if (!startDate) startDate = dayjs().startOf("month").format("YYYY-MM-DD");
+    if (!endDate) endDate = dayjs().format("YYYY-MM-DD");
+
     const data = await getTopicVitality(startDate, endDate);
     res.json(data);
   } catch (err) {
@@ -45,4 +48,3 @@ router.get("/", async (req, res) => {
 });
 
 export default router;
-
