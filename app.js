@@ -50,6 +50,7 @@ import backlogAnalyticsRouter from "./src/departments/editorial/backlogAnalytics
 import visualEngagementRoute from "./src/departments/editorial/visualAssetEngagement/controller.js";
 import usageTrackingRoute from "./src/departments/editorial/usageTracking/routes.js";
 import compBenchRouter from "./src/departments/editorial/competitor-benchmarking/comp-bench-routes.js";
+import editorialCalendarRouter from "./src/departments/editorial/editorial-adherence/editorialCalendarRouter.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -112,5 +113,6 @@ app.use("/api/v1/editorial/backlogAnalytics", backlogAnalyticsRouter);
 app.use("/api/v1/editorial/visual-engagement", visualEngagementRoute);
 app.use("/api/v1/editorial/visual-usage", usageTrackingRoute);
 app.use("/api/v1/editorial/comp-bench", compBenchRouter);
+app.use("/api/v1/editorial/editorial-calendar-adherence", editorialCalendarRouter);
 
 export default app;
