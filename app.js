@@ -53,6 +53,7 @@ import compBenchRouter from "./src/departments/editorial/competitor-benchmarking
 import editorialCalendarRouter from "./src/departments/editorial/editorial-adherence/editorialCalendarRouter.js";
 import rightsManagementRoute from "./src/departments/editorial/rightsManagement/routes.js";
 import taskRouter from "./src/departments/administrative/task-comp-rates/task-comp-rates-routes.js";
+import contentProductionRoutes from "./src/departments/editorial/content-production/contentProductionRoutes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -121,5 +122,6 @@ app.use(
 );
 app.use("/api/v1/editorial/rights-management", rightsManagementRoute);
 app.use("/api/v1/administrative/task-comp-rates", taskRouter);
+app.use("/api/v1/editorial/content-production", contentProductionRoutes);
 
 export default app;
