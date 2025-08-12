@@ -9,31 +9,22 @@ const updateFrequencyRouter = express.Router();
  * @swagger
  * /api/v1/editorial/updateFrequency:
  *   get:
- *     summary: Get update frequency analytics (bar, line, KPI, calendar)
  *     tags: [Analytics]
+ *     summary: Track and count updates made to an article after initial publication
  *     parameters:
  *       - in: query
- *         name: now
- *         required: false
+ *         name: author
  *         schema:
  *           type: string
- *           format: date-time
- *           default: '2025-05-01T16:30:00'
- *         description: Reference date/time for calculations
+ *           enum: [Alice Johnson, Bob Smith, Charlie Brown, Diana Prince]
+ *         description: Filter by author
  *       - in: query
- *         name: n
- *         required: false
- *         schema:
- *           type: integer
- *           default: 20
- *         description: Number of articles to fetch for analytics (default is 20)
- *       - in: query
- *         name: metric
- *         required: true
+ *         name: section
  *         schema:
  *           type: string
- *           enum: [updateFrequencyBar, updateFrequencyLine, updateFrequencyKPI, updateFrequencyCalendar]
- *         description: Type of update frequency metric to compute
+ *           enum: [Politics, Sports, Technology, Entertainment]
+ *         description: Filter by section
+
  *     responses:
  *       200:
  *         description: Successfully retrieved update frequency analytics
