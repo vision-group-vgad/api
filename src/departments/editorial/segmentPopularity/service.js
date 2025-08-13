@@ -111,7 +111,7 @@ export async function getSegmentPopularity({ startDate, endDate } = {}) {
       avgBounceRate: +(stats.totalBounceRate / stats.count).toFixed(2),
     }));
    
-    return summary.sort((a, b) => b.avgDurationSeconds - a.avgDurationSeconds);
+    return summary.sort((a,b) => b.avgDurationSeconds - a.avgDurationSeconds);
   } catch (err) {
     console.error("Error in getSegmentPopularity:", err.message);
     throw err;
