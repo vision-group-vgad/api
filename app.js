@@ -54,6 +54,7 @@ import editorialCalendarRouter from "./src/departments/editorial/editorial-adher
 import rightsManagementRoute from "./src/departments/editorial/rightsManagement/routes.js";
 import taskRouter from "./src/departments/administrative/task-comp-rates/task-comp-rates-routes.js";
 import contentProductionRoutes from "./src/departments/editorial/content-production/contentProductionRoutes.js";
+import ExecutiveMeetingAnalyticsRoutes from "./src/departments/administrative/executiveMeetingAnalytics/routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -123,5 +124,7 @@ app.use(
 app.use("/api/v1/editorial/rights-management", rightsManagementRoute);
 app.use("/api/v1/administrative/task-comp-rates", taskRouter);
 app.use("/api/v1/editorial/content-production", contentProductionRoutes);
+app.use("/api/v1/admnistrative/meetingAnalytics", ExecutiveMeetingAnalyticsRoutes);
+
 
 export default app;
