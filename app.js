@@ -54,6 +54,7 @@ import editorialCalendarRouter from "./src/departments/editorial/editorial-adher
 import rightsManagementRoute from "./src/departments/editorial/rightsManagement/routes.js";
 import taskRouter from "./src/departments/administrative/task-comp-rates/task-comp-rates-routes.js";
 import contentProductionRoutes from "./src/departments/editorial/content-production/contentProductionRoutes.js";
+import processThroughRouter from "./src/departments/administrative/process-throughput/process-through-routes.js";
 import ExecutiveMeetingAnalyticsRoutes from "./src/departments/administrative/executiveMeetingAnalytics/routes.js";
 
 const app = express();
@@ -123,8 +124,11 @@ app.use(
 );
 app.use("/api/v1/editorial/rights-management", rightsManagementRoute);
 app.use("/api/v1/administrative/task-comp-rates", taskRouter);
+app.use("/api/v1/administrative/process-throughput", processThroughRouter);
 app.use("/api/v1/editorial/content-production", contentProductionRoutes);
-app.use("/api/v1/admnistrative/meetingAnalytics", ExecutiveMeetingAnalyticsRoutes);
-
+app.use(
+  "/api/v1/admnistrative/meetingAnalytics",
+  ExecutiveMeetingAnalyticsRoutes
+);
 
 export default app;
