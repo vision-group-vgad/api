@@ -56,6 +56,7 @@ import taskRouter from "./src/departments/administrative/task-comp-rates/task-co
 import contentProductionRoutes from "./src/departments/editorial/content-production/contentProductionRoutes.js";
 import processThroughRouter from "./src/departments/administrative/process-throughput/process-through-routes.js";
 import ExecutiveMeetingAnalyticsRoutes from "./src/departments/administrative/executiveMeetingAnalytics/routes.js";
+import deadlineCompliance from "./src/departments/editorial/deadline-compliance/deadlineComplianceRouter.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -130,5 +131,6 @@ app.use(
   "/api/v1/admnistrative/meetingAnalytics",
   ExecutiveMeetingAnalyticsRoutes
 );
+app.use("/api/v1/editorial/deadline-compliance", deadlineCompliance);
 
 export default app;
