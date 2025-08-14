@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween.js"; // import plugin
-import meetings from "./dummy.js"
+import meetings from "./MeetingData.js"
 
 dayjs.extend(isBetween);
 

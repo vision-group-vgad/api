@@ -57,6 +57,7 @@ import contentProductionRoutes from "./src/departments/editorial/content-product
 import processThroughRouter from "./src/departments/administrative/process-throughput/process-through-routes.js";
 import ExecutiveMeetingAnalyticsRoutes from "./src/departments/administrative/executiveMeetingAnalytics/routes.js";
 import deadlineCompliance from "./src/departments/editorial/deadline-compliance/deadlineComplianceRouter.js";
+import ScheduleEfficiencyRoutes from "./src/departments/administrative/ScheduleEfficiency/routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -132,5 +133,6 @@ app.use(
   ExecutiveMeetingAnalyticsRoutes
 );
 app.use("/api/v1/editorial/deadline-compliance", deadlineCompliance);
+app.use("/api/v1/admnistrative/scheduleEfficiency", ScheduleEfficiencyRoutes)
 
 export default app;

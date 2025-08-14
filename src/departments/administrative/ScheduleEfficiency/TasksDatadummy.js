@@ -1,0 +1,55 @@
+const tasks = [
+  {
+    taskId: "T001",
+    taskTitle: "Prepare Annual Report",
+    assignedTo: "Executive Assistant",
+    project: "Annual Strategy",
+    dueDate: "2025-03-20",
+    completionPercentage: 80,
+    priority: "High",
+    status: "In Progress",
+  },
+  {
+    taskId: "T002",
+    taskTitle: "Budget Alignment",
+    assignedTo: "Finance Manager",
+    project: "Q1 Finance",
+    dueDate: "2025-03-25",
+    completionPercentage: 100,
+    priority: "High",
+    status: "Completed",
+  },
+  {
+    taskId: "T003",
+    taskTitle: "Vendor Contracts Review",
+    assignedTo: "Procurement Officer",
+    project: "Operations",
+    dueDate: "2025-04-10",
+    completionPercentage: 60,
+    priority: "High",
+    status: "In Progress",
+  },
+  {
+    taskId: "T004",
+    taskTitle: "IT Security Audit",
+    assignedTo: "IT Manager",
+    project: "IT Infrastructure",
+    dueDate: "2025-03-30",
+    completionPercentage: 40,
+    priority: "High",
+    status: "In Progress",
+  },
+  {
+    taskId: "T005",
+    taskTitle: "Marketing Campaign Launch",
+    assignedTo: "Marketing Lead",
+    project: "Campaign Q2",
+    dueDate: "2025-04-15",
+    completionPercentage: 70,
+    priority: "High",
+    status: "In Progress",
+  },
+];
+
+
+export default tasks;
