@@ -1,13 +1,14 @@
 import express from "express";
 import { getVisitorAnalytics } from "./visitorPatternController.js";
+import Jwt from "../../../auth/jwt.js";
 
-const visionPatternRoute = express.Router();
+const visitorPatternRoute = express.Router();
 
 /**
  * @swagger
  * /api/v1/editorial/visitor-patterns:
  *   get:
- *     summary: Get visitor analytics grouped by day or week and visitor type
+ *     summary: Get visitor analytics including wait times, grouped by day, hour, month, visitor type, and department
  *     tags: [Analytics]
  *     parameters:
  *       - in: query
@@ -34,8 +35,84 @@ const visionPatternRoute = express.Router();
  *               properties:
  *                 totalVisitors:
  *                   type: integer
- *                 
- *                 raw:
+ *                 filters:
+ *                   type: object
+ *                   properties:
+ *                     department:
+ *                       type: string
+ *                       nullable: true
+ *                     visitorType:
+ *                       type: string
+ *                       nullable: true
+ *                 peakHours:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       hour:
+ *                         type: integer
+ *                       visits:
+ *                         type: integer
+ *                 peakDays:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       day:
+ *                         type: string
+ *                       visits:
+ *                         type: integer
+ *                 departmentVisitTypeStats:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       department:
+ *                         type: string
+ *                       visitTypes:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             type:
+ *                               type: string
+ *                             count:
+ *                               type: integer
+ *                 avgWaitTimePerDay:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       date:
+ *                         type: string
+ *                         format: date
+ *                       averageWaitTime:
+ *                         type: string
+ *                 avgWaitTimePerHour:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       hour:
+ *                         type: string
+ *                       averageWaitTime:
+ *                         type: string
+ *                 avgWaitTimePerMonth:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       month:
+ *                         type: string
+ *                       averageWaitTime:
+ *                         type: string
+ *                 excessiveWaitThreshold:
+ *                  type: integer
+ *                 excessiveWaitCount:
+ *                  type: integer
+ *                excessiveWaitPercentage:
+ *                 type: integer
+ *                 visitors:
  *                   type: array
  *                   items:
  *                     type: object
@@ -57,11 +134,11 @@ const visionPatternRoute = express.Router();
  *                         type: string
  *                       Visit_Purpose:
  *                         type: string
- *                       Zone:
- *                         type: string
+ *                       Wait_Time:
+ *                         type: integer
  *       500:
  *         description: Server error
  */
-visionPatternRoute.get("/", getVisitorAnalytics);
+visitorPatternRoute.get("/", getVisitorAnalytics);
 
-export default visionPatternRoute;
+export default visitorPatternRoute;
