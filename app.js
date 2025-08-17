@@ -59,6 +59,7 @@ import ExecutiveMeetingAnalyticsRoutes from "./src/departments/administrative/ex
 import deadlineCompliance from "./src/departments/editorial/deadline-compliance/deadlineComplianceRouter.js";
 import ScheduleEfficiencyRoutes from "./src/departments/administrative/ScheduleEfficiency/routes.js";
 import visionPatternRoute from "./src/departments/editorial/visitor-patterns/visitorPatternRouter.js";
+import rvsAnalyticsRoutes from "./src/departments/administrative/rvsAnalytics/rvsAnalyticsRoutes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -133,4 +134,6 @@ app.use("/api/v1/admnistrative/meetingAnalytics", ExecutiveMeetingAnalyticsRoute
 app.use("/api/v1/editorial/deadline-compliance", deadlineCompliance);
 app.use("/api/v1/admnistrative/scheduleEfficiency", ScheduleEfficiencyRoutes)
 app.use("/api/v1/editorial/visitor-patterns", visionPatternRoute);
+app.use("/api/v1/administrative/rvsAnalytics", rvsAnalyticsRoutes);
+
 export default app;

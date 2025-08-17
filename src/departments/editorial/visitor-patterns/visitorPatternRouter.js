@@ -107,11 +107,11 @@ const visitorPatternRoute = express.Router();
  *                       averageWaitTime:
  *                         type: string
  *                 excessiveWaitThreshold:
- *                  type: integer
+ *                   type: integer
  *                 excessiveWaitCount:
- *                  type: integer
- *                excessiveWaitPercentage:
- *                 type: integer
+ *                   type: integer
+ *                 excessiveWaitPercentage:
+ *                   type: integer
  *                 visitors:
  *                   type: array
  *                   items:
