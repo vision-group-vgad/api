@@ -81,26 +81,30 @@ function formatDuration(seconds) {
 }
 
 // Highly optimized article fetcher with caching and smart concurrency
-async function fetchAllArticles(maxConcurrency = 8) {
+async function fetchAllArticles(startDate, endDate, maxConcurrency = 8) {
   // Check cache first
-  if (articlesCache && articlesCacheTimestamp && 
-      (Date.now() - articlesCacheTimestamp < CACHE_DURATION)) {
+  if (
+    articlesCache &&
+    articlesCacheTimestamp &&
+    Date.now() - articlesCacheTimestamp < CACHE_DURATION
+  ) {
     console.log("Using cached articles data");
     return articlesCache;
   }
 
   try {
-    console.log("Fetching articles with optimized concurrency...");
+    console.log(`Fetching articles from ${startDate} to ${endDate} with optimized concurrency...`);
+
     const firstRes = await axiosInstance.get(
-      `https://cms-vgad.visiongroup.co.ug/api/api-listings/articles/2025-01-01/2025-04-30/0`
+      `https://cms-vgad.visiongroup.co.ug/api/api-listings/articles/${startDate}/${endDate}/0`
     );
-    
+
     const totalCount = firstRes.data.meta.totalCount;
     const totalPages = Math.ceil(totalCount / 10);
     console.log(`Total articles: ${totalCount}, Total pages: ${totalPages}`);
 
     const results = [...firstRes.data.data];
-    
+
     if (totalPages === 1) {
       articlesCache = results;
       articlesCacheTimestamp = Date.now();
@@ -109,7 +113,7 @@ async function fetchAllArticles(maxConcurrency = 8) {
 
     // Generate all page offsets
     const pageOffsets = Array.from({ length: totalPages - 1 }, (_, i) => (i + 1) * 10);
-    
+
     // Process pages in batches with controlled concurrency
     const batchSize = maxConcurrency;
     const batches = [];
@@ -117,7 +121,9 @@ async function fetchAllArticles(maxConcurrency = 8) {
       batches.push(pageOffsets.slice(i, i + batchSize));
     }
 
-    console.log(`Processing ${batches.length} batches with ${maxConcurrency} concurrent requests each...`);
+    console.log(
+      `Processing ${batches.length} batches with ${maxConcurrency} concurrent requests each...`
+    );
 
     for (let batchIndex = 0; batchIndex < batches.length; batchIndex++) {
       const batch = batches[batchIndex];
@@ -126,7 +132,7 @@ async function fetchAllArticles(maxConcurrency = 8) {
       const promises = batch.map(async (offset) => {
         try {
           const response = await axiosInstance.get(
-            `https://cms-vgad.visiongroup.co.ug/api/api-listings/articles/2025-01-01/2025-04-30/${offset}`
+            `https://cms-vgad.visiongroup.co.ug/api/api-listings/articles/${startDate}/${endDate}/${offset}`
           );
           return response.data.data;
         } catch (err) {
@@ -136,20 +142,19 @@ async function fetchAllArticles(maxConcurrency = 8) {
       });
 
       const batchResults = await Promise.all(promises);
-      batchResults.forEach(articles => results.push(...articles));
+      batchResults.forEach((articles) => results.push(...articles));
 
-      // Small delay only between batches, not requests
       if (batchIndex < batches.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, 200));
+        await new Promise((resolve) => setTimeout(resolve, 200));
       }
     }
 
     console.log(`Successfully fetched ${results.length} articles`);
-    
+
     // Cache the results
     articlesCache = results;
     articlesCacheTimestamp = Date.now();
-    
+
     return results;
   } catch (error) {
     console.error("Error in fetchAllArticles:", error.message);
@@ -197,7 +202,7 @@ export async function getJournalistProductivity({
         console.warn("Direct session API failed, using chunked approach");
         return getSessionDataChunked(startDate, endDate, 21); // Larger chunks
       }),
-      fetchAllArticles(10) // Higher concurrency
+      fetchAllArticles(startDate, endDate, 10) // Higher concurrency
     ]);
 
     // Handle results
