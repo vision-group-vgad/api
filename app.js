@@ -61,6 +61,7 @@ import ScheduleEfficiencyRoutes from "./src/departments/administrative/ScheduleE
 import visionPatternRoute from "./src/departments/editorial/visitor-patterns/visitorPatternRouter.js";
 import rvsAnalyticsRoutes from "./src/departments/administrative/rvsAnalytics/rvsAnalyticsRoutes.js";
 import waitTimeRoute from "./src/departments/editorial/waitTime/waitTimeRoute.js";
+import infraCostsRoutes from "./src/departments/it/infraCosts/routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -134,4 +135,5 @@ app.use("/api/v1/admnistrative/scheduleEfficiency", ScheduleEfficiencyRoutes)
 app.use("/api/v1/editorial/visitor-patterns", visionPatternRoute);
 app.use("/api/v1/administrative/rvsAnalytics", rvsAnalyticsRoutes);
 app.use("/api/v1/editorial/wait-time", waitTimeRoute);
+app.use("/api/v1/IT/infrastructure-costs", infraCostsRoutes);
 export default app;
