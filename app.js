@@ -60,6 +60,7 @@ import deadlineCompliance from "./src/departments/editorial/deadline-compliance/
 import ScheduleEfficiencyRoutes from "./src/departments/administrative/ScheduleEfficiency/routes.js";
 import visionPatternRoute from "./src/departments/editorial/visitor-patterns/visitorPatternRouter.js";
 import rvsAnalyticsRoutes from "./src/departments/administrative/rvsAnalytics/rvsAnalyticsRoutes.js";
+import waitTimeRoute from "./src/departments/editorial/waitTime/waitTimeRoute.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -122,10 +123,7 @@ app.use("/api/v1/editorial/backlogAnalytics", backlogAnalyticsRouter);
 app.use("/api/v1/editorial/visual-engagement", visualEngagementRoute);
 app.use("/api/v1/editorial/visual-usage", usageTrackingRoute);
 app.use("/api/v1/editorial/comp-bench", compBenchRouter);
-app.use(
-  "/api/v1/editorial/editorial-calendar-adherence",
-  editorialCalendarRouter
-);
+app.use("/api/v1/editorial/editorial-calendar-adherence",editorialCalendarRouter);
 app.use("/api/v1/editorial/rights-management", rightsManagementRoute);
 app.use("/api/v1/administrative/task-comp-rates", taskRouter);
 app.use("/api/v1/administrative/process-throughput", processThroughRouter);
@@ -135,5 +133,5 @@ app.use("/api/v1/editorial/deadline-compliance", deadlineCompliance);
 app.use("/api/v1/admnistrative/scheduleEfficiency", ScheduleEfficiencyRoutes)
 app.use("/api/v1/editorial/visitor-patterns", visionPatternRoute);
 app.use("/api/v1/administrative/rvsAnalytics", rvsAnalyticsRoutes);
-
+app.use("/api/v1/editorial/wait-time", waitTimeRoute);
 export default app;
