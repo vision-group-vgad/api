@@ -62,8 +62,12 @@ import visionPatternRoute from "./src/departments/editorial/visitor-patterns/vis
 import rvsAnalyticsRoutes from "./src/departments/administrative/rvsAnalytics/rvsAnalyticsRoutes.js";
 import waitTimeRoute from "./src/departments/editorial/waitTime/waitTimeRoute.js";
 import infraCostsRoutes from "./src/departments/it/infraCosts/routes.js";
+<<<<<<< HEAD
 import ticketSLARoutes from "./src/departments/it/ticket-SLA/routes.js";
 
+=======
+import sysHealthRouter from "./src/departments/it/sys-health-score/sys-health-routes.js";
+>>>>>>> 098b2746656482917d3ac8ab0819838cc1cf0ebe
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -126,17 +130,27 @@ app.use("/api/v1/editorial/backlogAnalytics", backlogAnalyticsRouter);
 app.use("/api/v1/editorial/visual-engagement", visualEngagementRoute);
 app.use("/api/v1/editorial/visual-usage", usageTrackingRoute);
 app.use("/api/v1/editorial/comp-bench", compBenchRouter);
-app.use("/api/v1/editorial/editorial-calendar-adherence",editorialCalendarRouter);
+app.use(
+  "/api/v1/editorial/editorial-calendar-adherence",
+  editorialCalendarRouter
+);
 app.use("/api/v1/editorial/rights-management", rightsManagementRoute);
 app.use("/api/v1/administrative/task-comp-rates", taskRouter);
 app.use("/api/v1/administrative/process-throughput", processThroughRouter);
 app.use("/api/v1/editorial/content-production", contentProductionRoutes);
-app.use("/api/v1/admnistrative/meetingAnalytics", ExecutiveMeetingAnalyticsRoutes);
+app.use(
+  "/api/v1/admnistrative/meetingAnalytics",
+  ExecutiveMeetingAnalyticsRoutes
+);
 app.use("/api/v1/editorial/deadline-compliance", deadlineCompliance);
-app.use("/api/v1/admnistrative/scheduleEfficiency", ScheduleEfficiencyRoutes)
+app.use("/api/v1/admnistrative/scheduleEfficiency", ScheduleEfficiencyRoutes);
 app.use("/api/v1/editorial/visitor-patterns", visionPatternRoute);
 app.use("/api/v1/administrative/rvsAnalytics", rvsAnalyticsRoutes);
 app.use("/api/v1/editorial/wait-time", waitTimeRoute);
 app.use("/api/v1/IT/infrastructure-costs", infraCostsRoutes);
+<<<<<<< HEAD
 app.use("/api/v1/IT/sla", ticketSLARoutes);
+=======
+app.use("/api/v1/it/sys-health-score", sysHealthRouter);
+>>>>>>> 098b2746656482917d3ac8ab0819838cc1cf0ebe
 export default app;
