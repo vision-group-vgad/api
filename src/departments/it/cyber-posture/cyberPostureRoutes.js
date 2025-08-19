@@ -1,6 +1,6 @@
-import express from 'express';
-import CyberPostureController from './cyberPostureController.js';
-import Jwt from '../../../auth/jwt.js';
+import express from "express";
+import CyberPostureController from "./cyberPostureController.js";
+import Jwt from "../../../auth/jwt.js";
 
 const router = express.Router();
 const cyberPostureController = new CyberPostureController();
@@ -18,7 +18,7 @@ const cyberPostureController = new CyberPostureController();
  *   get:
  *     summary: Get cybersecurity posture scores
  *     description: Returns posture scores for each cybersecurity domain (Network, Endpoint, etc.)
- *     tags: [Cybersecurity]
+ *     tags:
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -54,7 +54,7 @@ const cyberPostureController = new CyberPostureController();
  *       500:
  *         description: Server error retrieving posture data
  */
-router.get('/', Jwt.verifyToken, (req, res) =>
+router.get("/", Jwt.verifyToken, (req, res) =>
   cyberPostureController.getCyberPosture(req, res)
 );
 

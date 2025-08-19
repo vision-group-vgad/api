@@ -65,6 +65,7 @@ import infraCostsRoutes from "./src/departments/it/infraCosts/routes.js";
 import ticketSLARoutes from "./src/departments/it/ticket-SLA/routes.js";
 
 import sysHealthRouter from "./src/departments/it/sys-health-score/sys-health-routes.js";
+import cyberSecPostRouter from "./src/departments/it/cyber-sec-posture/cyber-sec-post-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -147,4 +148,5 @@ app.use("/api/v1/editorial/wait-time", waitTimeRoute);
 app.use("/api/v1/IT/infrastructure-costs", infraCostsRoutes);
 app.use("/api/v1/IT/sla", ticketSLARoutes);
 app.use("/api/v1/it/sys-health-score", sysHealthRouter);
+app.use("/api/v1/it/cycber-sec-router", cyberSecPostRouter);
 export default app;
