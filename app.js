@@ -64,6 +64,7 @@ import waitTimeRoute from "./src/departments/editorial/waitTime/waitTimeRoute.js
 import infraCostsRoutes from "./src/departments/it/infraCosts/routes.js";
 import ticketSLARoutes from "./src/departments/it/ticket-SLA/routes.js";
 
+import sysHealthRouter from "./src/departments/it/sys-health-score/sys-health-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -126,17 +127,24 @@ app.use("/api/v1/editorial/backlogAnalytics", backlogAnalyticsRouter);
 app.use("/api/v1/editorial/visual-engagement", visualEngagementRoute);
 app.use("/api/v1/editorial/visual-usage", usageTrackingRoute);
 app.use("/api/v1/editorial/comp-bench", compBenchRouter);
-app.use("/api/v1/editorial/editorial-calendar-adherence",editorialCalendarRouter);
+app.use(
+  "/api/v1/editorial/editorial-calendar-adherence",
+  editorialCalendarRouter
+);
 app.use("/api/v1/editorial/rights-management", rightsManagementRoute);
 app.use("/api/v1/administrative/task-comp-rates", taskRouter);
 app.use("/api/v1/administrative/process-throughput", processThroughRouter);
 app.use("/api/v1/editorial/content-production", contentProductionRoutes);
-app.use("/api/v1/admnistrative/meetingAnalytics", ExecutiveMeetingAnalyticsRoutes);
+app.use(
+  "/api/v1/admnistrative/meetingAnalytics",
+  ExecutiveMeetingAnalyticsRoutes
+);
 app.use("/api/v1/editorial/deadline-compliance", deadlineCompliance);
-app.use("/api/v1/admnistrative/scheduleEfficiency", ScheduleEfficiencyRoutes)
+app.use("/api/v1/admnistrative/scheduleEfficiency", ScheduleEfficiencyRoutes);
 app.use("/api/v1/editorial/visitor-patterns", visionPatternRoute);
 app.use("/api/v1/administrative/rvsAnalytics", rvsAnalyticsRoutes);
 app.use("/api/v1/editorial/wait-time", waitTimeRoute);
 app.use("/api/v1/IT/infrastructure-costs", infraCostsRoutes);
 app.use("/api/v1/IT/sla", ticketSLARoutes);
+app.use("/api/v1/it/sys-health-score", sysHealthRouter);
 export default app;

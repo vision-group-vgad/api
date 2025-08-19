@@ -104,15 +104,25 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/editorial/editorial-adherence/*.js"),
     path.join(__dirname, "../departments/editorial/rightsManagement/*.js"),
     path.join(__dirname, "../departments/administrative/task-comp-rates/*.js"),
-    path.join(__dirname,"../departments/administrative/process-throughput/*.js"),
+    path.join(
+      __dirname,
+      "../departments/administrative/process-throughput/*.js"
+    ),
     path.join(__dirname, "../departments/editorial/content-production/*.js"),
-    path.join(__dirname, "../departments/administrative/executiveMeetingAnalytics/*.js"),
+    path.join(
+      __dirname,
+      "../departments/administrative/executiveMeetingAnalytics/*.js"
+    ),
     path.join(__dirname, "../departments/editorial/deadline-compliance/*.js"),
-    path.join(__dirname, "../departments/administrative/ScheduleEfficiency/*.js"),
+    path.join(
+      __dirname,
+      "../departments/administrative/ScheduleEfficiency/*.js"
+    ),
     path.join(__dirname, "../departments/editorial/visitor-patterns/*.js"),
     path.join(__dirname, "../departments/administrative/rvsAnalytics/*.js"),
     path.join(__dirname, "../departments/editorial/waitTime/*.js"),
     path.join(__dirname, "../departments/IT/infraCosts/*.js"),
-    path.join(__dirname, "../departments/IT/ticket-SLA/*.js")
+    path.join(__dirname, "../departments/IT/ticket-SLA/*.js"),
+    path.join(__dirname, "../departments/it/sys-health-score/*.js"),
   ],
 };
