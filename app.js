@@ -62,6 +62,8 @@ import visionPatternRoute from "./src/departments/editorial/visitor-patterns/vis
 import rvsAnalyticsRoutes from "./src/departments/administrative/rvsAnalytics/rvsAnalyticsRoutes.js";
 import waitTimeRoute from "./src/departments/editorial/waitTime/waitTimeRoute.js";
 import infraCostsRoutes from "./src/departments/it/infraCosts/routes.js";
+import ticketSLARoutes from "./src/departments/it/ticket-SLA/routes.js";
+
 import sysHealthRouter from "./src/departments/it/sys-health-score/sys-health-routes.js";
 
 const app = express();
@@ -143,5 +145,6 @@ app.use("/api/v1/editorial/visitor-patterns", visionPatternRoute);
 app.use("/api/v1/administrative/rvsAnalytics", rvsAnalyticsRoutes);
 app.use("/api/v1/editorial/wait-time", waitTimeRoute);
 app.use("/api/v1/IT/infrastructure-costs", infraCostsRoutes);
+app.use("/api/v1/IT/sla", ticketSLARoutes);
 app.use("/api/v1/it/sys-health-score", sysHealthRouter);
 export default app;
