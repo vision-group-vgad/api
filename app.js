@@ -66,6 +66,7 @@ import ticketSLARoutes from "./src/departments/it/ticket-SLA/routes.js";
 import cpuUsageRoute from "./src/departments/it/cpuUsage/cpuUsageRoute.js";
 import sysHealthRouter from "./src/departments/it/sys-health-score/sys-health-routes.js";
 import cyberSecPostRouter from "./src/departments/it/cyber-sec-posture/cyber-sec-post-routes.js";
+import infraCostsRouter from "./src/departments/it/infrastructure-costs/infra-costs-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -150,4 +151,5 @@ app.use("/api/v1/IT/sla", ticketSLARoutes);
 app.use("/api/v1/it/sys-health-score", sysHealthRouter);
 app.use("/api/v1/it/cycber-sec-router", cyberSecPostRouter);
 app.use("/api/v1/it/cpu-usage", cpuUsageRoute);
+app.use("/api/v1/it/infra-costs", infraCostsRouter);
 export default app;
