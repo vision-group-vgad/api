@@ -22,7 +22,7 @@ const meetings = [
   {
     meetingId: "M003",
     meetingTitle: "Disciplinary Meeting",
-    meetingDate: "2025-02-11",
+    meetingDate: "2025-09-11",
     startTime: "11:30",
     endTime: "12:30",
     meetingStatus: "Rescheduled",
