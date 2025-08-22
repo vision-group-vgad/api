@@ -11,7 +11,6 @@ export const getMeetingAnalytics = async (startDate, endDate) => {
         filteredMeetings = meetings.filter(m => dayjs(m.meetingDate).isBetween(dayjs(startDate), dayjs(endDate), null, "[]"));       
     }
 
-    return filteredMeetings;
-
+    return filteredMeetings.map(({ totalInvited, attended, ...rest }) => rest);
 }
 
