@@ -1,4 +1,5 @@
-const meetings = [
+// Raw meeting data (without attendanceRate hardcoding)
+const rawMeetings = [
   {
     meetingId: "M001",
     meetingTitle: "Strategy Review",
@@ -7,7 +8,8 @@ const meetings = [
     endTime: "10:30",
     meetingStatus: "Held",
     department: "Executives",
-    attendanceRate: "90%",
+    totalInvited: 10,
+    attended: 9,
   },
   {
     meetingId: "M002",
@@ -17,7 +19,8 @@ const meetings = [
     endTime: "11:30",
     meetingStatus: "Held",
     department: "Finance",
-    attendanceRate: "85%",
+    totalInvited: 20,
+    attended: 17,
   },
   {
     meetingId: "M003",
@@ -27,7 +30,8 @@ const meetings = [
     endTime: "12:30",
     meetingStatus: "Rescheduled",
     department: "HR",
-    attendanceRate: "80%",
+    totalInvited: 10,
+    attended: 8,
   },
   {
     meetingId: "M004",
@@ -37,7 +41,8 @@ const meetings = [
     endTime: "15:30",
     meetingStatus: "Held",
     department: "Marketing",
-    attendanceRate: "95%",
+    totalInvited: 20,
+    attended: 19,
   },
   {
     meetingId: "M005",
@@ -47,7 +52,8 @@ const meetings = [
     endTime: "10:00",
     meetingStatus: "Cancelled",
     department: "IT",
-    attendanceRate: "0%",
+    totalInvited: 15,
+    attended: 0,
   },
   {
     meetingId: "M006",
@@ -57,7 +63,8 @@ const meetings = [
     endTime: "14:00",
     meetingStatus: "Held",
     department: "Finance",
-    attendanceRate: "88%",
+    totalInvited: 16,
+    attended: 14,
   },
   {
     meetingId: "M007",
@@ -67,7 +74,8 @@ const meetings = [
     endTime: "11:30",
     meetingStatus: "Held",
     department: "Executives",
-    attendanceRate: "92%",
+    totalInvited: 12,
+    attended: 11,
   },
   {
     meetingId: "M008",
@@ -77,17 +85,19 @@ const meetings = [
     endTime: "16:00",
     meetingStatus: "Held",
     department: "HR",
-    attendanceRate: "87%",
+    totalInvited: 15,
+    attended: 13,
   },
   {
     meetingId: "M009",
     meetingTitle: "Sales Strategy Meeting",
-    meetingDate: "2025-03-25",
+    meetingDate: "2025-09-25",
     startTime: "11:00",
     endTime: "12:00",
     meetingStatus: "Rescheduled",
     department: "Sales",
-    attendanceRate: "80%",
+    totalInvited: 10,
+    attended: 8,
   },
   {
     meetingId: "M010",
@@ -97,9 +107,9 @@ const meetings = [
     endTime: "10:30",
     meetingStatus: "Held",
     department: "Support",
-    attendanceRate: "85%",
+    totalInvited: 13,
+    attended: 11,
   },
-  // Additional 10 meetings
   {
     meetingId: "M011",
     meetingTitle: "Compliance Audit Discussion",
@@ -108,7 +118,8 @@ const meetings = [
     endTime: "15:00",
     meetingStatus: "Held",
     department: "Compliance",
-    attendanceRate: "90%",
+    totalInvited: 10,
+    attended: 9,
   },
   {
     meetingId: "M012",
@@ -118,7 +129,8 @@ const meetings = [
     endTime: "12:00",
     meetingStatus: "Held",
     department: "R&D",
-    attendanceRate: "93%",
+    totalInvited: 15,
+    attended: 14,
   },
   {
     meetingId: "M013",
@@ -128,7 +140,8 @@ const meetings = [
     endTime: "10:30",
     meetingStatus: "Held",
     department: "Operations",
-    attendanceRate: "88%",
+    totalInvited: 16,
+    attended: 14,
   },
   {
     meetingId: "M014",
@@ -138,7 +151,8 @@ const meetings = [
     endTime: "14:00",
     meetingStatus: "Rescheduled",
     department: "Finance",
-    attendanceRate: "82%",
+    totalInvited: 11,
+    attended: 9,
   },
   {
     meetingId: "M015",
@@ -148,7 +162,8 @@ const meetings = [
     endTime: "12:30",
     meetingStatus: "Held",
     department: "Marketing",
-    attendanceRate: "95%",
+    totalInvited: 20,
+    attended: 19,
   },
   {
     meetingId: "M016",
@@ -158,7 +173,8 @@ const meetings = [
     endTime: "15:30",
     meetingStatus: "Held",
     department: "Executives",
-    attendanceRate: "90%",
+    totalInvited: 10,
+    attended: 9,
   },
   {
     meetingId: "M017",
@@ -168,7 +184,8 @@ const meetings = [
     endTime: "11:30",
     meetingStatus: "Held",
     department: "HR",
-    attendanceRate: "85%",
+    totalInvited: 13,
+    attended: 11,
   },
   {
     meetingId: "M018",
@@ -178,7 +195,8 @@ const meetings = [
     endTime: "10:30",
     meetingStatus: "Cancelled",
     department: "Procurement",
-    attendanceRate: "0%",
+    totalInvited: 12,
+    attended: 0,
   },
   {
     meetingId: "M019",
@@ -188,7 +206,8 @@ const meetings = [
     endTime: "10:00",
     meetingStatus: "Held",
     department: "Executives",
-    attendanceRate: "92%",
+    totalInvited: 12,
+    attended: 11,
   },
   {
     meetingId: "M020",
@@ -198,9 +217,16 @@ const meetings = [
     endTime: "16:00",
     meetingStatus: "Held",
     department: "IT",
-    attendanceRate: "87%",
+    totalInvited: 15,
+    attended: 13,
   },
 ];
 
+
+const meetings = rawMeetings.map(m => ({
+  ...m,
+  attendanceRate:
+    m.totalInvited > 0 ? `${Math.round((m.attended / m.totalInvited) * 100)}%` : "0%",
+}));
+
 export default meetings;
- 
