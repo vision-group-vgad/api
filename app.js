@@ -65,14 +65,7 @@ import infraCostsRoutes from "./src/departments/it/infraCosts/routes.js";
 import ticketSLARoutes from "./src/departments/it/ticket-SLA/routes.js";
 import cpuUsageRoute from "./src/departments/it/cpuUsage/cpuUsageRoute.js";
 import sysHealthRouter from "./src/departments/it/sys-health-score/sys-health-routes.js";
-import cyberSecPostRouter from "./src/departments/it/cyber-sec-posture/cyber-sec-post-routes.js";
 import infraCostsRouter from "./src/departments/it/infrastructure-costs/infra-costs-routes.js";
-<<<<<<< HEAD
-import ticketSLARoutes from "./src/departments/it/ticket-SLA/routes.js";
-
-=======
-import sysHealthRouter from "./src/departments/it/sys-health-score/sys-health-routes.js";
->>>>>>> 098b2746656482917d3ac8ab0819838cc1cf0ebe
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -154,11 +147,9 @@ app.use("/api/v1/administrative/rvsAnalytics", rvsAnalyticsRoutes);
 app.use("/api/v1/editorial/wait-time", waitTimeRoute);
 app.use("/api/v1/IT/infrastructure-costs", infraCostsRoutes);
 app.use("/api/v1/IT/sla", ticketSLARoutes);
-<<<<<<< HEAD
-app.use("/api/v1/IT/sla", ticketSLARoutes);
-=======
 app.use("/api/v1/it/sys-health-score", sysHealthRouter);
-app.use("/api/v1/it/cycber-sec-router", cyberSecPostRouter);
 app.use("/api/v1/it/cpu-usage", cpuUsageRoute);
 app.use("/api/v1/it/infra-costs", infraCostsRouter);
+
 export default app;
+
