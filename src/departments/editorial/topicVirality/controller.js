@@ -11,7 +11,7 @@ const router = express.Router();
  *     summary: Get topic vitality grouped by tags
  *     description: Returns a list of topic vitality metrics based on engagement and metadata.
  *     tags:
- *       - Topic Vitality
+ *       - Topic Virality
  *     parameters:
  *       - in: query
  *         name: startDate
