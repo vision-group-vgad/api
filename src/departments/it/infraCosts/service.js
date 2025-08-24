@@ -18,7 +18,7 @@ const dummyCosts = [
     department: "IT Operations"
   },
   {
-    cost_id: 3,
+    cost_id: 3, 
     category: "Cloud Services",
     description: "AWS EC2 + S3",
     cost: 1500000,

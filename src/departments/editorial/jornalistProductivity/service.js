@@ -186,137 +186,80 @@ export async function getJournalistProductivity({
   author,
   category,
   page = 1,
-  limit = 10
+  limit = 20, // <-- only fetch this many results
+  sort = "articleCount",
+  order = "desc",
 }) {
+  const startTime = Date.now();
+
   try {
-    console.log(`▶ Running journalist productivity from ${startDate} to ${endDate}`);
-    const startTime = Date.now();
+    const pageSize = 10; // CMS API returns 10 per page
+    const startOffset = (page - 1) * limit;
+    const neededPages = Math.ceil((startOffset + limit) / pageSize);
 
-    // Fetch both data sources concurrently
-    const [sessionDataResult, articlesResult] = await Promise.allSettled([
-      // Try direct session API first, fallback to chunked
-      axiosInstance.get(
-        `https://cms-vgad.visiongroup.co.ug/api/api-listings/article-session-duration/${startDate}/${endDate}`,
-        { timeout: 45000 }
-      ).then(res => res.data.data).catch(() => {
-        console.warn("Direct session API failed, using chunked approach");
-        return getSessionDataChunked(startDate, endDate, 21); // Larger chunks
-      }),
-      fetchAllArticles(startDate, endDate, 10) // Higher concurrency
-    ]);
+    let articles = [];
 
-    // Handle results
-    const sessionData = sessionDataResult.status === 'fulfilled' ? sessionDataResult.value : [];
-    const allArticles = articlesResult.status === 'fulfilled' ? articlesResult.value : [];
+    // Fetch only enough pages to cover the requested limit
+    for (let i = 0; i < neededPages; i++) {
+      const offset = i * pageSize;
+      const res = await axiosInstance.get(
+        `https://cms-vgad.visiongroup.co.ug/api/api-listings/articles/${startDate}/${endDate}/${offset}`
+      );
+      articles.push(...(res.data?.data || []));
 
-    if (sessionData.length === 0 || allArticles.length === 0) {
-      console.warn("No data available for processing");
-      return { success: true, total: 0, page: Number(page), limit: Number(limit), data: [] };
+      // Stop early if we already have enough
+      if (articles.length >= startOffset + limit) break;
     }
 
-    console.log(`Data fetched in ${Date.now() - startTime}ms`);
+    // Filter by author/category
+    const filteredArticles = articles.filter(article => {
+      const authorName = `${article.author?.first_name || ""} ${article.author?.last_name || ""}`.trim().toLowerCase();
+      const categoryName = article.category?.name?.toLowerCase() || "";
+      const authorMatch = author ? authorName.includes(author.toLowerCase()) : true;
+      const categoryMatch = category ? categoryName.includes(category.toLowerCase()) : true;
+      return authorMatch && categoryMatch;
+    });
 
-    // Pre-filter articles
-    const filteredArticles = filterArticles(allArticles, author, category);
-    
-  
+    // Slice for pagination
+    const paginatedArticles = filteredArticles.slice(startOffset, startOffset + limit);
+
+    // Fetch session data for these articles
+    const sessionsRes = await axiosInstance.get(
+      `https://cms-vgad.visiongroup.co.ug/api/api-listings/article-session-duration/${startDate}/${endDate}`
+    );
+    const sessions = sessionsRes.data?.data || [];
+
+    // Map sessions to articles
     const articleMap = new Map();
-    for (const article of filteredArticles) {
-      if (article.externalId) {
-        articleMap.set(article.externalId, article);
-      }
-    }
+    paginatedArticles.forEach(a => {
+      if (a.externalId) articleMap.set(a.externalId, a);
+    });
 
-    console.log(`Processing ${sessionData.length} sessions against ${articleMap.size} filtered articles`);
-
-    // Process sessions with optimized aggregation
-    const authorStats = {};
-    let processedSessions = 0;
-
-    for (const session of sessionData) {
-      const externalId = extractExternalId(session.pagePath);
-      if (!externalId || !articleMap.has(externalId)) continue;
-
-      const article = articleMap.get(externalId);
-      const authorFullName = `${article.author?.first_name || ""} ${article.author?.last_name || ""}`.trim();
-      if (!authorFullName) continue;
-
-      // Initialize or get existing stats
-      let stat = authorStats[authorFullName];
-      if (!stat) {
-        stat = authorStats[authorFullName] = {
-          articleCount: 0,
-          totalDurationSeconds: 0,
-          totalBounceRate: 0,
-          bounceCount: 0,
-          categories: new Set(),
-        };
-      }
-
-      stat.articleCount++;
-
-      // Parse duration efficiently
-      if (session.averageDuration) {
-        const parts = session.averageDuration.split(":");
-        if (parts.length === 3) {
-          stat.totalDurationSeconds += 
-            (parseInt(parts[0]) || 0) * 3600 + 
-            (parseInt(parts[1]) || 0) * 60 + 
-            (parseInt(parts[2]) || 0);
-        }
-      }
-
-      // Parse bounce rate
-      if (session.bounceRate != null && session.bounceRate !== "") {
-        const br = parseFloat(session.bounceRate);
-        if (!isNaN(br)) {
-          stat.totalBounceRate += br;
-          stat.bounceCount++;
-        }
-      }
-
-      // Add category
-      if (article.category?.name) {
-        stat.categories.add(article.category.name);
-      }
-
-      processedSessions++;
-    }
-
-    console.log(`Processed ${processedSessions} sessions for ${Object.keys(authorStats).length} authors`);
-
-    // Generate final results
-    const allResults = Object.entries(authorStats).map(([authorName, stat]) => ({
-      author: authorName,
-      articleCount: stat.articleCount,
-      totalDuration: formatDuration(stat.totalDurationSeconds),
-      avgDuration: formatDuration(Math.floor(stat.totalDurationSeconds / stat.articleCount)),
-      avgBounceRate: stat.bounceCount > 0 ? 
-        Math.round((stat.totalBounceRate / stat.bounceCount) * 100) / 100 : 0,
-      categories: Array.from(stat.categories),
-    }));
-
-    // Sort by article count (descending) for better UX
-    allResults.sort((a, b) => b.articleCount - a.articleCount);
-
-    // Pagination
-    const startIndex = (page - 1) * limit;
-    const paginated = allResults.slice(startIndex, startIndex + limit);
-
-    const totalTime = Date.now() - startTime;
-    console.log(`Completed in ${totalTime}ms`);
+    const results = paginatedArticles.map(article => {
+      const match = sessions.find(
+        s => s.pagePath.endsWith(article.externalId) || s.pagePath.includes(article.externalId)
+      );
+      const [h, m, s] = (match?.averageDuration || "00:00:00").split(":").map(Number);
+      return {
+        author: `${article.author?.first_name || ""} ${article.author?.last_name || ""}`.trim(),
+        title: article.title,
+        category: article.category?.name || "",
+        avgDuration: `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`,
+        bounceRate: parseFloat(match?.bounceRate || 0),
+      };
+    });
 
     return {
       success: true,
-      total: allResults.length,
-      page: Number(page),
-      limit: Number(limit),
-      processingTimeMs: totalTime,
-      data: paginated,
+      total: filteredArticles.length,
+      page,
+      limit,
+      data: results,
+      processingTimeMs: Date.now() - startTime,
     };
 
-  } catch (error) {
-    console.error("getJournalistProductivity error:", error.message);
-    throw error;
+  } catch (err) {
+    console.error("Error fetching journalist productivity:", err.message);
+    return { success: false, error: err.message };
   }
 }
