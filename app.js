@@ -74,6 +74,7 @@ import satisfactionRouter from "./src/departments/it/user-satisfication/userSati
 import revAttRouter from "./src/departments/sales/revenue-attribution/revenue-attribution-routes.js";
 import clvRouter from "./src/departments/sales/client-life-value/clv-routes.js";
 import assetInventoryRoute from "./src/departments/it/assetInventory/routes.js";
+import campaignROIRoute from "./src/departments/sales/campaignROI/routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -167,6 +168,7 @@ app.use("/api/v1/it/cpu-usage", cpuUsageRoute);
 app.use("/api/v1/it/satisfaction", satisfactionRouter);
 app.use("/api/v1/sales/revenue-attribution", revAttRouter);
 app.use("/api/v1/sales/client-lifetime-value", clvRouter);
-app.use("/api/v1/it/assets-inventory", assetInventoryRoute)
+app.use("/api/v1/it/assets-inventory", assetInventoryRoute);
+app.use("/api/v1/sales/campaign-roi", campaignROIRoute);
 
 export default app;
