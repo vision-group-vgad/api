@@ -118,9 +118,9 @@ export const swaggerOptions = {
       __dirname,
       "../departments/administrative/ScheduleEfficiency/*.js"
     ),
-    path.join(__dirname, "../departments/editorial/visitor-patterns/*.js"),
+    path.join(__dirname, "../departments/administrative/visitor-patterns/*.js"),
     path.join(__dirname, "../departments/administrative/rvsAnalytics/*.js"),
-    path.join(__dirname, "../departments/editorial/waitTime/*.js"),
+    path.join(__dirname, "../departments/administrative/waitTime/*.js"),
     path.join(__dirname, "../departments/IT/infraCosts/*.js"),
     path.join(__dirname, "../departments/IT/ticket-SLA/*.js"),
     path.join(__dirname, "../departments/it/sys-health-score/*.js"),
@@ -128,5 +128,6 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/it/cpuUsage/*.js"),
     path.join(__dirname, "../departments/it/infrastructure-costs/*.js"),
     path.join(__dirname, "../departments/it/ServerStoragePatchAnalytics/*.js"),
+    path.join(__dirname, "../departments/it/user-satisfication/*.js"),
   ],
 };

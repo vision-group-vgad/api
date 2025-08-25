@@ -57,6 +57,6 @@ const cpuUsageRoute = express.Router();
  *         description: Server error
  */
 
-cpuUsageRoute.get("/", getCpuUsageTrends);
+cpuUsageRoute.get("/", Jwt.verifyToken, getCpuUsageTrends);
 
 export default cpuUsageRoute;

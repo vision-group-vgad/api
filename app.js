@@ -58,9 +58,9 @@ import processThroughRouter from "./src/departments/administrative/process-throu
 import ExecutiveMeetingAnalyticsRoutes from "./src/departments/administrative/executiveMeetingAnalytics/routes.js";
 import deadlineCompliance from "./src/departments/editorial/deadline-compliance/deadlineComplianceRouter.js";
 import ScheduleEfficiencyRoutes from "./src/departments/administrative/ScheduleEfficiency/routes.js";
-import visionPatternRoute from "./src/departments/editorial/visitor-patterns/visitorPatternRouter.js";
+import visionPatternRoute from "./src/departments/administrative/visitor-patterns/visitorPatternRouter.js";
 import rvsAnalyticsRoutes from "./src/departments/administrative/rvsAnalytics/rvsAnalyticsRoutes.js";
-import waitTimeRoute from "./src/departments/editorial/waitTime/waitTimeRoute.js";
+import waitTimeRoute from "./src/departments/administrative/waitTime/waitTimeRoute.js";
 import infraCostsRoutes from "./src/departments/it/infraCosts/routes.js";
 import ticketSLARoutes from "./src/departments/it/ticket-SLA/routes.js";
 import cpuUsageRoute from "./src/departments/it/cpuUsage/cpuUsageRoute.js";
@@ -70,6 +70,7 @@ import ServerStoragePatchRoutes from "./src/departments/it/ServerStoragePatchAna
 import segmentPopularityRoute from "./src/departments/editorial/segmentPopularity/routes.js";
 import topNewslettersRoute from "./src/departments/editorial/topicVirality/newsLetterController.js";
 import cyberSecPostRouter from "./src/departments/it/cyber-sec-posture/cyber-sec-post-routes.js";
+import satisfactionRouter from "./src/departments/it/user-satisfication/userSatisficationRoute.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -146,9 +147,9 @@ app.use(
 );
 app.use("/api/v1/editorial/deadline-compliance", deadlineCompliance);
 app.use("/api/v1/admnistrative/scheduleEfficiency", ScheduleEfficiencyRoutes);
-app.use("/api/v1/editorial/visitor-patterns", visionPatternRoute);
+app.use("/api/v1/administrative/visitor-patterns", visionPatternRoute);
 app.use("/api/v1/administrative/rvsAnalytics", rvsAnalyticsRoutes);
-app.use("/api/v1/editorial/wait-time", waitTimeRoute);
+app.use("/api/v1/administrative/wait-time", waitTimeRoute);
 app.use("/api/v1/IT/infrastructure-costs", infraCostsRoutes);
 app.use("/api/v1/IT/sla", ticketSLARoutes);
 app.use("/api/v1/it/sys-health-score", sysHealthRouter);
@@ -158,5 +159,8 @@ app.use("/api/v1/it/ServerStoragePatch", ServerStoragePatchRoutes);
 app.use("/api/v1/editorial/segment-summary", segmentPopularityRoute);
 app.use("/api/v1/editorial/newsletter-virality", topNewslettersRoute);
 app.use("/api/v1/it/cycber-sec-router", cyberSecPostRouter);
+
+app.use("/api/v1/it/cpu-usage", cpuUsageRoute);
+app.use("/api/v1/it/satisfaction", satisfactionRouter);
 
 export default app;

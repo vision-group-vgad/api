@@ -1,14 +1,14 @@
 import express from "express";
+import { getVisitorPatterns } from "./visitorPatternController.js";
 import Jwt from "../../../auth/jwt.js";
-import { getWaitTimeAnalytics } from "./waitTimeController.js";
 
-const waitTimeRoute = express.Router();
+const visitorPatternRoute = express.Router();
 
 /**
  * @swagger
- * /api/v1/editorial/wait-time:
+ * /api/v1/administrative/visitor-patterns:
  *   get:
- *     summary: Get wait time of visitors and determine if they over waited visitor type, and department
+ *     summary: Get visitor analytics including wait times, grouped by day, hour, month, visitor type, and department
  *     tags: [Analytics]
  *     parameters:
  *       - in: query
@@ -44,6 +44,24 @@ const waitTimeRoute = express.Router();
  *                     visitorType:
  *                       type: string
  *                       nullable: true
+ *                 peakHours:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       hour:
+ *                         type: integer
+ *                       visits:
+ *                         type: integer
+ *                 peakDays:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       day:
+ *                         type: string
+ *                       visits:
+ *                         type: integer
  *                 departmentVisitTypeStats:
  *                   type: array
  *                   items:
@@ -121,7 +139,6 @@ const waitTimeRoute = express.Router();
  *       500:
  *         description: Server error
  */
+visitorPatternRoute.get("/", Jwt.verifyToken, getVisitorPatterns);
 
-waitTimeRoute.get("/", getWaitTimeAnalytics);
-
-export default waitTimeRoute;
+export default visitorPatternRoute;
