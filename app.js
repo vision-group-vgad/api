@@ -69,6 +69,7 @@ import infraCostsRouter from "./src/departments/it/infrastructure-costs/infra-co
 import ServerStoragePatchRoutes from "./src/departments/it/ServerStoragePatchAnalytics/ServerStoragePatchRoutes.js";
 import segmentPopularityRoute from "./src/departments/editorial/segmentPopularity/routes.js";
 import topNewslettersRoute from "./src/departments/editorial/topicVirality/newsLetterController.js";
+import cyberSecPostRouter from "./src/departments/it/cyber-sec-posture/cyber-sec-post-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -154,8 +155,8 @@ app.use("/api/v1/it/sys-health-score", sysHealthRouter);
 app.use("/api/v1/it/cpu-usage", cpuUsageRoute);
 app.use("/api/v1/it/infra-costs", infraCostsRouter);
 app.use("/api/v1/it/ServerStoragePatch", ServerStoragePatchRoutes);
-app.use("/api/v1/editorial/segment-summary", segmentPopularityRoute)
+app.use("/api/v1/editorial/segment-summary", segmentPopularityRoute);
 app.use("/api/v1/editorial/newsletter-virality", topNewslettersRoute);
+app.use("/api/v1/it/cycber-sec-router", cyberSecPostRouter);
 
 export default app;
-
