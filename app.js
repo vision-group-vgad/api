@@ -71,6 +71,7 @@ import segmentPopularityRoute from "./src/departments/editorial/segmentPopularit
 import topNewslettersRoute from "./src/departments/editorial/topicVirality/newsLetterController.js";
 import cyberSecPostRouter from "./src/departments/it/cyber-sec-posture/cyber-sec-post-routes.js";
 import satisfactionRouter from "./src/departments/it/user-satisfication/userSatisficationRoute.js";
+import revAttRouter from "./src/departments/sales/revenue-attribution/revenue-attribution-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -162,5 +163,6 @@ app.use("/api/v1/it/cycber-sec-router", cyberSecPostRouter);
 
 app.use("/api/v1/it/cpu-usage", cpuUsageRoute);
 app.use("/api/v1/it/satisfaction", satisfactionRouter);
+app.use("/api/v1/sales/revenue-attribution", revAttRouter);
 
 export default app;
