@@ -72,6 +72,7 @@ import topNewslettersRoute from "./src/departments/editorial/topicVirality/newsL
 import cyberSecPostRouter from "./src/departments/it/cyber-sec-posture/cyber-sec-post-routes.js";
 import satisfactionRouter from "./src/departments/it/user-satisfication/userSatisficationRoute.js";
 import revAttRouter from "./src/departments/sales/revenue-attribution/revenue-attribution-routes.js";
+import clvRouter from "./src/departments/sales/client-life-value/clv-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -164,5 +165,6 @@ app.use("/api/v1/it/cycber-sec-router", cyberSecPostRouter);
 app.use("/api/v1/it/cpu-usage", cpuUsageRoute);
 app.use("/api/v1/it/satisfaction", satisfactionRouter);
 app.use("/api/v1/sales/revenue-attribution", revAttRouter);
+app.use("/api/v1/sales/client-lifetime-value", clvRouter);
 
 export default app;
