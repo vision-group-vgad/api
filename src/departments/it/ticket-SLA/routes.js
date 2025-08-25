@@ -7,7 +7,7 @@ const router = express.Router();
  * @swagger
  * tags:
  *   - name: Ticket SLA
- *     description: ICT Support SLA compliance analytics
+ *     description: ICT Support SLA analytics
  */
 
 /**
