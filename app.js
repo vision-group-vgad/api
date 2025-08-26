@@ -77,6 +77,7 @@ import assetInventoryRoute from "./src/departments/it/assetInventory/routes.js";
 import campaignROIRoute from "./src/departments/sales/campaignROI/routes.js";
 import SupervisorSalesAnalyticsRoutes from "./src/departments/sales/SupervisorSalesAnalytics/SupervisorSalesAnalyticsRoutes.js";
 import OperationsProductionAnalyticsRoutes from "./src/departments/operations/OperationsProductionAnalytics/OperationsProductionAnalyticsRoutes.js";
+import impressionShareRoute from "./src/departments/sales/impressionShares/controller.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -174,5 +175,6 @@ app.use("/api/v1/it/assets-inventory", assetInventoryRoute);
 app.use("/api/v1/sales/campaign-roi", campaignROIRoute);
 app.use("/api/v1/sales/SupervisorSalesAnalytics", SupervisorSalesAnalyticsRoutes);
 app.use("/api/v1/operations/OperationsProductionAnalytics", OperationsProductionAnalyticsRoutes);
+app.use("/api/v1/sales/impression-shares", impressionShareRoute);
 
 export default app;
