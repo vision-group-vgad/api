@@ -134,17 +134,22 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/it/assetInventory/*.js"),
     path.join(__dirname, "../departments/sales/campaignROI/*.js"),
     path.join(__dirname, "../departments/sales/SupervisorSalesAnalytics/*.js"),
-    path.join(__dirname, "../departments/operations/OperationsProductionAnalytics/*.js"),
+    path.join(
+      __dirname,
+      "../departments/operations/OperationsProductionAnalytics/*.js"
+    ),
+    path.join(
+      __dirname,
+      "../departments/operations/OperationsProductionAnalytics/*.js"
+    ),
     path.join(__dirname, "../departments/sales/impressionShares/*.js"),
     path.join(
       __dirname,
       "../departments/operations/OperationsProductionAnalytics/*.js"
     ),
     path.join(__dirname, "../departments/sales/ctr/*.js"),
-<<<<<<< Updated upstream
     path.join(__dirname, "../departments/sales/rateCardUtilisation/*.js"),
-=======
     path.join(__dirname, "../departments/sales/conversion-funnels/*.js"),
->>>>>>> Stashed changes
+    path.join(__dirname, "../departments/sales/territory-performance/*.js"),
   ],
 };
