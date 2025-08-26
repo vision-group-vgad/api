@@ -79,6 +79,7 @@ import SupervisorSalesAnalyticsRoutes from "./src/departments/sales/SupervisorSa
 import OperationsProductionAnalyticsRoutes from "./src/departments/operations/OperationsProductionAnalytics/OperationsProductionAnalyticsRoutes.js";
 import impressionShareRoute from "./src/departments/sales/impressionShares/controller.js";
 import ctrRouter from "./src/departments/sales/ctr/ctr-routes.js";
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 import rateCardUtilisationRoute from "./src/departments/sales/rateCardUtilisation/controller.js";
 =======
@@ -88,6 +89,10 @@ import rateCardUtilisationRoute from "./src/departments/sales/rateCardUtilisatio
 import convFunnelsRouter from "./src/departments/sales/conversion-funnels/conv-funnels-routes.js";
 >>>>>>> Stashed changes
 >>>>>>> bfdcbd64e6ffaf9c4575f9010d1c56d44cffe744
+=======
+import convFunnelsRouter from "./src/departments/sales/conversion-funnels/conv-funnels-routes.js";
+import territoryPerformRouter from "./src/departments/sales/territory-performance/territory-performance-routes.js";
+>>>>>>> Stashed changes
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -183,8 +188,19 @@ app.use("/api/v1/sales/revenue-attribution", revAttRouter);
 app.use("/api/v1/sales/client-lifetime-value", clvRouter);
 app.use("/api/v1/it/assets-inventory", assetInventoryRoute);
 app.use("/api/v1/sales/campaign-roi", campaignROIRoute);
+<<<<<<< Updated upstream
 app.use("/api/v1/sales/SupervisorSalesAnalytics", SupervisorSalesAnalyticsRoutes);
 app.use("/api/v1/operations/OperationsProductionAnalytics", OperationsProductionAnalyticsRoutes);
+=======
+app.use(
+  "/api/v1/sales/SupervisorSalesAnalytics",
+  SupervisorSalesAnalyticsRoutes
+);
+app.use(
+  "/api/v1/operations/OperationsProductionAnalytics",
+  OperationsProductionAnalyticsRoutes
+);
+>>>>>>> Stashed changes
 app.use("/api/v1/sales/impression-shares", impressionShareRoute);
 app.use(
   "/api/v1/sales/SupervisorSalesAnalytics",
@@ -195,6 +211,7 @@ app.use(
   OperationsProductionAnalyticsRoutes
 );
 app.use("/api/v1/sales/ctr", ctrRouter);
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 app.use("/api/v1/sales/rate-card-utilization", rateCardUtilisationRoute);
 =======
@@ -204,5 +221,9 @@ app.use("/api/v1/sales/rate-card-utilization", rateCardUtilisationRoute);
 app.use("/api/v1/sales/conversion-funnels", convFunnelsRouter);
 >>>>>>> Stashed changes
 >>>>>>> bfdcbd64e6ffaf9c4575f9010d1c56d44cffe744
+=======
+app.use("/api/v1/sales/conversion-funnels", convFunnelsRouter);
+app.use("/api/v1/sales/territory-performance", territoryPerformRouter);
+>>>>>>> Stashed changes
 
 export default app;
