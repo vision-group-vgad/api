@@ -1,7 +1,7 @@
 import SalesMarketing from "../../../utils/common/SalesMkting.js";
-import ctrData from "./dummy-data.js";
+import campaigns from "./dummy-data.js";
 
-class CTRController {
+class ConvFunnelsController {
   #salesMkt;
   constructor() {
     this.#salesMkt = new SalesMarketing();
@@ -11,12 +11,8 @@ class CTRController {
     const filteredData = data.filter(
       (obj) => obj.date >= startDate && obj.date <= endDate
     );
-    const totalCtr = filteredData.reduce(
-      (total, campaign) => total + campaign.clickThroughRatePercent,
-      0
-    );
-    const totalRevenue = filteredData.reduce(
-      (total, campaign) => total + campaign.totalRevenue,
+    const totalVisits = filteredData.reduce(
+      (total, campaign) => total + campaign.visits,
       0
     );
 
@@ -33,21 +29,26 @@ class CTRController {
 
     return {
       data: filteredData,
+      top_campaigns: this.#getTopPerformingCampaigns(filteredData),
       summary: {
-        avg_ctr_percentage: Math.round(totalCtr / dataLength),
         no_of_campaigns: campaignSet.size,
         devices: Array.from(deviceSet),
         channels: Array.from(channelSet),
-        avg_revenue_per_campaign: Math.round(totalRevenue / dataLength),
+        avg_visits: Math.round(totalVisits / dataLength),
       },
     };
   }
 
+  #getTopPerformingCampaigns(data, topN = 4) {
+    const sorted = [...data].sort((a, b) => b.conversions - a.conversions);
+    return sorted.slice(0, topN);
+  }
+
   async getInRangeAnalytics(startDate, endDate) {
     // const data = await this.#salesMkt.getInRangeSalesAnalytics(startDate, endDate)
-    const processedAnalytics = this.#processData(ctrData, startDate, endDate);
+    const processedAnalytics = this.#processData(campaigns, startDate, endDate);
     return processedAnalytics;
   }
 }
 
-export default CTRController;
+export default ConvFunnelsController;

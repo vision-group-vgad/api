@@ -143,6 +143,10 @@ export const swaggerOptions = {
       "../departments/operations/OperationsProductionAnalytics/*.js"
     ),
     path.join(__dirname, "../departments/sales/ctr/*.js"),
+<<<<<<< Updated upstream
 >>>>>>> 5b97ee994388a1e9a02a298df3be0ca6050d214d
+=======
+    path.join(__dirname, "../departments/sales/conversion-funnels/*.js"),
+>>>>>>> Stashed changes
   ],
 };
