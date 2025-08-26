@@ -79,7 +79,15 @@ import SupervisorSalesAnalyticsRoutes from "./src/departments/sales/SupervisorSa
 import OperationsProductionAnalyticsRoutes from "./src/departments/operations/OperationsProductionAnalytics/OperationsProductionAnalyticsRoutes.js";
 import impressionShareRoute from "./src/departments/sales/impressionShares/controller.js";
 import ctrRouter from "./src/departments/sales/ctr/ctr-routes.js";
+<<<<<<< HEAD
 import rateCardUtilisationRoute from "./src/departments/sales/rateCardUtilisation/controller.js";
+=======
+<<<<<<< Updated upstream
+>>>>>>> 5b97ee994388a1e9a02a298df3be0ca6050d214d
+=======
+import convFunnelsRouter from "./src/departments/sales/conversion-funnels/conv-funnels-routes.js";
+>>>>>>> Stashed changes
+>>>>>>> bfdcbd64e6ffaf9c4575f9010d1c56d44cffe744
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -187,6 +195,14 @@ app.use(
   OperationsProductionAnalyticsRoutes
 );
 app.use("/api/v1/sales/ctr", ctrRouter);
+<<<<<<< HEAD
 app.use("/api/v1/sales/rate-card-utilization", rateCardUtilisationRoute);
+=======
+<<<<<<< Updated upstream
+>>>>>>> 5b97ee994388a1e9a02a298df3be0ca6050d214d
+=======
+app.use("/api/v1/sales/conversion-funnels", convFunnelsRouter);
+>>>>>>> Stashed changes
+>>>>>>> bfdcbd64e6ffaf9c4575f9010d1c56d44cffe744
 
 export default app;
