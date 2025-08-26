@@ -6,7 +6,7 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   - name: Sales - Impression Share
+ *   - name: Sales & marketing- Impression Shares
  *     description: API for tracking Impression Share of client campaigns for Vision Group
  */
 
@@ -19,7 +19,7 @@ const router = express.Router();
  *       Returns impression share analytics for Vision Group's client advertising campaigns.  
  *       You can filter by advertiser, campaign ID, or date range.  
  *       Values are in UGX for spend and budget.
- *     tags: [Sales - Impression Share]
+ *     tags: [Sales & marketing- Impression Shares]
  *     parameters:
  *       - in: query
  *         name: advertiser
