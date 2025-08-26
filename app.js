@@ -77,7 +77,11 @@ import assetInventoryRoute from "./src/departments/it/assetInventory/routes.js";
 import campaignROIRoute from "./src/departments/sales/campaignROI/routes.js";
 import SupervisorSalesAnalyticsRoutes from "./src/departments/sales/SupervisorSalesAnalytics/SupervisorSalesAnalyticsRoutes.js";
 import OperationsProductionAnalyticsRoutes from "./src/departments/operations/OperationsProductionAnalytics/OperationsProductionAnalyticsRoutes.js";
+<<<<<<< HEAD
+import impressionShareRoute from "./src/departments/sales/impressionShares/controller.js";
+=======
 import ctrRouter from "./src/departments/sales/ctr/ctr-routes.js";
+>>>>>>> 5b97ee994388a1e9a02a298df3be0ca6050d214d
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -173,6 +177,11 @@ app.use("/api/v1/sales/revenue-attribution", revAttRouter);
 app.use("/api/v1/sales/client-lifetime-value", clvRouter);
 app.use("/api/v1/it/assets-inventory", assetInventoryRoute);
 app.use("/api/v1/sales/campaign-roi", campaignROIRoute);
+<<<<<<< HEAD
+app.use("/api/v1/sales/SupervisorSalesAnalytics", SupervisorSalesAnalyticsRoutes);
+app.use("/api/v1/operations/OperationsProductionAnalytics", OperationsProductionAnalyticsRoutes);
+app.use("/api/v1/sales/impression-shares", impressionShareRoute);
+=======
 app.use(
   "/api/v1/sales/SupervisorSalesAnalytics",
   SupervisorSalesAnalyticsRoutes
@@ -182,5 +191,6 @@ app.use(
   OperationsProductionAnalyticsRoutes
 );
 app.use("/api/v1/sales/ctr", ctrRouter);
+>>>>>>> 5b97ee994388a1e9a02a298df3be0ca6050d214d
 
 export default app;
