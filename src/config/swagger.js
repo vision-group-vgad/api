@@ -145,7 +145,11 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/sales/conversion-funnels/*.js"),
     path.join(__dirname, "../departments/sales/territory-performance/*.js"),
     path.join(__dirname, "../departments/sales/lead-gen/*.js"),
+<<<<<<< HEAD
     path.join(__dirname, "../departments/sales/ABTestResults/*.js"),
+=======
+    path.join(__dirname, "../departments/sales/campaign-attribution/*.js"),
+>>>>>>> b1c47b3695ad7075b22861a32dcdfd87cdc10469
   ],
 };
 

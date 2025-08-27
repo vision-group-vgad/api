@@ -1,14 +1,16 @@
 import express from "express";
 import { getLeadGenEfficiency } from "./leadGenController.js";
+import Jwt from "../../../auth/jwt.js";
+
 
 const leadGenRoute = express.Router();
 
 /**
  * @swagger
- * /api/v1/marketing/lead-efficiency:
+ * /api/v1/sales/lead-efficiency:
  *   get:
  *     summary: Get lead generation efficiency metrics (CPL trends, campaign breakdowns, funnel, time-to-qualification)
- *     tags: [Marketing]
+ *     tags: [Analytics]
  *     parameters:
  *       - in: query
  *         name: campaign
@@ -151,6 +153,6 @@ const leadGenRoute = express.Router();
  *       500:
  *         description: Server error
  */
-leadGenRoute.get("/", getLeadGenEfficiency);
+leadGenRoute.get("/", Jwt.verifyToken, getLeadGenEfficiency);
 
 export default leadGenRoute;
