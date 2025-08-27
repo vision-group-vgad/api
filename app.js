@@ -249,6 +249,9 @@ app.use("/api/v1/ai", aiRoutes);
 app.use("/api/v1/executive/revenue-performance", revPerfromanceRouter);
 app.use("/api/v1/executive/market-share", mktShareRouter);
 app.use("/api/v1/executive/financial-health", financialHealthRoute);
+app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
+
+
 
 
 
