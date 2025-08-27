@@ -83,6 +83,7 @@ import rateCardUtilisationRoute from "./src/departments/sales/rateCardUtilisatio
 import convFunnelsRouter from "./src/departments/sales/conversion-funnels/conv-funnels-routes.js";
 import territoryPerformRouter from "./src/departments/sales/territory-performance/territory-performance-routes.js";
 import leadGenRoute from "./src/departments/sales/lead-gen/leadGenRoute.js";
+import campaignAttributionRoute from "./src/departments/sales/campaign-attribution/campaignAttributionRoute.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -208,7 +209,8 @@ app.use("/api/v1/sales/rate-card-utilization", rateCardUtilisationRoute);
 app.use("/api/v1/sales/conversion-funnels", convFunnelsRouter);
 app.use("/api/v1/sales/conversion-funnels", convFunnelsRouter);
 app.use("/api/v1/sales/territory-performance", territoryPerformRouter);
-app.use("/api/v1/marketing/lead-efficiency", leadGenRoute);
+app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
+app.use("/api/v1/sales/campaign-attribution", campaignAttributionRoute);
 
 
 
