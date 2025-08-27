@@ -208,7 +208,7 @@ app.use("/api/v1/sales/rate-card-utilization", rateCardUtilisationRoute);
 app.use("/api/v1/sales/conversion-funnels", convFunnelsRouter);
 app.use("/api/v1/sales/conversion-funnels", convFunnelsRouter);
 app.use("/api/v1/sales/territory-performance", territoryPerformRouter);
-app.use("/api/v1/marketing/lead-efficiency", leadGenRoute);
+app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
 
 
 
