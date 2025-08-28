@@ -88,6 +88,7 @@ import campaignAttributionRoute from "./src/departments/sales/campaign-attributi
 import ddeliveryTimelineRoute from "./src/departments/operations/deliveryTimelines/controller.js";
 import brandLiftRoute from "./src/departments/sales/brand-lift/brandLiftRoute.js";
 import contractValueRoute from "./src/departments/sales/contract-value-trends/contractTrendsRoute.js";
+import setupTimeOptimizationRoute from "./src/departments/operations/setupTimeOptimization/controller.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -221,6 +222,7 @@ app.use("/api/v1/operations/delivery-timelines", ddeliveryTimelineRoute);
 
 app.use("/api/v1/sales/brand-lift", brandLiftRoute);
 app.use("/api/v1/sales/contract-value-trends",contractValueRoute);
+app.use("/ap1/v1/operations/setup-time", setupTimeOptimizationRoute);
 
 
 
