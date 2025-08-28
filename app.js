@@ -6,6 +6,8 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import { swaggerOptions } from "./src/config/swagger.js";
+import 'dotenv/config';
+
 // import notificationRouter from "./src/departments/common-features/notification/noty-routes.js";
 import storageRoutes from "./src/departments/it/storage-utilization-donutchart/storageController.js";
 import cyberPostureController from "./src/departments/it/cyber-posture/cyberPostureRoutes.js";
@@ -93,6 +95,8 @@ import jobSchedulingRoute from "./src/departments/operations/jobSchedulingEffici
 import fuelConsRouter from "./src/departments/operations/fuel-consumption/fuel-consumption-routes.js";
 import sigQualityRouter from "./src/departments/operations/signal-quality-metrics/signal-quality-routes.js";
 import upDowntimeRouter from "./src/departments/operations/up-downtime-logs/up-downtime-routes.js";
+import CEOAnalyticsRoutes from "./src/departments/executive/CEOAnalytics/CEOAnalyticsRoutes.js";
+import aiRoutes from "./src/ai/aiRoutes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -225,11 +229,30 @@ app.use("/api/v1/sales/campaign-attribution", campaignAttributionRoute);
 app.use("/api/v1/operations/delivery-timelines", ddeliveryTimelineRoute);
 
 app.use("/api/v1/sales/brand-lift", brandLiftRoute);
+app.use("/api/v1/sales/contract-value-trends",contractValueRoute);
 app.use("/api/v1/sales/contract-value-trends", contractValueRoute);
-app.use("/ap1/v1/operations/setup-time", setupTimeOptimizationRoute);
+app.use("/api/v1/operations/setup-time", setupTimeOptimizationRoute);
 app.use("/api/v1/operations/job-scheduling", jobSchedulingRoute);
 app.use("/api/v1/operations/fuel-consumption", fuelConsRouter);
 app.use("/api/v1/operations/signal-quality-metrics", sigQualityRouter);
 app.use("/api/v1/operations/up-downtime-logs", upDowntimeRouter);
+app.use("/api/v1/executive/CEOAnalytics", CEOAnalyticsRoutes);
+app.use("/api/v1/ai", aiRoutes);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default app;
