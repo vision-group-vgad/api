@@ -90,6 +90,8 @@ import brandLiftRoute from "./src/departments/sales/brand-lift/brandLiftRoute.js
 import contractValueRoute from "./src/departments/sales/contract-value-trends/contractTrendsRoute.js";
 import setupTimeOptimizationRoute from "./src/departments/operations/setupTimeOptimization/controller.js";
 import jobSchedulingRoute from "./src/departments/operations/jobSchedulingEfficiency/controller.js";
+import fuelConsRouter from "./src/departments/operations/fuel-consumption/fuel-consumption-routes.js";
+import sigQualityRouter from "./src/departments/operations/signal-quality-metrics/signal-quality-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -222,28 +224,10 @@ app.use("/api/v1/sales/campaign-attribution", campaignAttributionRoute);
 app.use("/api/v1/operations/delivery-timelines", ddeliveryTimelineRoute);
 
 app.use("/api/v1/sales/brand-lift", brandLiftRoute);
-app.use("/api/v1/sales/contract-value-trends",contractValueRoute);
+app.use("/api/v1/sales/contract-value-trends", contractValueRoute);
 app.use("/ap1/v1/operations/setup-time", setupTimeOptimizationRoute);
 app.use("/api/v1/operations/job-scheduling", jobSchedulingRoute);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.use("/api/v1/operations/fuel-consumption", fuelConsRouter);
+app.use("/api/v1/operations/signal-quality-metrics", sigQualityRouter);
 
 export default app;

@@ -17,7 +17,7 @@ const sigQualityRouter = express.Router();
  *         - Unique cell towers
  *         - Best and worst performing towers
  *         - Average latency and packet loss
- *     tags: [Signal Quality]
+ *     tags: [Signal Quality Metrics]
  *     security:
  *       - bearerAuth: []
  *     parameters:

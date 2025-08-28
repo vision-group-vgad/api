@@ -134,7 +134,10 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/it/assetInventory/*.js"),
     path.join(__dirname, "../departments/sales/campaignROI/*.js"),
     path.join(__dirname, "../departments/sales/SupervisorSalesAnalytics/*.js"),
-    path.join(__dirname, "../departments/operations/OperationsProductionAnalytics/*.js"),
+    path.join(
+      __dirname,
+      "../departments/operations/OperationsProductionAnalytics/*.js"
+    ),
     path.join(__dirname, "../departments/sales/impressionShares/*.js"),
     path.join(
       __dirname,
@@ -150,8 +153,18 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/operations/deliveryTimelines/*.js"),
     path.join(__dirname, "../departments/sales/brand-lift/*.js"),
     path.join(__dirname, "../departments/sales/contract-value-trends/*.js"),
-    path.join(__dirname, "../departments/operations/setupTimeOptimization/*.js"),
-    path.join(__dirname, "../departments/operations/jobSchedulingEfficiency/*.js"),
+    path.join(
+      __dirname,
+      "../departments/operations/setupTimeOptimization/*.js"
+    ),
+    path.join(
+      __dirname,
+      "../departments/operations/jobSchedulingEfficiency/*.js"
+    ),
+    path.join(__dirname, "../departments/operations/fuel-consumption/*.js"),
+    path.join(
+      __dirname,
+      "../departments/operations/signal-quality-metrics/*.js"
+    ),
   ],
 };
-
