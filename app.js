@@ -86,6 +86,8 @@ import leadGenRoute from "./src/departments/sales/lead-gen/leadGenRoute.js";
 import aBTestResultRoute from "./src/departments/sales/ABTestResults/controller.js";
 import campaignAttributionRoute from "./src/departments/sales/campaign-attribution/campaignAttributionRoute.js";
 import ddeliveryTimelineRoute from "./src/departments/operations/deliveryTimelines/controller.js";
+import brandLiftRoute from "./src/departments/sales/brand-lift/brandLiftRoute.js";
+import contractValueRoute from "./src/departments/sales/contract-value-trends/contractTrendsRoute.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -217,6 +219,8 @@ app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
 app.use("/api/v1/sales/campaign-attribution", campaignAttributionRoute);
 app.use("/api/v1/operations/delivery-timelines", ddeliveryTimelineRoute);
 
+app.use("/api/v1/sales/brand-lift", brandLiftRoute);
+app.use("/api/v1/sales/contract-value-trends",contractValueRoute);
 
 
 
