@@ -1,6 +1,7 @@
 import axios from "axios";
 import axiosRetry from "axios-retry";
 import { extractExternalId } from "../utils.js";
+import { journalistData } from "./dummy.js"; 
 
 const TOKEN = process.env.CMS_API_KEY;
 if (!TOKEN) throw new Error("Missing CMS_API_KEY in environment variables.");
@@ -260,6 +261,56 @@ export async function getJournalistProductivity({
 
   } catch (err) {
     console.error("Error fetching journalist productivity:", err.message);
+    return { success: false, error: err.message };
+  }
+}
+
+
+/**
+ * Dummy Data Fetcher
+ * Returns all dummy journalist data, optionally filtered by author, category, and date range
+ */
+export async function getDummyJournalistProductivity({
+  author,
+  category,
+  startDate,
+  endDate,
+}) {
+  try {
+    let data = journalistData;
+
+    // Filter by author
+    if (author) {
+      data = data.filter(d =>
+        d.author.toLowerCase().includes(author.toLowerCase())
+      );
+    }
+
+    // Filter by category
+    if (category) {
+      data = data.filter(d =>
+        d.category.toLowerCase().includes(category.toLowerCase())
+      );
+    }
+
+    // Filter by date range if publishDate exists
+    if (startDate || endDate) {
+      data = data.filter(d => {
+        if (!d.publishDate) return false;
+        const publishTime = new Date(d.publishDate).getTime();
+        const startTime = startDate ? new Date(startDate).getTime() : -Infinity;
+        const endTime = endDate ? new Date(endDate).getTime() : Infinity;
+        return publishTime >= startTime && publishTime <= endTime;
+      });
+    }
+
+    return {
+      success: true,
+      total: data.length,
+      data,
+    };
+  } catch (err) {
+    console.error("Error fetching dummy journalist productivity:", err.message);
     return { success: false, error: err.message };
   }
 }

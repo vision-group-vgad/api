@@ -1,4 +1,4 @@
-import { getJournalistProductivity } from "./service.js";
+import { getJournalistProductivity, getDummyJournalistProductivity } from "./service.js";
 
 
 export const getProductivity = async (req, res) => {
@@ -24,6 +24,29 @@ export const getProductivity = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to fetch journalist productivity",
+      error: error.message,
+    });
+  }
+};
+
+// Dummy data productivity endpoint
+export const getDummyProductivity = async (req, res) => {
+  try {
+    const { startDate, endDate, author, category } = req.query;
+
+    const result = await getDummyJournalistProductivity({
+      startDate,
+      endDate,
+      author,
+      category,
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error("Error fetching dummy productivity:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch dummy journalist productivity",
       error: error.message,
     });
   }
