@@ -93,6 +93,9 @@ import jobSchedulingRoute from "./src/departments/operations/jobSchedulingEffici
 import ticketResolutionRoute from "./src/departments/operations/ticket-resolution/ticketResolutionRoute.js";
 import partsUtilizationRoute from "./src/departments/operations/parts-utilization/partsUtilizationRoute.js";
 import routeEfficiencyRoute from "./src/departments/operations/route-efficiency/routeEfficiencyRoute.js";
+import fuelConsRouter from "./src/departments/operations/fuel-consumption/fuel-consumption-routes.js";
+import sigQualityRouter from "./src/departments/operations/signal-quality-metrics/signal-quality-routes.js";
+import upDowntimeRouter from "./src/departments/operations/up-downtime-logs/up-downtime-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -225,29 +228,13 @@ app.use("/api/v1/sales/campaign-attribution", campaignAttributionRoute);
 app.use("/api/v1/operations/delivery-timelines", ddeliveryTimelineRoute);
 app.use("/api/v1/operations/ticket-resolution", ticketResolutionRoute);
 app.use("/api/v1/sales/brand-lift", brandLiftRoute);
-app.use("/api/v1/sales/contract-value-trends",contractValueRoute);
+app.use("/api/v1/sales/contract-value-trends", contractValueRoute);
 app.use("/ap1/v1/operations/setup-time", setupTimeOptimizationRoute);
 app.use("/api/v1/operations/job-scheduling", jobSchedulingRoute);
 app.use("/api/v1/operations/parts-utilization", partsUtilizationRoute);
 app.use("/api/v1/operations/route-efficiency", routeEfficiencyRoute);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.use("/api/v1/operations/fuel-consumption", fuelConsRouter);
+app.use("/api/v1/operations/signal-quality-metrics", sigQualityRouter);
+app.use("/api/v1/operations/up-downtime-logs", upDowntimeRouter);
 
 export default app;
