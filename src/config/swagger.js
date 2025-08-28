@@ -166,5 +166,6 @@ export const swaggerOptions = {
       __dirname,
       "../departments/operations/signal-quality-metrics/*.js"
     ),
+    path.join(__dirname, "../departments/operations/up-downtime-logs/*.js"),
   ],
 };

@@ -92,6 +92,7 @@ import setupTimeOptimizationRoute from "./src/departments/operations/setupTimeOp
 import jobSchedulingRoute from "./src/departments/operations/jobSchedulingEfficiency/controller.js";
 import fuelConsRouter from "./src/departments/operations/fuel-consumption/fuel-consumption-routes.js";
 import sigQualityRouter from "./src/departments/operations/signal-quality-metrics/signal-quality-routes.js";
+import upDowntimeRouter from "./src/departments/operations/up-downtime-logs/up-downtime-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -229,5 +230,6 @@ app.use("/ap1/v1/operations/setup-time", setupTimeOptimizationRoute);
 app.use("/api/v1/operations/job-scheduling", jobSchedulingRoute);
 app.use("/api/v1/operations/fuel-consumption", fuelConsRouter);
 app.use("/api/v1/operations/signal-quality-metrics", sigQualityRouter);
+app.use("/api/v1/operations/up-downtime-logs", upDowntimeRouter);
 
 export default app;
