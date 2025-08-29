@@ -1,6 +1,6 @@
 // liquidityRatiosRoute.js
 import express from "express";
-// import Jwt from "../../../auth/jwt.js";
+import Jwt from "../../../auth/jwt.js";
 import { getLiquidityRatios } from "./liquidityRatiosController.js";
 
 const liquidityRatiosRoute = express.Router();
@@ -119,6 +119,6 @@ const liquidityRatiosRoute = express.Router();
  *       500:
  *         description: Server error
  */
-liquidityRatiosRoute.get("/",  getLiquidityRatios);
+liquidityRatiosRoute.get("/",Jwt.verifyToken,  getLiquidityRatios);
 
 export default liquidityRatiosRoute;

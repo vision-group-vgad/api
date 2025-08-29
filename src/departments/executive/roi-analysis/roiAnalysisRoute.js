@@ -1,6 +1,6 @@
 // roiRoute.js
 import express from "express";
-// import Jwt from "../../../auth/jwt.js";
+import Jwt from "../../../auth/jwt.js";
 import { getRoiAnalysis } from "./roiAnalysisController.js";
 const roiRoute = express.Router();
 
@@ -62,6 +62,6 @@ const roiRoute = express.Router();
  *       500:
  *         description: Server error
  */
-roiRoute.get("/", getRoiAnalysis);
+roiRoute.get("/", Jwt.verifyToken, getRoiAnalysis);
 
 export default roiRoute;
