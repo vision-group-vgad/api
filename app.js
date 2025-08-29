@@ -102,6 +102,7 @@ import CEOAnalyticsRoutes from "./src/departments/executive/CEOAnalytics/CEOAnal
 import aiRoutes from "./src/ai/aiRoutes.js";
 import revPerfromanceRouter from "./src/departments/executive/revenue-performance/rev-perfromance-routes.js";
 import mktShareRouter from "./src/departments/executive/market-share/market-share-routes.js";
+import financialHealthRoute from "./src/departments/executive/finance-health/financeHealthRoute.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -247,5 +248,25 @@ app.use("/api/v1/executive/CEOAnalytics", CEOAnalyticsRoutes);
 app.use("/api/v1/ai", aiRoutes);
 app.use("/api/v1/executive/revenue-performance", revPerfromanceRouter);
 app.use("/api/v1/executive/market-share", mktShareRouter);
+app.use("/api/v1/executive/financial-health", financialHealthRoute);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default app;
