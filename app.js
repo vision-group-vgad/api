@@ -103,7 +103,9 @@ import aiRoutes from "./src/ai/aiRoutes.js";
 import revPerfromanceRouter from "./src/departments/executive/revenue-performance/rev-perfromance-routes.js";
 import mktShareRouter from "./src/departments/executive/market-share/market-share-routes.js";
 import financialHealthRoute from "./src/departments/executive/finance-health/financeHealthRoute.js";
-
+import liquidityRatiosRoute from "./src/departments/executive/liquidity-ratios/liquidityRatiosRoute.js";
+import costOptimizationRoute from "./src/departments/executive/cost-optimization/costOptimizationRoute.js";
+import roiAnalysisRoute from "./src/departments/executive/roi-analysis/roiAnalysisRoute.js";
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const corsOption = {
@@ -234,6 +236,8 @@ app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
 app.use("/api/v1/sales/campaign-attribution", campaignAttributionRoute);
 app.use("/api/v1/operations/delivery-timelines", ddeliveryTimelineRoute);
 app.use("/api/v1/operations/ticket-resolution", ticketResolutionRoute);
+app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
+app.use("/api/v1/executive/liquidity-ratios", liquidityRatiosRoute);
 app.use("/api/v1/sales/brand-lift", brandLiftRoute);
 app.use("/api/v1/sales/contract-value-trends", contractValueRoute);
 app.use("/api/v1/sales/contract-value-trends", contractValueRoute);
@@ -252,6 +256,8 @@ app.use("/api/v1/executive/financial-health", financialHealthRoute);
 app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
 
 
+app.use("/api/v1/executive/cost-optimization", costOptimizationRoute);
+app.use("/api/v1/executive/roi-analysis", roiAnalysisRoute);
 
 
 
