@@ -92,6 +92,6 @@ const ticketResolutionRoute = express.Router();
  *       500:
  *         description: Server error
  */
-ticketResolutionRoute.get("/",  getTicketResolution);
+ticketResolutionRoute.get("/", Jwt.verifyToken, getTicketResolution);
 
 export default ticketResolutionRoute;
