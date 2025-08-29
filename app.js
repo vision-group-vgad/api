@@ -101,6 +101,7 @@ import upDowntimeRouter from "./src/departments/operations/up-downtime-logs/up-d
 import CEOAnalyticsRoutes from "./src/departments/executive/CEOAnalytics/CEOAnalyticsRoutes.js";
 import aiRoutes from "./src/ai/aiRoutes.js";
 import revPerfromanceRouter from "./src/departments/executive/revenue-performance/rev-perfromance-routes.js";
+import mktShareRouter from "./src/departments/executive/market-share/market-share-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -245,5 +246,6 @@ app.use("/api/v1/operations/up-downtime-logs", upDowntimeRouter);
 app.use("/api/v1/executive/CEOAnalytics", CEOAnalyticsRoutes);
 app.use("/api/v1/ai", aiRoutes);
 app.use("/api/v1/executive/revenue-performance", revPerfromanceRouter);
+app.use("/api/v1/executive/market-share", mktShareRouter);
 
 export default app;
