@@ -1,9 +1,9 @@
 import express from "express";
 import dayjs from "dayjs";
 import Jwt from "../../../auth/jwt.js";
+import {dummyCapexData} from "./dummy.js";
 
 const router = express.Router();
-
 /**
  * @swagger
  * /api/v1/capEx/capex-dummy:
@@ -11,8 +11,8 @@ const router = express.Router();
  *     summary: Get Capital Expenditure (CapEx) records
  *     description: 
  *       Retrieve a list of Capital Expenditure transactions.  
- *       Supports optional filtering by year or date range.  
- *       Defaults to latest available year if no filter is provided.
+ *       Supports optional filtering by year, date range, or category.  
+ *       Defaults to latest available year (2025) if no filter is provided.
  *     tags:
  *       - Capital Expenditure
  *     security:
@@ -22,22 +22,34 @@ const router = express.Router();
  *         name: year
  *         schema:
  *           type: integer
- *           example: 2021
- *         description: Filter records by a specific year (e.g., 2021, 2025)
+ *           example: 2025
+ *         description: Filter records by a specific year (e.g., 2021–2025)
  *       - in: query
  *         name: start
  *         schema:
  *           type: string
  *           format: date
- *           example: 2021-08-01
+ *           example: 2025-01-01
  *         description: Start date for filtering (YYYY-MM-DD)
  *       - in: query
  *         name: end
  *         schema:
  *           type: string
  *           format: date
- *           example: 2021-08-31
+ *           example: 2025-12-31
  *         description: End date for filtering (YYYY-MM-DD)
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           type: string
+ *           enum: 
+ *             - "Broadcast Equipment"
+ *             - "IT & Technology"
+ *             - "Vehicles & Transport"
+ *             - "Buildings & Facilities"
+ *             - "Furniture & Fixtures"
+ *           example: "IT & Technology"
+ *         description: Filter records by CAPEX category (dropdown selection)
  *     responses:
  *       200:
  *         description: Successful response with CapEx data
@@ -48,7 +60,7 @@ const router = express.Router();
  *               properties:
  *                 total:
  *                   type: number
- *                   example: 204000
+ *                   example: 2040000000
  *                   description: Total CapEx amount for the filtered data
  *                 count:
  *                   type: integer
@@ -62,90 +74,70 @@ const router = express.Router();
  *                       Posting_Date:
  *                         type: string
  *                         format: date
- *                         example: "2021-08-10"
+ *                         example: "2025-01-10"
  *                       G_L_Account_No:
  *                         type: string
- *                         example: "10060"
+ *                         example: "40001"
  *                       G_L_Account_Name:
  *                         type: string
- *                         example: "Mbarara Cash Control"
+ *                         example: "Studio Cameras"
  *                       Document_No:
  *                         type: string
- *                         example: "B-SK000020RN"
+ *                         example: "DOC-2025-001"
  *                       Document_Type:
  *                         type: string
- *                         example: "Payment"
+ *                         example: "Purchase"
  *                       Amount:
  *                         type: number
- *                         example: 19000
+ *                         example: 1200000000
  *                       capexCategory:
  *                         type: string
- *                         example: "CapEx - Buildings"
- *       500:
- *         description: Server error
+ *                         example: "Broadcast Equipment"
+ *       404:
+ *         description: No records found for the filters
  */
 
 
-router.get("/capex-dummy", Jwt.verifyToken, async(req, res) => {
-  const dummyCapexData = [
-    {
-      Posting_Date: "2021-08-10",
-      G_L_Account_No: "10060",
-      G_L_Account_Name: "Mbarara Cash Control",
-      Document_No: "B-SK000020RN",
-      Document_Type: "Payment",
-      Amount: 19000,
-      capexCategory: "CapEx - Buildings",
-    },
-    {
-      Posting_Date: "2021-08-15",
-      G_L_Account_No: "10061",
-      G_L_Account_Name: "Kampala Equipment Control",
-      Document_No: "B-KA000121EQ",
-      Document_Type: "Payment",
-      Amount: 65000,
-      capexCategory: "CapEx - Equipment",
-    },
-    {
-      Posting_Date: "2025-01-20",
-      G_L_Account_No: "10062",
-      G_L_Account_Name: "Vehicle Acquisitions",
-      Document_No: "B-VEH0045RN",
-      Document_Type: "Payment",
-      Amount: 120000,
-      capexCategory: "CapEx - Vehicles",
-    },
-  ];
+router.get("/capex-dummy", async (req, res) => {
+  const { start, end, year, category } = req.query;
 
-  const { start, end, year } = req.query;
+  let filteredData = [...dummyCapexData];
 
-  let filteredData = [];
+  // Filter by category
+  if (category) {
+    filteredData = filteredData.filter(
+      (entry) =>
+        entry.capexCategory.toLowerCase() === category.toLowerCase()
+    );
+  }
 
+  // Filter by year
+  if (year) {
+    const yearInt = parseInt(year, 10);
+    filteredData = filteredData.filter(
+      (entry) => dayjs(entry.Posting_Date).year() === yearInt
+    );
+  }
+
+  // Filter by custom date range
   if (start && end) {
-    // Filter by custom range
-    filteredData = dummyCapexData.filter((entry) => {
+    filteredData = filteredData.filter((entry) => {
       const date = dayjs(entry.Posting_Date);
       return (
         date.isAfter(dayjs(start).subtract(1, "day")) &&
         date.isBefore(dayjs(end).add(1, "day"))
       );
     });
-  } else if (year) {
-    // Filter by year param
-    const yearInt = parseInt(year, 10);
-    filteredData = dummyCapexData.filter(
-      (entry) => dayjs(entry.Posting_Date).year() === yearInt
-    );
-  } else {
-    // Default: auto-detect the most recent year in the data
-    const years = dummyCapexData.map((entry) =>
-      dayjs(entry.Posting_Date).year()
-    );
-    const latestYear = Math.max(...years);
 
-    filteredData = dummyCapexData.filter(
-      (entry) => dayjs(entry.Posting_Date).year() === latestYear
-    );
+    if (filteredData.length === 0) {
+      return res.status(404).json({
+        message: `No record exists for date range ${start} to ${end}`,
+      });
+    }
+  }
+
+  if (filteredData.length === 0) {
+    return res.status(404).json({ message: "No records found" });
   }
 
   const totalCapex = filteredData.reduce((sum, entry) => sum + entry.Amount, 0);
