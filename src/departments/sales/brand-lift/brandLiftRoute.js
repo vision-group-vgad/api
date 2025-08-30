@@ -88,6 +88,6 @@ const brandLiftRoute = express.Router();
  *       500:
  *         description: Server error
  */
-brandLiftRoute.get("/", getBrandLift);
+brandLiftRoute.get("/", Jwt.verifyToken ,getBrandLift);
 
 export default brandLiftRoute;

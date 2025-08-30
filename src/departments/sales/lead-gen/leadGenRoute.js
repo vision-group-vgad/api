@@ -2,7 +2,6 @@ import express from "express";
 import { getLeadGenEfficiency } from "./leadGenController.js";
 import Jwt from "../../../auth/jwt.js";
 
-
 const leadGenRoute = express.Router();
 
 /**

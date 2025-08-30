@@ -6,6 +6,8 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import { swaggerOptions } from "./src/config/swagger.js";
+import "dotenv/config";
+
 // import notificationRouter from "./src/departments/common-features/notification/noty-routes.js";
 import storageRoutes from "./src/departments/it/storage-utilization-donutchart/storageController.js";
 import cyberPostureController from "./src/departments/it/cyber-posture/cyberPostureRoutes.js";
@@ -90,7 +92,20 @@ import brandLiftRoute from "./src/departments/sales/brand-lift/brandLiftRoute.js
 import contractValueRoute from "./src/departments/sales/contract-value-trends/contractTrendsRoute.js";
 import setupTimeOptimizationRoute from "./src/departments/operations/setupTimeOptimization/controller.js";
 import jobSchedulingRoute from "./src/departments/operations/jobSchedulingEfficiency/controller.js";
-
+import ticketResolutionRoute from "./src/departments/operations/ticket-resolution/ticketResolutionRoute.js";
+import partsUtilizationRoute from "./src/departments/operations/parts-utilization/partsUtilizationRoute.js";
+import routeEfficiencyRoute from "./src/departments/operations/route-efficiency/routeEfficiencyRoute.js";
+import fuelConsRouter from "./src/departments/operations/fuel-consumption/fuel-consumption-routes.js";
+import sigQualityRouter from "./src/departments/operations/signal-quality-metrics/signal-quality-routes.js";
+import upDowntimeRouter from "./src/departments/operations/up-downtime-logs/up-downtime-routes.js";
+import CEOAnalyticsRoutes from "./src/departments/executive/CEOAnalytics/CEOAnalyticsRoutes.js";
+import aiRoutes from "./src/ai/aiRoutes.js";
+import revPerfromanceRouter from "./src/departments/executive/revenue-performance/rev-perfromance-routes.js";
+import mktShareRouter from "./src/departments/executive/market-share/market-share-routes.js";
+import financialHealthRoute from "./src/departments/executive/finance-health/financeHealthRoute.js";
+import liquidityRatiosRoute from "./src/departments/executive/liquidity-ratios/liquidityRatiosRoute.js";
+import costOptimizationRoute from "./src/departments/executive/cost-optimization/costOptimizationRoute.js";
+import roiAnalysisRoute from "./src/departments/executive/roi-analysis/roiAnalysisRoute.js";
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const corsOption = {
@@ -220,12 +235,29 @@ app.use("/api/v1/sales/ab-tests", aBTestResultRoute);
 app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
 app.use("/api/v1/sales/campaign-attribution", campaignAttributionRoute);
 app.use("/api/v1/operations/delivery-timelines", ddeliveryTimelineRoute);
-
+app.use("/api/v1/operations/ticket-resolution", ticketResolutionRoute);
+app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
+app.use("/api/v1/executive/liquidity-ratios", liquidityRatiosRoute);
 app.use("/api/v1/sales/brand-lift", brandLiftRoute);
-app.use("/api/v1/sales/contract-value-trends",contractValueRoute);
-app.use("/ap1/v1/operations/setup-time", setupTimeOptimizationRoute);
+app.use("/api/v1/sales/contract-value-trends", contractValueRoute);
+app.use("/api/v1/sales/contract-value-trends", contractValueRoute);
+app.use("/api/v1/operations/setup-time", setupTimeOptimizationRoute);
 app.use("/api/v1/operations/job-scheduling", jobSchedulingRoute);
+app.use("/api/v1/operations/parts-utilization", partsUtilizationRoute);
+app.use("/api/v1/operations/route-efficiency", routeEfficiencyRoute);
+app.use("/api/v1/operations/fuel-consumption", fuelConsRouter);
+app.use("/api/v1/operations/signal-quality-metrics", sigQualityRouter);
+app.use("/api/v1/operations/up-downtime-logs", upDowntimeRouter);
+app.use("/api/v1/executive/CEOAnalytics", CEOAnalyticsRoutes);
+app.use("/api/v1/ai", aiRoutes);
+app.use("/api/v1/executive/revenue-performance", revPerfromanceRouter);
+app.use("/api/v1/executive/market-share", mktShareRouter);
+app.use("/api/v1/executive/financial-health", financialHealthRoute);
+app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
 
+
+app.use("/api/v1/executive/cost-optimization", costOptimizationRoute);
+app.use("/api/v1/executive/roi-analysis", roiAnalysisRoute);
 
 
 

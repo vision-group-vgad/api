@@ -44,7 +44,7 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/it/server-load-piechart/*.js"),
     path.join(__dirname, "../departments/it/cyber-posture/*.js"),
     path.join(__dirname, "../departments/it/infrastructure/*.js"),
-    path.join(__dirname, "../departments/it/patch-compliance/*.js"),
+    // path.join(__dirname, "../departments/it/patch-compliance/*.js"),
     path.join(__dirname, "../departments/operations/*.js"),
     path.join(__dirname, "../departments/sales/*.js"),
     path.join(__dirname, "../departments/specialized/*.js"),
@@ -58,7 +58,7 @@ export const swaggerOptions = {
       "../departments/it/storage-utilization-donutchart/*.js"
     ),
     path.join(__dirname, "../accountSettings/*.js"),
-    path.join(__dirname, "../departments/it/systemHealth/*.js"),
+    // path.join(__dirname, "../departments/it/systemHealth/*.js"),
     path.join(__dirname, "../departments/finance/reporting-acc-pie-chart/*.js"),
     path.join(__dirname, "../departments/finance/capex/*.js"),
     path.join(__dirname, "../departments/finance/total_assets_value/*.js"),
@@ -134,7 +134,10 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/it/assetInventory/*.js"),
     path.join(__dirname, "../departments/sales/campaignROI/*.js"),
     path.join(__dirname, "../departments/sales/SupervisorSalesAnalytics/*.js"),
-    path.join(__dirname, "../departments/operations/OperationsProductionAnalytics/*.js"),
+    path.join(
+      __dirname,
+      "../departments/operations/OperationsProductionAnalytics/*.js"
+    ),
     path.join(__dirname, "../departments/sales/impressionShares/*.js"),
     path.join(
       __dirname,
@@ -150,8 +153,48 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/operations/deliveryTimelines/*.js"),
     path.join(__dirname, "../departments/sales/brand-lift/*.js"),
     path.join(__dirname, "../departments/sales/contract-value-trends/*.js"),
-    path.join(__dirname, "../departments/operations/setupTimeOptimization/*.js"),
-    path.join(__dirname, "../departments/operations/jobSchedulingEfficiency/*.js"),
+    path.join(
+      __dirname,
+      "../departments/operations/setupTimeOptimization/*.js"
+    ),
+    path.join(
+      __dirname,
+      "../departments/operations/jobSchedulingEfficiency/*.js"
+    ),
+
+    path.join(
+      __dirname,
+      "../departments/operations/setupTimeOptimization/*.js"
+    ),
+    path.join(
+      __dirname,
+      "../departments/operations/jobSchedulingEfficiency/*.js"
+    ),
+    path.join(__dirname, "../departments/operations/ticket-resolution/*.js"),
+    path.join(__dirname, "../departments/operations/parts-utilization/*.js"),
+    path.join(__dirname, "../departments/operations/route-efficiency/*.js"),
+
+    path.join(
+      __dirname,
+      "../departments/operations/setupTimeOptimization/*.js"
+    ),
+    path.join(
+      __dirname,
+      "../departments/operations/jobSchedulingEfficiency/*.js"
+    ),
+    path.join(__dirname, "../departments/operations/fuel-consumption/*.js"),
+    path.join(
+      __dirname,
+      "../departments/operations/signal-quality-metrics/*.js"
+    ),
+    path.join(__dirname, "../departments/operations/up-downtime-logs/*.js"),
+    path.join(__dirname, "../ai/*.js"),
+    path.join(__dirname, "../departments/executive/CEOAnalytics/*.js"),
+    path.join(__dirname, "../departments/executive/revenue-performance/*.js"),
+    path.join(__dirname, "../departments/executive/market-share/*.js"),
+    path.join(__dirname, "../departments/executive/finance-health/*.js"),
+    path.join(__dirname, "../departments/executive/liquidity-ratios/*.js"),
+    path.join(__dirname, "../departments/executive/cost-optimization/*.js"),
+    path.join(__dirname, "../departments/executive/roi-analysis/*.js"),
   ],
 };
-

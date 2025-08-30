@@ -69,6 +69,6 @@ const contractValueRoute = express.Router();
  *       500:
  *         description: Server error
  */
-contractValueRoute.get("/",  getContractValueTrends);
+contractValueRoute.get("/",Jwt.verifyToken, getContractValueTrends);
 
 export default contractValueRoute;
