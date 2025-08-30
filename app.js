@@ -106,6 +106,8 @@ import financialHealthRoute from "./src/departments/executive/finance-health/fin
 import liquidityRatiosRoute from "./src/departments/executive/liquidity-ratios/liquidityRatiosRoute.js";
 import costOptimizationRoute from "./src/departments/executive/cost-optimization/costOptimizationRoute.js";
 import roiAnalysisRoute from "./src/departments/executive/roi-analysis/roiAnalysisRoute.js";
+import strategicInitiativeRouter from "./src/departments/executive/strategic-init-tracking/strategic-init-tracking-routes.js";
+
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const corsOption = {
@@ -254,28 +256,8 @@ app.use("/api/v1/executive/revenue-performance", revPerfromanceRouter);
 app.use("/api/v1/executive/market-share", mktShareRouter);
 app.use("/api/v1/executive/financial-health", financialHealthRoute);
 app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
-
-
 app.use("/api/v1/executive/cost-optimization", costOptimizationRoute);
 app.use("/api/v1/executive/roi-analysis", roiAnalysisRoute);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.use("/api/v1/executive/strategic-init-tracking", strategicInitiativeRouter);
 
 export default app;
