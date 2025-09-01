@@ -111,6 +111,8 @@ import compyWideRouter from "./src/departments/executive/company-wide-kpis/compa
 import riskExposureRouter from "./src/departments/specialized/risk-exposure/risk-exposure-routes.js";
 import mitigationEffRouter from "./src/departments/specialized/mitigation-effectiveness/mitigation-eff-router.js";
 import riskHeatMapsRouter from "./src/departments/executive/riskheatMaps/controller.js";
+import costEffectivesssRouter from "./src/departments/executive/controlEffectiveness/controller.js";
+
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -267,5 +269,6 @@ app.use("/api/v1/executive/company-wide-kpis", compyWideRouter);
 app.use("/api/v1/specialized/risk-exposure", riskExposureRouter);
 app.use("/api/v1/specialized/mitigation-effectiveness", mitigationEffRouter);
 app.use("/api/v1/executives/risk-heatmap", riskHeatMapsRouter);
+app.use("/api/v1/executives/control-effectiveness", costEffectivesssRouter);
 
 export default app;
