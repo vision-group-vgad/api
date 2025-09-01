@@ -109,6 +109,7 @@ import roiAnalysisRoute from "./src/departments/executive/roi-analysis/roiAnalys
 import strategicInitiativeRouter from "./src/departments/executive/strategic-init-tracking/strategic-init-tracking-routes.js";
 import compyWideRouter from "./src/departments/executive/company-wide-kpis/company-wide-kpis-routes.js";
 import riskExposureRouter from "./src/departments/specialized/risk-exposure/risk-exposure-routes.js";
+import mitigationEffRouter from "./src/departments/specialized/mitigation-effectiveness/mitigation-eff-router.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -263,5 +264,6 @@ app.use("/api/v1/executive/roi-analysis", roiAnalysisRoute);
 app.use("/api/v1/executive/strategic-init-tracking", strategicInitiativeRouter);
 app.use("/api/v1/executive/company-wide-kpis", compyWideRouter);
 app.use("/api/v1/specialized/risk-exposure", riskExposureRouter);
+app.use("/api/v1/specialized/mitigation-effectiveness", mitigationEffRouter);
 
 export default app;

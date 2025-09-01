@@ -202,5 +202,9 @@ export const swaggerOptions = {
     ),
     path.join(__dirname, "../departments/executive/company-wide-kpis/*.js"),
     path.join(__dirname, "../departments/specialized/risk-exposure/*.js"),
+    path.join(
+      __dirname,
+      "../departments/specialized/mitigation-effectiveness/*.js"
+    ),
   ],
 };
