@@ -112,7 +112,7 @@ import riskExposureRouter from "./src/departments/specialized/risk-exposure/risk
 import mitigationEffRouter from "./src/departments/specialized/mitigation-effectiveness/mitigation-eff-router.js";
 import riskHeatMapsRouter from "./src/departments/executive/riskheatMaps/controller.js";
 import costEffectivesssRouter from "./src/departments/executive/controlEffectiveness/controller.js";
-
+import CaseComplainceRoutes from "./src/departments/specialized/CaseCompliance/CaseComplainceRoutes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -270,5 +270,6 @@ app.use("/api/v1/specialized/risk-exposure", riskExposureRouter);
 app.use("/api/v1/specialized/mitigation-effectiveness", mitigationEffRouter);
 app.use("/api/v1/executives/risk-heatmap", riskHeatMapsRouter);
 app.use("/api/v1/executives/control-effectiveness", costEffectivesssRouter);
+app.use("/api/v1/specialized/CaseCompliance", CaseComplainceRoutes);
 
 export default app;

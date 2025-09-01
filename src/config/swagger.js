@@ -208,5 +208,6 @@ export const swaggerOptions = {
     ),
     path.join(__dirname, "../departments/executive/riskheatMaps/*.js"),
     path.join(__dirname, "../departments/executive/controlEffectiveness/*.js"),
+    path.join(__dirname, "../departments/specialized/CaseCompliance/*.js"),
   ],
 };
