@@ -201,5 +201,6 @@ export const swaggerOptions = {
       "../departments/executive/strategic-init-tracking/*.js"
     ),
     path.join(__dirname, "../departments/executive/company-wide-kpis/*.js"),
+    path.join(__dirname, "../departments/specialized/risk-exposure/*.js"),
   ],
 };

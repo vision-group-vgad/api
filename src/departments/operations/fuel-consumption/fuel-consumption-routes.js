@@ -72,7 +72,7 @@ const fuelConsRouter = express.Router();
 fuelConsRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
   const { startDate, endDate } = req.query;
 
-  validateRange(startDate, endDate);
+  validateRange(startDate, endDate, res);
 
   try {
     const results = await fuelConsController.getInRangeAnalytics(

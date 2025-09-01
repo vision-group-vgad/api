@@ -177,7 +177,7 @@ const cyberSecPostRouter = express.Router();
 cyberSecPostRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
   const { startDate, endDate } = req.query;
 
-  validateRange(startDate, endDate);
+  validateRange(startDate, endDate, res);
 
   try {
     const results = await cyberSecPostController.getInRangeData(
