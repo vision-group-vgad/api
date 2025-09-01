@@ -14,7 +14,7 @@ class RiskExposureController {
 
     return {
       data: filteredData,
-      summary: this.#generateOverallRiskSummary(data),
+      summary: this.#generateOverallRiskSummary(filteredData),
     };
   }
 

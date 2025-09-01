@@ -14,7 +14,7 @@ class CompWideKpisController {
 
     return {
       data: filteredData,
-      summary: this.#getHighLevelSummary(data),
+      summary: this.#getHighLevelSummary(filteredData),
     };
   }
 
