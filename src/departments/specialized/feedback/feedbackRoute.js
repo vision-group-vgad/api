@@ -1,14 +1,14 @@
 import express from "express";
 import Jwt from "../../../auth/jwt.js";
-import { getAttendanceAnalysis } from "./attendanceRateController.js";
+import { getFeedbackAnalysis } from "./feedbackController.js";
 
-const attendanceRoute = express.Router();
+const feedbackRoute = express.Router();
 
 /**
  * @swagger
- * /api/v1/specialized/attendance-rate:
+ * /api/v1/specialized/feedback:
  *   get:
- *     summary: Get Attendance analysis for events
+ *     summary: Get Participant Feedback analysis
  *     tags: [Analytics]
  *     parameters:
  *       - in: query
@@ -32,7 +32,7 @@ const attendanceRoute = express.Router();
  *           format: date
  *     responses:
  *       200:
- *         description: Attendance analysis data
+ *         description: Feedback analysis data
  *         content:
  *           application/json:
  *             schema:
@@ -40,50 +40,42 @@ const attendanceRoute = express.Router();
  *               properties:
  *                 summary:
  *                   type: object
- *                 attendanceTrends:
+ *                   properties:
+ *                     totalParticipants:
+ *                       type: number
+ *                     totalAttended:
+ *                       type: number
+ *                     totalFeedback:
+ *                       type: number
+ *                     avgCSAT:
+ *                       type: number
+ *                     nps:
+ *                       type: number
+ *                 ratings:
  *                   type: array
  *                   items:
  *                     type: object
  *                     properties:
- *                       month:
- *                         type: string
- *                       totalEvents:
+ *                       rating:
  *                         type: number
- *                       totalRegistrations:
+ *                       count:
  *                         type: number
- *                       totalAttendees:
+ *                       percentage:
  *                         type: number
- *                       noShow:
- *                         type: number
- *                       attendanceRate:
- *                         type: number
- *                       seatUtilization:
- *                         type: number
- *                 data:
+ *                 sessions:
  *                   type: array
  *                   items:
  *                     type: object
  *                     properties:
- *                       eventName:
+ *                       sessionTitle:
  *                         type: string
- *                       date:
- *                         type: string
- *                         format: date
- *                       totalRegistrations:
+ *                       avgScore:
  *                         type: number
- *                       totalAttendees:
- *                         type: number
- *                       totalSeats:
- *                         type: number
- *                       noShow:
- *                         type: number
- *                       attendanceRate:
- *                         type: number
- *                       seatUtilization:
+ *                       participants:
  *                         type: number
  *       500:
  *         description: Server error
  */
-attendanceRoute.get("/", Jwt.verifyToken, getAttendanceAnalysis);
+feedbackRoute.get("/", Jwt.verifyToken, getFeedbackAnalysis);
 
-export default attendanceRoute;
+export default feedbackRoute;

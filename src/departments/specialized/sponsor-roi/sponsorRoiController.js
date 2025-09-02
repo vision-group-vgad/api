@@ -46,7 +46,7 @@ export const getSponsorAnalysis = (req, res) => {
     const totalAcquisitions = filteredData.reduce((a, d) => a + d.acquisitions, 0);
 
     const summary = {
-      total: data.length,
+      total: filteredData.length,
       totalSponsors: new Set(filteredData.map(d => d.sponsorName)).size,
       totalRevenue,
       totalInvestment,
