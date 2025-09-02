@@ -13,8 +13,14 @@ class Jwt {
     });
   }
 
-  static generateToken(email) {
-    const payload = { email };
+  static generateToken(email, userInfo = {}) {
+    const payload = { 
+      email,
+      department: userInfo.department,
+      position: userInfo.position,
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName
+    };
     return jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "8h" });
   }
 }
