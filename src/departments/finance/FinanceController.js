@@ -100,6 +100,69 @@ export const getReportingAccuracy = async (req, res) => {
   }
 };
 
+// Controller to get Regional P&L Analysis
+export const getRegionalPnL = async (req, res) => {
+  try {
+    const filters = {
+      startDate: req.query.startDate,
+      endDate: req.query.endDate,
+      region: req.query.region,
+      dimensionSetId: req.query.dimensionSetId,
+      limit: req.query.limit || 10000
+    };
+
+    console.log('🌍 Regional P&L request with filters:', filters);
+
+    const data = await FinanceService.getRegionalPnL(filters);
+    
+    // Calculate summary metrics
+    const summary = {
+      totalRegions: data.length,
+      totalRevenue: data.reduce((sum, region) => sum + region.totalRevenue, 0),
+      totalNetProfit: data.reduce((sum, region) => sum + region.netProfit, 0),
+      profitableRegions: data.filter(region => region.netProfit > 0).length,
+      topPerformingRegion: data.length > 0 ? data[0].region : null,
+      averageNetMargin: data.length > 0 ? 
+        (data.reduce((sum, region) => sum + region.netMargin, 0) / data.length).toFixed(2) : 0
+    };
+
+    res.status(200).json({ 
+      success: true, 
+      data,
+      filters: filters,
+      summary,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error fetching regional P&L:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: 'Failed to fetch regional P&L',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+// Controller to get available regions for dropdown
+export const getRegions = async (req, res) => {
+  try {
+    const data = await FinanceService.getRegions();
+    res.status(200).json({ 
+      success: true, 
+      data,
+      totalRegions: data.length,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error fetching regions:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: 'Failed to fetch regions',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
 // Controller to get raw financial data for custom analysis
 export const getFinancialData = async (req, res) => {
   try {
@@ -153,6 +216,9 @@ export const getFinancialChartData = async (req, res) => {
         break;
       case 'accuracy':
         data = await FinanceService.getReportingAccuracy(filters);
+        break;
+      case 'regionalPnL':
+        data = await FinanceService.getRegionalPnL(filters);
         break;
       default:
         data = await FinanceService.getFinancialCloseMetrics(filters);
@@ -279,6 +345,27 @@ function formatForLineChart(data, metric) {
       ]
     };
   }
+  
+  if (metric === 'regionalPnL' && Array.isArray(data)) {
+    return {
+      labels: data.map(item => item.region),
+      datasets: [
+        {
+          label: 'Total Revenue',
+          data: data.map(item => item.totalRevenue),
+          borderColor: 'rgb(54, 162, 235)',
+          backgroundColor: 'rgba(54, 162, 235, 0.2)'
+        },
+        {
+          label: 'Net Profit',
+          data: data.map(item => item.netProfit),
+          borderColor: 'rgb(75, 192, 192)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)'
+        }
+      ]
+    };
+  }
+  
   return data;
 }
 
@@ -298,6 +385,30 @@ function formatForBarChart(data, metric) {
       }]
     };
   }
+  
+  if (metric === 'regionalPnL' && Array.isArray(data)) {
+    return {
+      labels: data.map(item => item.region),
+      datasets: [
+        {
+          label: 'Revenue',
+          data: data.map(item => item.totalRevenue),
+          backgroundColor: 'rgba(54, 162, 235, 0.6)'
+        },
+        {
+          label: 'Gross Profit',
+          data: data.map(item => item.grossProfit),
+          backgroundColor: 'rgba(75, 192, 192, 0.6)'
+        },
+        {
+          label: 'Net Profit',
+          data: data.map(item => item.netProfit),
+          backgroundColor: 'rgba(153, 102, 255, 0.6)'
+        }
+      ]
+    };
+  }
+  
   return data;
 }
 
@@ -315,5 +426,23 @@ function formatForPieChart(data, metric) {
       }]
     };
   }
+  
+  if (metric === 'regionalPnL' && Array.isArray(data)) {
+    return {
+      labels: data.map(item => item.region),
+      datasets: [{
+        data: data.map(item => item.totalRevenue),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.8)',
+          'rgba(54, 162, 235, 0.8)',
+          'rgba(255, 205, 86, 0.8)',
+          'rgba(75, 192, 192, 0.8)',
+          'rgba(153, 102, 255, 0.8)',
+          'rgba(255, 159, 64, 0.8)'
+        ]
+      }]
+    };
+  }
+  
   return data;
 }

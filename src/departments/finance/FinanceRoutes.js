@@ -11,6 +11,8 @@ import {
   getGLAccountNames,
   getDocumentTypes,
   getDiagnosticInfo,
+  getRegionalPnL,
+  getRegions,
 } from "./FinanceController.js";
 import Jwt from "../../auth/jwt.js";
 
@@ -513,6 +515,92 @@ router.get("/gl-accounts", Jwt.verifyToken, getGLAccountNames);
  *         description: Server error
  */
 router.get("/document-types", Jwt.verifyToken, getDocumentTypes);
+
+/**
+ * @swagger
+ * /api/v1/finance/regional-pnl:
+ *   get:
+ *     summary: Get Regional P&L Analysis
+ *     description: Returns P&L analysis by region using dimension mapping with comprehensive metrics
+ *     tags: [Finance]
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         schema: { type: string, format: date }
+ *         description: Start date for filtering (YYYY-MM-DD)
+ *       - in: query
+ *         name: endDate
+ *         schema: { type: string, format: date }
+ *         description: End date for filtering (YYYY-MM-DD)
+ *       - in: query
+ *         name: region
+ *         schema: { type: string }
+ *         description: Specific region filter
+ *       - in: query
+ *         name: dimensionSetId
+ *         schema: { type: string }
+ *         description: Dimension Set ID filter
+ *       - in: query
+ *         name: limit
+ *         schema: { type: integer, default: 10000 }
+ *         description: Maximum number of records to process
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Regional P&L analysis retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       region:
+ *                         type: string
+ *                       totalRevenue:
+ *                         type: number
+ *                       grossProfit:
+ *                         type: number
+ *                       netProfit:
+ *                         type: number
+ *                       netMargin:
+ *                         type: number
+ *                       regionRank:
+ *                         type: integer
+ *                 summary:
+ *                   type: object
+ *                   properties:
+ *                     totalRegions:
+ *                       type: integer
+ *                     totalRevenue:
+ *                       type: number
+ *                     profitableRegions:
+ *                       type: integer
+ */
+router.get('/regional-pnl', Jwt.verifyToken, getRegionalPnL);
+
+/**
+ * @swagger
+ * /api/v1/finance/regions:
+ *   get:
+ *     summary: Get available regions for filtering
+ *     description: Returns all available regions mapped from dimension data for dropdown filters
+ *     tags: [Finance]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Regions retrieved successfully
+ */
+router.get('/regions', Jwt.verifyToken, getRegions);
+
+
 
 /**
  * @swagger
