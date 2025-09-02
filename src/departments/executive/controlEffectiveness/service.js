@@ -5,7 +5,7 @@ import { controlEffectivenessData } from './dummy.js';
  * Max score = 5, min = 1
  */
 function calculateEffectivenessScore(findings) {
-  let score = 5 - findings; // 1 finding = -1 point
+  let score = 5 - findings; // 
   if (score < 1) score = 1;
   if (score > 5) score = 5;
   return score;
