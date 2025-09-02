@@ -13,7 +13,6 @@ class AuthenticationController {
   async #submitLoginInfo(email, password) {
     this.email = email;
     this.password = password;
-    this.sessionId = Utils.getSessionId();
     //Uncomment the block below in production & import axios
     // const response = await axios.post(this.VISION_GROUP_CMS_ROOT_URL + "signin", {
     //   email,
