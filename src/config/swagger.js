@@ -214,10 +214,8 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/executive/compliance/tasks/*.js"),
     path.join(__dirname, "../departments/executive/compliance/policies/*.js"),
     path.join(__dirname, "../departments/executive/compliance/audits/*.js"),
-<<<<<<< HEAD
     path.join(__dirname, "../departments/specialized/recruitmentFunnel/*.js"),
-=======
     path.join(__dirname, "./firebase/*.js"),
->>>>>>> 911a67f643ac5a84251144ef9e8ab093f3c8300b
+    path.join(__dirname, "../departments/specialized/retentionRisk/*.js"),
   ],
 };
