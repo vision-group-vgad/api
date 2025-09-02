@@ -121,6 +121,7 @@ import complianceAuditRoute from "./src/departments/executive/compliance/audits/
 import recruitmentFunnelRoute from  "./src/departments/specialized/recruitmentFunnel/controller.js";
 import firebaseRouter from "./src/config/firebase/firebase-routes.js";
 import retentionRiskRoute from "./src/departments/specialized/retentionRisk/controller.js";
+import feedbackRoute from "./src/departments/specialized/feedback/feedbackRoute.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -287,5 +288,7 @@ app.use("/api/v1/executives/compliance/audits", complianceAuditRoute);
 app.use("/api/v1/hr/recruitment-funnel", recruitmentFunnelRoute);
 app.use("/api/v1/hr/retention-risk", retentionRiskRoute);
 app.use("/api/v1", firebaseRouter);
+app.use("/api/v1/specialized/feedback", feedbackRoute);
+
 
 export default app;
