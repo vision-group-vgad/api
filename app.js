@@ -118,6 +118,7 @@ import sponsorRoute from "./src/departments/specialized/sponsor-roi/sponsorRoiRo
 import complianceTasksRoute  from "./src/departments/executive/compliance/tasks/controller.js";
 import compliancePolicyRoute from "./src/departments/executive/compliance/policies/controller.js";
 import complianceAuditRoute from "./src/departments/executive/compliance/audits/controller.js";
+import recruitmentFunnelRoute from  "./src/departments/specialized/recruitmentFunnel/controller.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -281,6 +282,7 @@ app.use("/api/v1/specialized/sponsor-roi", sponsorRoute);
 app.use("/api/v1/executives/compliance/tasks", complianceTasksRoute);
 app.use("/api/v1/executives/compliance/policies", compliancePolicyRoute);
 app.use("/api/v1/executives/compliance/audits", complianceAuditRoute);
+app.use("/api/v1/hr/recruitment-funnel", recruitmentFunnelRoute);
 
 
 export default app;
