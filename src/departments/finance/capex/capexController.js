@@ -4,15 +4,13 @@ import Jwt from "../../../auth/jwt.js";
 import {dummyCapexData} from "./dummy.js";
 
 const router = express.Router();
+
 /**
  * @swagger
  * /api/v1/capEx/capex-dummy:
  *   get:
  *     summary: Get Capital Expenditure (CapEx) records
- *     description: 
- *       Retrieve a list of Capital Expenditure transactions.  
- *       Supports optional filtering by year, date range, or category.  
- *       Defaults to latest available year (2025) if no filter is provided.
+ *     description: Retrieve a list of Capital Expenditure transactions.  
  *     tags:
  *       - Capital Expenditure
  *     security:
@@ -22,22 +20,19 @@ const router = express.Router();
  *         name: year
  *         schema:
  *           type: integer
- *           example: 2025
- *         description: Filter records by a specific year (e.g., 2021–2025)
+ *         description: Optional. Filter records by a specific year (e.g., 2021–2025)
  *       - in: query
  *         name: start
  *         schema:
  *           type: string
  *           format: date
- *           example: 2025-01-01
- *         description: Start date for filtering (YYYY-MM-DD)
+ *         description: Optional. Start date for filtering (YYYY-MM-DD)
  *       - in: query
  *         name: end
  *         schema:
  *           type: string
  *           format: date
- *           example: 2025-12-31
- *         description: End date for filtering (YYYY-MM-DD)
+ *         description: Optional. End date for filtering (YYYY-MM-DD)
  *       - in: query
  *         name: category
  *         schema:
@@ -48,8 +43,7 @@ const router = express.Router();
  *             - "Vehicles & Transport"
  *             - "Buildings & Facilities"
  *             - "Furniture & Fixtures"
- *           example: "IT & Technology"
- *         description: Filter records by CAPEX category (dropdown selection)
+ *         description: Optional. Filter records by CAPEX category
  *     responses:
  *       200:
  *         description: Successful response with CapEx data
@@ -61,7 +55,7 @@ const router = express.Router();
  *                 total:
  *                   type: number
  *                   example: 2040000000
- *                   description: Total CapEx amount for the filtered data
+ *                   description: Total CapEx amount for the returned data
  *                 count:
  *                   type: integer
  *                   example: 3
@@ -94,8 +88,17 @@ const router = express.Router();
  *                         type: string
  *                         example: "Broadcast Equipment"
  *       404:
- *         description: No records found for the filters
+ *         description: No records found for the applied filters
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "No record exists for date range 2025-01-01 to 2025-01-31"
  */
+
 
 
 router.get("/capex-dummy", async (req, res) => {
@@ -103,7 +106,7 @@ router.get("/capex-dummy", async (req, res) => {
 
   let filteredData = [...dummyCapexData];
 
-  // Filter by category
+  // Apply category filter if provided
   if (category) {
     filteredData = filteredData.filter(
       (entry) =>
@@ -111,7 +114,7 @@ router.get("/capex-dummy", async (req, res) => {
     );
   }
 
-  // Filter by year
+  // Apply year filter if provided
   if (year) {
     const yearInt = parseInt(year, 10);
     filteredData = filteredData.filter(
@@ -119,7 +122,7 @@ router.get("/capex-dummy", async (req, res) => {
     );
   }
 
-  // Filter by custom date range
+  // Apply custom date range filter if both start and end are provided
   if (start && end) {
     filteredData = filteredData.filter((entry) => {
       const date = dayjs(entry.Posting_Date);
@@ -128,25 +131,26 @@ router.get("/capex-dummy", async (req, res) => {
         date.isBefore(dayjs(end).add(1, "day"))
       );
     });
-
-    if (filteredData.length === 0) {
-      return res.status(404).json({
-        message: `No record exists for date range ${start} to ${end}`,
-      });
-    }
   }
 
-  if (filteredData.length === 0) {
-    return res.status(404).json({ message: "No records found" });
+  // Return 404 only if filtering was applied and no data matches
+  if ((start || end || year || category) && filteredData.length === 0) {
+    let message = "No records found";
+    if (start && end) message = `No record exists for date range ${start} to ${end}`;
+    res.status(404).json({ message });
+    return;
   }
 
+  // Calculate total amount
   const totalCapex = filteredData.reduce((sum, entry) => sum + entry.Amount, 0);
 
+  // Return all data if no filters, or filtered data
   res.status(200).json({
     total: totalCapex,
     count: filteredData.length,
     data: filteredData,
   });
 });
+
 
 export default router;
