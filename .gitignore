@@ -5,3 +5,5 @@ coverage
 /generated/prisma
 /coverage
 ./coverage
+
+firebase/*.json

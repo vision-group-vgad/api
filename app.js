@@ -115,9 +115,10 @@ import costEffectivesssRouter from "./src/departments/executive/controlEffective
 import CaseComplainceRoutes from "./src/departments/specialized/CaseCompliance/CaseComplainceRoutes.js";
 import attendanceRoute from "./src/departments/specialized/attendance-rate/attendanceRateRoute.js";
 import sponsorRoute from "./src/departments/specialized/sponsor-roi/sponsorRoiRoute.js";
-import complianceTasksRoute  from "./src/departments/executive/compliance/tasks/controller.js";
+import complianceTasksRoute from "./src/departments/executive/compliance/tasks/controller.js";
 import compliancePolicyRoute from "./src/departments/executive/compliance/policies/controller.js";
 import complianceAuditRoute from "./src/departments/executive/compliance/audits/controller.js";
+import firebaseRouter from "./src/config/firebase/firebase-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -282,5 +283,6 @@ app.use("/api/v1/executives/compliance/tasks", complianceTasksRoute);
 app.use("/api/v1/executives/compliance/policies", compliancePolicyRoute);
 app.use("/api/v1/executives/compliance/audits", complianceAuditRoute);
 
+app.use("/api/v1", firebaseRouter);
 
 export default app;
