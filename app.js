@@ -115,6 +115,9 @@ import costEffectivesssRouter from "./src/departments/executive/controlEffective
 import CaseComplainceRoutes from "./src/departments/specialized/CaseCompliance/CaseComplainceRoutes.js";
 import attendanceRoute from "./src/departments/specialized/attendance-rate/attendanceRateRoute.js";
 import sponsorRoute from "./src/departments/specialized/sponsor-roi/sponsorRoiRoute.js";
+import complianceTasksRoute  from "./src/departments/executive/compliance/tasks/controller.js";
+import compliancePolicyRoute from "./src/departments/executive/compliance/policies/controller.js";
+import complianceAuditRoute from "./src/departments/executive/compliance/audits/controller.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -275,6 +278,9 @@ app.use("/api/v1/executives/control-effectiveness", costEffectivesssRouter);
 app.use("/api/v1/specialized/CaseCompliance", CaseComplainceRoutes);
 app.use("/api/v1/specialized/attendance-rate", attendanceRoute);
 app.use("/api/v1/specialized/sponsor-roi", sponsorRoute);
+app.use("/api/v1/executives/compliance/tasks", complianceTasksRoute);
+app.use("/api/v1/executives/compliance/policies", compliancePolicyRoute);
+app.use("/api/v1/executives/compliance/audits", complianceAuditRoute);
 
 
 export default app;
