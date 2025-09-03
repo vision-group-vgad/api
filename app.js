@@ -122,6 +122,7 @@ import recruitmentFunnelRoute from  "./src/departments/specialized/recruitmentFu
 import firebaseRouter from "./src/config/firebase/firebase-routes.js";
 import retentionRiskRoute from "./src/departments/specialized/retentionRisk/controller.js";
 import feedbackRoute from "./src/departments/specialized/feedback/feedbackRoute.js";
+import trainingEffectivenessRoute from "./src/departments/specialized/trainingEffectiveness/controller.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -289,6 +290,7 @@ app.use("/api/v1/hr/recruitment-funnel", recruitmentFunnelRoute);
 app.use("/api/v1/hr/retention-risk", retentionRiskRoute);
 app.use("/api/v1", firebaseRouter);
 app.use("/api/v1/specialized/feedback", feedbackRoute);
+app.use("/api/v1/hr/training-effectiveness", trainingEffectivenessRoute);
 
 
 export default app;
