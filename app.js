@@ -118,7 +118,8 @@ import sponsorRoute from "./src/departments/specialized/sponsor-roi/sponsorRoiRo
 import complianceTasksRoute from "./src/departments/executive/compliance/tasks/controller.js";
 import compliancePolicyRoute from "./src/departments/executive/compliance/policies/controller.js";
 import complianceAuditRoute from "./src/departments/executive/compliance/audits/controller.js";
-import firebaseRouter from "./src/config/firebase/firebase-routes.js";
+import firebaseRoleRouter from "./src/config/firebase/firebase-role-routes.js";
+import firebaseUserRouter from "./src/config/firebase/firebase-user-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -282,7 +283,7 @@ app.use("/api/v1/specialized/sponsor-roi", sponsorRoute);
 app.use("/api/v1/executives/compliance/tasks", complianceTasksRoute);
 app.use("/api/v1/executives/compliance/policies", compliancePolicyRoute);
 app.use("/api/v1/executives/compliance/audits", complianceAuditRoute);
-
-app.use("/api/v1", firebaseRouter);
+app.use("/api/v1", firebaseRoleRouter);
+app.use("/api/v1", firebaseUserRouter);
 
 export default app;

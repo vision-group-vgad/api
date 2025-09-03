@@ -5,6 +5,7 @@ import {
   validateYear,
 } from "../../../utils/common/common-functionalities.js";
 import Jwt from "../../../auth/jwt.js";
+import AccessController from "../../../auth/access-controller.js";
 
 const readershipController = new ReadershipTrendController();
 const readershipRouter = express.Router();
@@ -84,21 +85,28 @@ const readershipRouter = express.Router();
  *       404:
  *         description: No data found for the requested year
  */
-readershipRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
-  let { year } = req.query;
-  year = parseInt(year);
+readershipRouter.get(
+  "/annual",
+  Jwt.verifyToken,
+  AccessController.authorizeRole("ROLE-3369B9"),
+  async (req, res) => {
+    let { year } = req.query;
+    year = parseInt(year);
 
-  validateYear(year, res);
+    validateYear(year, res);
 
-  try {
-    const results = await readershipController.getAnnualReadershipTrends(year);
-    res.json(results);
-  } catch (error) {
-    res.status(500).json({
-      message: `${error.message}`,
-    });
+    try {
+      const results = await readershipController.getAnnualReadershipTrends(
+        year
+      );
+      res.json(results);
+    } catch (error) {
+      res.status(500).json({
+        message: `${error.message}`,
+      });
+    }
   }
-});
+);
 
 /**
  * @swagger
