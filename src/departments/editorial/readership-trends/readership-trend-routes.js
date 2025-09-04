@@ -5,6 +5,7 @@ import {
   validateYear,
 } from "../../../utils/common/common-functionalities.js";
 import Jwt from "../../../auth/jwt.js";
+import AccessController from "../../../auth/access-controller.js";
 
 const readershipController = new ReadershipTrendController();
 const readershipRouter = express.Router();

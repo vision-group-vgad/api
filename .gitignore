@@ -6,4 +6,9 @@ coverage
 /coverage
 ./coverage
 
+./config/firebase/*.json
+./config/firebase/*.txt
 firebase/*.json
+firebase/*.txt
+users.json
+unfunded.txt
