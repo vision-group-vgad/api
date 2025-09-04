@@ -1,5 +1,6 @@
 import db from "./firebase.js";
 import bcrypt from "bcrypt";
+import fs from "fs/promises";
 
 const usersRef = db.ref("users");
 
@@ -58,4 +59,19 @@ export const fetchUserByEmail = async (email) => {
   if (!snapshot.exists()) return null;
   const user = snapshot.val();
   return { user_email: email, ...user };
+};
+
+export const bulkAddUsersFromFile = async () => {
+  try {
+    const data = await fs.readFile("./users.json", "utf-8");
+    const users = JSON.parse(data);
+
+    for (const user of users) {
+      await addUser(user);
+    }
+    console.log("Bulk upload completed");
+  } catch (err) {
+    console.error("Error reading users.json:", err.message);
+    throw err;
+  }
 };

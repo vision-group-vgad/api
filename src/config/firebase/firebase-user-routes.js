@@ -3,6 +3,7 @@ import {
   addUser,
   updateUser,
   deleteUser,
+  bulkAddUsersFromFile,
 } from "./firebase-user-service.js";
 import express from "express";
 import Jwt from "../../auth/jwt.js";
@@ -84,6 +85,15 @@ firebaseUserRouter.delete("/users/delete", async (req, res) => {
   }
 });
 
+firebaseUserRouter.post("/users/bulk-add", async (req, res) => {
+  try {
+    await bulkAddUsersFromFile("users.json");
+    return res.status(201).json({ message: "Bulk user upload completed" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 export default firebaseUserRouter;
 
 /**
@@ -113,8 +123,8 @@ export default firebaseUserRouter;
  *           description: Role code assigned to the user
  *
  * tags:
- *   name: Users
- *   description: API for managing users
+ *   - name: Users
+ *     description: API for managing users
  *
  * /api/v1/users/all-users:
  *   get:
@@ -172,4 +182,17 @@ export default firebaseUserRouter;
  *     responses:
  *       200:
  *         description: User deleted successfully
+ *
+ * /api/v1/users/bulk-add:
+ *   post:
+ *     summary: Add multiple users from a JSON file
+ *     tags: [Users]
+ *     requestBody:
+ *       description: No input required; reads `users.json` from the project root
+ *       required: false
+ *     responses:
+ *       201:
+ *         description: Bulk user upload completed
+ *       500:
+ *         description: Server error
  */

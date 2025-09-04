@@ -2,6 +2,7 @@ import express from "express";
 import SocialSentimentController from "./SocialSentimentController.js";
 import Jwt from "../../../auth/jwt.js";
 import { validateRange } from "../../../utils/common/common-functionalities.js";
+import AccessController from "../../../auth/access-controller.js";
 
 const socSentController = new SocialSentimentController();
 const socialSentimentRouter = express.Router();
@@ -112,25 +113,30 @@ const socialSentimentRouter = express.Router();
  *                   type: string
  *                   example: Data for only 2025 is available
  */
-socialSentimentRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
-  const { year } = req.query;
+socialSentimentRouter.get(
+  "/annual",
+  Jwt.verifyToken,
+  AccessController.authorizeRole(["ROLE-42E64D", "ROLE-051A31"]),
+  async (req, res) => {
+    const { year } = req.query;
 
-  if (!year) {
-    return res.status(400).json({
-      message: `Missing required field: year`,
-    });
+    if (!year) {
+      return res.status(400).json({
+        message: `Missing required field: year`,
+      });
+    }
+
+    const convYear = parseInt(year);
+    if (convYear != 2025) {
+      return res.status(404).json({
+        message: `Data for only 2025 is available`,
+      });
+    }
+    const results = socSentController.getAnnualSentiments(convYear);
+
+    res.status(200).json(results);
   }
-
-  const convYear = parseInt(year);
-  if (convYear != 2025) {
-    return res.status(404).json({
-      message: `Data for only 2025 is available`,
-    });
-  }
-  const results = socSentController.getAnnualSentiments(convYear);
-
-  res.status(200).json(results);
-});
+);
 
 /**
  * @swagger

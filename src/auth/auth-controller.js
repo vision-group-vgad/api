@@ -46,7 +46,12 @@ class AuthenticationController {
   //       last_name: lastName,
   //     } = response.data;
 
-  //     const token = Jwt.generateToken(email);
+  //     const token = Jwt.generateToken(email, {
+  // department,
+  // position,
+  // firstName,
+  // lastName
+  // });
   //     const user = {
   //       firstName,
   //       lastName,

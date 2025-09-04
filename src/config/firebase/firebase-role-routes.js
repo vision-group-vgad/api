@@ -19,7 +19,7 @@ firebaseRoleRouter.get("/roles/all-roles", async (req, res) => {
   }
 });
 
-firebaseRoleRouter.get("/roles/by-code", Jwt.verifyToken, async (req, res) => {
+firebaseRoleRouter.get("/roles/by-code", async (req, res) => {
   try {
     const { role_code } = req.query;
     if (!role_code)
