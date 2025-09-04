@@ -119,7 +119,8 @@ import complianceTasksRoute from "./src/departments/executive/compliance/tasks/c
 import compliancePolicyRoute from "./src/departments/executive/compliance/policies/controller.js";
 import complianceAuditRoute from "./src/departments/executive/compliance/audits/controller.js";
 import recruitmentFunnelRoute from "./src/departments/specialized/recruitmentFunnel/controller.js";
-import firebaseRouter from "./src/config/firebase/firebase-routes.js";
+import firebaseRoleRouter from "./src/config/firebase/firebase-role-routes.js";
+import firebaseUserRouter from "./src/config/firebase/firebase-user-routes.js";
 import retentionRiskRoute from "./src/departments/specialized/retentionRisk/controller.js";
 import feedbackRoute from "./src/departments/specialized/feedback/feedbackRoute.js";
 import trainingEffectivenessRoute from "./src/departments/specialized/trainingEffectiveness/controller.js";
@@ -288,7 +289,8 @@ app.use("/api/v1/executives/compliance/policies", compliancePolicyRoute);
 app.use("/api/v1/executives/compliance/audits", complianceAuditRoute);
 app.use("/api/v1/hr/recruitment-funnel", recruitmentFunnelRoute);
 app.use("/api/v1/hr/retention-risk", retentionRiskRoute);
-app.use("/api/v1", firebaseRouter);
+app.use("/api/v1", firebaseRoleRouter);
+app.use("/api/v1", firebaseUserRouter);
 app.use("/api/v1/specialized/feedback", feedbackRoute);
 app.use("/api/v1/hr/training-effectiveness", trainingEffectivenessRoute);
 
