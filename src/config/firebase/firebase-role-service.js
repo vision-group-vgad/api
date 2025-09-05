@@ -1,7 +1,10 @@
 import db from "./firebase.js";
 import crypto from "crypto";
+import fs from "fs/promises";
+import path from "path";
 
 const rolesRef = db.ref("roles");
+const collectionsRef = db.ref("collections");
 
 const generateRoleCode = () => {
   return `ROLE-${crypto.randomBytes(3).toString("hex").toUpperCase()}`;
@@ -75,4 +78,44 @@ export const deleteRole = async (roleName) => {
     throw new Error(`No role found with name: ${roleName}`);
   await rolesRef.child(roleName).remove();
   return roleName;
+};
+
+export const addRoleCollection = async (roles) => {
+  if (!Array.isArray(roles) || roles.length === 0) {
+    throw new Error("Roles must be a non-empty array");
+  }
+  const key = roles[0];
+  await collectionsRef.child(key).set(roles);
+  return { key, roles };
+};
+
+export const fetchAllRoleCollections = async () => {
+  const snapshot = await collectionsRef.once("value");
+  return snapshot.val() || {};
+};
+
+export const fetchRoleCollectionByKey = async (key) => {
+  const snapshot = await collectionsRef.child(key).once("value");
+  return snapshot.exists() ? snapshot.val() : null;
+};
+
+export const bulkAddRoleCollections = async (
+  fileName = "roles_collections.json"
+) => {
+  try {
+    const filePath = path.resolve(process.cwd(), fileName);
+    const fileData = await fs.readFile(filePath, "utf-8");
+    const collections = JSON.parse(fileData);
+
+    for (const [key, roles] of Object.entries(collections)) {
+      await collectionsRef.child(key).set(roles);
+    }
+
+    return {
+      message: "Role collections uploaded successfully",
+      count: Object.keys(collections).length,
+    };
+  } catch (error) {
+    throw new Error(`Failed to upload role collections: ${error.message}`);
+  }
 };

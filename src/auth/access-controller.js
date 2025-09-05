@@ -1,4 +1,7 @@
-import { fetchRoleByName } from "../config/firebase/firebase-role-service.js";
+import {
+  fetchRoleByName,
+  fetchRoleCollectionByKey,
+} from "../config/firebase/firebase-role-service.js";
 
 class AccessController {
   // static authorizeRole(expectedRoleCode) {
@@ -33,7 +36,7 @@ class AccessController {
   //     }
   //   };
   // }
-  static authorizeRole(expectedRoleCodes = []) {
+  static authorizeRole(collectionKey = "ROLE-42E64D") {
     return async function (req, res, next) {
       try {
         const roleName = (req.headers["x-role-name"] || "").trim();
@@ -52,11 +55,13 @@ class AccessController {
           return res.status(403).json({ message: "Invalid role code" });
         }
 
-        if (!expectedRoleCodes.includes(roleCode)) {
-          return res
-            .status(403)
-            .json({ message: "Access denied to this data" });
-        }
+        const expectedRoleCodes = await fetchRoleCollectionByKey(collectionKey);
+
+        // if (!expectedRoleCodes.includes(roleCode)) {
+        //   return res
+        //     .status(403)
+        //     .json({ message: "Access denied to this data" });
+        // }
 
         req.role = role;
         next();

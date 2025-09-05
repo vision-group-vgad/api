@@ -11,4 +11,5 @@ coverage
 firebase/*.json
 firebase/*.txt
 users.json
+roles_collections.json
 unfunded.txt

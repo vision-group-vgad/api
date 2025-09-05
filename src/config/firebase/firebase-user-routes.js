@@ -10,16 +10,20 @@ import Jwt from "../../auth/jwt.js";
 
 const firebaseUserRouter = express.Router();
 
-firebaseUserRouter.get("/users/all-users", async (req, res) => {
-  try {
-    const users = await fetchUsers();
-    return res.status(200).json(users);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+firebaseUserRouter.get(
+  "/users/all-users",
+  Jwt.verifyToken,
+  async (req, res) => {
+    try {
+      const users = await fetchUsers();
+      return res.status(200).json(users);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
   }
-});
+);
 
-firebaseUserRouter.post("/users/add", async (req, res) => {
+firebaseUserRouter.post("/users/add", Jwt.verifyToken, async (req, res) => {
   try {
     const { user_name, user_email, password, department, role_code } = req.body;
 
@@ -70,29 +74,37 @@ firebaseUserRouter.put("/users/update", Jwt.verifyToken, async (req, res) => {
   }
 });
 
-firebaseUserRouter.delete("/users/delete", async (req, res) => {
-  try {
-    const { user_email } = req.query;
+firebaseUserRouter.delete(
+  "/users/delete",
+  Jwt.verifyToken,
+  async (req, res) => {
+    try {
+      const { user_email } = req.query;
 
-    if (!user_email?.trim()) {
-      return res.status(400).json({ error: "user_email is required" });
+      if (!user_email?.trim()) {
+        return res.status(400).json({ error: "user_email is required" });
+      }
+
+      await deleteUser(user_email.trim());
+      return res.status(200).json({ message: "User deleted successfully" });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
     }
-
-    await deleteUser(user_email.trim());
-    return res.status(200).json({ message: "User deleted successfully" });
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
   }
-});
+);
 
-firebaseUserRouter.post("/users/bulk-add", async (req, res) => {
-  try {
-    await bulkAddUsersFromFile("users.json");
-    return res.status(201).json({ message: "Bulk user upload completed" });
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+firebaseUserRouter.post(
+  "/users/bulk-add",
+  Jwt.verifyToken,
+  async (req, res) => {
+    try {
+      await bulkAddUsersFromFile("users.json");
+      return res.status(201).json({ message: "Bulk user upload completed" });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
   }
-});
+);
 
 export default firebaseUserRouter;
 

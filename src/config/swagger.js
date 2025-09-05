@@ -19,11 +19,25 @@ export const swaggerOptions = {
           scheme: "bearer",
           bearerFormat: "JWT",
         },
+        xRoleName: {
+          type: "apiKey",
+          in: "header",
+          name: "x-role-name",
+          description: "Role name of the user",
+        },
+        xRoleCode: {
+          type: "apiKey",
+          in: "header",
+          name: "x-role-code",
+          description: "Role code of the user",
+        },
       },
     },
     security: [
       {
         bearerAuth: [],
+        xRoleName: [],
+        xRoleCode: [],
       },
     ],
     servers: [
@@ -218,6 +232,9 @@ export const swaggerOptions = {
     path.join(__dirname, "./firebase/*.js"),
     path.join(__dirname, "../departments/specialized/retentionRisk/*.js"),
     path.join(__dirname, "../departments/specialized/feedback/*.js"),
-    path.join(__dirname, "../departments/specialized/trainingEffectiveness/*.js"),
+    path.join(
+      __dirname,
+      "../departments/specialized/trainingEffectiveness/*.js"
+    ),
   ],
 };

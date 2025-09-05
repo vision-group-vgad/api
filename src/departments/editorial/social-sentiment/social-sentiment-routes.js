@@ -116,7 +116,12 @@ const socialSentimentRouter = express.Router();
 socialSentimentRouter.get(
   "/annual",
   Jwt.verifyToken,
-  AccessController.authorizeRole(["ROLE-42E64D", "ROLE-051A31"]),
+  AccessController.authorizeRole([
+    "ROLE-42E64D",
+    "ROLE-76951B",
+    "ROLE-2DDC53",
+    "ROLE-051A31",
+  ]),
   async (req, res) => {
     const { year } = req.query;
 
@@ -397,19 +402,27 @@ socialSentimentRouter.get("/monthly", Jwt.verifyToken, async (req, res) => {
  *                   type: string
  *                   example: Data for only 2025 January - December is available
  */
-socialSentimentRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
-  const { startDate, endDate } = req.query;
+socialSentimentRouter.get(
+  "/in-range",
+  Jwt.verifyToken,
+  AccessController.authorizeRole(),
+  async (req, res) => {
+    const { startDate, endDate } = req.query;
 
-  validateRange(startDate, endDate);
+    validateRange(startDate, endDate);
 
-  try {
-    const results = socSentController.getInRangeSentiments(startDate, endDate);
-    res.status(200).json(results);
-  } catch (error) {
-    res.status(500).json({
-      message: `${error.message}`,
-    });
+    try {
+      const results = socSentController.getInRangeSentiments(
+        startDate,
+        endDate
+      );
+      res.status(200).json(results);
+    } catch (error) {
+      res.status(500).json({
+        message: `${error.message}`,
+      });
+    }
   }
-});
+);
 
 export default socialSentimentRouter;
