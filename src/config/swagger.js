@@ -19,12 +19,6 @@ export const swaggerOptions = {
           scheme: "bearer",
           bearerFormat: "JWT",
         },
-        xRoleName: {
-          type: "apiKey",
-          in: "header",
-          name: "x-role-name",
-          description: "Role name of the user",
-        },
         xRoleCode: {
           type: "apiKey",
           in: "header",
@@ -36,7 +30,6 @@ export const swaggerOptions = {
     security: [
       {
         bearerAuth: [],
-        xRoleName: [],
         xRoleCode: [],
       },
     ],

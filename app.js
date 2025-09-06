@@ -124,6 +124,8 @@ import firebaseUserRouter from "./src/config/firebase/firebase-user-routes.js";
 import retentionRiskRoute from "./src/departments/specialized/retentionRisk/controller.js";
 import feedbackRoute from "./src/departments/specialized/feedback/feedbackRoute.js";
 import trainingEffectivenessRoute from "./src/departments/specialized/trainingEffectiveness/controller.js";
+import AccessController from "./src/auth/access-controller.js";
+import Jwt from "./src/auth/jwt.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -132,9 +134,32 @@ const corsOption = {
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 };
+const excludePaths = (paths, ...middlewares) => {
+  return (req, res, next) => {
+    if (paths.some((p) => req.path.startsWith(p.replace(/\/$/, "")))) {
+      return next();
+    }
+
+    let i = 0;
+    const run = (err) => {
+      if (err) return next(err);
+      if (i >= middlewares.length) return next();
+      const current = middlewares[i++];
+      current(req, res, run);
+    };
+    run();
+  };
+};
 
 app.use(cors(corsOption));
 app.use(express.json());
+app.use(
+  excludePaths(
+    ["/api/api-docs", "/api/v1/auth", "/assets/profile_pics"],
+    Jwt.verifyToken,
+    AccessController.authorizeRole()
+  )
+);
 app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(
   "/assets/profile_pics",

@@ -1,4 +1,5 @@
 import {
+  fetchRoleByCode,
   fetchRoleByName,
   fetchRoleCollectionByKey,
 } from "../config/firebase/firebase-role-service.js";
@@ -39,14 +40,9 @@ class AccessController {
   static authorizeRole(collectionKey = "ROLE-42E64D") {
     return async function (req, res, next) {
       try {
-        const roleName = (req.headers["x-role-name"] || "").trim();
         const roleCode = (req.headers["x-role-code"] || "").trim();
 
-        if (!roleName) {
-          return res.status(400).json({ message: "Role name is required" });
-        }
-
-        const role = await fetchRoleByName(roleName);
+        const role = await fetchRoleByCode(roleCode);
         if (!role) {
           return res.status(404).json({ message: "Role not found" });
         }
