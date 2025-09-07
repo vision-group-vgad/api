@@ -151,6 +151,17 @@ const excludePaths = (paths, ...middlewares) => {
   };
 };
 
+for (const path in swaggerSpec.paths) {
+  for (const method in swaggerSpec.paths[path]) {
+    if (!swaggerSpec.paths[path][method].parameters) {
+      swaggerSpec.paths[path][method].parameters = [];
+    }
+    swaggerSpec.paths[path][method].parameters.push({
+      $ref: "#/components/parameters/OptionalRoleHeader",
+    });
+  }
+}
+
 app.use(cors(corsOption));
 app.use(express.json());
 app.use(

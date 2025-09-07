@@ -26,6 +26,18 @@ export const swaggerOptions = {
           description: "Role code of the user",
         },
       },
+      parameters: {
+        OptionalRoleHeader: {
+          name: "x-role-code",
+          in: "header",
+          description:
+            "Optional role code (only if not set via global authorize)",
+          required: false,
+          schema: {
+            type: "string",
+          },
+        },
+      },
     },
     security: [
       {
