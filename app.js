@@ -126,6 +126,7 @@ import feedbackRoute from "./src/departments/specialized/feedback/feedbackRoute.
 import trainingEffectivenessRoute from "./src/departments/specialized/trainingEffectiveness/controller.js";
 import AccessController from "./src/auth/access-controller.js";
 import Jwt from "./src/auth/jwt.js";
+import pipelineRoute from "./src/departments/finance/pipeline-metrics/pipelineMetricsRoute.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -329,5 +330,5 @@ app.use("/api/v1", firebaseRoleRouter);
 app.use("/api/v1", firebaseUserRouter);
 app.use("/api/v1/specialized/feedback", feedbackRoute);
 app.use("/api/v1/hr/training-effectiveness", trainingEffectivenessRoute);
-
+app.use("/api/v1/finance/pipeline-metrics", pipelineRoute)
 export default app;
