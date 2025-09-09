@@ -181,3 +181,35 @@ export const validateRange = (startDate, endDate, res) => {
     });
   }
 };
+
+export function getAllPaths(app) {
+  if (!app._router || !app._router.stack) {
+    console.warn("No routes registered on this app yet!");
+    return [];
+  }
+
+  const paths = new Set();
+
+  function collect(stack, prefix = "") {
+    stack.forEach((middleware) => {
+      if (middleware.route) {
+        // Direct route
+        paths.add(prefix + middleware.route.path);
+      } else if (middleware.name === "router" && middleware.handle.stack) {
+        // Nested router
+        const newPrefix =
+          prefix +
+          (middleware.regexp?.source
+            .replace("^\\", "")
+            .replace("\\/?(?=\\/|$)", "")
+            .replace(/\\\//g, "/")
+            .replace(/\$$/, "") || "");
+        collect(middleware.handle.stack, newPrefix);
+      }
+    });
+  }
+
+  collect(app._router.stack);
+
+  return Array.from(paths).map((p) => ({ path: p }));
+}

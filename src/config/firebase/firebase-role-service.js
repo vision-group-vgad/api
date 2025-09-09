@@ -4,7 +4,7 @@ import fs from "fs/promises";
 import path from "path";
 
 const rolesRef = db.ref("roles");
-const collectionsRef = db.ref("collections");
+const roleMappingsRef = db.ref("codeUrlMappings");
 
 const generateRoleCode = () => {
   return `ROLE-${crypto.randomBytes(3).toString("hex").toUpperCase()}`;
@@ -80,42 +80,64 @@ export const deleteRole = async (roleName) => {
   return roleName;
 };
 
-export const addRoleCollection = async (roles) => {
-  if (!Array.isArray(roles) || roles.length === 0) {
-    throw new Error("Roles must be a non-empty array");
-  }
-  const key = roles[0];
-  await collectionsRef.child(key).set(roles);
-  return { key, roles };
+export const addRoleMapping = async (roleCode, endpoints) => {
+  if (!roleCode) throw new Error("roleCode is required");
+  if (!Array.isArray(endpoints)) throw new Error("endpoints must be an array");
+
+  const ref = roleMappingsRef.child(roleCode);
+
+  const snapshot = await ref.once("value");
+  const existingEndpoints = snapshot.exists() ? snapshot.val() : [];
+
+  const updatedEndpoints = Array.from(
+    new Set([...existingEndpoints, ...endpoints])
+  );
+
+  await ref.set(updatedEndpoints);
+
+  return { roleCode, endpoints: updatedEndpoints };
 };
 
-export const fetchAllRoleCollections = async () => {
-  const snapshot = await collectionsRef.once("value");
+export const fetchAllRoleMappings = async () => {
+  const snapshot = await roleMappingsRef.once("value");
   return snapshot.val() || {};
 };
 
-export const fetchRoleCollectionByKey = async (key) => {
-  const snapshot = await collectionsRef.child(key).once("value");
-  return snapshot.exists() ? snapshot.val() : null;
+export const fetchEndpointsByRole = async (roleCode) => {
+  const snapshot = await roleMappingsRef.child(roleCode).once("value");
+  return snapshot.exists() ? snapshot.val() : [];
 };
 
-export const bulkAddRoleCollections = async (
-  fileName = "roles_collections.json"
-) => {
+export const bulkAddRoleMappings = async (fileName = "role_mappings.json") => {
   try {
     const filePath = path.resolve(process.cwd(), fileName);
     const fileData = await fs.readFile(filePath, "utf-8");
-    const collections = JSON.parse(fileData);
+    const parsed = JSON.parse(fileData);
 
-    for (const [key, roles] of Object.entries(collections)) {
-      await collectionsRef.child(key).set(roles);
+    const mappings = Array.isArray(parsed)
+      ? Object.assign({}, ...parsed)
+      : parsed;
+
+    for (const [roleCode, endpoints] of Object.entries(mappings)) {
+      if (!Array.isArray(endpoints)) {
+        throw new Error(`Endpoints for ${roleCode} must be an array`);
+      }
+      await roleMappingsRef.child(roleCode).set(endpoints);
     }
 
     return {
-      message: "Role collections uploaded successfully",
-      count: Object.keys(collections).length,
+      message: "Role mappings uploaded successfully",
+      count: Object.keys(mappings).length,
     };
   } catch (error) {
-    throw new Error(`Failed to upload role collections: ${error.message}`);
+    throw new Error(`Failed to upload role mappings: ${error.message}`);
   }
+};
+
+export const searchRoleEndpoints = async (roleCode) => {
+  const endpoints = await fetchEndpointsByRole(roleCode);
+  return {
+    roleCode,
+    endpoints,
+  };
 };

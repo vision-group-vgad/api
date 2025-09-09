@@ -13,3 +13,7 @@ firebase/*.txt
 users.json
 roles_collections.json
 unfunded.txt
+user-mappings.json
+role-code-mappings.json
+endpoints.json
+swag.js

@@ -1,91 +1,46 @@
 import {
   fetchRoleByCode,
-  fetchRoleByName,
-  fetchRoleCollectionByKey,
+  fetchEndpointsByRole,
 } from "../config/firebase/firebase-role-service.js";
+import { match } from "path-to-regexp";
 
 class AccessController {
-  // static authorizeRole(expectedRoleCode) {
-  //   return async function (req, res, next) {
-  //     try {
-  //       const roleName = (req.headers["x-role-name"] || "").trim();
-  //       const roleCode = (req.headers["x-role-code"] || "").trim();
-
-  //       if (!roleName) {
-  //         return res.status(400).json({ message: "Role name is required" });
-  //       }
-
-  //       const role = await fetchRoleByName(roleName);
-  //       if (!role) {
-  //         return res.status(404).json({ message: "Role not found" });
-  //       }
-
-  //       if (roleCode !== role.role_code) {
-  //         return res.status(403).json({ message: "Invalid role code" });
-  //       }
-
-  //       if (expectedRoleCode !== roleCode) {
-  //         return res
-  //           .status(403)
-  //           .json({ message: "Access denied to this data" });
-  //       }
-
-  //       req.role = role;
-  //       next();
-  //     } catch (error) {
-  //       res.status(500).json({ message: "Server error", error: error.message });
-  //     }
-  //   };
-  // }
-  static authorizeRole(collectionKey = "ROLE-42E64D") {
+  static authorizeRole() {
     return async function (req, res, next) {
       try {
-        const roleCode = (req.headers["x-role-code"] || "").trim();
+        const roleCode = req.headers["x-role-code"];
+        if (!roleCode) {
+          return res.status(400).json({ message: "Missing role code" });
+        }
 
         const role = await fetchRoleByCode(roleCode);
         if (!role) {
-          return res.status(404).json({ message: "Role not found" });
-        }
-
-        if (roleCode !== role.role_code) {
           return res.status(403).json({ message: "Invalid role code" });
         }
 
-        const expectedRoleCodes = await fetchRoleCollectionByKey(collectionKey);
+        const requestedEndpoint = req.baseUrl + req.path;
 
-        // if (!expectedRoleCodes.includes(roleCode)) {
-        //   return res
-        //     .status(403)
-        //     .json({ message: "Access denied to this data" });
-        // }
+        const accessibleUrls = await fetchEndpointsByRole(roleCode);
+
+        const hasAccess = accessibleUrls.some((urlPattern) => {
+          const matcher = match(urlPattern, { decode: decodeURIComponent });
+          return matcher(requestedEndpoint) !== false;
+        });
+
+        if (!hasAccess) {
+          return res.status(403).json({
+            message: `Access denied to ${requestedEndpoint}`,
+          });
+        }
 
         req.role = role;
         next();
       } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
+        console.error("Role check failed:", error);
+        res.status(500).json({ message: "Server error while checking role" });
       }
     };
   }
-
-  //   static assessRole(expectedRoleName) {
-  //   return async function (req, res, next) {
-  //     try {
-  //       const roleCode = req.headers["x-role-code"];
-
-  //       const role = await fetchRoleByName(expectedRoleName);
-  //       if (!role) return res.status(404).json({ message: "Role not found" });
-
-  //       if (role.role_code !== roleCode) {
-  //         return res.status(403).json({ message: "Access denied" });
-  //       }
-
-  //       req.role = role;
-  //       next();
-  //     } catch (error) {
-  //       res.status(500).json({ message: "Server error", error: error.message });
-  //     }
-  //   };
-  // }
 }
 
 export default AccessController;

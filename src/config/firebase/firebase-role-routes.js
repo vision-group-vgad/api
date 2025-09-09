@@ -4,9 +4,10 @@ import {
   addRole,
   updateRole,
   deleteRole,
-  addRoleCollection,
-  fetchAllRoleCollections,
-  fetchRoleCollectionByKey,
+  addRoleMapping,
+  fetchAllRoleMappings,
+  fetchEndpointsByRole,
+  bulkAddRoleMappings,
 } from "./firebase-role-service.js";
 import express from "express";
 import Jwt from "../../auth/jwt.js";
@@ -95,20 +96,21 @@ firebaseRoleRouter.delete(
 );
 
 firebaseRoleRouter.post(
-  "/roles/collections/add",
+  "/roles/mappings/add",
   Jwt.verifyToken,
   async (req, res) => {
     try {
-      const { roles } = req.body;
-      if (!Array.isArray(roles) || roles.length === 0)
-        return res
-          .status(400)
-          .json({ error: "roles must be a non-empty array" });
+      const { role_code, endpoints } = req.body;
+      if (!role_code || !Array.isArray(endpoints)) {
+        return res.status(400).json({
+          error: "role_code and endpoints[] are required",
+        });
+      }
 
-      const newCollection = await addRoleCollection(roles);
+      const mapping = await addRoleMapping(role_code, endpoints);
       res.status(201).json({
-        message: "Role collection added successfully",
-        collection: newCollection,
+        message: "Role mapping added successfully",
+        mapping,
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -117,12 +119,12 @@ firebaseRoleRouter.post(
 );
 
 firebaseRoleRouter.get(
-  "/roles/collections/all",
+  "/roles/mappings/all",
   Jwt.verifyToken,
   async (req, res) => {
     try {
-      const collections = await fetchAllRoleCollections();
-      res.status(200).json(collections);
+      const mappings = await fetchAllRoleMappings();
+      res.status(200).json(mappings);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -130,18 +132,32 @@ firebaseRoleRouter.get(
 );
 
 firebaseRoleRouter.get(
-  "/roles/collections/by-key",
+  "/roles/mappings/by-role",
   Jwt.verifyToken,
   async (req, res) => {
     try {
-      const { key } = req.query;
-      if (!key) return res.status(400).json({ error: "key is required" });
+      const { role_code } = req.query;
+      if (!role_code)
+        return res.status(400).json({ error: "role_code is required" });
 
-      const collection = await fetchRoleCollectionByKey(key);
-      if (!collection)
-        return res.status(404).json({ error: "Collection not found" });
+      const endpoints = await fetchEndpointsByRole(role_code);
+      res.status(200).json({ role_code, endpoints });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+);
 
-      res.status(200).json(collection);
+firebaseRoleRouter.post(
+  "/roles/mappings/bulk-upload",
+  Jwt.verifyToken,
+  async (req, res) => {
+    try {
+      const { fileName } = req.body;
+      const result = await bulkAddRoleMappings(
+        fileName || "role_mappings.json"
+      );
+      res.status(201).json(result);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -260,9 +276,9 @@ export default firebaseRoleRouter;
  *       200:
  *         description: Role deleted successfully
  *
- * /api/v1/roles/collections/add:
+ * /api/v1/roles/mappings/add:
  *   post:
- *     summary: Add a new role collection (first item is used as key)
+ *     summary: Add or update role → endpoints mapping
  *     tags: [Roles]
  *     requestBody:
  *       required: true
@@ -271,40 +287,35 @@ export default firebaseRoleRouter;
  *           schema:
  *             type: object
  *             properties:
- *               roles:
+ *               role_code:
+ *                 type: string
+ *               endpoints:
  *                 type: array
  *                 items:
  *                   type: string
  *     responses:
  *       201:
- *         description: Role collection added successfully
+ *         description: Mapping added successfully
  *
- * /api/v1/roles/collections/all:
+ * /api/v1/roles/mappings/all:
  *   get:
- *     summary: Get all role collections
+ *     summary: Get all role → endpoints mappings
  *     tags: [Roles]
  *     responses:
  *       200:
- *         description: List of role collections
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/RoleCollection'
+ *         description: List of role mappings
  *
- * /api/v1/roles/collections/by-key:
+ * /api/v1/roles/mappings/by-role:
  *   get:
- *     summary: Get a role collection by key (the first item in array)
+ *     summary: Get endpoints for a specific role
  *     tags: [Roles]
  *     parameters:
  *       - in: query
- *         name: key
+ *         name: role_code
+ *         required: true
  *         schema:
  *           type: string
- *         required: true
- *         description: Key of the role collection (first role in the array)
  *     responses:
  *       200:
- *         description: Role collection found
- *       404:
- *         description: Role collection not found
+ *         description: Role endpoints found
  */

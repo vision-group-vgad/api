@@ -6,6 +6,7 @@ import {
   validateYear,
 } from "../../../utils/common/common-functionalities.js";
 
+
 const errorController = new ErrorRateController();
 const errorRateRouter = express.Router();
 
