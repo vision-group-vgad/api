@@ -88,7 +88,14 @@ class AuthenticationController {
     const role = await fetchRoleByCode(user.role_code);
     if (!role) throw new Error("Authentication error, role not found.");
 
-    const token = Jwt.generateToken(user.user_email);
+    const token = Jwt.generateToken(user.user_email, {
+      department: user.department,
+      position: role.role_name,
+      firstName: user.user_name.split(' ')[0] || user.user_name,
+      lastName: user.user_name.split(' ').slice(1).join(' ') || '',
+      role_code: user.role_code,
+      role_name: role.role_name
+    });
 
     return {
       user_name: user.user_name,

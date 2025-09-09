@@ -3,14 +3,18 @@ import { askAI } from "./aiServices.js"; // <-- use the correct filename and fun
 
 export const askAIHandler = async (req, res) => {
   const { question } = req.body;
-  const user = req.user; // User info from JWT token (set by Jwt.verifyToken middleware)
+  const roleCode = req.headers["x-role-code"]; // Role code from header
+  
+  // Extract the raw JWT token from Authorization header
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
   
   try {
-    const result = await askAI(question, user);
+    const result = await askAI(question, roleCode, token);
     res.json({ success: true, ...result });
   } catch (err) {
     // Check if it's an access control error
-    if (err.message.includes('Access Denied')) {
+    if (err.message.includes('Access Denied') || err.message.includes('Unauthorized access')) {
       res.status(403).json({ 
         success: false, 
         message: err.message,

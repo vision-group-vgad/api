@@ -167,7 +167,7 @@ app.use(cors(corsOption));
 app.use(express.json());
 app.use(
   excludePaths(
-    ["/api/api-docs", "/api/v1/auth", "/assets/profile_pics"],
+    ["/api/api-docs", "/api/v1/auth", "/assets/profile_pics", "/api/v1/ai"],
     Jwt.verifyToken,
     AccessController.authorizeRole()
   )

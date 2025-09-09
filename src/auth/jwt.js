@@ -19,7 +19,9 @@ class Jwt {
       department: userInfo.department,
       position: userInfo.position,
       firstName: userInfo.firstName,
-      lastName: userInfo.lastName
+      lastName: userInfo.lastName,
+      role_code: userInfo.role_code,
+      role_name: userInfo.role_name
     };
     return jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "8h" });
   }
