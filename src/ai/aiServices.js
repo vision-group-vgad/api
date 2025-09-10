@@ -143,67 +143,47 @@ async function handleFinanceQueries(intent, filters, token, roleCode) {
 
   try {
     switch (intent) {
-      case "financial_close_metrics":
-      case "close_metrics":
       case "financial_health_overview":
-        return await makeAPIRequestGET(getEndpoint("/api/v1/finance/close-metrics"), token, roleCode);
-      case "audit_trail_analysis":
-      case "audit_trail":
-        return await makeAPIRequestGET(getEndpoint("/api/v1/finance/audit-trail"), token, roleCode);
-      case "reporting_accuracy":
-        return await makeAPIRequestGET(getEndpoint("/api/v1/finance/reporting-accuracy"), token, roleCode);
-      case "profit_loss_by_region":
-      case "regional_pnl":
-      case "regional_analysis":
-        return await makeAPIRequestGET(getEndpoint("/api/v1/finance/regional-pnl"), token, roleCode);
-      case "raw_data":
-      case "financial_data":
-        return await makeAPIRequestGET(getEndpoint("/api/v1/finance/raw-data"), token, roleCode);
-      case "chart_data":
-        return await makeAPIRequestGET(getEndpoint("/api/v1/finance/chart-data"), token, roleCode);
-      case "gl_accounts":
-        return await makeAPIRequestGET(getEndpoint("/api/v1/finance/gl-accounts"), token, roleCode);
-      case "document_types":
-        return await makeAPIRequestGET(getEndpoint("/api/v1/finance/document-types"), token, roleCode);
-      case "regions":
-        return await makeAPIRequestGET(getEndpoint("/api/v1/finance/regions"), token, roleCode);
-      case "diagnostics":
-        return await makeAPIRequestGET(getEndpoint("/api/v1/finance/diagnostics"), token, roleCode);
+      case "financial_performance":
       case "cash_flow_analysis":
-      case "financial_performance_quarterly":
-        return await makeAPIRequestGET(getEndpoint("/api/v1/finance/close-metrics"), token, roleCode);
-      case "pipeline_metrics":
-        return await makeAPIRequest("/api/v1/finance/pipeline-metrics", filters, token, roleCode);
-      // Legacy endpoints for existing functionality
-      case "ap_ar_aging":
-        return await makeAPIRequest("/api/v1/ap-ar-aging", filters, token, roleCode);
-      case "total_assets_value":
-        return await makeAPIRequest("/api/v1/total-assets-value", filters, token, roleCode);
-      case "asset_depreciation":
-        return await makeAPIRequest("/api/v1/asset-depreciation", filters, token, roleCode);
-      case "expense_category":
-        return await makeAPIRequest("/api/v1/expense-category", filters, token, roleCode);
+      case "financial_close_metrics":
+        return await makeAPIRequestGET(getEndpoint("/api/v1/finance"), token, roleCode);
       case "budget_variance":
       case "budget_variance_analysis":
-        return await makeAPIRequest("/api/v1/budget-variance", filters, token, roleCode);
+        return await makeAPIRequestGET(getEndpoint("/api/v1/budget-variance"), token, roleCode);
+      case "revenue_growth":
+      case "revenue_performance":
+        return await makeAPIRequestGET(getEndpoint("/api/v1/executive/revenue-performance"), token, roleCode);
+      case "ap_ar_aging":
+        return await makeAPIRequestGET(getEndpoint("/api/v1/ap-ar-aging"), token, roleCode);
+      case "total_assets_value":
+        return await makeAPIRequestGET(getEndpoint("/api/v1/total-assets-value"), token, roleCode);
+      case "asset_depreciation":
+        return await makeAPIRequestGET(getEndpoint("/api/v1/asset-depreciation"), token, roleCode);
+      case "expense_category":
+        return await makeAPIRequestGET(getEndpoint("/api/v1/expense-category"), token, roleCode);
       case "finance_forecasting":
-        return await makeAPIRequest("/api/v1/finance-forecasting", filters, token, roleCode);
+        return await makeAPIRequestGET(getEndpoint("/api/v1/finance-forecasting"), token, roleCode);
       case "gl_reconciliation":
-        return await makeAPIRequest("/api/v1/gl-reconciliation", filters, token, roleCode);
+        return await makeAPIRequestGET(getEndpoint("/api/v1/gl-reconciliation"), token, roleCode);
       case "tax_provisioning":
-        return await makeAPIRequest("/api/v1/tax-provisioning", filters, token, roleCode);
+        return await makeAPIRequestGET(getEndpoint("/api/v1/tax-provisioning"), token, roleCode);
       case "statement_variance":
-        return await makeAPIRequest("/api/v1/fin-statement-variance", filters, token, roleCode);
+        return await makeAPIRequestGET(getEndpoint("/api/v1/fin-statement-variance"), token, roleCode);
       case "capex":
-        return await makeAPIRequest("/api/v1/capEx", filters, token, roleCode);
+        return await makeAPIRequestGET(getEndpoint("/api/v1/capEx"), token, roleCode);
       case "dso":
-        return await makeAPIRequest("/api/v1/dso", filters, token, roleCode);
+        return await makeAPIRequestGET(getEndpoint("/api/v1/dso"), token, roleCode);
       case "bad_debt_ratios":
-        return await makeAPIRequest("/api/v1/bad-debt-ratios", filters, token, roleCode);
+        return await makeAPIRequestGET(getEndpoint("/api/v1/bad-debt-ratios"), token, roleCode);
       case "collection_efficiency":
-        return await makeAPIRequest("/api/v1/collection-efficiency", filters, token, roleCode);
+        return await makeAPIRequestGET(getEndpoint("/api/v1/collection-efficiency"), token, roleCode);
       case "integration_health":
-        return await makeAPIRequest("/api/v1/integration-health", filters, token, roleCode);
+        return await makeAPIRequestGET(getEndpoint("/api/v1/integration-health"), token, roleCode);
+      case "pipeline_metrics":
+        return await makeAPIRequestGET(getEndpoint("/api/v1/finance/pipeline-metrics"), token, roleCode);
+      case "reporting_accuracy":
+        return await makeAPIRequestGET(getEndpoint("/api/v1/reporting-accu-piechart"), token, roleCode);
       default:
         throw new Error(`Unknown finance intent: ${intent}`);
     }
@@ -221,58 +201,53 @@ async function handleEditorialQueries(intent, filters, token, roleCode) {
   switch (intent) {
     case "content_performance":
     case "content_performance_metrics":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial"), token, roleCode);
     case "section_performance":
       return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/section-perfromance"), token, roleCode);
-    case "content_publication_rates":
-    case "publication_performance_overview":
     case "content_production":
       return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/content-production"), token, roleCode);
-    case "content_engagement":
     case "readership_trends":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/readership-trends/annual?year=2025"), token, roleCode);
-    case "editorial_productivity":
-    case "editorial_performance_overview":
+    case "readership_engagement_trends":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/readership-trends"), token, roleCode);
     case "journalist_productivity":
+    case "journalist_productivity_metrics":
       return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/journalist-productivity"), token, roleCode);
     case "breaking_news_traction":
     case "breaking_news":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/breaking-news/traction"), token, roleCode);
-    case "breaking_news_alternate":
+    case "breaking_news_coverage_effectiveness":
       return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/breaking-news"), token, roleCode);
-    case "content_publication_count":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/content-production"), token, roleCode);
+    case "breaking_news_alternate":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/breakingNews"), token, roleCode);
     case "error_rate":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/error-rate/annual?year=2025"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/error-rate"), token, roleCode);
     case "editing_cycle_times":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/editing-cycle-times/annual?year=2025"), token, roleCode);
-    case "editorial_analytics":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/editing-cycle-times"), token, roleCode);
     case "segment_popularity":
       return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/segment-popularity"), token, roleCode);
     case "segment_summary":
       return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/segment-summary"), token, roleCode);
     case "social_sentiment":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/social-sentiment/annual?year=2025"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/social-sentiment"), token, roleCode);
     case "version_control":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/version-control/annual?year=2025"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/version-control"), token, roleCode);
     case "topic_virality":
       return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/topic-virality"), token, roleCode);
     case "newsletter_virality":
       return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/newsletter-virality"), token, roleCode);
     case "backlog_management":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/backlog-mgt/annual?year=2025"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/backlog-mgt"), token, roleCode);
     case "content_freshness":
       return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/contentFreshness"), token, roleCode);
     case "update_frequency":
       return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/updateFrequency"), token, roleCode);
     case "backlog_analytics":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/backlogAnalytics?startDate=2025-01-01&endDate=2025-12-31"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/backlogAnalytics"), token, roleCode);
     case "visual_engagement":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/visual-engagement?startDate=2025-01-01&endDate=2025-12-31"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/visual-engagement"), token, roleCode);
     case "usage_tracking":
       return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/visual-usage"), token, roleCode);
     case "competitor_benchmarking":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/comp-bench/annual?year=2025"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/comp-bench"), token, roleCode);
     case "editorial_calendar":
       return await makeAPIRequestGET(getEndpoint("/api/v1/editorial/editorial-calendar-adherence"), token, roleCode);
     case "rights_management":
@@ -305,71 +280,112 @@ async function handleSalesQueries(intent, filters, token, roleCode) {
   };
 
   switch (intent) {
-    case "sales_performance_overview":
-    case "sales_trends":
-    case "sales_analytics":
-    case "supervisor_sales":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/SupervisorSalesAnalytics/pipeline-velocity"), token, roleCode);
-    case "conversion_funnel_analysis":
-    case "conversion_rate_metrics":
-      return await makeAPIRequestGET(getEndpointWithDates("/api/v1/sales/conversion-funnels/in-range"), token, roleCode);
-    case "campaign_performance":
-    case "marketing_performance":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/campaign-roi"), token, roleCode);
-    case "client_lifetime_value_analysis":
-    case "client_retention":
-      return await makeAPIRequestGET(getEndpointWithDates("/api/v1/sales/client-lifetime-value/in-range"), token, roleCode);
+    // Revenue Attribution APIs (requires date range)
+    case "revenue_attribution":
+    case "revenue_attribution_by_channel":
     case "revenue_performance":
       return await makeAPIRequestGET(getEndpointWithDates("/api/v1/sales/revenue-attribution/in-range"), token, roleCode);
+    
+    // Client Lifetime Value APIs (requires date range)
+    case "client_lifetime_value_analysis":
+    case "client_lifetime_value":
+    case "client_retention":
+      return await makeAPIRequestGET(getEndpointWithDates("/api/v1/sales/client-lifetime-value/in-range"), token, roleCode);
+    
+    // Territory Performance APIs (requires date range)
+    case "territory_performance":
+    case "territory_performance_metrics":
+      return await makeAPIRequestGET(getEndpointWithDates("/api/v1/sales/territory-performance/in-range"), token, roleCode);
+    
+    // Campaign Performance APIs
+    case "campaign_performance":
+    case "campaign_performance_overview":
+    case "marketing_performance":
+    case "campaign_roi":
+    case "marketing_campaigns":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/campaign-roi"), token, roleCode);
+    
+    // Rate Card & Utilization APIs
+    case "rate_card_utilization":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/rate-card-utilization"), token, roleCode);
+    
+    // Impression & Reach APIs
+    case "impression_shares":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/impression-shares"), token, roleCode);
+    
+    // Campaign Attribution APIs
+    case "campaign_attribution":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/campaign-attribution"), token, roleCode);
+    
+    // Lead Generation & Efficiency APIs
+    case "lead_efficiency":
     case "lead_generation":
       return await makeAPIRequestGET(getEndpoint("/api/v1/sales/lead-efficiency"), token, roleCode);
-    // Additional sales APIs from backup
-    case "territory_performance":
-      return await makeAPIRequest("/api/v1/sales/territory-performance", filters, token, roleCode);
-    case "sales_rep_metrics":
-      return await makeAPIRequest("/api/v1/sales/sales-rep-metrics", filters, token, roleCode);
-    case "quota_attainment":
-      return await makeAPIRequest("/api/v1/sales/quota-attainment", filters, token, roleCode);
-    case "pipeline_health":
-      return await makeAPIRequest("/api/v1/sales/pipeline-health", filters, token, roleCode);
-    case "deal_velocity":
-      return await makeAPIRequest("/api/v1/sales/deal-velocity", filters, token, roleCode);
-    case "win_loss_analysis":
-      return await makeAPIRequest("/api/v1/sales/win-loss-analysis", filters, token, roleCode);
-    case "forecast_accuracy":
-      return await makeAPIRequest("/api/v1/sales/forecast-accuracy", filters, token, roleCode);
-    case "churn_prediction":
-      return await makeAPIRequest("/api/v1/sales/churn-prediction", filters, token, roleCode);
-    case "market_penetration":
-      return await makeAPIRequest("/api/v1/sales/market-penetration", filters, token, roleCode);
-    case "cross_sell_upsell":
-      return await makeAPIRequest("/api/v1/sales/cross-sell-upsell", filters, token, roleCode);
-    case "customer_acquisition_cost":
-      return await makeAPIRequest("/api/v1/sales/customer-acquisition-cost", filters, token, roleCode);
-    case "sales_cycle_analysis":
-      return await makeAPIRequest("/api/v1/sales/sales-cycle-analysis", filters, token, roleCode);
-    case "competitive_analysis":
-      return await makeAPIRequest("/api/v1/sales/competitive-analysis", filters, token, roleCode);
-    case "product_performance":
-      return await makeAPIRequest("/api/v1/sales/product-performance", filters, token, roleCode);
-    case "channel_effectiveness":
-      return await makeAPIRequest("/api/v1/sales/channel-effectiveness", filters, token, roleCode);
-    case "sales_enablement":
-      return await makeAPIRequest("/api/v1/sales/sales-enablement", filters, token, roleCode);
-    case "lead_scoring":
-      return await makeAPIRequest("/api/v1/sales/lead-scoring", filters, token, roleCode);
-    case "opportunity_analysis":
-      return await makeAPIRequest("/api/v1/sales/opportunity-analysis", filters, token, roleCode);
-    case "ab_tests":
-      return await makeAPIRequest("/api/v1/sales/ab-tests", filters, token, roleCode);
-    case "campaign_attribution":
-      return await makeAPIRequest("/api/v1/sales/campaign-attribution", filters, token, roleCode);
+    
+    // Brand Lift APIs
     case "brand_lift":
-      return await makeAPIRequest("/api/v1/sales/brand-lift", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/brand-lift"), token, roleCode);
+    
+    // A/B Testing APIs
+    case "ab_tests":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/ab-tests"), token, roleCode);
+    
+    // Click-Through Rate APIs (requires date range)
+    case "ctr":
+    case "click_through_rate":
+      return await makeAPIRequestGET(getEndpointWithDates("/api/v1/sales/ctr/in-range"), token, roleCode);
+    
+    // Conversion Funnel APIs (requires date range)
+    case "conversion_funnel_analysis":
+    case "conversion_rate_metrics":
+    case "conversion_rate_by_channel":
+    case "sales_conversion_metrics":
+      return await makeAPIRequestGET(getEndpointWithDates("/api/v1/sales/conversion-funnels/in-range"), token, roleCode);
+    
+    // Supervisor Sales Analytics APIs
+    case "sales_performance_overview":
+    case "sales_performance":
+    case "supervisor_sales":
+    case "supervisor_sales_analytics":
+    case "supervisor_sales_performance":
+    case "sales_performance_this_quarter":
+    case "pipeline_velocity":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/SupervisorSalesAnalytics/pipeline-velocity"), token, roleCode);
+    
+    case "pipeline_velocity_kpis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/SupervisorSalesAnalytics/pipeline-velocity/kpis"), token, roleCode);
+    
+    case "quota_attainment":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/SupervisorSalesAnalytics/quota-attainment"), token, roleCode);
+    
+    case "quota_attainment_kpis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/SupervisorSalesAnalytics/quota-attainment/kpis"), token, roleCode);
+    
+    case "account_penetration":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/SupervisorSalesAnalytics/account-penetration"), token, roleCode);
+    
+    case "account_penetration_kpis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/SupervisorSalesAnalytics/account-penetration/kpis"), token, roleCode);
+    
+    case "corporate_account_health":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/SupervisorSalesAnalytics/corporate-account-health"), token, roleCode);
+    
+    case "corporate_account_health_kpis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/SupervisorSalesAnalytics/corporate-account-health/kpis"), token, roleCode);
+    
+    // Territory Performance - map to existing working API
+    case "territory_analysis":
+    case "territory_metrics":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/SupervisorSalesAnalytics/pipeline-velocity"), token, roleCode);
+    
+    // Contract Value APIs
     case "contract_value_trends":
-      return await makeAPIRequest("/api/v1/sales/contract-value-trends", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/contract-value-trends"), token, roleCode);
+    
     default:
-      throw new Error(`Unknown sales intent: ${intent}`);
+      // Default to campaign-roi for unknown sales intents
+      console.log(`Unknown sales intent: ${intent}, defaulting to campaign-roi`);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/sales/campaign-roi"), token, roleCode);
   }
 }
 
@@ -382,21 +398,33 @@ async function handleOperationsQueries(intent, filters, token, roleCode) {
     case "production_yield_analysis":
     case "production_metrics":
     case "production_yield":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/OperationsProductionAnalytics/production-yield"), token, roleCode);
-    case "equipment_efficiency":
     case "operational_efficiency":
     case "operations_metrics_overview":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/OperationsProductionAnalytics"), token, roleCode);
+    case "equipment_efficiency":
     case "machine_oee":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/OperationsProductionAnalytics/machine-oee"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/OperationsProductionAnalytics"), token, roleCode);
     case "delivery_timeline_performance":
+    case "delivery_timelines":
     case "logistics_performance":
       return await makeAPIRequestGET(getEndpoint("/api/v1/operations/delivery-timelines"), token, roleCode);
     case "resource_utilization":
+    case "parts_utilization":
       return await makeAPIRequestGET(getEndpoint("/api/v1/operations/parts-utilization"), token, roleCode);
-    case "operational_performance":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/OperationsProductionAnalytics/machine-oee"), token, roleCode);
-    case "material_waste":
-      return await makeAPIRequest("/api/v1/operations/OperationsProductionAnalytics/material-waste", filters, token, roleCode);
+    case "ticket_resolution":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/ticket-resolution"), token, roleCode);
+    case "setup_time":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/setup-time"), token, roleCode);
+    case "job_scheduling":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/job-scheduling"), token, roleCode);
+    case "route_efficiency":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/route-efficiency"), token, roleCode);
+    case "fuel_consumption":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/fuel-consumption"), token, roleCode);
+    case "signal_quality_metrics":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/signal-quality-metrics"), token, roleCode);
+    case "up_downtime_logs":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/up-downtime-logs"), token, roleCode);
     default:
       throw new Error(`Unknown operations intent: ${intent}`);
   }
@@ -408,44 +436,117 @@ async function handleITQueries(intent, filters, token, roleCode) {
   const getEndpoint = (path) => `${path}${queryParams ? '?' + queryParams : ''}`;
 
   switch (intent) {
+    // Server Performance & Load
     case "server_health":
+    case "server_performance":
+    case "server_infrastructure_performance":
     case "system_performance":
     case "system_metrics_overview":
-    case "server_performance":
     case "server_load":
+    case "server_health_metrics":
+    case "system_performance_overview":
       return await makeAPIRequestGET(getEndpoint("/api/v1/it/ServerStoragePatch/server-load"), token, roleCode);
+    
+    // Server Load KPIs
+    case "server_load_kpis":
+    case "server_performance_kpis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/it/ServerStoragePatch/server-load/kpis"), token, roleCode);
+    
+    // Storage Utilization
     case "storage_utilization":
+    case "storage_utilization_report":
+    case "storage_analytics":
       return await makeAPIRequestGET(getEndpoint("/api/v1/it/ServerStoragePatch/storage"), token, roleCode);
+    
+    // Storage KPIs
+    case "storage_kpis":
+    case "storage_performance":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/it/ServerStoragePatch/storage/kpis"), token, roleCode);
+    
+    // Patch Compliance
+    case "patch_compliance":
+    case "patch_compliance_status":
+    case "patch_management":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/it/ServerStoragePatch/patch-compliance"), token, roleCode);
+    
+    // Patch Compliance KPIs
+    case "patch_compliance_kpis":
+    case "patch_performance":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/it/ServerStoragePatch/patch-compliance/kpis"), token, roleCode);
+    
+    // SLA Metrics
+    case "sla_metrics":
+    case "service_level_agreement":
+    case "sla_overview":
+    case "ticket_sla":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/IT/sla/overview"), token, roleCode);
+    
+    // SLA by Priority
+    case "sla_by_priority":
+    case "priority_sla":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/IT/sla/by-priority"), token, roleCode);
+    
+    // SLA by Agent
+    case "sla_by_agent":
+    case "agent_sla":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/IT/sla/by-agent"), token, roleCode);
+    
+    // User Satisfaction
+    case "user_satisfaction":
+    case "user_satisfaction_metrics":
+    case "it_satisfaction":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/it/satisfaction"), token, roleCode);
+    
+    // Assets Inventory
+    case "asset_inventory":
+    case "assets_inventory":
+    case "it_assets":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/it/assets-inventory"), token, roleCode);
+    
+    // Cybersecurity
     case "cyber_security_posture":
     case "cyber_posture":
     case "cyber_security":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/it/cycber-sec-router/in-range"), token, roleCode);
-    case "network_performance":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/it/ServerStoragePatch/server-load"), token, roleCode);
-    case "infrastructure_cost_analysis":
+    case "cybersecurity_posture_overview":
+    case "cyber_sec_router":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/it/cycber-sec-router"), token, roleCode);
+    
+    // Infrastructure Costs
     case "infrastructure_costs":
+    case "infrastructure_cost_analysis":
     case "infra_costs":
       return await makeAPIRequestGET(getEndpoint("/api/v1/IT/infrastructure-costs"), token, roleCode);
-    case "patch_compliance":
-      return await makeAPIRequest("/api/v1/patch-compliance", filters, token, roleCode);
-    case "system_health":
-      return await makeAPIRequest("/api/v1/system-health", filters, token, roleCode);
-    case "infrastructure":
-      return await makeAPIRequest("/api/v1/infrastructure", filters, token, roleCode);
-    case "ticket_sla":
-      return await makeAPIRequest("/api/v1/IT/sla", filters, token, roleCode);
+    
+    // System Health Score (with date range handling)
     case "sys_health_score":
-      return await makeAPIRequest("/api/v1/it/sys-health-score", filters, token, roleCode);
+    case "system_health_score": {
+      const healthParams = new URLSearchParams(filters);
+      if (!healthParams.has('start-date')) {
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        healthParams.set('start-date', thirtyDaysAgo.toISOString().split('T')[0]);
+      }
+      if (!healthParams.has('end-date')) {
+        const today = new Date();
+        healthParams.set('end-date', today.toISOString().split('T')[0]);
+      }
+      return await makeAPIRequestGET(`/api/v1/it/sys-health-score/in-range?${healthParams.toString()}`, token, roleCode);
+    }
+    
+    // Legacy endpoints (fallback to newer ones)
+    case "system_health":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/it/ServerStoragePatch/server-load"), token, roleCode);
+    case "infrastructure":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/IT/infrastructure-costs"), token, roleCode);
     case "cpu_usage":
-      return await makeAPIRequest("/api/v1/it/cpu-usage", filters, token, roleCode);
-    case "user_satisfaction":
-      return await makeAPIRequest("/api/v1/it/satisfaction", filters, token, roleCode);
-    case "asset_inventory":
-      return await makeAPIRequest("/api/v1/it/assets-inventory", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/it/cpu-usage"), token, roleCode);
     case "server_storage_patch":
-      return await makeAPIRequest("/api/v1/it/ServerStoragePatch", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/it/ServerStoragePatch/server-load"), token, roleCode);
+    
     default:
-      throw new Error(`Unknown IT intent: ${intent}`);
+      // Default to server load for unknown IT intents
+      console.log(`Unknown IT intent: ${intent}, defaulting to server-load`);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/it/ServerStoragePatch/server-load"), token, roleCode);
   }
 }
 
@@ -456,73 +557,73 @@ async function handleAdministrativeQueries(intent, filters, token, roleCode) {
 
   switch (intent) {
     case "task_completion_rates":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/task-comp-rates/in-range"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/task-comp-rates"), token, roleCode);
+    case "process_throughput":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/process-throughput"), token, roleCode);
     case "meeting_analytics":
+    case "meeting_effectiveness_rate":
       return await makeAPIRequestGET(getEndpoint("/api/v1/admnistrative/meetingAnalytics"), token, roleCode);
+    case "schedule_efficiency":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/admnistrative/scheduleEfficiency"), token, roleCode);
     case "visitor_patterns_analysis":
+    case "visitor_patterns_and_facility_utilization":
       return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/visitor-patterns"), token, roleCode);
     case "administrative_metrics_overview":
     case "administrative_analytics_overview":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/overview"), token, roleCode);
-    case "process_throughput":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/process-throughput/in-range"), token, roleCode);
+    case "administrative_efficiency_metrics":
+    case "rvs_analytics":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics"), token, roleCode);
+    case "wait_time":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/wait-time"), token, roleCode);
     default:
       throw new Error(`Unknown administrative intent: ${intent}`);
   }
 }
 
 async function handleExecutiveQueries(intent, filters, token, roleCode) {
+  const queryParams = new URLSearchParams(filters).toString();
+  const getEndpoint = (path) => `${path}${queryParams ? '?' + queryParams : ''}`;
+
   switch (intent) {
-    case "company_wide_kpis": {
-      const query = new URLSearchParams(filters).toString();
-      return await makeAPIRequestGET(`/api/v1/executive/company-wide-kpis/in-range${query ? `?${query}` : ''}`, token, roleCode);
-    }
-    case "strategic_initiatives_progress":
-    case "strategic_initiatives":
-    case "strategic_performance": {
-      const query = new URLSearchParams(filters).toString();
-      return await makeAPIRequestGET(`/api/v1/executive/strategic-init-tracking/in-range${query ? `?${query}` : ''}`, token, roleCode);
-    }
-    case "market_share_analysis":
-    case "market_share": {
-      const query = new URLSearchParams(filters).toString();
-      return await makeAPIRequestGET(`/api/v1/executive/market-share/in-range${query ? `?${query}` : ''}`, token, roleCode);
-    }
+    case "company_wide_kpis":
     case "company_performance_overview":
     case "company_performance":
-    case "executive_dashboard": {
-      const query = new URLSearchParams(filters).toString();
-      return await makeAPIRequestGET(`/api/v1/executive/company-wide-kpis/in-range${query ? `?${query}` : ''}`, token, roleCode);
-    }
+    case "company_wide_performance_overview":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executive/company-wide-kpis"), token, roleCode);
+    case "strategic_initiatives_progress":
+    case "strategic_initiatives":
+    case "strategic_performance":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executive/strategic-init-tracking"), token, roleCode);
+    case "market_share_analysis":
+    case "market_share":
+    case "market_position_competitive_analysis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executive/market-share"), token, roleCode);
     case "executive_dashboard_overview":
-    case "ceo_analytics": {
-      const query = new URLSearchParams(filters).toString();
-      return await makeAPIRequestGET(`/api/v1/executive/CEOAnalytics/governance-compliance${query ? `?${query}` : ''}`, token, roleCode);
-    }
-    case "financial_performance_quarterly":
-    case "financial_health":
-      return await makeAPIRequestGET("/api/v1/finance/close-metrics", token, roleCode);
-    // Additional executive APIs from backup
+    case "executive_dashboard":
+    case "ceo_analytics":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executive/CEOAnalytics"), token, roleCode);
     case "revenue_performance":
-      return await makeAPIRequest("/api/v1/executive/revenue-performance", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executive/revenue-performance"), token, roleCode);
+    case "financial_health":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executive/financial-health"), token, roleCode);
     case "liquidity_ratios":
-      return await makeAPIRequest("/api/v1/executive/liquidity-ratios", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executive/liquidity-ratios"), token, roleCode);
     case "cost_optimization":
-      return await makeAPIRequest("/api/v1/executive/cost-optimization", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executive/cost-optimization"), token, roleCode);
     case "roi_analysis":
-      return await makeAPIRequest("/api/v1/executive/roi-analysis", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executive/roi-analysis"), token, roleCode);
     case "risk_heatmap":
     case "risk_management":
-      return await makeAPIRequest("/api/v1/executives/risk-heatmap", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executives/risk-heatmap"), token, roleCode);
     case "control_effectiveness":
-      return await makeAPIRequest("/api/v1/executives/control-effectiveness", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executives/control-effectiveness"), token, roleCode);
     case "compliance_tasks":
     case "compliance_overview":
-      return await makeAPIRequest("/api/v1/executives/compliance/tasks", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executives/compliance/tasks"), token, roleCode);
     case "compliance_policies":
-      return await makeAPIRequest("/api/v1/executives/compliance/policies", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executives/compliance/policies"), token, roleCode);
     case "compliance_audits":
-      return await makeAPIRequest("/api/v1/executives/compliance/audits", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executives/compliance/audits"), token, roleCode);
     default:
       throw new Error(`Unknown executive intent: ${intent}`);
   }
@@ -561,16 +662,16 @@ async function handleSpecializedQueries(intent, filters, token, roleCode) {
 async function handleLegacyIntents(intent, filters, token, roleCode) {
   switch (intent) {
     case "vendor_early_deliveries":
-      return await makeAPIRequest("/api/v1/administrative/rvsAnalytics/vendors", { ...filters, delay_days: 0 }, token, roleCode);
+      return await makeAPIRequestGET("/api/v1/administrative/rvsAnalytics", token, roleCode);
     case "space_optimization":
-      return await makeAPIRequest("/api/v1/administrative/rvsAnalytics/spaces", filters, token, roleCode);
+      return await makeAPIRequestGET("/api/v1/administrative/rvsAnalytics", token, roleCode);
     case "server_load":
     case "server_load_kpis":
-      return await makeAPIRequest("/api/v1/server-load", filters, token, roleCode);
+      return await makeAPIRequestGET("/api/v1/server-load", token, roleCode);
     case "storage_kpis":
-      return await makeAPIRequest("/api/v1/storageUtilization", filters, token, roleCode);
+      return await makeAPIRequestGET("/api/v1/storageUtilization", token, roleCode);
     case "patch_compliance_kpis":
-      return await makeAPIRequest("/api/v1/patch-compliance", filters, token, roleCode);
+      return await makeAPIRequestGET("/api/v1/patch-compliance", token, roleCode);
     default:
       throw new Error(`Unknown legacy intent: ${intent}`);
   }
