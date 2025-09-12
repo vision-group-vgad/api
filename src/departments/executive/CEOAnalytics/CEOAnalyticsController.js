@@ -56,6 +56,37 @@ export const getRetentionRates = async (req, res) => {
   }
 };
 
+export const getCompensationBenchmarks = async (req, res) => {
+  try {
+    const { 
+      department, 
+      roleLevel, 
+      region, 
+      complianceGap, 
+      year, 
+      month, 
+      page = 1, 
+      pageSize = 20 
+    } = req.query;
+    
+    const filters = { 
+      department, 
+      roleLevel, 
+      region, 
+      complianceGap, 
+      year, 
+      month, 
+      page: Number(page), 
+      pageSize: Number(pageSize) 
+    };
+    
+    const result = await CEOAnalyticsService.fetchCompensationBenchmarks(filters);
+    res.status(200).json({ success: true, filters, ...result, timestamp: new Date().toISOString() });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 // --- KPI Endpoints ---
 export const getGovernanceComplianceKPIs = async (req, res) => {
   try {
@@ -96,6 +127,15 @@ export const getWorkforceKPIs = async (req, res) => {
 export const getRetentionKPIs = async (req, res) => {
   try {
     const result = await CEOAnalyticsService.fetchRetentionKPIs();
+    res.status(200).json({ success: true, ...result, timestamp: new Date().toISOString() });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getCompensationBenchmarksKPIs = async (req, res) => {
+  try {
+    const result = await CEOAnalyticsService.fetchCompensationBenchmarksKPIs();
     res.status(200).json({ success: true, ...result, timestamp: new Date().toISOString() });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -169,6 +209,42 @@ export const getYears = async (req, res) => {
 export const getMonths = async (req, res) => {
   try {
     const result = await CEOAnalyticsService.fetchMonths();
+    res.status(200).json({ success: true, data: result, timestamp: new Date().toISOString() });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getCompensationDepartments = async (req, res) => {
+  try {
+    const result = await CEOAnalyticsService.fetchCompensationDepartments();
+    res.status(200).json({ success: true, data: result, timestamp: new Date().toISOString() });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getRoleLevels = async (req, res) => {
+  try {
+    const result = await CEOAnalyticsService.fetchRoleLevels();
+    res.status(200).json({ success: true, data: result, timestamp: new Date().toISOString() });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getRegions = async (req, res) => {
+  try {
+    const result = await CEOAnalyticsService.fetchRegions();
+    res.status(200).json({ success: true, data: result, timestamp: new Date().toISOString() });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getComplianceGaps = async (req, res) => {
+  try {
+    const result = await CEOAnalyticsService.fetchComplianceGaps();
     res.status(200).json({ success: true, data: result, timestamp: new Date().toISOString() });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

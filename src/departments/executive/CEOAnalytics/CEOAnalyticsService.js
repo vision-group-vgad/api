@@ -88,6 +88,73 @@ for (let year = 2023; year <= 2025; year++) {
   }
 }
 
+// --- Compensation Benchmarks Dummy Data ---
+const compensationDepartments = ["Sales", "Operations", "Finance", "Marketing", "IT", "HR", "Editorial", "Administrative"];
+const roleLevels = ["Junior", "Mid-Level", "Senior", "Lead", "Manager", "Director", "VP", "C-Level"];
+const regions = ["Central Region", "Eastern Region", "Northern Region", "Western Region", "Kampala Metropolitan", "Southwest Region"];
+
+const compensationBenchmarks = [];
+for (let year = 2023; year <= 2025; year++) {
+  for (let m = 0; m < 12; m++) {
+    compensationDepartments.forEach(dept => {
+      roleLevels.forEach(level => {
+        regions.forEach(region => {
+          const baseSalary = {
+            "Junior": { min: 800000, max: 1500000 },      // UGX 800K - 1.5M
+            "Mid-Level": { min: 1400000, max: 2500000 },   // UGX 1.4M - 2.5M
+            "Senior": { min: 2300000, max: 4000000 },      // UGX 2.3M - 4M
+            "Lead": { min: 3500000, max: 5500000 },        // UGX 3.5M - 5.5M
+            "Manager": { min: 5000000, max: 8000000 },     // UGX 5M - 8M
+            "Director": { min: 7500000, max: 12000000 },   // UGX 7.5M - 12M
+            "VP": { min: 11000000, max: 18000000 },        // UGX 11M - 18M
+            "C-Level": { min: 15000000, max: 35000000 }    // UGX 15M - 35M
+          };
+          
+          const deptMultiplier = {
+            "Sales": 1.1, "Operations": 0.95, "Finance": 1.05, "Marketing": 1.0,
+            "IT": 1.15, "HR": 0.9, "Editorial": 0.85, "Administrative": 0.8
+          };
+          
+          const regionMultiplier = {
+            "Central Region": 1.0,           // Baseline (includes Kampala surroundings)
+            "Kampala Metropolitan": 1.25,    // Highest salaries (capital city)
+            "Eastern Region": 0.85,          // Mbale, Jinja, Soroti areas
+            "Western Region": 0.90,          // Mbarara, Fort Portal, Kasese areas  
+            "Northern Region": 0.80,         // Gulu, Lira, Arua areas
+            "Southwest Region": 0.88         // Kabale, Rukungiri areas
+          };
+          
+          const avgSalary = Math.round(
+            faker.number.int(baseSalary[level]) * 
+            deptMultiplier[dept] * 
+            regionMultiplier[region]
+          );
+          
+          const marketBenchmark = Math.round(avgSalary * faker.number.float({ min: 0.8, max: 1.3 }));
+          const percentDifference = (((avgSalary - marketBenchmark) / marketBenchmark) * 100).toFixed(1);
+          
+          compensationBenchmarks.push({
+            id: compensationBenchmarks.length + 1,
+            year,
+            month: months[m],
+            department: dept,
+            role_level: level,
+            region: region,
+            avg_salary: avgSalary,
+            market_benchmark: marketBenchmark,
+            percent_difference: parseFloat(percentDifference),
+            currency: "UGX",
+            sample_size: faker.number.int({ min: 25, max: 200 }),
+            last_updated: randomDate(new Date(year, m, 1), new Date(year, m + 1, 0)),
+            compliance_gap: Math.abs(parseFloat(percentDifference)) > 15 ? "High" : 
+                           Math.abs(parseFloat(percentDifference)) > 5 ? "Medium" : "Low"
+          });
+        });
+      });
+    });
+  }
+}
+
 // --- KPI Methods ---
 function getGovernanceComplianceKPIs() {
   const total = governanceCompliance.length;
@@ -152,6 +219,23 @@ function getRetentionKPIs() {
   };
 }
 
+function getCompensationBenchmarksKPIs() {
+  const totalPositions = compensationBenchmarks.length;
+  const aboveBenchmark = compensationBenchmarks.filter(d => d.percent_difference > 0).length;
+  const belowBenchmark = compensationBenchmarks.filter(d => d.percent_difference < 0).length;
+  const highRiskGaps = compensationBenchmarks.filter(d => d.compliance_gap === "High").length;
+  const avgDifference = (compensationBenchmarks.reduce((sum, d) => sum + d.percent_difference, 0) / totalPositions).toFixed(1);
+  
+  return {
+    totalPositions,
+    aboveBenchmark,
+    belowBenchmark,
+    highRiskGaps,
+    avgDifference: parseFloat(avgDifference),
+    complianceRate: (((totalPositions - highRiskGaps) / totalPositions) * 100).toFixed(1)
+  };
+}
+
 // --- Filter Dropdown Methods ---
 function getComplianceAreas() {
   return [...new Set(governanceCompliance.map(d => d.compliance_area))];
@@ -188,6 +272,19 @@ function getMonths() {
       ...retentionRates.map(d => d.month),
     ]),
   ];
+}
+
+function getCompensationDepartments() {
+  return [...new Set(compensationBenchmarks.map(d => d.department))];
+}
+function getRoleLevels() {
+  return [...new Set(compensationBenchmarks.map(d => d.role_level))];
+}
+function getRegions() {
+  return [...new Set(compensationBenchmarks.map(d => d.region))];
+}
+function getComplianceGaps() {
+  return [...new Set(compensationBenchmarks.map(d => d.compliance_gap))];
 }
 
 // --- CEO Analytics Service Class ---
@@ -290,6 +387,29 @@ class CEOAnalyticsService {
     return { total, data: paged };
   }
 
+  // --- Compensation Benchmarks ---
+  async fetchCompensationBenchmarks({ 
+    department, 
+    roleLevel, 
+    region, 
+    complianceGap, 
+    year, 
+    month, 
+    page = 1, 
+    pageSize = 20 
+  } = {}) {
+    let data = compensationBenchmarks;
+    if (department) data = data.filter(d => d.department === department);
+    if (roleLevel) data = data.filter(d => d.role_level === roleLevel);
+    if (region) data = data.filter(d => d.region === region);
+    if (complianceGap) data = data.filter(d => d.compliance_gap === complianceGap);
+    if (year) data = data.filter(d => d.year === Number(year));
+    if (month) data = data.filter(d => d.month === month);
+    const total = data.length;
+    const paged = data.slice((page - 1) * pageSize, page * pageSize);
+    return { total, data: paged };
+  }
+
   // --- KPI Methods ---
   async fetchGovernanceComplianceKPIs() {
     return getGovernanceComplianceKPIs();
@@ -305,6 +425,9 @@ class CEOAnalyticsService {
   }
   async fetchRetentionKPIs() {
     return getRetentionKPIs();
+  }
+  async fetchCompensationBenchmarksKPIs() {
+    return getCompensationBenchmarksKPIs();
   }
 
   // --- Filter Dropdown Methods ---
@@ -331,6 +454,18 @@ class CEOAnalyticsService {
   }
   async fetchMonths() {
     return getMonths();
+  }
+  async fetchCompensationDepartments() {
+    return getCompensationDepartments();
+  }
+  async fetchRoleLevels() {
+    return getRoleLevels();
+  }
+  async fetchRegions() {
+    return getRegions();
+  }
+  async fetchComplianceGaps() {
+    return getComplianceGaps();
   }
 }
 

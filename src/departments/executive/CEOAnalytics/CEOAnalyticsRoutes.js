@@ -6,11 +6,13 @@ import {
   getBoardReportingMetrics,
   getWorkforceAnalytics,
   getRetentionRates,
+  getCompensationBenchmarks,
   getGovernanceComplianceKPIs,
   getLegalExposureKPIs,
   getBoardReportingKPIs,
   getWorkforceKPIs,
   getRetentionKPIs,
+  getCompensationBenchmarksKPIs,
   getComplianceAreas,
   getComplianceStatuses,
   getCaseTypes,
@@ -18,7 +20,11 @@ import {
   getLegalStatuses,
   getDepartments,
   getYears,
-  getMonths
+  getMonths,
+  getCompensationDepartments,
+  getRoleLevels,
+  getRegions,
+  getComplianceGaps
 } from "./CEOAnalyticsController.js";
 
 const router = express.Router();
@@ -166,6 +172,96 @@ router.get("/workforce-analytics", Jwt.verifyToken, getWorkforceAnalytics);
  */
 router.get("/retention-rates", Jwt.verifyToken, getRetentionRates);
 
+/**
+ * @swagger
+ * /api/v1/executive/CEOAnalytics/compensation-benchmarks:
+ *   get:
+ *     summary: Get compensation benchmarks analytics (paginated)
+ *     description: Returns compensation benchmarks analytics with filters and pagination.
+ *     tags: [CEO Analytics]
+ *     parameters:
+ *       - in: query
+ *         name: department
+ *         schema: { type: string }
+ *         description: Filter by department
+ *       - in: query
+ *         name: roleLevel
+ *         schema: { type: string }
+ *         description: Filter by role level
+ *       - in: query
+ *         name: region
+ *         schema: { type: string }
+ *         description: Filter by region
+ *       - in: query
+ *         name: complianceGap
+ *         schema: { type: string }
+ *         description: Filter by compliance gap (High, Medium, Low)
+ *       - in: query
+ *         name: year
+ *         schema: { type: integer }
+ *         description: Filter by year
+ *       - in: query
+ *         name: month
+ *         schema: { type: string }
+ *         description: Filter by month
+ *       - in: query
+ *         name: page
+ *         schema: { type: integer, default: 1 }
+ *       - in: query
+ *         name: pageSize
+ *         schema: { type: integer, default: 20 }
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Compensation benchmarks analytics retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 total:
+ *                   type: integer
+ *                 filters:
+ *                   type: object
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                       year:
+ *                         type: integer
+ *                       month:
+ *                         type: string
+ *                       department:
+ *                         type: string
+ *                       role_level:
+ *                         type: string
+ *                       region:
+ *                         type: string
+ *                       avg_salary:
+ *                         type: integer
+ *                       market_benchmark:
+ *                         type: integer
+ *                       percent_difference:
+ *                         type: number
+ *                       currency:
+ *                         type: string
+ *                       sample_size:
+ *                         type: integer
+ *                       compliance_gap:
+ *                         type: string
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Internal server error
+ */
+router.get("/compensation-benchmarks", Jwt.verifyToken, getCompensationBenchmarks);
+
 // --- KPI Endpoints ---
 // ...existing imports...
 
@@ -246,6 +342,42 @@ router.get("/workforce-analytics/kpis", Jwt.verifyToken, getWorkforceKPIs);
  *         description: Retention rates KPIs retrieved successfully
  */
 router.get("/retention-rates/kpis", Jwt.verifyToken, getRetentionKPIs);
+
+/**
+ * @swagger
+ * /api/v1/executive/CEOAnalytics/compensation-benchmarks/kpis:
+ *   get:
+ *     summary: Get compensation benchmarks KPIs
+ *     description: Returns KPIs for compensation benchmarks analytics.
+ *     tags: [CEO Analytics]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Compensation benchmarks KPIs retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 totalPositions:
+ *                   type: integer
+ *                 aboveBenchmark:
+ *                   type: integer
+ *                 belowBenchmark:
+ *                   type: integer
+ *                 highRiskGaps:
+ *                   type: integer
+ *                 avgDifference:
+ *                   type: number
+ *                 complianceRate:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ */
+router.get("/compensation-benchmarks/kpis", Jwt.verifyToken, getCompensationBenchmarksKPIs);
 
 // --- Filter Dropdown Endpoints ---
 
@@ -368,6 +500,66 @@ router.get("/filters/years", Jwt.verifyToken, getYears);
  *         description: Months retrieved successfully
  */
 router.get("/filters/months", Jwt.verifyToken, getMonths);
+
+/**
+ * @swagger
+ * /api/v1/executive/CEOAnalytics/filters/compensation-departments:
+ *   get:
+ *     summary: Get all departments for compensation filtering
+ *     description: Returns all unique departments for compensation benchmarks filtering.
+ *     tags: [CEO Analytics]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Compensation departments retrieved successfully
+ */
+router.get("/filters/compensation-departments", Jwt.verifyToken, getCompensationDepartments);
+
+/**
+ * @swagger
+ * /api/v1/executive/CEOAnalytics/filters/role-levels:
+ *   get:
+ *     summary: Get all role levels for filtering
+ *     description: Returns all unique role levels for filtering.
+ *     tags: [CEO Analytics]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Role levels retrieved successfully
+ */
+router.get("/filters/role-levels", Jwt.verifyToken, getRoleLevels);
+
+/**
+ * @swagger
+ * /api/v1/executive/CEOAnalytics/filters/regions:
+ *   get:
+ *     summary: Get all regions for filtering
+ *     description: Returns all unique regions for filtering.
+ *     tags: [CEO Analytics]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Regions retrieved successfully
+ */
+router.get("/filters/regions", Jwt.verifyToken, getRegions);
+
+/**
+ * @swagger
+ * /api/v1/executive/CEOAnalytics/filters/compliance-gaps:
+ *   get:
+ *     summary: Get all compliance gaps for filtering
+ *     description: Returns all unique compliance gaps for filtering.
+ *     tags: [CEO Analytics]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Compliance gaps retrieved successfully
+ */
+router.get("/filters/compliance-gaps", Jwt.verifyToken, getComplianceGaps);
 
 
 export default router;
