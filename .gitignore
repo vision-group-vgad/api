@@ -18,33 +18,11 @@ role-code-mappings.json
 endpoints.json
 swag.js
 
-# Testing files
+# Test files
 test-*.js
-*-test.js
-*-tests.js
-test-*.cjs
-*-test.cjs
-*-tests.cjs
-test-access-control.js
-test-ai-direct.js
-test-data-flow.js
-test-mock-ai.js
-test-administrative-optimized.js
-test-editorial-optimized.js
-test-executive-optimized.js
-test-finance-100-percent.js
-test-operations-optimized.js
-test-sales-100-percent.js
+debug-*.js
 
-# User mapping files
-user-mappings.json
-role-mappings.json
-role-code-mappings.json
-user-roles.json
-department-mappings.json
-
-# Temporary files
-*.tmp
-*.temp
-temp/
-tmp/
+# Generated reports and previews
+*.pdf
+preview-*.html
+report-*.pdf

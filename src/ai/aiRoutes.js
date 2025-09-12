@@ -430,4 +430,217 @@ router.get("/health", (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/v1/ai/report/generate:
+ *   post:
+ *     summary: Generate PDF report from AI query results
+ *     description: |
+ *       Generates a professionally formatted PDF report from AI analytics results. 
+ *       The report includes KPIs, data tables, executive summaries, and insights 
+ *       in a print-ready format suitable for presentations and documentation.
+ *       
+ *       **Report Features:**
+ *       - Executive summary with business insights
+ *       - KPI cards with visual indicators
+ *       - Data tables with formatted values
+ *       - Professional branding and layout
+ *       - Print-optimized formatting
+ *     tags: [AI Analytics]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - question
+ *             properties:
+ *               question:
+ *                 type: string
+ *                 description: Natural language question for analytics
+ *                 example: "What's our sales performance this quarter?"
+ *               reportOptions:
+ *                 type: object
+ *                 properties:
+ *                   title:
+ *                     type: string
+ *                     description: Custom report title
+ *                     example: "Q3 Sales Performance Report"
+ *                   companyName:
+ *                     type: string
+ *                     description: Company name for branding
+ *                     example: "Vision Group Uganda"
+ *                   format:
+ *                     type: string
+ *                     enum: [A4, Letter]
+ *                     description: PDF page format
+ *                     default: A4
+ *     responses:
+ *       200:
+ *         description: PDF report generated successfully
+ *         content:
+ *           application/pdf:
+ *             schema:
+ *               type: string
+ *               format: binary
+ *         headers:
+ *           Content-Disposition:
+ *             description: Filename for download
+ *             schema:
+ *               type: string
+ *       400:
+ *         description: Invalid request parameters
+ *       401:
+ *         description: Authentication required
+ *       403:
+ *         description: Insufficient permissions
+ *       500:
+ *         description: Server error during report generation
+ */
+router.post("/report/generate", Jwt.verifyToken, async (req, res) => {
+  try {
+    const { question, reportOptions = {} } = req.body;
+    
+    if (!question || typeof question !== 'string' || question.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Question is required and must be a non-empty string",
+        type: "validation_error"
+      });
+    }
+
+    // First get the AI analytics data
+    const aiResponse = await askAIHandler(req, res, true); // Pass true to return data instead of sending response
+    
+    if (!aiResponse.success) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to generate analytics data for report",
+        type: "ai_error",
+        details: aiResponse.message
+      });
+    }
+
+    // Import report generator
+    const { default: reportGenerator } = await import('./reportGenerator.js');
+    
+    // Generate PDF report
+    const pdfBuffer = await reportGenerator.generatePDFReport(aiResponse, reportOptions);
+    
+    // Set response headers for PDF download
+    const timestamp = new Date().toISOString().slice(0, 10);
+    const department = aiResponse.department || 'analytics';
+    const filename = `${department}-report-${timestamp}.pdf`;
+    
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `attachment; filename="${filename}"`,
+      'Content-Length': pdfBuffer.length,
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    });
+
+    res.send(pdfBuffer);
+
+  } catch (error) {
+    console.error("Report generation error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to generate PDF report",
+      type: "report_generation_error",
+      details: error.message
+    });
+  }
+});
+
+/**
+ * @swagger
+ * /api/v1/ai/report/preview:
+ *   post:
+ *     summary: Preview report HTML before generating PDF
+ *     description: |
+ *       Returns the HTML content that would be used to generate a PDF report.
+ *       Useful for previewing report layout and content before generating the final PDF.
+ *     tags: [AI Analytics]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - question
+ *             properties:
+ *               question:
+ *                 type: string
+ *                 description: Natural language question for analytics
+ *               reportOptions:
+ *                 type: object
+ *                 properties:
+ *                   title:
+ *                     type: string
+ *                     description: Custom report title
+ *                   companyName:
+ *                     type: string
+ *                     description: Company name for branding
+ *     responses:
+ *       200:
+ *         description: HTML preview generated successfully
+ *         content:
+ *           text/html:
+ *             schema:
+ *               type: string
+ *       400:
+ *         description: Invalid request parameters
+ *       401:
+ *         description: Authentication required
+ *       500:
+ *         description: Server error during preview generation
+ */
+router.post("/report/preview", Jwt.verifyToken, async (req, res) => {
+  try {
+    const { question, reportOptions = {} } = req.body;
+    
+    if (!question || typeof question !== 'string' || question.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Question is required and must be a non-empty string"
+      });
+    }
+
+    // Get AI analytics data
+    const aiResponse = await askAIHandler(req, res, true);
+    
+    if (!aiResponse.success) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to generate analytics data for preview"
+      });
+    }
+
+    // Import report generator
+    const { default: reportGenerator } = await import('./reportGenerator.js');
+    
+    // Generate HTML content
+    const htmlContent = reportGenerator.generateHTMLReport(aiResponse, reportOptions);
+    
+    res.set('Content-Type', 'text/html');
+    res.send(htmlContent);
+
+  } catch (error) {
+    console.error("Report preview error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to generate report preview",
+      details: error.message
+    });
+  }
+});
+
 export default router;
