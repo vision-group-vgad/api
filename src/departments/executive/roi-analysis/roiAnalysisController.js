@@ -4,19 +4,19 @@ import { generateRoiData } from "./roiAnalysisData.js";
 export const getRoiAnalysis = (req, res) => {
   try {
     const data = generateRoiData(200);
-    const { category, startDate, endDate } = req.query;
+    const { vendor, startDate, endDate } = req.query;
 
     let filteredData = data;
 
-    // Filter by category
-    if (category) {
-      const categories = category.split(",");
-      filteredData = filteredData.filter(d => d?.category && categories.includes(d.category));
+    // Filter by vendor
+    if (vendor) {
+      const vendors = vendor.split(",");
+      filteredData = filteredData.filter(d => d?.vendor && vendors.includes(d.vendor));
     }
 
     // Filter by date range
-    const start = startDate ? new Date(startDate) : new Date("2024-01-01");
-    const end = endDate ? new Date(endDate) : new Date("2025-12-31");
+    const start = startDate ? new Date(startDate) : new Date("2024-07-01");
+    const end = endDate ? new Date(endDate) : new Date("2025-07-31");
 
     filteredData = filteredData.filter(d => {
       if (!d?.date) return false;
@@ -25,40 +25,43 @@ export const getRoiAnalysis = (req, res) => {
     });
 
     // Summary metrics
-    const totalInvestment = filteredData.reduce((a, d) => a + d.investment, 0);
-    const totalRevenue = filteredData.reduce((a, d) => a + d.revenue, 0);
-    const totalProfit = totalRevenue - totalInvestment;
-    const roi = totalInvestment ? +((totalProfit / totalInvestment) * 100).toFixed(2) : 0;
+    const totalProcessingCost = filteredData.reduce((a, d) => a + d.processingCost, 0);
+    const totalProcessingTime = filteredData.reduce((a, d) => a + d.processingTime, 0);
+    const totalException = filteredData.reduce((a, d) => a + d.exceptionRate, 0);
+    const totalSavings = filteredData.reduce((a, d) => a + d.savings, 0);
+    const totalCost = filteredData.reduce((a, d) => a + d.automationCost, 0);
 
     const summary = {
       totalRecords: filteredData.length,
-      totalInvestment,
-      totalRevenue,
-      totalProfit,
-      roi
+      avgProcessingCost: +(totalProcessingCost / (filteredData.length || 1)).toFixed(2),
+      avgProcessingTime: Math.round(totalProcessingTime / (filteredData.length || 1)),
+      avgExceptionRate: +(totalException / (filteredData.length || 1)).toFixed(2),
+      totalSavings,
+      totalCost,
+      roi: totalCost ? +(((totalSavings - totalCost) / totalCost) * 100).toFixed(2) : 0
     };
 
     // Monthly trends
     const monthlyMap = {};
     filteredData.forEach(d => {
       const month = d.date.slice(0, 7);
-      if (!monthlyMap[month]) {
-        monthlyMap[month] = { investment: 0, revenue: 0, count: 0 };
-      }
-      monthlyMap[month].investment += d.investment;
-      monthlyMap[month].revenue += d.revenue;
+      if (!monthlyMap[month]) monthlyMap[month] = { processingCost: 0, processingTime: 0, exceptionRate: 0, roi: 0, totalSavings: 0, totalCost: 0, count: 0 };
+      monthlyMap[month].processingCost += d.processingCost;
+      monthlyMap[month].processingTime += d.processingTime;
+      monthlyMap[month].exceptionRate += d.exceptionRate;
+      monthlyMap[month].totalSavings += d.savings;
+      monthlyMap[month].totalCost += d.automationCost;
       monthlyMap[month].count += 1;
     });
 
     const roiTrends = Object.entries(monthlyMap)
       .map(([month, vals]) => {
-        const profit = vals.revenue - vals.investment;
         return {
           month,
-          avgInvestment: Math.round(vals.investment / vals.count),
-          avgRevenue: Math.round(vals.revenue / vals.count),
-          avgProfit: Math.round(profit / vals.count),
-          roi: vals.investment ? +((profit / vals.investment) * 100).toFixed(2) : 0
+          avgProcessingCost: +(vals.processingCost / vals.count).toFixed(2),
+          avgProcessingTime: Math.round(vals.processingTime / vals.count),
+          avgExceptionRate: +(vals.exceptionRate / vals.count).toFixed(2),
+          roi: vals.totalCost ? +(((vals.totalSavings - vals.totalCost) / vals.totalCost) * 100).toFixed(2) : 0
         };
       })
       .sort((a, b) => new Date(a.month) - new Date(b.month));
