@@ -2,34 +2,37 @@
 import express from "express";
 import Jwt from "../../../auth/jwt.js";
 import { getRoiAnalysis } from "./roiAnalysisController.js";
+
 const roiRoute = express.Router();
 
 /**
  * @swagger
  * /api/v1/executive/roi-analysis:
  *   get:
- *     summary: Get ROI analysis for invoice automation
+ *     summary: Get ROI analysis for business projects
  *     tags: [Analytics]
  *     parameters:
  *       - in: query
- *         name: vendor
+ *         name: category
  *         required: false
  *         schema:
  *           type: string
- *           enum: [Vendor A, Vendor B, Vendor C, Vendor D, Vendor E]
- *         description: Filter by vendor (comma separated)
+ *           enum: [Sales and Marketing, Research and Development, Operations, IT and Infrastructure, Human Resources, Customer Support]
+ *         description: Filter by project category (comma separated)
  *       - in: query
  *         name: startDate
  *         required: false
  *         schema:
  *           type: string
  *           format: date
+ *         description: Filter projects starting from this date (YYYY-MM-DD)
  *       - in: query
  *         name: endDate
  *         required: false
  *         schema:
  *           type: string
  *           format: date
+ *         description: Filter projects ending before this date (YYYY-MM-DD)
  *     responses:
  *       200:
  *         description: ROI analysis data
@@ -40,6 +43,17 @@ const roiRoute = express.Router();
  *               properties:
  *                 summary:
  *                   type: object
+ *                   properties:
+ *                     totalRecords:
+ *                       type: integer
+ *                     totalInvestment:
+ *                       type: number
+ *                     totalRevenue:
+ *                       type: number
+ *                     totalProfit:
+ *                       type: number
+ *                     roi:
+ *                       type: number
  *                 roiTrends:
  *                   type: array
  *                   items:
@@ -47,11 +61,11 @@ const roiRoute = express.Router();
  *                     properties:
  *                       month:
  *                         type: string
- *                       avgProcessingCost:
+ *                       avgInvestment:
  *                         type: number
- *                       avgProcessingTime:
+ *                       avgRevenue:
  *                         type: number
- *                       avgExceptionRate:
+ *                       avgProfit:
  *                         type: number
  *                       roi:
  *                         type: number
@@ -59,9 +73,23 @@ const roiRoute = express.Router();
  *                   type: array
  *                   items:
  *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                       name:
+ *                         type: string
+ *                       investment:
+ *                         type: number
+ *                       revenue:
+ *                         type: number
+ *                       category:
+ *                         type: string
+ *                       date:
+ *                         type: string
+ *                         format: date
  *       500:
  *         description: Server error
  */
-roiRoute.get("/", Jwt.verifyToken, getRoiAnalysis);
+roiRoute.get("/",  getRoiAnalysis);
 
 export default roiRoute;
