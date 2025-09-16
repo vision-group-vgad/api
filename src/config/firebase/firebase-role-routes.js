@@ -8,6 +8,7 @@ import {
   fetchAllRoleMappings,
   fetchEndpointsByRole,
   bulkAddRoleMappings,
+  addRoleMappingsBatch,
 } from "./firebase-role-service.js";
 import express from "express";
 import Jwt from "../../auth/jwt.js";
@@ -95,22 +96,55 @@ firebaseRoleRouter.delete(
   }
 );
 
+// firebaseRoleRouter.post(
+//   "/roles/mappings/add",
+//   Jwt.verifyToken,
+//   async (req, res) => {
+//     try {
+//       const { role_code, endpoints } = req.body;
+//       if (!role_code || !Array.isArray(endpoints)) {
+//         return res.status(400).json({
+//           error: "role_code and endpoints[] are required",
+//         });
+//       }
+
+//       const mapping = await addRoleMapping(role_code, endpoints);
+//       res.status(201).json({
+//         message: "Role mapping added successfully",
+//         mapping,
+//       });
+//     } catch (error) {
+//       res.status(500).json({ error: error.message });
+//     }
+//   }
+// );
+
 firebaseRoleRouter.post(
   "/roles/mappings/add",
   Jwt.verifyToken,
   async (req, res) => {
     try {
       const { role_code, endpoints } = req.body;
-      if (!role_code || !Array.isArray(endpoints)) {
-        return res.status(400).json({
-          error: "role_code and endpoints[] are required",
+
+      if (role_code && Array.isArray(endpoints)) {
+        const mapping = await addRoleMapping(role_code, endpoints);
+        return res.status(201).json({
+          message: "Role mapping added successfully",
+          mapping,
         });
       }
 
-      const mapping = await addRoleMapping(role_code, endpoints);
-      res.status(201).json({
-        message: "Role mapping added successfully",
-        mapping,
+      if (Array.isArray(req.body)) {
+        const results = await addRoleMappingsBatch(req.body);
+        return res.status(201).json({
+          message: "Role mappings batch processed",
+          results,
+        });
+      }
+
+      res.status(400).json({
+        error:
+          "Invalid payload. Provide role_code & endpoints or an array of mappings.",
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -185,6 +219,19 @@ export default firebaseRoleRouter;
  *         type: array
  *         items:
  *           type: string
+ *     RoleMapping:
+ *       type: object
+ *       properties:
+ *         role_code:
+ *           type: string
+ *         endpoints:
+ *           type: array
+ *           items:
+ *             type: string
+ *     RoleMappingBatch:
+ *       type: array
+ *       items:
+ *         $ref: '#/components/schemas/RoleMapping'
  *
  * tags:
  *   name: Roles
@@ -278,24 +325,19 @@ export default firebaseRoleRouter;
  *
  * /api/v1/roles/mappings/add:
  *   post:
- *     summary: Add or update role → endpoints mapping
+ *     summary: Add or update role → endpoints mapping (single or batch)
  *     tags: [Roles]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               role_code:
- *                 type: string
- *               endpoints:
- *                 type: array
- *                 items:
- *                   type: string
+ *             oneOf:
+ *               - $ref: '#/components/schemas/RoleMapping'
+ *               - $ref: '#/components/schemas/RoleMappingBatch'
  *     responses:
  *       201:
- *         description: Mapping added successfully
+ *         description: Mapping(s) added successfully
  *
  * /api/v1/roles/mappings/all:
  *   get:

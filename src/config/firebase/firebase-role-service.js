@@ -98,6 +98,25 @@ export const addRoleMapping = async (roleCode, endpoints) => {
   return { roleCode, endpoints: updatedEndpoints };
 };
 
+export const addRoleMappingsBatch = async (mappings) => {
+  if (!Array.isArray(mappings)) throw new Error("mappings must be an array");
+
+  const results = [];
+
+  for (const mapping of mappings) {
+    const { role_code, endpoints } = mapping;
+
+    try {
+      const result = await addRoleMapping(role_code, endpoints);
+      results.push({ role_code, status: "success", data: result });
+    } catch (error) {
+      results.push({ role_code, status: "failed", error: error.message });
+    }
+  }
+
+  return results;
+};
+
 export const fetchAllRoleMappings = async () => {
   const snapshot = await roleMappingsRef.once("value");
   return snapshot.val() || {};
