@@ -36,8 +36,9 @@ class AccessController {
         req.role = role;
         next();
       } catch (error) {
-        console.error("Role check failed:", error);
-        res.status(500).json({ message: "Server error while checking role" });
+        res
+          .status(500)
+          .json({ message: "Server error while checking role," + error });
       }
     };
   }

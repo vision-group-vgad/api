@@ -193,10 +193,8 @@ export function getAllPaths(app) {
   function collect(stack, prefix = "") {
     stack.forEach((middleware) => {
       if (middleware.route) {
-        // Direct route
         paths.add(prefix + middleware.route.path);
       } else if (middleware.name === "router" && middleware.handle.stack) {
-        // Nested router
         const newPrefix =
           prefix +
           (middleware.regexp?.source

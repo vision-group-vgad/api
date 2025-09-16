@@ -2,7 +2,9 @@ import Jwt from "./jwt.js";
 import bcrypt from "bcrypt";
 import { fetchUserByEmail } from "../config/firebase/firebase-user-service.js";
 import { fetchRoleByCode } from "../config/firebase/firebase-role-service.js";
+import { fetchImageByEmail } from "../config/firebase/firebase-user-mgt-service.js";
 const encodeKey = (email) => email.replace(/\./g, ",");
+import { getUniqueName } from "../utils/common/common-functionalities.js";
 
 class AuthenticationController {
   constructor() {
@@ -11,71 +13,6 @@ class AuthenticationController {
     this.email = null;
     this.password = null;
   }
-
-  // async #submitLoginInfo(email, password) {
-  //   this.email = email;
-  //   this.password = password;
-  //   //Uncomment the block below in production & import axios
-  //   // const response = await axios.post(this.VISION_GROUP_CMS_ROOT_URL + "signin", {
-  //   //   email,
-  //   //   password,
-  //   //   sessionId: this.sessionId,
-  //   // });
-  //   const response = {
-  //     status: 200,
-  //     data: {
-  //       email: "user@example.com",
-  //       position: "Software Engineer",
-  //       department: "Engineering",
-  //       first_name: "Kalyango",
-  //       last_name: "Thompson",
-  //       sessionId: this.sessionId,
-  //     },
-  //   };
-
-  //   return response;
-  // }
-
-  // async #validateResponse(response) {
-  //   if (response.status === 200 && response.data.email === this.email) {
-  //     const {
-  //       email,
-  //       position,
-  //       department,
-  //       first_name: firstName,
-  //       last_name: lastName,
-  //     } = response.data;
-
-  //     const token = Jwt.generateToken(email, {
-  // department,
-  // position,
-  // firstName,
-  // lastName
-  // });
-  //     const user = {
-  //       firstName,
-  //       lastName,
-  //       email,
-  //       position,
-  //       department,
-  //       token,
-  //     };
-  //     return user;
-  //   }
-
-  //   switch (response.status) {
-  //     case 400:
-  //       return errorResponse(400, "Bad request");
-  //     case 401:
-  //       return errorResponse(401, "Invalid credentials");
-  //     case 403:
-  //       return errorResponse(403, "Forbidden");
-  //     case 404:
-  //       return errorResponse(404, "User not found");
-  //     default:
-  //       return errorResponse(500, "Internal server error");
-  //   }
-  // }
 
   async authenticate(email, password) {
     const encodedEmail = encodeKey(email);
@@ -91,19 +28,23 @@ class AuthenticationController {
     const token = Jwt.generateToken(user.user_email, {
       department: user.department,
       position: role.role_name,
-      firstName: user.user_name.split(' ')[0] || user.user_name,
-      lastName: user.user_name.split(' ').slice(1).join(' ') || '',
+      firstName: user.user_name.split(" ")[0] || user.user_name,
+      lastName: user.user_name.split(" ").slice(1).join(" ") || "",
       role_code: user.role_code,
-      role_name: role.role_name
+      role_name: role.role_name,
     });
 
+    const imageBytes = await fetchImageByEmail(user.user_email);
+    const names = `${getUniqueName()} ${getUniqueName()}`;
+
     return {
-      user_name: user.user_name,
+      user_name: names,
       user_email: user.user_email,
       department: user.department,
       role_name: role.role_name,
       role_code: user.role_code,
       token: token,
+      image_bytes: imageBytes,
     };
   }
 }
