@@ -35,7 +35,7 @@ class AuthenticationController {
     });
 
     const imageBytes = await fetchImageByEmail(user.user_email);
-    const names = `${getUniqueName()} ${getUniqueName()}`;
+    const names = `${getUniqueName()}`;
 
     return {
       user_name: names,

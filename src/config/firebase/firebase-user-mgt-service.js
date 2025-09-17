@@ -38,6 +38,5 @@ export async function fetchImageByEmail(email) {
   }
 
   const base64Data = snapshot.val();
-  console.log(Buffer.from(base64Data, "base64"));
   return Buffer.from(base64Data, "base64");
 }

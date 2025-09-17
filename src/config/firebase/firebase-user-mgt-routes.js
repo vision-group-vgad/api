@@ -70,7 +70,6 @@ userMgtRouter.post(
       const result = await uploadImageByEmail(email, req.file);
       res.json({ message: `Uploaded image for ${email}`, ...result });
     } catch (err) {
-      console.error(err);
       res
         .status(err.message === "NOT_FOUND" ? 404 : 500)
         .json({ message: "Upload failed" });
@@ -111,7 +110,6 @@ userMgtRouter.get("/fetch-image", async (req, res) => {
     res.setHeader("Content-Type", "image/*");
     res.send(bytes);
   } catch (err) {
-    console.error(err);
     res
       .status(err.message === "NOT_FOUND" ? 404 : 500)
       .json({ message: "Fetch failed" });
