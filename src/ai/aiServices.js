@@ -451,9 +451,41 @@ async function handleEditorialQueries(intent, filters, token, roleCode) {
 }
 
 async function handleSalesQueries(intent, filters, token, roleCode) {
+  // Clean and validate filters to prevent 400 errors
+  const cleanFilters = {};
+  
+  if (filters && typeof filters === 'object') {
+    Object.keys(filters).forEach(key => {
+      let value = filters[key];
+      
+      // Fix common parameter issues
+      if (key === 'time_period') {
+        // Fix common typos and normalize values
+        if (value === 'thhis_quarter' || value === 'this_quarter') {
+          value = 'current_quarter';
+        } else if (value === 'this_month') {
+          value = 'current_month';
+        } else if (value === 'this_year') {
+          value = 'current_year';
+        }
+      }
+      
+      // Only include valid, non-empty values
+      if (value !== null && value !== undefined && value !== '') {
+        cleanFilters[key] = value;
+      }
+    });
+  }
+  
   // Convert filters to query parameters for GET requests
-  const queryParams = new URLSearchParams(filters).toString();
+  const queryParams = new URLSearchParams(cleanFilters).toString();
   const getEndpoint = (path) => `${path}${queryParams ? '?' + queryParams : ''}`;
+  
+  console.log('🔧 Sales Query Debug:', {
+    originalFilters: filters,
+    cleanedFilters: cleanFilters,
+    queryParams: queryParams
+  });
   
   // For endpoints that require date ranges, provide fixed defaults with GET query params
   const getEndpointWithDates = (path) => {
@@ -1144,7 +1176,30 @@ function generateCharts(rawData, department) {
   }
 
   try {
-    const dataArray = Array.isArray(rawData) ? rawData : [rawData];
+    // Extract actual data array based on API response structure
+    let dataArray = [];
+    
+    if (Array.isArray(rawData)) {
+      dataArray = rawData;
+    } else if (rawData.deals && Array.isArray(rawData.deals)) {
+      // For Sales APIs that return { deals: [...] } structure
+      dataArray = rawData.deals;
+    } else if (rawData.data && Array.isArray(rawData.data)) {
+      // For APIs that return { data: [...] } structure
+      dataArray = rawData.data;
+    } else if (rawData.results && Array.isArray(rawData.results)) {
+      // For APIs that return { results: [...] } structure
+      dataArray = rawData.results;
+    } else {
+      // Single object - wrap in array
+      dataArray = [rawData];
+    }
+    
+    console.log('📊 Extracted data array:', {
+      department,
+      extractedLength: dataArray.length,
+      sampleKeys: dataArray.length > 0 ? Object.keys(dataArray[0]) : 'no data'
+    });
 
     // Universal Bar Chart - Count by category
     const categories = {};

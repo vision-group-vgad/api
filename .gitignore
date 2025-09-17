@@ -21,6 +21,12 @@ swag.js
 # Test files
 test-*.js
 debug-*.js
+quicktest-*.js
+quick-editorial-*.js
+quick-ai-*.js
+check-roles.js
+check-role-access.js
+quick-*.js
 
 # Generated reports and previews
 *.pdf
