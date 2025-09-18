@@ -29,7 +29,14 @@ export const askAIHandler = async (req, res, returnData = false) => {
       data: Array.isArray(result.data) ? result.data : (result.data ? [result.data] : []),
       additionalInsights: Array.isArray(result.insights) ? result.insights : [],
       timestamp: result.timestamp || new Date().toISOString(),
-      user: result.user || null
+      user: result.user || null,
+      kpis: Array.isArray(result.kpis) ? result.kpis : [],
+      charts: Array.isArray(result.charts) ? result.charts : [],
+      tables: Array.isArray(result.tables) ? result.tables : [],
+      summary: result.summary || '',
+      hasData: typeof result.hasData === 'boolean' ? result.hasData : null,
+      filters: result.filters || {},
+      question: result.question || ''
     };
 
     if (returnData) {
