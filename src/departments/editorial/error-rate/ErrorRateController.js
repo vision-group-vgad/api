@@ -4,6 +4,7 @@ import {
   getDurationInMinutes,
 } from "../../../utils/common/common-functionalities.js";
 import Article from "../../../utils/common/Article.js";
+import dummyArticles from "./dummy-data.js";
 
 class ErrorRateController {
   #article;
@@ -11,27 +12,29 @@ class ErrorRateController {
     this.#article = new Article();
   }
 
-  #processArticles(articlesArray) {
-    const mappedArticles = articlesArray.map((article) => {
-      const editingDuration = getDurationInMinutes(
-        article.created_on,
-        article.published_on
-      );
-      const fallbackPlatform = "web";
-      const fallbackStreamName = "New Vision Website";
-      return {
-        pageTitle: article.title,
-        author: `${article.author.first_name} ${article.author.last_name}`,
-        streamName: article.streamName || fallbackStreamName,
-        platform: article.platform || fallbackPlatform,
-        createdOn: article.created_on,
-        publishedOn: article.published_on,
-        editingDuration: editingDuration,
-        editor: `${article.editor.first_name} ${article.editor.last_name}`,
-        updates: getRandomNumInRange(0, 5),
-        date: getRandomDate(),
-      };
-    });
+  #processArticles(articlesArray, startDate, endDate) {
+    const mappedArticles = articlesArray
+      .filter((article) => article.date >= startDate && article.date <= endDate)
+      .map((article) => {
+        const editingDuration = getDurationInMinutes(
+          article.createdOn,
+          article.publishedOn
+        );
+        const fallbackPlatform = "web";
+        const fallbackStreamName = "New Vision Website";
+        return {
+          pageTitle: article.pageTitle,
+          author: article.author,
+          streamName: article.streamName || fallbackStreamName,
+          platform: article.platform || fallbackPlatform,
+          createdOn: article.createdOn,
+          publishedOn: article.publishedOn,
+          editingDuration: editingDuration,
+          editor: article.editor,
+          updates: getRandomNumInRange(0, 5),
+          date: getRandomDate(),
+        };
+      });
 
     const updatesSum = mappedArticles
       .map((article) => article.updates)
@@ -56,11 +59,11 @@ class ErrorRateController {
   }
 
   async getInRangeArticles(startDate, endDate) {
-    const inRangeData = await this.#article.getInRangeArticles(
+    const processedData = this.#processArticles(
+      dummyArticles,
       startDate,
       endDate
     );
-    const processedData = this.#processArticles(inRangeData);
     return processedData;
   }
 }
