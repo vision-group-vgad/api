@@ -127,8 +127,13 @@ async function callDeepSeekAI(question) {
         }
       );
 
-      const content = response.data.choices[0].message.content.trim();
-      
+      let content = response.data.choices[0].message.content.trim();
+      // Remove markdown code block if present
+      if (content.startsWith('```json')) {
+        content = content.replace(/^```json\s*/i, '').replace(/```\s*$/, '');
+      } else if (content.startsWith('```')) {
+        content = content.replace(/^```\s*/i, '').replace(/```\s*$/, '');
+      }
       // Try to parse JSON response
       try {
         const aiResult = JSON.parse(content);

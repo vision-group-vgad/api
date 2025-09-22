@@ -3,20 +3,16 @@ import { askAI } from "./aiServices.js"; // <-- use the correct filename and fun
 
 export const askAIHandler = async (req, res, returnData = false) => {
   const { question } = req.body;
-  const roleCode = req.headers["x-role-code"]; // Role code from header
-  
-  // Extract the raw JWT token from Authorization header
+  const roleCode = req.headers["x-role-code"];
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  
-  // Send immediate response for browser/Swagger compatibility
+
   if (!returnData) {
     res.setHeader('Content-Type', 'application/json');
   }
-  
+
   try {
     const result = await askAI(question, roleCode, token);
-    // Build response matching Swagger schema with safe defaults
     const responseData = {
       success: true,
       explanation: result.explanation || '',
@@ -40,9 +36,11 @@ export const askAIHandler = async (req, res, returnData = false) => {
     };
 
     if (returnData) {
-      return responseData;
+      //return responseData;
+      res.json(responseData);
+    } else {
+      res.json(responseData);
     }
-    res.json(responseData);
   } catch (err) {
     const errorResponse = {
       success: false,
@@ -63,9 +61,9 @@ export const askAIHandler = async (req, res, returnData = false) => {
         : 'service_error'
     };
     if (returnData) {
-      return errorResponse;
-    }
-    if (err.message.includes('Access Denied') || err.message.includes('Unauthorized access')) {
+      //return errorResponse;
+      res.status(500).json(errorResponse);
+    } else if (err.message.includes('Access Denied') || err.message.includes('Unauthorized access')) {
       res.status(403).json(errorResponse);
     } else {
       res.status(500).json(errorResponse);
