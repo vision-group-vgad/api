@@ -128,11 +128,13 @@ import AccessController from "./src/auth/access-controller.js";
 import Jwt from "./src/auth/jwt.js";
 import pipelineRoute from "./src/departments/finance/pipeline-metrics/pipelineMetricsRoute.js";
 import userMgtRouter from "./src/config/firebase/firebase-user-mgt-routes.js";
+import dataGovernRouter from "./src/departments/specialized/data-governance/data-govern-routes.js";
+import invoProMetricsRouter from "./src/departments/finance/invoice-process-metrics/invoice-process-routes.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const corsOption = {
-  origin: ["http://localhost:5173", "https://vgad-aphb.onrender.com"],
+  origin: process.env.ORIGIN.split(","),
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 };
@@ -183,7 +185,6 @@ app.use("/api/v1/server-load", serverLoadRouter);
 // app.use("/api/v1/notifications", notificationRouter);
 app.use("/api/v1/storageUtilization", storageRoutes);
 app.use("/api/v1/cyber-posture", cyberPostureController);
-//app.use("/api/v1/accountSettings", accountSettingsRouter);
 app.use("/api/v1/patch-compliance", patchComplianceController);
 app.use("/api/v1/system-health", systemHealthRoutes);
 app.use("/api/v1/infrastructure", infraRoutes);
@@ -330,7 +331,10 @@ app.use("/api/v1/hr/retention-risk", retentionRiskRoute);
 app.use("/api/v1", firebaseRoleRouter);
 app.use("/api/v1", firebaseUserRouter);
 app.use("/api/v1/specialized/feedback", feedbackRoute);
+app.use("/api/v1/specialized/data-govern", dataGovernRouter);
 app.use("/api/v1/hr/training-effectiveness", trainingEffectivenessRoute);
 app.use("/api/v1/finance/pipeline-metrics", pipelineRoute);
+app.use("/api/v1/finance/invoice-metrics", invoProMetricsRouter);
 app.use("/api/v1/user-mgt", userMgtRouter);
+
 export default app;

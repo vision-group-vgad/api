@@ -90,6 +90,7 @@ export const swaggerOptions = {
     path.join(__dirname, "../departments/finance/dso/*.js"),
     path.join(__dirname, "../departments/finance/bad-debt-ratios/*.js"),
     path.join(__dirname, "../departments/finance/collection-efficiency/*.js"),
+    path.join(__dirname, "../departments/finance/invoice-process-metrics/*.js"),
     path.join(
       __dirname,
       "../departments/finance/finance_forecasting/forecastingController.js"
@@ -238,6 +239,7 @@ export const swaggerOptions = {
     path.join(__dirname, "./firebase/*.js"),
     path.join(__dirname, "../departments/specialized/retentionRisk/*.js"),
     path.join(__dirname, "../departments/specialized/feedback/*.js"),
+    path.join(__dirname, "../departments/specialized/data-governance/*.js"),
     path.join(
       __dirname,
       "../departments/specialized/trainingEffectiveness/*.js"

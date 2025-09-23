@@ -41,7 +41,7 @@ class AuthenticationController {
       user_name: names,
       user_email: user.user_email,
       department: user.department,
-      role_name: role.role_name,
+      role_name: user.user_name,
       role_code: user.role_code,
       token: token,
       image_bytes: imageBytes,
