@@ -134,7 +134,7 @@ import invoProMetricsRouter from "./src/departments/finance/invoice-process-metr
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const corsOption = {
-  origin: process.env.ORIGIN.split(","),
+  origin: ["http://localhost:5173", "https://vgad-aphb.onrender.com"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 };
