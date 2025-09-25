@@ -130,6 +130,7 @@ import pipelineRoute from "./src/departments/finance/pipeline-metrics/pipelineMe
 import userMgtRouter from "./src/config/firebase/firebase-user-mgt-routes.js";
 import dataGovernRouter from "./src/departments/specialized/data-governance/data-govern-routes.js";
 import invoProMetricsRouter from "./src/departments/finance/invoice-process-metrics/invoice-process-routes.js";
+import insightAdoptionRoute from "./src/departments/specialized/insight-adoption/insightAdoptionRoute.js";
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -336,5 +337,6 @@ app.use("/api/v1/hr/training-effectiveness", trainingEffectivenessRoute);
 app.use("/api/v1/finance/pipeline-metrics", pipelineRoute);
 app.use("/api/v1/finance/invoice-metrics", invoProMetricsRouter);
 app.use("/api/v1/user-mgt", userMgtRouter);
+app.use("/api/v1/specialized/insight-adoption", insightAdoptionRoute);
 
 export default app;

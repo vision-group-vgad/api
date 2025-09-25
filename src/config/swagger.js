@@ -244,5 +244,7 @@ export const swaggerOptions = {
       __dirname,
       "../departments/specialized/trainingEffectiveness/*.js"
     ),
+    path.join(__dirname, "../departments/specialized/insight-adoption/*.js"),
+
   ],
 };
