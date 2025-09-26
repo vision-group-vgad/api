@@ -305,7 +305,7 @@ export const fetchVisualUsageData = async ({ startDate, endDate, author, platfor
 
     return Object.values(assetUsage);
   } catch (err) {
-    console.error("Fallback to dummy due to error:", err.message);
+    
     return dummyData;
   }
 };

@@ -55,7 +55,7 @@ router.get("/", async (req, res) => {
     const data = await fetchVisualEngagementData(startDate, endDate);
     res.status(200).json(data);
   } catch (err) {
-    console.error("Visual Engagement API fetch failed:", err.message);
+    
     res.status(500).json({
       error: "Failed to fetch visual engagement data.",
       details: err.message,

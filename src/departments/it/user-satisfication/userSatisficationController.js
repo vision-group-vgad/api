@@ -6,7 +6,6 @@ export const generateSatisfactionFeedbackController = (req, res) => {
   try {
     const data = generateSatisfactionFeedback(300);
 
-    // --- Apply filters ---
     let filtered = data;
     const { department, role, satisfaction } = req.query;
 
@@ -121,7 +120,7 @@ export const generateSatisfactionFeedbackController = (req, res) => {
       feedbackData: filtered
     });
   } catch (error) {
-    console.error(error);
+    
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

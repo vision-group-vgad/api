@@ -42,7 +42,7 @@ router.get("/", async (req, res) => {
     const data = await getTopicVitality(startDate, endDate);
     res.json(data);
   } catch (err) {
-    console.error("Error fetching topic vitality:", err.message);
+   
     res.status(500).json({ error: "Failed to fetch topic vitality data" });
   }
 });

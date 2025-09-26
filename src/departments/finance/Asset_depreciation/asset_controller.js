@@ -72,7 +72,7 @@ router.get("/", Jwt.verifyToken, async (req, res) => {
 
     res.json({ source: "live", count: result.length, data: result });
   } catch (error) {
-    console.error("Error fetching G/L names:", error.message);
+    
     res.status(500).json({ error: "Failed to fetch account names" });
   }
 });

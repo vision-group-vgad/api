@@ -10,7 +10,7 @@ export const getExecutiveMeetingSummary = (req, res) => {
     const summary = getMeetingsSummary(startDate, endDate);
     res.json(summary);
   } catch (error) {
-    console.error("Error fetching meetings summary:", error);
+    
     res.status(500).json({ error: "Failed to fetch meetings summary" });
   }
 };
@@ -25,7 +25,7 @@ export const getExecutiveTasks = (req, res) => {
     const summary = getTasksSummary(startDate, endDate);
     res.json(summary);
   } catch (error) {
-    console.error("Error fetching tasks summary:", error);
+
     res.status(500).json({ error: "Failed to fetch tasks summary" });
   }
 };

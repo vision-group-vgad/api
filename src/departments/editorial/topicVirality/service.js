@@ -160,7 +160,7 @@ export async function getTopicVitality(startDate, endDate) {
     return results.sort((a, b) => b.vitalityScore - a.vitalityScore);
 
   } catch (err) {
-    console.error("Error fetching topic vitality data. Using dummy data:", err.message);
+    
     return dummyData;
   }
 }

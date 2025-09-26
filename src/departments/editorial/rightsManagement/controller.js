@@ -6,7 +6,7 @@ export const getRightsData = async (req, res) => {
     const data = await fetchRightsData({ status, type });
     res.json(data);
   } catch (error) {
-    console.error("Rights Management Error:", error);
+    
     res.status(500).json({ message: "Internal server error" });
   }
 };
