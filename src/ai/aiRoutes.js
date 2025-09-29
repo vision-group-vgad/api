@@ -1,8 +1,140 @@
+
 import express from "express";
 import Jwt from "../auth/jwt.js";
-import { askAIHandler } from "./aiController.js";
+import { askAIHandler, askAIChatHandler } from "./aiController.js";
 
 const router = express.Router();
+
+// Register the /chat endpoint for chat-like summary responses
+router.post("/chat", Jwt.verifyToken, askAIChatHandler);
+
+/**
+ * @swagger
+ * /api/v1/ai/chat:
+ *   post:
+ *     summary: Ask a question and get a conversational summary (chat-like response)
+ *     description: |
+ *       This endpoint provides a chat-like, conversational summary in response to a natural language question.
+ *       It returns only a direct summary and a follow-up prompt, without detailed analytics, KPIs, or charts unless requested.
+ *       
+ *       **Use Case:**
+ *       - For chat UIs and conversational analytics where users want a quick, human-friendly summary.
+ *       - Users can ask follow-up questions or request more details to expand the analytics.
+ *       
+ *       **Security Features:**
+ *       - JWT-based authentication required
+ *       - Department and position-based authorization
+ *       - Automatic data filtering for sensitive information
+ *       - Comprehensive access logging
+ *     tags: [AI Analytics]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - question
+ *             properties:
+ *               question:
+ *                 type: string
+ *                 description: Natural language question for a chat-like summary
+ *                 example: "Summarize our sales performance this month."
+ *     responses:
+ *       200:
+ *         description: Conversational summary and follow-up prompt
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 summary:
+ *                   type: string
+ *                   example: "Sales this month increased by 12% compared to last month."
+ *                 followUp:
+ *                   type: string
+ *                   example: "Would you like to see more details, charts, or a full report?"
+ *                 intent:
+ *                   type: string
+ *                   example: "sales_performance"
+ *                 department:
+ *                   type: string
+ *                   example: "sales"
+ *                 confidence:
+ *                   type: number
+ *                   example: 0.93
+ *                 filters:
+ *                   type: object
+ *                   example: { "month": "September" }
+ *                 question:
+ *                   type: string
+ *                   example: "Summarize our sales performance this month."
+ *       400:
+ *         description: Invalid request or low confidence in query understanding
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "I'm not confident I understood your question correctly. Please rephrase it or be more specific. (Confidence: 45%)"
+ *                 type:
+ *                   type: string
+ *                   example: "low_confidence"
+ *       401:
+ *         description: Unauthorized - Invalid or missing JWT token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token missing"
+ *       403:
+ *         description: Access Denied - User doesn't have permission to access requested data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Access Denied: No access permission for this data."
+ *                 type:
+ *                   type: string
+ *                   example: "access_denied"
+ *       500:
+ *         description: Server error or AI service unavailable
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "DeepSeek AI API rate limit exceeded. Please try again later."
+ *                 type:
+ *                   type: string
+ *                   example: "service_error"
+ */
+
+
 
 /**
  * @swagger

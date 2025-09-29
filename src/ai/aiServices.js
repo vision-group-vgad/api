@@ -1,27 +1,18 @@
+// Chat-like summary function with follow-up promp
 import axios from "axios";
+import generateSalesSummary from "./summary/salesSummary.js";
+import generateFinanceSummary from "./summary/financeSummary.js";
+import generateEditorialSummary from "./summary/editorialSummary.js";
+import generateExecutiveSummary from "./summary/executiveSummary.js";
+import generateAdministrativeSummary from "./summary/administrativeSummary.js";
+import generateSpecializedSummary from "./summary/specializedSummary.js";
+import generateOperationsSummary from "./summary/operationsSummary.js";
+import generateITSummary from "./summary/itSummary.js";
 
 // Base URL for internal API calls
 const BASE_URL = process.env.BASE_URL || "http://localhost:4000";
 
 // Helper functions for API requests
-async function makeAPIRequest(endpoint, data, token, roleCode) {
-  try {
-    const response = await axios.post(`${BASE_URL}${endpoint}`, data, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'x-role-code': roleCode,
-        'Content-Type': 'application/json'
-      }
-    });
-    return response.data;
-  } catch (error) {
-    if (error.response?.status === 403 || error.response?.status === 401) {
-      throw new Error(`Unauthorized access: You don't have permission to access this information.`);
-    }
-    throw error;
-  }
-}
-
 async function makeAPIRequestGET(endpoint, token, roleCode) {
   try {
     const response = await axios.get(`${BASE_URL}${endpoint}`, {
@@ -544,6 +535,7 @@ async function handleSalesQueries(intent, filters, token, roleCode) {
     case "sales_performance_overview":
     case "sales_performance":
     case "sales_performance_this_quarter":
+    case "sales_performance_summary":
     case "supervisor_sales":
     case "supervisor_sales_analytics":
     case "supervisor_sales_performance":
@@ -648,7 +640,7 @@ async function handleOperationsQueries(intent, filters, token, roleCode) {
     case "operational_efficiency_analysis":
     case "equipment_performance_overview":
     case "operational_productivity_metrics":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/job-scheduling"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/OperationsProductionAnalytics/production-yield"), token, roleCode);
     
     // Map equipment queries to setup-time (working endpoint)
     case "equipment_efficiency":
@@ -657,7 +649,7 @@ async function handleOperationsQueries(intent, filters, token, roleCode) {
     case "equipment_setup_time_metrics":
     case "setup_time_optimization_status":
     case "equipment_downtime_analysis":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/setup-time"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/OperationsProductionAnalytics/machine-oee"), token, roleCode);
     
     // Map delivery/logistics queries to route-efficiency (working endpoint)
     case "delivery_timeline_performance":
@@ -666,10 +658,9 @@ async function handleOperationsQueries(intent, filters, token, roleCode) {
     case "route_efficiency_analysis":
     case "logistics_performance_overview":
     case "fuel_consumption_trend":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/route-efficiency"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/delivery-timelines"), token, roleCode);
     
     // Map resource/parts queries to parts-utilization (working endpoint)
-    case "resource_utilization":
     case "parts_utilization":
     case "parts_utilization_rate":
     case "parts_utilization_metrics":
@@ -683,23 +674,47 @@ async function handleOperationsQueries(intent, filters, token, roleCode) {
     case "ticket_resolution_metrics":
       return await makeAPIRequestGET(getEndpoint("/api/v1/operations/ticket-resolution"), token, roleCode);
     
-    // Direct working endpoint mappings
+    // setup-time is a working endpoint, map related queries here
     case "setup_time":
+    case "setup_time_metrics":
+    case "setup_time_analysis":
+    case "setup_time_optimization":
       return await makeAPIRequestGET(getEndpoint("/api/v1/operations/setup-time"), token, roleCode);
+    
+    
+    // job-scheduling is a working endpoint, map related queries here
+    case "scheduling_efficiency":
+    case "scheduling_performance":
     case "job_scheduling":
     case "job_scheduling_efficiency":
     case "job_scheduling_performance":
       return await makeAPIRequestGET(getEndpoint("/api/v1/operations/job-scheduling"), token, roleCode);
-    case "route_efficiency":
+    
+   // route-efficiency is a working endpoint, map related queries here 
+    case "route_efficiency": 
+    case "route_efficiency_metrics":
+    case "logistics_efficiency":
+    case "logistics_efficiency_metrics":
+    case "logistics_efficiency_analysis":
       return await makeAPIRequestGET(getEndpoint("/api/v1/operations/route-efficiency"), token, roleCode);
     
-    // Remove non-working endpoints and map to working ones
-    case "fuel_consumption":
-    case "signal_quality_metrics":
-    case "up_downtime_logs":
-    case "operational_efficiency_trends":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/ticket-resolution"), token, roleCode);
+    //material waste is a working endpoint, map related queries here
+    case "material_waste":
+    case "material_waste_metrics":
     
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/OperationsProductionAnalytics/material-waste"), token, roleCode);
+    // signal quality
+    case "signal quality":
+    case "channel quality":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/signal-quality-metrics/in-range"), token, roleCode);
+
+    //up downtime
+    case "up downtime logs":
+    case "up downtime":
+    case "downtime logs":
+    case "downtime":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/operations/up-downtime-logs/in-range"), token, roleCode);
+   
     default:
       // Default to ticket-resolution for unknown operations queries
       return await makeAPIRequestGET(getEndpoint("/api/v1/operations/ticket-resolution"), token, roleCode);
@@ -785,7 +800,7 @@ async function handleITQueries(intent, filters, token, roleCode) {
     case "cyber_security":
     case "cybersecurity_posture_overview":
     case "cyber_sec_router":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/it/cycber-sec-router"), token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/it/cyber-sec-router/in-range"), token, roleCode);
     
     // Infrastructure Costs
     case "infrastructure_costs":
@@ -845,7 +860,7 @@ async function handleAdministrativeQueries(intent, filters, token, roleCode) {
     case "task_completion_performance":
     case "task_management_efficiency":
       return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/task-comp-rates/in-range"), token, roleCode);
-    
+
     // Process throughput and efficiency
     case "process_throughput":
     case "process_throughput_analytics":
@@ -854,25 +869,25 @@ async function handleAdministrativeQueries(intent, filters, token, roleCode) {
     case "administrative_productivity_overview":
     case "process_performance":
       return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/process-throughput/in-range"), token, roleCode);
-    
+
     // Meeting and schedule analytics  
     case "meeting_analytics":
     case "meeting_effectiveness_rate":
     case "meeting_schedule_efficiency":
     case "meeting_efficiency_status":
       return await makeAPIRequestGET(getEndpoint("/api/v1/admnistrative/meetingAnalytics"), token, roleCode);
-    
+
     case "schedule_efficiency":
     case "schedule_optimization_insights":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/admnistrative/scheduleEfficiency"), token, roleCode);
-    
+      return await makeAPIRequestGET(getEndpoint("/api/v1/admnistrative/scheduleEfficiency/summary"), token, roleCode);
+
     // Visitor management
     case "visitor_patterns_analysis":
     case "visitor_patterns":
     case "visitor_patterns_trending":
     case "visitor_management_analytics":
       return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/visitor-patterns"), token, roleCode);
-    
+
     case "wait_time":
     case "average_wait_time":
     case "average_wait_time_analysis":
@@ -880,7 +895,111 @@ async function handleAdministrativeQueries(intent, filters, token, roleCode) {
     case "visitor_wait_time_trends":
     case "wait_time_performance":
       return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/wait-time"), token, roleCode);
-    
+
+
+    // RVS Analytics - Overview
+    case "analytics_overview":
+    case "rvs_analytics_overview":
+    case "rvs_overview":
+    case "rvs_dashboard":
+    case "overview":
+    case "rvs_summary":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/overview"), token, roleCode);
+
+    // RVS Analytics - Resources
+    case "resource_utilization_analytics":
+    case "resource_utilization":
+    case "resource_analytics":
+    case "resource_utilization_summary":
+    case "resource_analytics_overview":
+    case "rvs_resource_utilization_analytics":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/resources/analytics"), token, roleCode);
+    case "resource_kpis":
+    case "resource_utilization_kpis":
+    case "resource_kpi":
+    case "rvs_resource_kpis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/resources/kpis"), token, roleCode);
+    case "resource_chart":
+    case "resource_charts":
+    case "resource_utilization_chart":
+    case "rvs_resource_chart":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/resources/chart"), token, roleCode);
+    case "resource_list":
+    case "resources_list":
+    case "resource_utilization_list":
+    case "rvs_resource_list":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/resources/list"), token, roleCode);
+
+    // RVS Analytics - Spaces
+    case "space_optimization_analytics":
+    case "space_optimization":
+    case "space_analytics":
+    case "space_optimization_summary":
+    case "space_analytics_overview":
+    case "rvs_space_optimization_analytics":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/spaces/analytics"), token, roleCode);
+    case "space_kpis":
+    case "space_optimization_kpis":
+    case "space_kpi":
+    case "rvs_space_kpis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/spaces/kpis"), token, roleCode);
+    case "space_chart":
+    case "space_charts":
+    case "space_optimization_chart":
+    case "rvs_space_chart":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/spaces/chart"), token, roleCode);
+    case "space_list":
+    case "spaces_list":
+    case "space_optimization_list":
+    case "rvs_space_list":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/spaces/list"), token, roleCode);
+
+    // RVS Analytics - Vendors
+    case "vendor_performance_analytics":
+    case "vendor_performance":
+    case "vendor_analytics":
+    case "vendor_performance_summary":
+    case "vendor_analytics_overview":
+    case "rvs_vendor_performance_analytics":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/vendors/analytics"), token, roleCode);
+    case "vendor_kpis":
+    case "vendor_performance_kpis":
+    case "vendor_kpi":
+    case "rvs_vendor_kpis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/vendors/kpis"), token, roleCode);
+    case "vendor_chart":
+    case "vendor_charts":
+    case "vendor_performance_chart":
+    case "rvs_vendor_chart":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/vendors/chart"), token, roleCode);
+    case "vendor_list":
+    case "vendors_list":
+    case "vendor_performance_list":
+    case "rvs_vendor_list":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/vendors/list"), token, roleCode);
+
+    // RVS Analytics - Filters
+    case "departments_filter":
+    case "department_filter":
+    case "rvs_departments_filter":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/filters/departments"), token, roleCode);
+    case "resource_types_filter":
+    case "resource_type_filter":
+    case "rvs_resource_types_filter":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/filters/resource-types"), token, roleCode);
+    case "locations_filter":
+    case "location_filter":
+    case "rvs_locations_filter":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/filters/locations"), token, roleCode);
+    case "service_types_filter":
+    case "service_type_filter":
+    case "rvs_service_types_filter":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/filters/service-types"), token, roleCode);
+    case "vendor_names_filter":
+    case "vendor_name_filter":
+    case "rvs_vendor_names_filter":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics/filters/vendor-names"), token, roleCode);
+
     // General administrative analytics
     case "administrative_metrics_overview":
     case "administrative_analytics_overview":
@@ -888,7 +1007,7 @@ async function handleAdministrativeQueries(intent, filters, token, roleCode) {
     case "administrative_performance_overview":
     case "rvs_analytics":
       return await makeAPIRequestGET(getEndpoint("/api/v1/administrative/rvsAnalytics"), token, roleCode);
-    
+
     default:
       throw new Error(`Unknown administrative intent: ${intent}`);
   }
@@ -942,14 +1061,27 @@ async function handleExecutiveQueries(intent, filters, token, roleCode) {
     case "compensation_gap_analysis":
       return await makeAPIRequestGET(getEndpoint("/api/v1/executive/CEOAnalytics/compensation-benchmarks"), token, roleCode);
     case "revenue_performance":
-      return await makeAPIRequestGET(getEndpoint("/api/v1/executive/revenue-performance"), token, roleCode);
+    case "revenue_analysis":
+    case "revenue_metrics":
+    case "revenue_trends":
+    case "revenue_performance_in_range":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/executive/revenue-performance/in-range"), token, roleCode);
     case "financial_health":
+    case "financial_performance":
+    case "financial_analysis":
+    case "financial_metrics":
       return await makeAPIRequestGET(getEndpoint("/api/v1/executive/financial-health"), token, roleCode);
     case "liquidity_ratios":
+    case "liquidity_analysis":
+    case "liquidity_metrics":
       return await makeAPIRequestGET(getEndpoint("/api/v1/executive/liquidity-ratios"), token, roleCode);
     case "cost_optimization":
+    case "cost_reduction_analysis":
+    case "cost_saving_strategies":
       return await makeAPIRequestGET(getEndpoint("/api/v1/executive/cost-optimization"), token, roleCode);
     case "roi_analysis":
+    case "roi_metrics":
+    case "return_on_investment_analysis":
       return await makeAPIRequestGET(getEndpoint("/api/v1/executive/roi-analysis"), token, roleCode);
     case "risk_heatmap":
     case "risk_management":
@@ -969,29 +1101,106 @@ async function handleExecutiveQueries(intent, filters, token, roleCode) {
 }
 
 async function handleSpecializedQueries(intent, filters, token, roleCode) {
+  // Convert filters to query parameters for GET requests
+  const queryParams = new URLSearchParams(filters).toString();
+  const getEndpoint = (path) => `${path}${queryParams ? '?' + queryParams : ''}`;
+
   switch (intent) {
+    // --- Case Compliance Analytics ---
+    // Case Resolution Analytics
+    case "case_resolution":
+    case "case_resolution_analytics":
+    case "case_resolution_list":
+    case "cases":
+    case "case_list":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/CaseCompliance/cases"), token, roleCode);
+
+    // Compliance Breach Analytics
+    case "compliance_breaches":
+    case "compliance_breach_tracking":
+    case "compliance_breach_list":
+    case "compliance_breach_analytics":
+    case "breach_tracking":
+    case "case_compliance_breaches":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/CaseCompliance/compliance-breaches"), token, roleCode);
+
+    // Case Resolution KPIs
+    case "case_resolution_kpis":
+    case "case_kpis":
+    case "cases_kpis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/CaseCompliance/cases/kpis"), token, roleCode);
+
+    // Compliance Breach KPIs
+    case "compliance_breach_kpis":
+    case "breach_kpis":
+    case "compliance_kpis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/CaseCompliance/compliance-breaches/kpis"), token, roleCode);
+
+    // --- Case Compliance Filters ---
+    case "case_types_filter":
+    case "case_type_filter":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/CaseCompliance/filters/case-types"), token, roleCode);
+    case "case_departments_filter":
+    case "case_department_filter":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/CaseCompliance/filters/case-departments"), token, roleCode);
+    case "case_priorities_filter":
+    case "case_priority_filter":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/CaseCompliance/filters/case-priorities"), token, roleCode);
+    case "case_statuses_filter":
+    case "case_status_filter":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/CaseCompliance/filters/case-statuses"), token, roleCode);
+    case "breach_types_filter":
+    case "breach_type_filter":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/CaseCompliance/filters/breach-types"), token, roleCode);
+    case "breach_departments_filter":
+    case "breach_department_filter":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/CaseCompliance/filters/breach-departments"), token, roleCode);
+    case "severity_levels_filter":
+    case "severity_level_filter":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/CaseCompliance/filters/severity-levels"), token, roleCode);
+    case "years_filter":
+    case "year_filter":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/CaseCompliance/filters/years"), token, roleCode);
+
+    // --- Other Specialized Analytics ---
     case "risk_exposure":
-      return await makeAPIRequest("/api/v1/specialized/risk-exposure", filters, token, roleCode);
+    case "risk_assessment":
+    case "risk_management":
+    case "risk_analysis":
+    case "risk_exposure_analysis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/risk-exposure/in-range"), token, roleCode);
     case "mitigation_effectiveness":
-      return await makeAPIRequest("/api/v1/specialized/mitigation-effectiveness", filters, token, roleCode);
-    case "case_compliance":
-      return await makeAPIRequest("/api/v1/specialized/CaseCompliance", filters, token, roleCode);
+    case "mitigation_analysis":
+    case "mitigation_effectiveness_analysis":
+    case "mitigation_strategies_effectiveness":
+    case "mitigation_strategies_analysis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/mitigation-effectiveness/in-range"), token, roleCode);
     case "attendance_rate":
-      return await makeAPIRequest("/api/v1/specialized/attendance-rate", filters, token, roleCode);
+    case "attendance_analysis":
+    case "attendance_trends":
+    case "employee_attendance":
+    case "employee_attendance_rate":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/attendance-rate"), token, roleCode);
     case "sponsor_roi":
-      return await makeAPIRequest("/api/v1/specialized/sponsor-roi", filters, token, roleCode);
+    case "sponsor_roi_analysis":
+    case "sponsor_return_on_investment":
+    case "sponsor_investment_analysis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/sponsor-roi"), token, roleCode);
     case "recruitment_funnel":
-      return await makeAPIRequest("/api/v1/hr/recruitment-funnel", filters, token, roleCode);
+    case "recruitment_analysis":
+    case "hiring_funnel":
+    case "hiring_analysis":
+      return await makeAPIRequestGET(getEndpoint("/api/v1/hr/recruitment-funnel"), token, roleCode);
     case "retention_risk":
-      return await makeAPIRequest("/api/v1/hr/retention-risk", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/hr/retention-risk"), token, roleCode);
     case "feedback":
-      return await makeAPIRequest("/api/v1/specialized/feedback", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/specialized/feedback"), token, roleCode);
     case "training_effectiveness":
-      return await makeAPIRequest("/api/v1/hr/training-effectiveness", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/hr/training-effectiveness"), token, roleCode);
     case "firebase_roles":
-      return await makeAPIRequest("/api/v1/roles", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/roles"), token, roleCode);
     case "firebase_users":
-      return await makeAPIRequest("/api/v1/users", filters, token, roleCode);
+      return await makeAPIRequestGET(getEndpoint("/api/v1/users"), token, roleCode);
     default:
       throw new Error(`Unknown specialized intent: ${intent}`);
   }
@@ -1592,6 +1801,65 @@ async function processBusinessData(rawData, intent, department, question) {
   }
 }
 
+export async function askAIChat(question, roleCode = null, token = null) {
+  const aiResult = await callDeepSeekAI(question);
+  if (aiResult.confidence && aiResult.confidence < 0.6) {
+    throw new Error(`I'm not confident I understood your question correctly. Please rephrase it or be more specific. (Confidence: ${Math.round(aiResult.confidence * 100)}%)`);
+  }
+  let data = null;
+  const { intent, department, filters = {} } = aiResult;
+  try {
+    switch (department) {
+      case "administrative":
+        data = await handleAdministrativeQueries(intent, filters, token, roleCode);
+        break;
+      case "operations":
+        data = await handleOperationsQueries(intent, filters, token, roleCode);
+        break;
+      case "sales":
+        data = await handleSalesQueries(intent, filters, token, roleCode);
+        break;
+      case "finance":
+        data = await handleFinanceQueries(intent, filters, token, roleCode);
+        break;
+      case "it":
+        data = await handleITQueries(intent, filters, token, roleCode);
+        break;
+      case "editorial":
+        data = await handleEditorialQueries(intent, filters, token, roleCode);
+        break;
+      case "executive":
+        data = await handleExecutiveQueries(intent, filters, token, roleCode);
+        break;
+      case "specialized":
+        data = await handleSpecializedQueries(intent, filters, token, roleCode);
+        break;
+      case "legacy":
+        data = await handleLegacyIntents(intent, filters, token, roleCode);
+        break;
+      default:
+        try {
+          data = await handleLegacyIntents(intent, filters, token, roleCode);
+        } catch {
+          throw new Error(`Unknown department: ${department}`);
+        }
+    }
+  } catch (error) {
+    console.error(`Error fetching ${department} analytics for "${intent}":`, error.message);
+    throw new Error(`Failed to fetch ${department} analytics for "${intent}": ${error.message}`);
+  }
+  const summary = generateConversationalSummary(aiResult.intent, aiResult.department, data);
+  const followUp = summary ? "Would you like to see more details, charts, or a full report?" : "";
+  return {
+    intent: aiResult.intent,
+    department: aiResult.department,
+    confidence: aiResult.confidence,
+    summary,
+    followUp,
+    filters: filters,
+    question: question
+  };
+}
 // --- Main AI Service Function ---
 export async function askAI(question, roleCode = null, token = null) {
   const aiResult = await callDeepSeekAI(question);
@@ -1698,4 +1966,49 @@ function generateDataInsights(data) {
   
   insights.push(`Total records: ${data.length}`);
   return insights.slice(0, 5); // Limit to 5 insights
+}
+
+
+
+// Department-specific summary generators (modularized)
+const departmentSummaryGenerators = {
+  sales: generateSalesSummary,
+  finance: generateFinanceSummary,
+  editorial: generateEditorialSummary,
+  executive: generateExecutiveSummary,
+  administrative: generateAdministrativeSummary,
+  specialized: generateSpecializedSummary,
+  operations: generateOperationsSummary,
+  it: generateITSummary,
+};
+
+function generateConversationalSummary(intent, department, data) {
+  if (!data) {
+    return "I'm sorry, I couldn't find any relevant information for your request.";
+  }
+  if (typeof data === 'string') {
+    return data;
+  }
+  // Use department-specific summary if available
+  const generator = departmentSummaryGenerators[department];
+  if (generator) {
+    return generator(intent, data);
+  }
+  // Fallback: generic summary
+  if (Array.isArray(data) && data.length === 0) {
+    return `No records found for your ${department} query about ${intent}.`;
+  }
+  if (Array.isArray(data)) {
+    return `Here is a summary for your ${department} query about ${intent}: There are ${data.length} relevant records. Would you like more details?`;
+  }
+  if (typeof data === 'object') {
+    if (data.summary) {
+      return data.summary;
+    }
+    if (data.kpis && Array.isArray(data.kpis) && data.kpis.length > 0) {
+      return `Key highlights for your ${department} query about ${intent}: ${data.kpis.map(kpi => kpi.label + ': ' + kpi.value).join(', ')}.`;
+    }
+    return `Summary for your ${department} query about ${intent}: ${Object.keys(data).join(', ')}.`;
+  }
+  return `Here is the information for your ${department} query about ${intent}.`;
 }
