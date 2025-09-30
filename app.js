@@ -8,17 +8,13 @@ import swaggerJSDoc from "swagger-jsdoc";
 import { swaggerOptions } from "./src/config/swagger.js";
 import "dotenv/config";
 
-// import notificationRouter from "./src/departments/common-features/notification/noty-routes.js";
 import storageRoutes from "./src/departments/it/storage-utilization-donutchart/storageController.js";
 import cyberPostureController from "./src/departments/it/cyber-posture/cyberPostureRoutes.js";
-//import accountSettingsRouter from "./src/accountSettings/controller.js";
 import patchComplianceController from "./src/departments/it/patch-compliance/patchComplianceRoutes.js";
 import systemHealthRoutes from "./src/departments/it/systemHealth/controller.js";
 import infraRoutes from "./src/departments/it/infrastructure/InfraRoutes.js";
 import financeRoutes from "./src/departments/finance/FinanceRoutes.js";
 import repoAccRouter from "./src/departments/finance/reporting-acc-pie-chart/reporting-acc-piechart-routes.js";
-// import capExCardRouter from "./src/departments/finance/capex/capex-card-route.js";
-// import capExPieChartRouter from "./src/departments/finance/capex/capex-piechart-route.js";
 import AssetValueRoutes from "./src/departments/finance/total_assets_value/routes.js";
 import ageRouter from "./src/departments/finance/age-analysis/apArRoutes.js";
 import AssetDepreciationRoutes from "./src/departments/finance/Asset_depreciation/asset_controller.js";
@@ -134,8 +130,9 @@ import insightAdoptionRoute from "./src/departments/specialized/insight-adoption
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",");
 const corsOption = {
-  origin: ["http://localhost:5173", "https://vgad-aphb.onrender.com"],
+  origin: allowedOrigins,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 };
@@ -183,7 +180,6 @@ app.use(
 );
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/server-load", serverLoadRouter);
-// app.use("/api/v1/notifications", notificationRouter);
 app.use("/api/v1/storageUtilization", storageRoutes);
 app.use("/api/v1/cyber-posture", cyberPostureController);
 app.use("/api/v1/patch-compliance", patchComplianceController);
@@ -191,9 +187,7 @@ app.use("/api/v1/system-health", systemHealthRoutes);
 app.use("/api/v1/infrastructure", infraRoutes);
 app.use("/api/v1/finance", financeRoutes);
 app.use("/api/v1/reporting-accu-piechart", repoAccRouter);
-// app.use("/api/v1/capex", capExCardRouter);
 app.use("/api/v1/ap-ar-aging", ageRouter);
-// app.use("/api/v1/capex-piechart", capExPieChartRouter);
 app.use("/api/v1/total-assets-value", AssetValueRoutes);
 app.use("/api/v1/asset-depreciation", AssetDepreciationRoutes);
 app.use("/api/v1/expense-category", expenseRouter);

@@ -15,13 +15,13 @@ const streams = [
 ];
 
 const randomChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
-const randomPercent = () => `${Math.floor(Math.random() * 41) + 60}%`; // 60–100%
+const randomPercent = () => `${Math.floor(Math.random() * 41) + 60}%`;
 const randomDuration = () => {
   const min = String(Math.floor(Math.random() * 10)).padStart(2, "0");
   const sec = String(Math.floor(Math.random() * 60)).padStart(2, "0");
   return `00:${min}:${sec}`;
 };
-const randomBounce = () => `${Math.floor(Math.random() * 41) + 10}%`; // 10–50%
+const randomBounce = () => `${Math.floor(Math.random() * 41) + 10}%`;
 const randomDate = () => {
   const month = String(Math.floor(Math.random() * 12) + 1).padStart(2, "0");
   const day = String(Math.floor(Math.random() * 28) + 1).padStart(2, "0");

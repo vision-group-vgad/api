@@ -11,7 +11,7 @@ const {
 
 class BreakingNewsService {
   constructor() {
-    this.baseUrl = "https://cms-vgad.visiongroup.co.ug/api/api-listings";
+    this.baseUrl = `${process.env.CMC_API_BASE_URL}/api-listings`;
   }
 
   async getBreakingNewsTraction({ startDate, endDate, limit, offset }) {
