@@ -33,6 +33,14 @@ test-mock-*.js
 test-access-*.js
 test-direct-*.js
 
+# Comprehensive test patterns
+*test*.js
+*Test*.js
+*TEST*.js
+spec-*.js
+*.spec.js
+*.test.js
+
 # Test results and documentation
 *TEST_RESULTS*.md
 *_TEST_*.md
