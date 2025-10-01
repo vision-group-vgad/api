@@ -27,6 +27,29 @@ quick-ai-*.js
 check-roles.js
 check-role-access.js
 quick-*.js
+test-all-*.js
+test-data-*.js
+test-mock-*.js
+test-access-*.js
+test-direct-*.js
+
+# Test results and documentation
+*TEST_RESULTS*.md
+*_TEST_*.md
+test-results/
+test-reports/
+
+# Demo and debugging files
+*-demo.js
+*-debug.js
+*-test.js
+swagger-test-*.js
+api-test-*.js
+
+# Backup files
+*_backup.js
+*.backup.js
+backup-*/
 
 # Generated reports and previews
 *.pdf
