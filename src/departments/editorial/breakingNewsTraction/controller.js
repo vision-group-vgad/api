@@ -29,7 +29,7 @@ class BreakingNewsController {
         },
       });
     } catch (error) {
-      console.error("Breaking news traction error:", error);
+      
       res.status(500).json({
         error: "Failed to fetch breaking news traction data",
         message: error.message,
@@ -68,7 +68,8 @@ class BreakingNewsController {
         data: realTimeData,
       });
     } catch (error) {
-      console.error("Real-time breaking news error:", error);
+      
+
       res.status(500).json({
         error: "Failed to fetch real-time breaking news data",
         message: error.message,

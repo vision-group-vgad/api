@@ -79,7 +79,7 @@ router.get("/", async (req, res) => {
 
     res.json(newsletters);
   } catch (err) {
-    console.error("Error fetching newsletter virality:", err.message);
+    
     res.status(500).json({ error: "Failed to fetch newsletter virality" });
   }
 });

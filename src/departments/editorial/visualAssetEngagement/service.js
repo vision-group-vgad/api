@@ -14,7 +14,7 @@ export const fetchVisualEngagementData = async (startDate, endDate) => {
   const format = "YYYY-MM-DD";
 
   if (!dayjs(startDate, format, true).isValid() || !dayjs(endDate, format, true).isValid()) {
-    console.error("Invalid date format. Expected YYYY-MM-DD.");
+    
     return dummyMergedData;
   }
 
@@ -35,8 +35,7 @@ export const fetchVisualEngagementData = async (startDate, endDate) => {
 
     return final;
   } catch (error) {
-    console.error("Visual Engagement API fetch failed:", error.message);
-    console.error("Full Error Object:", error.response?.data || error);
+    
     return dummyMergedData;
   }
 };

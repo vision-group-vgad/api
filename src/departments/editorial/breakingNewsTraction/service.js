@@ -60,11 +60,7 @@ class BreakingNewsService {
       const response = await axios.get(url);
       return response.data;
     } catch (error) {
-      console.error(
-        "Error fetching session duration:",
-        url,
-        error.response?.data || error.message
-      );
+      
       throw error;
     }
   }
@@ -75,11 +71,7 @@ class BreakingNewsService {
       const response = await axios.get(url);
       return response.data;
     } catch (error) {
-      console.error(
-        "Error fetching articles:",
-        url,
-        error.response?.data || error.message
-      );
+      
       throw error;
     }
   }

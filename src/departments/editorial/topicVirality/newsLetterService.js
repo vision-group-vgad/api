@@ -43,7 +43,7 @@ export const fetchNewsletterVirality = async (startDate, endDate) => {
       viralityScore: computeViralityScore(nl),
     }));
   } catch (err) {
-    console.error("Error fetching newsletter virality:", err.message);
+    
     throw err;
   }
 };

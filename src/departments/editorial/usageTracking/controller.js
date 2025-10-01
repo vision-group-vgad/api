@@ -6,7 +6,7 @@ export const getVisualUsage = async (req, res) => {
     const data = await fetchVisualUsageData({ startDate, endDate, author, platform });
     res.json(data);
   } catch (error) {
-    console.error("Visual Usage Error:", error);
+    
     res.status(500).json({ message: "Internal server error" });
   }
 };

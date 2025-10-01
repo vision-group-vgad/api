@@ -60,7 +60,7 @@ export async function getSegmentPopularity({ startDate, endDate } = {}) {
     startDate = startDate || defaultStart;
     endDate = endDate || defaultEnd;
 
-    console.log("Using dates:", { startDate, endDate });
+    
 
     const [articles, sessions] = await Promise.all([
       fetchAllArticles(startDate, endDate),
@@ -113,7 +113,7 @@ export async function getSegmentPopularity({ startDate, endDate } = {}) {
    
     return summary.sort((a,b) => b.avgDurationSeconds - a.avgDurationSeconds);
   } catch (err) {
-    console.error("Error in getSegmentPopularity:", err.message);
+    
     throw err;
   }
 }

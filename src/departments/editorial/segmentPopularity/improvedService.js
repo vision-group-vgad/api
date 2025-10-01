@@ -21,7 +21,7 @@ export const fetchArticleCategorySummary = async (startDate, endDate) => {
 
     return response.data.article_category;
   } catch (error) {
-    console.error("Error fetching CMS article summary:", error.message);
+    
     throw new Error("Failed to fetch article summary");
   }
 };

@@ -111,7 +111,7 @@ router.get("/revenue", async (req, res) => {
 
     res.json({ type: "revenue", data: monthly });
   } catch (err) {
-    console.error("Error fetching revenue data:", err);
+   
     res.status(500).json({ error: "Failed to compute revenue actuals" });
   }
 });
@@ -162,7 +162,7 @@ router.get("/expense", async (req, res) => {
 
     res.json({ type: "expense", data: monthly });
   } catch (err) {
-    console.error("Error fetching expense data:", err);
+    
     res.status(500).json({ error: "Failed to compute expense actuals" });
   }
 });
@@ -225,7 +225,7 @@ router.get("/net-income", async (req, res) => {
 
     res.json({ type: "net-income", data: net });
   } catch (err) {
-    console.error("Error fetching net income data:", err);
+    
     res.status(500).json({ error: "Failed to compute net income actuals" });
   }
 });
@@ -275,7 +275,7 @@ router.get("/cashflow", async (req, res) => {
 
     res.json({ type: "cashflow", data: monthly });
   } catch (err) {
-    console.error("Error fetching cashflow data:", err);
+    
     res.status(500).json({ error: "Failed to compute cashflow actuals" });
   }
 });

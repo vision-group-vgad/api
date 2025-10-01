@@ -101,7 +101,7 @@ router.get("/", (req, res) => {
       message: data.length ? "Setup time records retrieved successfully." : "No records found.",
     });
   } catch (error) {
-    console.error("Error fetching setup time records:", error);
+    
     res.status(500).json({
       success: false,
       message: "An error occurred while fetching setup time records.",

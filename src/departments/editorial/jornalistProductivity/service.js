@@ -30,7 +30,7 @@ const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
 
 // Optimized session data fetcher with larger chunks and higher concurrency
 async function getSessionDataChunked(startDate, endDate, chunkDays = 14) {
-  console.log(`Getting session data in ${chunkDays}-day chunks from ${startDate} to ${endDate}`);
+  
 
   const start = new Date(startDate);
   const end = new Date(endDate);
@@ -50,17 +50,17 @@ async function getSessionDataChunked(startDate, endDate, chunkDays = 14) {
     currentDate.setDate(currentDate.getDate() + chunkDays);
   }
 
-  console.log(`Processing ${chunks.length} chunks concurrently...`);
+  
 
   // Process all chunks concurrently
   const promises = chunks.map(async (chunk, index) => {
     try {
       const url = `https://cms-vgad.visiongroup.co.ug/api/api-listings/article-session-duration/${chunk.start}/${chunk.end}`;
       const response = await axiosInstance.get(url);
-      console.log(`Chunk ${index + 1} complete: ${response.data.data.length} records`);
+      
       return response.data.data;
     } catch (error) {
-      console.error(`Chunk ${index + 1} failed: ${error.message}`);
+     
       return [];
     }
   });
@@ -89,12 +89,12 @@ async function fetchAllArticles(startDate, endDate, maxConcurrency = 8) {
     articlesCacheTimestamp &&
     Date.now() - articlesCacheTimestamp < CACHE_DURATION
   ) {
-    console.log("Using cached articles data");
+    
     return articlesCache;
   }
 
   try {
-    console.log(`Fetching articles from ${startDate} to ${endDate} with optimized concurrency...`);
+    
 
     const firstRes = await axiosInstance.get(
       `https://cms-vgad.visiongroup.co.ug/api/api-listings/articles/${startDate}/${endDate}/0`
@@ -102,7 +102,7 @@ async function fetchAllArticles(startDate, endDate, maxConcurrency = 8) {
 
     const totalCount = firstRes.data.meta.totalCount;
     const totalPages = Math.ceil(totalCount / 10);
-    console.log(`Total articles: ${totalCount}, Total pages: ${totalPages}`);
+    
 
     const results = [...firstRes.data.data];
 
@@ -122,13 +122,11 @@ async function fetchAllArticles(startDate, endDate, maxConcurrency = 8) {
       batches.push(pageOffsets.slice(i, i + batchSize));
     }
 
-    console.log(
-      `Processing ${batches.length} batches with ${maxConcurrency} concurrent requests each...`
-    );
+    
 
     for (let batchIndex = 0; batchIndex < batches.length; batchIndex++) {
       const batch = batches[batchIndex];
-      console.log(`Batch ${batchIndex + 1}/${batches.length} - fetching ${batch.length} pages`);
+      
 
       const promises = batch.map(async (offset) => {
         try {
@@ -137,7 +135,7 @@ async function fetchAllArticles(startDate, endDate, maxConcurrency = 8) {
           );
           return response.data.data;
         } catch (err) {
-          console.error(`Failed to fetch offset ${offset}:`, err.message);
+          
           return [];
         }
       });
@@ -150,7 +148,7 @@ async function fetchAllArticles(startDate, endDate, maxConcurrency = 8) {
       }
     }
 
-    console.log(`Successfully fetched ${results.length} articles`);
+   
 
     // Cache the results
     articlesCache = results;
@@ -158,7 +156,7 @@ async function fetchAllArticles(startDate, endDate, maxConcurrency = 8) {
 
     return results;
   } catch (error) {
-    console.error("Error in fetchAllArticles:", error.message);
+    
     throw error;
   }
 }
@@ -260,7 +258,7 @@ export async function getJournalistProductivity({
     };
 
   } catch (err) {
-    console.error("Error fetching journalist productivity:", err.message);
+    
     return { success: false, error: err.message };
   }
 }
@@ -310,7 +308,7 @@ export async function getDummyJournalistProductivity({
       data,
     };
   } catch (err) {
-    console.error("Error fetching dummy journalist productivity:", err.message);
+    
     return { success: false, error: err.message };
   }
 }

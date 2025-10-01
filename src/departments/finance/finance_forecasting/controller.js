@@ -132,7 +132,7 @@ router.get("/", async (req, res) => {
     });
 
     const allEntries = response.data.data || [];
-    console.log(`Fetched ${allEntries.length} entries`);
+   
 
     const simplified = allEntries.map((entry) => {
       const attr = entry.attributes;
@@ -173,7 +173,7 @@ router.get("/", async (req, res) => {
       data: filtered,
     });
   } catch (error) {
-    console.error("Error fetching GL data:", error.message);
+    
     res.status(500).json({ error: "Failed to fetch GL data" });
   }
 });

@@ -43,7 +43,7 @@ class InfrastructureService {
     this.apiClient.interceptors.response.use(
       (response) => response,
       (error) => {
-        console.error('API Error:', error.response?.data || error.message);
+        
         throw error;
       }
     );
@@ -59,7 +59,7 @@ class InfrastructureService {
       return this.transformCpuMemoryData(response.data);
     } catch (error) {
       // Fallback to dummy data during development
-      console.warn('Using dummy data - API not available:', error.message);
+      
       return this.getDummyCpuMemoryData();
     }
   }
@@ -71,7 +71,7 @@ class InfrastructureService {
       const response = await this.apiClient.get('/infrastructure/latency-trends');
       return this.transformLatencyData(response.data);
     } catch (error) {
-      console.warn('Using dummy data - API not available:', error.message);
+      
       return this.getDummyLatencyData();
     }
   }
@@ -83,7 +83,7 @@ class InfrastructureService {
       const response = await this.apiClient.get('/infrastructure/asset-status');
       return this.transformAssetData(response.data);
     } catch (error) {
-      console.warn('Using dummy data - API not available:', error.message);
+      
       return this.getDummyAssetData();
     }
   }

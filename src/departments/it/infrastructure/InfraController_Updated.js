@@ -9,7 +9,7 @@ export const getCpuMemoryTrends = async (req, res) => {
     const data = await InfrastructureService.getCpuMemoryTrends();
     res.status(200).json({ success: true, data });
   } catch (error) {
-    console.error('Error fetching CPU/Memory trends:', error);
+    
     res.status(500).json({ 
       success: false, 
       error: 'Failed to fetch CPU and memory trends',

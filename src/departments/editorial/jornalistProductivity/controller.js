@@ -20,7 +20,7 @@ export const getProductivity = async (req, res) => {
 
     res.json(result);
   } catch (error) {
-    console.error("Error fetching productivity:", error);
+    
     res.status(500).json({
       success: false,
       message: "Failed to fetch journalist productivity",
@@ -43,7 +43,7 @@ export const getDummyProductivity = async (req, res) => {
 
     res.json(result);
   } catch (error) {
-    console.error("Error fetching dummy productivity:", error);
+    
     res.status(500).json({
       success: false,
       message: "Failed to fetch dummy journalist productivity",
