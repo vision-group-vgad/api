@@ -1,9 +1,89 @@
-
 import express from "express";
 import Jwt from "../auth/jwt.js";
 import { askAIHandler, askAIChatHandler } from "./aiController.js";
 
 const router = express.Router();
+
+/**
+ * @swagger
+ * /api/v1/ai/ask:
+ *   post:
+ *     summary: Ask a question to Gemini AI
+ *     description: Sends a user question (and optional financial data) to Gemini and returns an AI-generated response.
+ *     tags: [AI Analytics]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               question:
+ *                 type: string
+ *                 description: The question to ask Gemini AI.
+ *                 example: "Summarize our sales performance this month."
+ *               data:
+ *                 type: object
+ *                 description: Optional structured financial data to provide context.
+ *                 example:
+ *                   revenue: 120000
+ *                   expenses: 45000
+ *                   profit: 75000
+ *     responses:
+ *       200:
+ *         description: AI-generated response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 answer:
+ *                   type: string
+ *                   example: "The company generated $120,000 in revenue with $45,000 in expenses, resulting in $75,000 profit."
+ *       400:
+ *         description: Bad request (invalid input)
+ *       500:
+ *         description: Server error (Gemini API call failed)
+ */
+router.post("/ask", async (req, res) => {
+  const { question, data } = req.body;
+  try {
+    const payload = {
+      contents: [
+        {
+          parts: [
+            {
+              text: data
+                ? `Here is financial data: ${JSON.stringify(data).slice(
+                    0,
+                    2000
+                  )}\n\nQuestion: ${question}`
+                : question,
+            },
+          ],
+        },
+      ],
+    };
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-goog-api-key": process.env.GOOGLE_API_KEY,
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+    const json = await response.json();
+    const answer =
+      json?.candidates?.[0]?.content?.parts?.[0]?.text ?? "No response";
+    res.json({ answer });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to call Gemini API" });
+  }
+});
 
 // Register the /chat endpoint for chat-like summary responses
 router.post("/chat", Jwt.verifyToken, askAIChatHandler);
@@ -16,11 +96,11 @@ router.post("/chat", Jwt.verifyToken, askAIChatHandler);
  *     description: |
  *       This endpoint provides a chat-like, conversational summary in response to a natural language question.
  *       It returns only a direct summary and a follow-up prompt, without detailed analytics, KPIs, or charts unless requested.
- *       
+ *
  *       **Use Case:**
  *       - For chat UIs and conversational analytics where users want a quick, human-friendly summary.
  *       - Users can ask follow-up questions or request more details to expand the analytics.
- *       
+ *
  *       **Security Features:**
  *       - JWT-based authentication required
  *       - Department and position-based authorization
@@ -134,28 +214,26 @@ router.post("/chat", Jwt.verifyToken, askAIChatHandler);
  *                   example: "service_error"
  */
 
-
-
 /**
  * @swagger
  * /api/v1/ai/query:
  *   post:
  *     summary: Ask a question in natural language and get analytics results using DeepSeek AI
  *     description: |
- *       This endpoint uses DeepSeek AI to interpret natural language questions and return relevant 
+ *       This endpoint uses DeepSeek AI to interpret natural language questions and return relevant
  *       analytics data from across all Vision Group departments. The system includes comprehensive
- *       role-based access control (RBAC) that ensures users only see data appropriate to their 
+ *       role-based access control (RBAC) that ensures users only see data appropriate to their
  *       department and position level.
- *       
+ *
  *       **Supported Departments:**
  *       - Editorial: Content performance, readership trends, journalist productivity
- *       - Finance: Revenue analysis, budget variance, ROI analysis  
+ *       - Finance: Revenue analysis, budget variance, ROI analysis
  *       - Sales: Campaign performance, client lifetime value, territory performance
  *       - Operations: Production yield, delivery timelines, resource utilization
  *       - IT: Server health, storage utilization, cyber security posture
  *       - Administrative: Meeting analytics, task completion rates, visitor patterns
  *       - Executive: Company-wide KPIs, strategic initiatives, market share
- *       
+ *
  *       **Access Control:**
  *       - Users can access their own department data (full access)
  *       - Cross-department access based on role and business needs
@@ -163,7 +241,7 @@ router.post("/chat", Jwt.verifyToken, askAIChatHandler);
  *       - Managers get enhanced cross-department access
  *       - Sensitive data automatically filtered based on permissions
  *       - All access attempts are logged for audit purposes
- *       
+ *
  *       **Security Features:**
  *       - JWT-based authentication required
  *       - Department and position-based authorization
@@ -326,7 +404,7 @@ router.post("/query", Jwt.verifyToken, askAIHandler);
  *   get:
  *     summary: Get user's access permissions and available analytics
  *     description: |
- *       Returns information about what analytics and departments the current user 
+ *       Returns information about what analytics and departments the current user
  *       can access based on their role and department.
  *     tags: [AI Analytics]
  *     security:
@@ -381,99 +459,115 @@ router.post("/query", Jwt.verifyToken, askAIHandler);
 router.get("/access-info", Jwt.verifyToken, (req, res) => {
   try {
     const user = req.user;
-    
+
     // Get department access rules
     const DEPARTMENT_ACCESS_MATRIX = {
-      "executive": {
-        allowedDepartments: ["finance", "editorial", "sales", "operations", "it", "administrative", "executive"],
+      executive: {
+        allowedDepartments: [
+          "finance",
+          "editorial",
+          "sales",
+          "operations",
+          "it",
+          "administrative",
+          "executive",
+        ],
         restrictions: [],
         suggestedQuestions: [
           "What's our overall company performance?",
           "Show me executive KPIs",
           "What's our market share?",
-          "How are all departments performing?"
-        ]
+          "How are all departments performing?",
+        ],
       },
-      "finance": {
+      finance: {
         allowedDepartments: ["finance", "executive"],
         crossDepartmentAccess: {
-          "sales": ["revenue_metrics", "financial_performance"],
-          "operations": ["cost_metrics", "budget_performance"]
+          sales: ["revenue_metrics", "financial_performance"],
+          operations: ["cost_metrics", "budget_performance"],
         },
         restrictions: ["editorial.personal_data", "sales.client_personal_data"],
         suggestedQuestions: [
           "What's our revenue performance this quarter?",
           "Show me budget variance reports",
           "What are our financial close metrics?",
-          "How's our cash flow looking?"
-        ]
+          "How's our cash flow looking?",
+        ],
       },
-      "editorial": {
+      editorial: {
         allowedDepartments: ["editorial", "administrative"],
         crossDepartmentAccess: {
-          "sales": ["content_performance_metrics"],
-          "administrative": ["content_workflow_metrics"]
+          sales: ["content_performance_metrics"],
+          administrative: ["content_workflow_metrics"],
         },
         restrictions: ["finance.detailed_financials", "it.security_details"],
         suggestedQuestions: [
           "How's our content performance?",
           "What's our article publication rate?",
           "Show me readership trends",
-          "What's our content engagement rate?"
-        ]
+          "What's our content engagement rate?",
+        ],
       },
-      "sales": {
+      sales: {
         allowedDepartments: ["sales", "administrative"],
         crossDepartmentAccess: {
-          "editorial": ["published_content_metrics"],
-          "finance": ["revenue_targets"]
+          editorial: ["published_content_metrics"],
+          finance: ["revenue_targets"],
         },
-        restrictions: ["finance.detailed_financials", "editorial.unpublished_content"],
+        restrictions: [
+          "finance.detailed_financials",
+          "editorial.unpublished_content",
+        ],
         suggestedQuestions: [
           "What's our sales performance?",
           "Show me conversion funnel data",
           "How are our campaigns performing?",
-          "What's our client lifetime value?"
-        ]
+          "What's our client lifetime value?",
+        ],
       },
-      "it": {
+      it: {
         allowedDepartments: ["it", "administrative", "operations"],
         crossDepartmentAccess: {
-          "finance": ["system_costs"],
-          "operations": ["system_performance"]
+          finance: ["system_costs"],
+          operations: ["system_performance"],
         },
-        restrictions: ["finance.financial_details", "editorial.content_details"],
+        restrictions: [
+          "finance.financial_details",
+          "editorial.content_details",
+        ],
         suggestedQuestions: [
           "What's our server health status?",
           "Show me storage utilization",
           "How's our system performance?",
-          "What are our infrastructure costs?"
-        ]
-      }
+          "What are our infrastructure costs?",
+        ],
+      },
     };
-    
+
     const userDept = user.department?.toLowerCase() || "administrative";
-    const accessInfo = DEPARTMENT_ACCESS_MATRIX[userDept] || DEPARTMENT_ACCESS_MATRIX["administrative"];
-    
+    const accessInfo =
+      DEPARTMENT_ACCESS_MATRIX[userDept] ||
+      DEPARTMENT_ACCESS_MATRIX["administrative"];
+
     res.json({
       success: true,
       user: {
         department: user.department,
         position: user.position,
         name: `${user.firstName} ${user.lastName}`,
-        email: user.email
+        email: user.email,
       },
       accessPermissions: {
         allowedDepartments: accessInfo.allowedDepartments,
         crossDepartmentAccess: accessInfo.crossDepartmentAccess || {},
-        restrictions: accessInfo.restrictions || []
+        restrictions: accessInfo.restrictions || [],
       },
-      suggestedQuestions: accessInfo.suggestedQuestions || []
+      suggestedQuestions: accessInfo.suggestedQuestions || [],
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
 });
@@ -521,43 +615,45 @@ router.get("/access-info", Jwt.verifyToken, (req, res) => {
 router.get("/health", (req, res) => {
   try {
     const isConfigured = process.env.DEEPSEEK_API_KEY ? true : false;
-    
+
     res.json({
       success: true,
       status: isConfigured ? "configured" : "needs_configuration",
       aiProvider: "DeepSeek",
       model: process.env.DEEPSEEK_MODEL || "deepseek-chat",
-      apiUrl: process.env.DEEPSEEK_API_URL || "https://api.deepseek.com/v1/chat/completions",
+      apiUrl:
+        process.env.DEEPSEEK_API_URL ||
+        "https://api.deepseek.com/v1/chat/completions",
       features: [
         "Natural Language Processing",
-        "Role-Based Access Control", 
+        "Role-Based Access Control",
         "Multi-Department Analytics",
         "Data Filtering",
         "Access Logging",
-        "Cross-Department Permissions"
+        "Cross-Department Permissions",
       ],
       supportedDepartments: [
         "finance",
-        "editorial", 
+        "editorial",
         "sales",
         "operations",
         "it",
         "administrative",
-        "executive"
+        "executive",
       ],
       accessControlEnabled: true,
       dataFilteringEnabled: true,
       configuration: {
         deepseekConfigured: isConfigured,
         databaseConfigured: process.env.DATABASE_URL ? true : false,
-        cmsApiConfigured: process.env.CMC_API_BASE_URL ? true : false
-      }
+        cmsApiConfigured: process.env.CMC_API_BASE_URL ? true : false,
+      },
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       message: "AI service health check failed",
-      error: error.message
+      error: error.message,
     });
   }
 });
@@ -568,10 +664,10 @@ router.get("/health", (req, res) => {
  *   post:
  *     summary: Generate PDF report from AI query results
  *     description: |
- *       Generates a professionally formatted PDF report from AI analytics results. 
- *       The report includes KPIs, data tables, executive summaries, and insights 
+ *       Generates a professionally formatted PDF report from AI analytics results.
+ *       The report includes KPIs, data tables, executive summaries, and insights
  *       in a print-ready format suitable for presentations and documentation.
- *       
+ *
  *       **Report Features:**
  *       - Executive summary with business insights
  *       - KPI cards with visual indicators
@@ -635,56 +731,62 @@ router.get("/health", (req, res) => {
 router.post("/report/generate", Jwt.verifyToken, async (req, res) => {
   try {
     const { question, reportOptions = {} } = req.body;
-    
-    if (!question || typeof question !== 'string' || question.trim().length === 0) {
+
+    if (
+      !question ||
+      typeof question !== "string" ||
+      question.trim().length === 0
+    ) {
       return res.status(400).json({
         success: false,
         message: "Question is required and must be a non-empty string",
-        type: "validation_error"
+        type: "validation_error",
       });
     }
 
     // First get the AI analytics data
     const aiResponse = await askAIHandler(req, res, true); // Pass true to return data instead of sending response
-    
+
     if (!aiResponse.success) {
       return res.status(500).json({
         success: false,
         message: "Failed to generate analytics data for report",
         type: "ai_error",
-        details: aiResponse.message
+        details: aiResponse.message,
       });
     }
 
     // Import report generator
-    const { default: reportGenerator } = await import('./reportGenerator.js');
-    
+    const { default: reportGenerator } = await import("./reportGenerator.js");
+
     // Generate PDF report
-    const pdfBuffer = await reportGenerator.generatePDFReport(aiResponse, reportOptions);
-    
+    const pdfBuffer = await reportGenerator.generatePDFReport(
+      aiResponse,
+      reportOptions
+    );
+
     // Set response headers for PDF download
     const timestamp = new Date().toISOString().slice(0, 10);
-    const department = aiResponse.department || 'analytics';
+    const department = aiResponse.department || "analytics";
     const filename = `${department}-report-${timestamp}.pdf`;
-    
+
     res.set({
-      'Content-Type': 'application/pdf',
-      'Content-Disposition': `attachment; filename="${filename}"`,
-      'Content-Length': pdfBuffer.length,
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache',
-      'Expires': '0'
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `attachment; filename="${filename}"`,
+      "Content-Length": pdfBuffer.length,
+      "Cache-Control": "no-cache, no-store, must-revalidate",
+      Pragma: "no-cache",
+      Expires: "0",
     });
 
     res.send(pdfBuffer);
-
   } catch (error) {
     console.error("Report generation error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to generate PDF report",
       type: "report_generation_error",
-      details: error.message
+      details: error.message,
     });
   }
 });
@@ -738,39 +840,45 @@ router.post("/report/generate", Jwt.verifyToken, async (req, res) => {
 router.post("/report/preview", Jwt.verifyToken, async (req, res) => {
   try {
     const { question, reportOptions = {} } = req.body;
-    
-    if (!question || typeof question !== 'string' || question.trim().length === 0) {
+
+    if (
+      !question ||
+      typeof question !== "string" ||
+      question.trim().length === 0
+    ) {
       return res.status(400).json({
         success: false,
-        message: "Question is required and must be a non-empty string"
+        message: "Question is required and must be a non-empty string",
       });
     }
 
     // Get AI analytics data
     const aiResponse = await askAIHandler(req, res, true);
-    
+
     if (!aiResponse.success) {
       return res.status(500).json({
         success: false,
-        message: "Failed to generate analytics data for preview"
+        message: "Failed to generate analytics data for preview",
       });
     }
 
     // Import report generator
-    const { default: reportGenerator } = await import('./reportGenerator.js');
-    
-    // Generate HTML content
-    const htmlContent = reportGenerator.generateHTMLReport(aiResponse, reportOptions);
-    
-    res.set('Content-Type', 'text/html');
-    res.send(htmlContent);
+    const { default: reportGenerator } = await import("./reportGenerator.js");
 
+    // Generate HTML content
+    const htmlContent = reportGenerator.generateHTMLReport(
+      aiResponse,
+      reportOptions
+    );
+
+    res.set("Content-Type", "text/html");
+    res.send(htmlContent);
   } catch (error) {
     console.error("Report preview error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to generate report preview",
-      details: error.message
+      details: error.message,
     });
   }
 });
