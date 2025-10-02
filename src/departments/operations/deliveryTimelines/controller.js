@@ -82,20 +82,21 @@ const router = express.Router();
 
 
 router.get("/", (req, res) => {
-  const { startDate, endDate, status, department } = req.query;
+  const { dispatcher, depot, startDate, endDate } = req.query;
 
-  const risks = getRisks({ startDate, endDate, status, department });
+ 
+  const deliveries = getAllDeliveries({ dispatcher, depot, startDate, endDate });
 
-  if (risks.length === 0) {
+  if (deliveries.length === 0) {
     return res.json({
-      message: "No risk records exist for the specified filter(s).",
+      message: "No delivery records exist for the specified filter(s).",
       data: [],
     });
   }
 
   res.json({
-    message: "Risk records retrieved successfully.",
-    data: risks,
+    message: "Delivery records retrieved successfully.",
+    data: deliveries,
   });
 });
 
