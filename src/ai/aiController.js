@@ -27,6 +27,11 @@ export const askAIHandler = async (req, res, returnData = false) => {
       userLevel: typeof result.userLevel === 'number' ? result.userLevel : null,
       data: Array.isArray(result.data) ? result.data : (result.data ? [result.data] : []),
       additionalInsights: Array.isArray(result.insights) ? result.insights : [],
+      insights: Array.isArray(result.insights) ? result.insights : [],
+      recommendations: Array.isArray(result.recommendations) ? result.recommendations : [],
+      narrative: result.narrative || result.explanation || '',
+      businessInsights: Array.isArray(result.businessInsights) ? result.businessInsights : [],
+      dataQuality: result.dataQuality,
       timestamp: result.timestamp || new Date().toISOString(),
       user: result.user || null,
       kpis: Array.isArray(result.kpis) ? result.kpis : [],
@@ -92,7 +97,14 @@ export const askAIChatHandler = async (req, res) => {
       department: result.department,
       confidence: result.confidence,
       filters: result.filters,
-      question: result.question
+      question: result.question,
+      // Enhanced narrative fields
+      insights: Array.isArray(result.insights) ? result.insights : [],
+      recommendations: Array.isArray(result.recommendations) ? result.recommendations : [],
+      narrative: result.narrative || result.explanation || '',
+      businessInsights: Array.isArray(result.businessInsights) ? result.businessInsights : [],
+      dataQuality: result.dataQuality,
+      explanation: result.explanation || ''
     });
   } catch (err) {
     res.status(500).json({
