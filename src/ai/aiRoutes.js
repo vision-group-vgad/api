@@ -54,7 +54,7 @@ router.post("/ask", async (req, res) => {
           parts: [
             {
               text: data
-                ? `Here is financial data: ${JSON.stringify(data).slice(
+                ? `Here is data: ${JSON.stringify(data).slice(
                     0,
                     2000
                   )}\n\nQuestion: ${question}`
