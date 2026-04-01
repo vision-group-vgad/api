@@ -2,60 +2,33 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export default class RVSAnalyticsService {
-  static async getCombinedOverview(department) {
+  static async getOverview(department) {
     try {
-      // Simulate fetching from multiple APIs / DB
-      const resources = {
-        totalResources: 120,
-        allocatedResources: 95,
-        availableResources: 25,
-        avgUtilizationRate: 78.33,
-        totalMonthlyCost: 540000,
-        avgEnergyConsumption: 320.5,
-      };
+      const url = new URL(process.env.VGAD_RVS_API_URL);
 
-      const spaces = {
-        totalSpaces: 50,
-        totalArea: 100000,
-        allocatedArea: 76000,
-        vacantArea: 24000,
-        avgOccupancyRate: 76.5,
-        totalSpaceCost: 1250000,
-        departments: 6,
-      };
-
-      const vendors = {
-        totalVendors: 30,
-        activeVendors: 24,
-        inactiveVendors: 6,
-        totalContractValue: 4500000,
-        totalActualCost: 4100000,
-        costVariance: 400000,
-      };
-
-      // Filter logic example (you can replace with real DB queries)
-      if (department !== "All") {
-        // Here you can filter each section based on department
-        // For demo, we'll just append department to summary
-        resources.department = department;
-        spaces.department = department;
-        vendors.department = department;
+      // Optional filter
+      if (department && department !== "All") {
+        url.searchParams.append("department", department);
       }
 
-      const summary = {
-        totalResources: resources.totalResources,
-        totalSpaces: spaces.totalSpaces,
-        totalVendors: vendors.totalVendors,
-        totalMonthlyCost:
-          resources.totalMonthlyCost + spaces.totalSpaceCost + vendors.totalActualCost,
-        overallUtilizationRate: resources.avgUtilizationRate,
-        overallOccupancyRate: spaces.avgOccupancyRate,
-      };
+      const response = await fetch(url.toString(), {
+        headers: {
+          "x-api-key": process.env.VGAD_API_KEY,
+          Accept: process.env.VGAD_ACCEPT,
+        },
+      });
 
-      return { resources, spaces, vendors, summary };
-    } catch (err) {
-      console.error("RVS Analytics Service Error:", err);
-      throw err;
+      if (!response.ok) {
+        throw new Error(`API responded with ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      return data;
+
+    } catch (error) {
+      console.error("RVS Service Error:", error);
+      throw error;
     }
   }
 }
