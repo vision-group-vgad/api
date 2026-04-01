@@ -1,6 +1,5 @@
 import express from "express";
 import { getVisitorPatterns } from "./visitorPatternController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const visitorPatternRoute = express.Router();
 
@@ -139,6 +138,6 @@ const visitorPatternRoute = express.Router();
  *       500:
  *         description: Server error
  */
-visitorPatternRoute.get("/", Jwt.verifyToken, getVisitorPatterns);
+visitorPatternRoute.get("/",  getVisitorPatterns);
 
 export default visitorPatternRoute;
