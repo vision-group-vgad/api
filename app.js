@@ -120,8 +120,8 @@ import firebaseUserRouter from "./src/config/firebase/firebase-user-routes.js";
 import retentionRiskRoute from "./src/departments/specialized/retentionRisk/controller.js";
 import feedbackRoute from "./src/departments/specialized/feedback/feedbackRoute.js";
 import trainingEffectivenessRoute from "./src/departments/specialized/trainingEffectiveness/controller.js";
-import AccessController from "./src/auth/access-controller.js";
-import Jwt from "./src/auth/jwt.js";
+// import AccessController from "./src/auth/access-controller.js";
+// import Jwt from "./src/auth/jwt.js";
 import pipelineRoute from "./src/departments/finance/pipeline-metrics/pipelineMetricsRoute.js";
 import userMgtRouter from "./src/config/firebase/firebase-user-mgt-routes.js";
 import dataGovernRouter from "./src/departments/specialized/data-governance/data-govern-routes.js";
@@ -136,22 +136,22 @@ const corsOption = {
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 };
-const excludePaths = (paths, ...middlewares) => {
-  return (req, res, next) => {
-    if (paths.some((p) => req.path.startsWith(p.replace(/\/$/, "")))) {
-      return next();
-    }
+// const excludePaths = (paths, ...middlewares) => {
+//   return (req, res, next) => {
+//     if (paths.some((p) => req.path.startsWith(p.replace(/\/$/, "")))) {
+//       return next();
+//     }
 
-    let i = 0;
-    const run = (err) => {
-      if (err) return next(err);
-      if (i >= middlewares.length) return next();
-      const current = middlewares[i++];
-      current(req, res, run);
-    };
-    run();
-  };
-};
+//     let i = 0;
+//     const run = (err) => {
+//       if (err) return next(err);
+//       if (i >= middlewares.length) return next();
+//       const current = middlewares[i++];
+//       current(req, res, run);
+//     };
+//     run();
+//   };
+// };
 
 for (const path in swaggerSpec.paths) {
   for (const method in swaggerSpec.paths[path]) {
@@ -166,13 +166,13 @@ for (const path in swaggerSpec.paths) {
 
 app.use(cors(corsOption));
 app.use(express.json());
-app.use(
-  excludePaths(
-    ["/api/api-docs", "/api/v1/auth", "/assets/profile_pics", "/api/v1/ai"],
-    Jwt.verifyToken,
-    AccessController.authorizeRole()
-  )
-);
+// app.use(
+//   excludePaths(
+//     ["/api/api-docs", "/api/v1/auth", "/assets/profile_pics", "/api/v1/ai"],
+//     Jwt.verifyToken,
+//     AccessController.authorizeRole()
+//   )
+// );
 app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(
   "/assets/profile_pics",
