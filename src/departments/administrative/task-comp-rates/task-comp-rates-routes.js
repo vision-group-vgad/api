@@ -1,6 +1,5 @@
 import express from "express";
 import { validateRange } from "../../../utils/common/common-functionalities.js";
-import Jwt from "../../../auth/jwt.js";
 import TaskCompRatesController from "./TaskCompRatesController.js";
 
 const taskController = new TaskCompRatesController();
@@ -91,7 +90,7 @@ const taskRouter = express.Router();
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-taskRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+taskRouter.get("/in-range", async (req, res) => {
   let { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

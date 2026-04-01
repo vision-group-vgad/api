@@ -1,17 +1,18 @@
-import AdminSup from "../../../utils/common/AdminSup.js";
-import { data } from "./tasks-dummy.js";
+import TaskCompRatesService from "./TaskCompRatesService.js";
 
-class TaskCompRatesController {
-  #adminSup;
-  constructor() {
-    this.#adminSup = new AdminSup();
-  }
-
-  #processAnalytics() {}
-
+export default class TaskCompRatesController {
   async getInRangeAnalytics(startDate, endDate) {
-    return data;
+    try {
+      const data = await TaskCompRatesService.getInRangeAnalytics(
+        startDate,
+        endDate
+      );
+
+      return data;
+
+    } catch (error) {
+      console.error("Task Completion Controller Error:", error);
+      throw error;
+    }
   }
 }
-
-export default TaskCompRatesController;

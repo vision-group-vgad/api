@@ -1,5 +1,4 @@
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 import { getWaitTimeAnalytics } from "./waitTimeController.js";
 
 const waitTimeRoute = express.Router();
@@ -122,6 +121,6 @@ const waitTimeRoute = express.Router();
  *         description: Server error
  */
 
-waitTimeRoute.get("/", Jwt.verifyToken, getWaitTimeAnalytics);
+waitTimeRoute.get("/", getWaitTimeAnalytics);
 
 export default waitTimeRoute;

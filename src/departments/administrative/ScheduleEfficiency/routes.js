@@ -1,5 +1,5 @@
 import express from "express";
-import { getExecutiveMeetingSummary, getExecutiveTasks } from "./controller.js";
+// import { getExecutiveMeetingSummary, getExecutiveTasks } from "./controller.js";
 
 const router = express.Router();
 
@@ -57,7 +57,7 @@ const router = express.Router();
  *                   type: integer
  *                   example: 5
  */
-router.get("/summary", getExecutiveMeetingSummary);
+// router.get("/summary", getExecutiveMeetingSummary);
 
 /**
  * @swagger
@@ -110,6 +110,6 @@ router.get("/summary", getExecutiveMeetingSummary);
  *                   items:
  *                     type: object
  */
-router.get("/taskProgress", getExecutiveTasks);
+// router.get("/taskProgress", getExecutiveTasks);
 
 export default router;

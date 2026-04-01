@@ -6,7 +6,7 @@ export const getExecutiveMeetingAnalytics = async  (req, res) => {
         const data = await getMeetingAnalytics(startDate, endDate);
         res.json(data);
     }catch (error){
-        
+        console.error(error);
         res.status(500).json({error: "Failed to fetch meeting Analytics data"});
     }
 };
