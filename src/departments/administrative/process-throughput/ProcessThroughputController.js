@@ -1,16 +1,13 @@
-import AdminSup from "../../../utils/common/AdminSup.js";
-import { dummyTasks } from "./process-dummy.js";
+import ProcessThroughputService from "./process-service.js";
 
-class ProcessThrController {
-  #adminSup;
-  constructor() {
-    this.#adminSup = new AdminSup();
-  }
-
-  #processTasks(tasks) {}
-
+export default class ProcessThroughputController {
   async getInRangeTasks(startDate, endDate) {
-    return dummyTasks;
+    try {
+      const tasks = await ProcessThroughputService.getInRangeTasks(startDate, endDate);
+      return tasks;
+    } catch (error) {
+      console.error("Process Throughput Controller Error:", error);
+      throw error;
+    }
   }
 }
-export default ProcessThrController;
