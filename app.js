@@ -233,7 +233,7 @@ app.use(
   ExecutiveMeetingAnalyticsRoutes
 );
 app.use("/api/v1/editorial/deadline-compliance", deadlineCompliance);
-app.use("/api/v1/admnistrative/scheduleEfficiency", ScheduleEfficiencyRoutes);
+app.use("/api/v1/administrative/scheduleEfficiency", ScheduleEfficiencyRoutes);
 app.use("/api/v1/administrative/visitor-patterns", visionPatternRoute);
 app.use("/api/v1/administrative/rvsAnalytics", rvsAnalyticsRoutes);
 app.use("/api/v1/administrative/wait-time", waitTimeRoute);

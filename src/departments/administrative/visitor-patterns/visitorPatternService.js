@@ -1,21 +1,20 @@
 import dotenv from "dotenv";
+import buildVGADUrl from "../../../config/url_builder.js";
+
 dotenv.config();
 
 export default class VisitorPatternService {
   static async getVisitorPatterns(filters = {}) {
     try {
-      const url = new URL(process.env.VGAD_VISITOR_PATTERNS_API_URL);
+      const url = buildVGADUrl("administrator/visitor-patterns", {
+        department:
+          filters.department && filters.department !== "All"
+            ? filters.department
+            : undefined,
+        visitorType: filters.visitorType || undefined,
+      });
 
-      // Attach query params if present
-      if (filters.department) {
-        url.searchParams.append("department", filters.department);
-      }
-
-      if (filters.visitorType) {
-        url.searchParams.append("visitorType", filters.visitorType);
-      }
-
-      const response = await fetch(url.toString(), {
+      const response = await fetch(url, {
         headers: {
           "x-api-key": process.env.VGAD_API_KEY,
           Accept: process.env.VGAD_ACCEPT,
@@ -27,11 +26,10 @@ export default class VisitorPatternService {
       }
 
       const data = await response.json();
-
       return data;
-    } catch (err) {
-      console.error("Visitor Pattern Service Error:", err);
-      throw err;
+    } catch (error) {
+      console.error("Visitor Pattern Service Error:", error);
+      throw error;
     }
   }
 }

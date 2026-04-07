@@ -1,17 +1,16 @@
 import dotenv from "dotenv";
+import buildVGADUrl from "../../../config/url_builder.js";
+
 dotenv.config();
 
 export default class RVSAnalyticsService {
   static async getOverview(department) {
     try {
-      const url = new URL(process.env.VGAD_RVS_API_URL);
+      const url = buildVGADUrl("administrator/rvs-analytics", {
+        department: department && department !== "All" ? department : undefined,
+      });
 
-      // Optional filter
-      if (department && department !== "All") {
-        url.searchParams.append("department", department);
-      }
-
-      const response = await fetch(url.toString(), {
+      const response = await fetch(url, {
         headers: {
           "x-api-key": process.env.VGAD_API_KEY,
           Accept: process.env.VGAD_ACCEPT,
@@ -25,7 +24,6 @@ export default class RVSAnalyticsService {
       const data = await response.json();
 
       return data;
-
     } catch (error) {
       console.error("RVS Service Error:", error);
       throw error;

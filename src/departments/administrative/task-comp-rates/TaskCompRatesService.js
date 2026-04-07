@@ -1,19 +1,33 @@
 import dotenv from "dotenv";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween.js";
+import buildVGADUrl from "../../../config/url_builder.js";
 
 dotenv.config();
 dayjs.extend(isBetween);
 
+const filterTasksByDate = (tasks, startDate, endDate) => {
+  if (!startDate || !endDate) return tasks;
+
+  return tasks.filter((task) =>
+    dayjs(task.date_assigned).isBetween(
+      dayjs(startDate),
+      dayjs(endDate),
+      null,
+      "[]"
+    )
+  );
+};
+
 export default class TaskCompRatesService {
   static async getInRangeAnalytics(startDate, endDate) {
     try {
-      const url = new URL(process.env.VGAD_TASK_COMPLETION_API_URL);
+      const url = buildVGADUrl("administrator/task-completion", {
+        startDate,
+        endDate,
+      });
 
-      if (startDate) url.searchParams.append("startDate", startDate);
-      if (endDate) url.searchParams.append("endDate", endDate);
-
-      const response = await fetch(url.toString(), {
+      const response = await fetch(url, {
         headers: {
           "x-api-key": process.env.VGAD_API_KEY,
           Accept: process.env.VGAD_ACCEPT,
@@ -24,28 +38,23 @@ export default class TaskCompRatesService {
         throw new Error(`API responded with ${response.status}`);
       }
 
-      const json = await response.json();
+      const {
+        tasks = [],
+        dateRange,
+        analytics,
+      } = await response.json();
 
-      let tasks = json.tasks;
-
-      // Optional: local filtering (if API doesn’t fully enforce it)
-      if (startDate && endDate) {
-        tasks = tasks.filter(task =>
-          dayjs(task.date_assigned).isBetween(
-            dayjs(startDate),
-            dayjs(endDate),
-            null,
-            "[]"
-          )
-        );
-      }
+      const filteredTasks = filterTasksByDate(
+        tasks,
+        startDate,
+        endDate
+      );
 
       return {
-        dateRange: json.dateRange,
-        analytics: json.analytics,
-        tasks,
+        dateRange,
+        analytics,
+        tasks: filteredTasks,
       };
-
     } catch (error) {
       console.error("Task Completion Service Error:", error);
       throw error;

@@ -1,15 +1,33 @@
 import dotenv from "dotenv";
-dotenv.config();
 import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween.js";
+import buildVGADUrl from "../../../config/url_builder.js";
+
+dotenv.config();
+dayjs.extend(isBetween);
+
+const filterTasksByDate = (tasks, startDate, endDate) => {
+  if (!startDate || !endDate) return tasks;
+
+  return tasks.filter((task) =>
+    dayjs(task.request_date).isBetween(
+      dayjs(startDate),
+      dayjs(endDate),
+      null,
+      "[]"
+    )
+  );
+};
 
 export default class ProcessThroughputService {
   static async getInRangeTasks(startDate, endDate) {
     try {
-      const url = new URL(process.env.VGAD_THROUGH_PUT_API_URL);
-      if (startDate) url.searchParams.append("startDate", startDate);
-      if (endDate) url.searchParams.append("endDate", endDate);
+      const url = buildVGADUrl("administrator/process-throughput", {
+        startDate,
+        endDate,
+      });
 
-      const response = await fetch(url.toString(), {
+      const response = await fetch(url, {
         headers: {
           "x-api-key": process.env.VGAD_API_KEY,
           Accept: process.env.VGAD_ACCEPT,
@@ -20,21 +38,12 @@ export default class ProcessThroughputService {
         throw new Error(`API responded with ${response.status}`);
       }
 
-      const json = await response.json();
-      const tasks = json.data;
+      const { data: tasks = [] } = await response.json();
 
-      // Optional: filter again locally if API doesn't handle it
-      let filteredTasks = tasks;
-      if (startDate && endDate) {
-        filteredTasks = tasks.filter(task =>
-          dayjs(task.request_date).isBetween(dayjs(startDate), dayjs(endDate), null, "[]")
-        );
-      }
-
-      return filteredTasks;
-    } catch (err) {
-      console.error("Process Throughput Service Error:", err);
-      throw err;
+      return filterTasksByDate(tasks, startDate, endDate);
+    } catch (error) {
+      console.error("Process Throughput Service Error:", error);
+      throw error;
     }
   }
 }
