@@ -67,7 +67,7 @@ const compyWideRouter = express.Router();
  *       500:
  *         description: Server error
  */
-compyWideRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+compyWideRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

@@ -1,10 +1,9 @@
 import { getInfrastructureCosts } from "./service.js";
 
-export const fetchInfrastructureCosts = (req, res) => {
+export const fetchInfrastructureCosts = async (req, res) => {
   try {
     const { category, startDate, endDate } = req.query;
-
-    const costs = getInfrastructureCosts({ category, startDate, endDate });
+    const costs = await getInfrastructureCosts({ category, startDate, endDate });
 
     res.status(200).json({
       success: true,

@@ -82,6 +82,6 @@ const financialHealthRoute = express.Router();
  *       500:
  *         description: Server error
  */
-financialHealthRoute.get("/", Jwt.verifyToken, getFinancialHealth);
+financialHealthRoute.get("/", getFinancialHealth);
 
 export default financialHealthRoute;

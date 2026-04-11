@@ -85,7 +85,7 @@ const readershipRouter = express.Router();
  *       404:
  *         description: No data found for the requested year
  */
-readershipRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
+readershipRouter.get("/annual", async (req, res) => {
   let { year } = req.query;
   year = parseInt(year);
 
@@ -186,7 +186,7 @@ readershipRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
  *       404:
  *         description: No data found for the requested range. Only Jan–April 2025 is available.
  */
-readershipRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+readershipRouter.get("/in-range", async (req, res) => {
   let { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

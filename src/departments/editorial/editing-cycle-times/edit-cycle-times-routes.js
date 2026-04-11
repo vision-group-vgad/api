@@ -81,7 +81,7 @@ const editCycTimesController = new EditCycTimesController();
  *       500:
  *         description: Internal server error
  */
-editCycTimesRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
+editCycTimesRouter.get("/annual", async (req, res) => {
   const { year } = req.query;
 
   validateYear(year, res);
@@ -188,7 +188,7 @@ editCycTimesRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
  *       404:
  *         description: No data found for the requested range. Only Jan–April 2025 is available.
  */
-editCycTimesRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+editCycTimesRouter.get("/in-range", async (req, res) => {
   let { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

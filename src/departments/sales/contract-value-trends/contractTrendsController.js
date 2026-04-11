@@ -1,9 +1,24 @@
 import { generateContractValueTrends } from "./contractTrendsData.js";
+import SalesMarketing from "../../../utils/common/SalesMkting.js";
 
-export function getContractValueTrends(req, res) {
+const salesMarketing = new SalesMarketing();
+
+export async function getContractValueTrends(req, res) {
   try {
     const { campaign, channel, startDate, endDate, leadStage } = req.query;
-    const rawData = generateContractValueTrends(500);
+    let rawData;
+
+    try {
+      rawData = await salesMarketing.getContractValueTrendsData(startDate, endDate);
+    } catch (error) {
+      console.warn("Using fallback contract-trends data:", error.message);
+      rawData = generateContractValueTrends(500);
+    }
+
+    if (!rawData || !rawData.contractValueTrendsByChannel ||
+      Object.keys(rawData.contractValueTrendsByChannel).length === 0) {
+      rawData = generateContractValueTrends(500);
+    }
 
     // Flatten all data into a single array
     let allData = [];

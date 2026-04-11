@@ -12,7 +12,7 @@
 // const __dirname = path.dirname(__filename);
 
 // //GET user account data
-// router.get("/", Jwt.verifyToken, async (req, res) => {
+// router.get("/", async (req, res) => {
 //   const { firstName, lastName, email, role, department } = req.user;
 
 //   try {
@@ -36,7 +36,7 @@
 // });
 
 // // POST upload or update image
-// router.post("/", Jwt.verifyToken, upload.single("image"), async (req, res) => {
+// router.post("/", upload.single("image"), async (req, res) => {
 //   try {
 //     const email = req.user?.email;
 //     if (!email)

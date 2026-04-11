@@ -1,11 +1,28 @@
 import { rateCardData } from "./dummy.js";
+import SalesMarketing from "../../../utils/common/SalesMkting.js";
+
+const salesMarketing = new SalesMarketing();
 
 /**
  * Calculate Rate Card Utilization
  * Filters: channel, placementId, month
  */
-export const getRateCardUtilization = (filters = {}) => {
-  let data = rateCardData;
+export const getRateCardUtilization = async (filters = {}) => {
+  let data = [];
+
+  try {
+    data = await salesMarketing.getRateCardUtilizationData(
+      filters.startDate,
+      filters.endDate
+    );
+  } catch (error) {
+    console.warn("Using fallback rate-card data:", error.message);
+    data = rateCardData;
+  }
+
+  if (!Array.isArray(data) || data.length === 0) {
+    data = rateCardData;
+  }
 
   if (filters.channel) {
     data = data.filter(d => d.channel.toLowerCase() === filters.channel.toLowerCase());

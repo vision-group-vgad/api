@@ -1,10 +1,36 @@
 import { generateSatisfactionFeedback } from "./userSatisficationData.js";
+import IT from "../../../utils/common/IT.js";
 
+const _it = new IT();
 const satisfactionLevels = ["Unsatisfied", "Neutral", "Satisfied"];
 
-export const generateSatisfactionFeedbackController = (req, res) => {
+export const generateSatisfactionFeedbackController = async (req, res) => {
   try {
-    const data = generateSatisfactionFeedback(300);
+    let data;
+    try {
+      const liveData = await _it.fetchLiveData('/it/user-satisfaction');
+      if (Array.isArray(liveData) && liveData.length > 0) {
+        // Normalize live CMC fields → generated-data field names used below
+        data = liveData.map(d => {
+          const score = d.satisfactionScore ?? d.Satisfaction_Score;
+          const level = typeof score === 'number'
+            ? (score >= 4 ? 'Satisfied' : score >= 3 ? 'Neutral' : 'Unsatisfied')
+            : (d.Satisfaction_Score || 'Neutral');
+          return {
+            ...d,
+            Department: d.respondentDepartment || d.Department || 'Unknown',
+            Role: d.serviceType || d.Role || 'Unknown',
+            Satisfaction_Score: level,
+            Feedback_Text: d.comments || d.Feedback_Text || 'No comment',
+          };
+        });
+      } else {
+        data = generateSatisfactionFeedback(300);
+      }
+    } catch (err) {
+      console.warn('[UserSatisfaction] Live fetch failed, using generated data:', err.message);
+      data = generateSatisfactionFeedback(300);
+    }
 
     let filtered = data;
     const { department, role, satisfaction } = req.query;

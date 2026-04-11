@@ -44,7 +44,7 @@
 //  *       500:
 //  *         description: Failed to create notification
 //  */
-// // notificationRouter.post("/create", Jwt.verifyToken, async (req, res) => {
+// // notificationRouter.post("/create", async (req, res) => {
 // //   const { recepient, body } = req.body;
 // // const result = await notificationController.createNotification(
 // //   recepient,
@@ -112,7 +112,7 @@
 //  *       500:
 //  *         description: Failed to mark as read
 //  */
-// // notificationRouter.put("/mark-as-read", Jwt.verifyToken, async (req, res) => {
+// // notificationRouter.put("/mark-as-read", async (req, res) => {
 // //   const { id } = req.body;
 // //   const result = await notificationController.markAsRead(id);
 // //   res.json(result);
@@ -180,7 +180,7 @@
 //  *       500:
 //  *         description: Failed to unmark notification
 //  */
-// // notificationRouter.put("/unmark", Jwt.verifyToken, async (req, res) => {
+// // notificationRouter.put("/unmark", async (req, res) => {
 // //   const { id } = req.body;
 // //   const result = await notificationController.unmark(id);
 // //   res.json(result);
@@ -212,7 +212,7 @@
 // //  *       500:
 // //  *         description: Failed to delete notification
 // //  */
-// // notificationRouter.delete("/delete", Jwt.verifyToken, async (req, res) => {
+// // notificationRouter.delete("/delete", async (req, res) => {
 // //   const { id } = req.body;
 // //   const result = await notificationController.deleteNotification(id);
 // //   res.json(result);

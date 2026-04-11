@@ -147,6 +147,7 @@
       "/api/v1/sales/SupervisorSalesAnalytics/account-penetration/kpis",
       "/api/v1/sales/SupervisorSalesAnalytics/corporate-account-health",
       "/api/v1/sales/SupervisorSalesAnalytics/corporate-account-health/kpis",
+      "/api/sales/supervisor-analytics",
       "/api/v1/operations/OperationsProductionAnalytics/production-yield",
       "/api/v1/operations/OperationsProductionAnalytics/production-yield/kpis",
       "/api/v1/operations/OperationsProductionAnalytics/machine-oee",
@@ -490,6 +491,7 @@
   },
   {
     "head-of-sales": [
+      "/api/v1/sales/SupervisorSalesAnalytics",
       "/api/v1/sales/revenue-attribution/in-range",
       "/api/v1/sales/client-lifetime-value/in-range",
       "/api/v1/sales/territory-performance/in-range",
@@ -513,6 +515,7 @@
       "/api/v1/sales/SupervisorSalesAnalytics/account-penetration/kpis",
       "/api/v1/sales/SupervisorSalesAnalytics/corporate-account-health",
       "/api/v1/sales/SupervisorSalesAnalytics/corporate-account-health/kpis",
+      "/api/sales/supervisor-analytics",
       "/api/v1/sales/contract-value-trends"
     ]
   },
@@ -532,6 +535,7 @@
   },
   {
     "sales-manager": [
+      "/api/v1/sales/SupervisorSalesAnalytics",
       "/api/v1/sales/SupervisorSalesAnalytics/pipeline-velocity",
       "/api/v1/sales/SupervisorSalesAnalytics/pipeline-velocity/kpis",
       "/api/v1/sales/SupervisorSalesAnalytics/quota-attainment",
@@ -542,6 +546,7 @@
       "/api/v1/sales/SupervisorSalesAnalytics/account-penetration/kpis",
       "/api/v1/sales/SupervisorSalesAnalytics/corporate-account-health",
       "/api/v1/sales/SupervisorSalesAnalytics/corporate-account-health/kpis",
+      "/api/sales/supervisor-analytics",
       "/api/v1/sales/contract-value-trends"
     ]
   },

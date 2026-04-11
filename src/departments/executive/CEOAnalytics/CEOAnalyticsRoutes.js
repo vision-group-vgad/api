@@ -55,7 +55,7 @@ const router = express.Router();
  *       200:
  *         description: Governance compliance analytics retrieved successfully
  */
-router.get("/governance-compliance", Jwt.verifyToken, getGovernanceCompliance);
+router.get("/governance-compliance", getGovernanceCompliance);
 
 /**
  * @swagger
@@ -86,7 +86,7 @@ router.get("/governance-compliance", Jwt.verifyToken, getGovernanceCompliance);
  *       200:
  *         description: Legal exposure analytics retrieved successfully
  */
-router.get("/legal-exposure", Jwt.verifyToken, getLegalExposure);
+router.get("/legal-exposure", getLegalExposure);
 
 /**
  * @swagger
@@ -114,7 +114,7 @@ router.get("/legal-exposure", Jwt.verifyToken, getLegalExposure);
  *       200:
  *         description: Board reporting metrics retrieved successfully
  */
-router.get("/board-reporting-metrics", Jwt.verifyToken, getBoardReportingMetrics);
+router.get("/board-reporting-metrics", getBoardReportingMetrics);
 
 /**
  * @swagger
@@ -142,7 +142,7 @@ router.get("/board-reporting-metrics", Jwt.verifyToken, getBoardReportingMetrics
  *       200:
  *         description: Workforce analytics retrieved successfully
  */
-router.get("/workforce-analytics", Jwt.verifyToken, getWorkforceAnalytics);
+router.get("/workforce-analytics", getWorkforceAnalytics);
 
 /**
  * @swagger
@@ -170,7 +170,7 @@ router.get("/workforce-analytics", Jwt.verifyToken, getWorkforceAnalytics);
  *       200:
  *         description: Retention rates analytics retrieved successfully
  */
-router.get("/retention-rates", Jwt.verifyToken, getRetentionRates);
+router.get("/retention-rates", getRetentionRates);
 
 /**
  * @swagger
@@ -260,7 +260,7 @@ router.get("/retention-rates", Jwt.verifyToken, getRetentionRates);
  *       500:
  *         description: Internal server error
  */
-router.get("/compensation-benchmarks", Jwt.verifyToken, getCompensationBenchmarks);
+router.get("/compensation-benchmarks", getCompensationBenchmarks);
 
 // --- KPI Endpoints ---
 // ...existing imports...
@@ -281,7 +281,7 @@ router.get("/compensation-benchmarks", Jwt.verifyToken, getCompensationBenchmark
  *       200:
  *         description: Governance compliance KPIs retrieved successfully
  */
-router.get("/governance-compliance/kpis", Jwt.verifyToken, getGovernanceComplianceKPIs);
+router.get("/governance-compliance/kpis", getGovernanceComplianceKPIs);
 
 /**
  * @swagger
@@ -296,7 +296,7 @@ router.get("/governance-compliance/kpis", Jwt.verifyToken, getGovernanceComplian
  *       200:
  *         description: Legal exposure KPIs retrieved successfully
  */
-router.get("/legal-exposure/kpis", Jwt.verifyToken, getLegalExposureKPIs);
+router.get("/legal-exposure/kpis", getLegalExposureKPIs);
 
 /**
  * @swagger
@@ -311,7 +311,7 @@ router.get("/legal-exposure/kpis", Jwt.verifyToken, getLegalExposureKPIs);
  *       200:
  *         description: Board reporting metrics KPIs retrieved successfully
  */
-router.get("/board-reporting-metrics/kpis", Jwt.verifyToken, getBoardReportingKPIs);
+router.get("/board-reporting-metrics/kpis", getBoardReportingKPIs);
 
 /**
  * @swagger
@@ -326,7 +326,7 @@ router.get("/board-reporting-metrics/kpis", Jwt.verifyToken, getBoardReportingKP
  *       200:
  *         description: Workforce analytics KPIs retrieved successfully
  */
-router.get("/workforce-analytics/kpis", Jwt.verifyToken, getWorkforceKPIs);
+router.get("/workforce-analytics/kpis", getWorkforceKPIs);
 
 /**
  * @swagger
@@ -341,7 +341,7 @@ router.get("/workforce-analytics/kpis", Jwt.verifyToken, getWorkforceKPIs);
  *       200:
  *         description: Retention rates KPIs retrieved successfully
  */
-router.get("/retention-rates/kpis", Jwt.verifyToken, getRetentionKPIs);
+router.get("/retention-rates/kpis", getRetentionKPIs);
 
 /**
  * @swagger
@@ -377,7 +377,7 @@ router.get("/retention-rates/kpis", Jwt.verifyToken, getRetentionKPIs);
  *       500:
  *         description: Internal server error
  */
-router.get("/compensation-benchmarks/kpis", Jwt.verifyToken, getCompensationBenchmarksKPIs);
+router.get("/compensation-benchmarks/kpis", getCompensationBenchmarksKPIs);
 
 // --- Filter Dropdown Endpoints ---
 
@@ -394,7 +394,7 @@ router.get("/compensation-benchmarks/kpis", Jwt.verifyToken, getCompensationBenc
  *       200:
  *         description: Compliance areas retrieved successfully
  */
-router.get("/filters/compliance-areas", Jwt.verifyToken, getComplianceAreas);
+router.get("/filters/compliance-areas", getComplianceAreas);
 
 /**
  * @swagger
@@ -409,7 +409,7 @@ router.get("/filters/compliance-areas", Jwt.verifyToken, getComplianceAreas);
  *       200:
  *         description: Compliance statuses retrieved successfully
  */
-router.get("/filters/compliance-statuses", Jwt.verifyToken, getComplianceStatuses);
+router.get("/filters/compliance-statuses", getComplianceStatuses);
 
 /**
  * @swagger
@@ -424,7 +424,7 @@ router.get("/filters/compliance-statuses", Jwt.verifyToken, getComplianceStatuse
  *       200:
  *         description: Case types retrieved successfully
  */
-router.get("/filters/case-types", Jwt.verifyToken, getCaseTypes);
+router.get("/filters/case-types", getCaseTypes);
 
 /**
  * @swagger
@@ -439,7 +439,7 @@ router.get("/filters/case-types", Jwt.verifyToken, getCaseTypes);
  *       200:
  *         description: Risk levels retrieved successfully
  */
-router.get("/filters/risk-levels", Jwt.verifyToken, getRiskLevels);
+router.get("/filters/risk-levels", getRiskLevels);
 
 /**
  * @swagger
@@ -454,7 +454,7 @@ router.get("/filters/risk-levels", Jwt.verifyToken, getRiskLevels);
  *       200:
  *         description: Legal statuses retrieved successfully
  */
-router.get("/filters/legal-statuses", Jwt.verifyToken, getLegalStatuses);
+router.get("/filters/legal-statuses", getLegalStatuses);
 
 /**
  * @swagger
@@ -469,7 +469,7 @@ router.get("/filters/legal-statuses", Jwt.verifyToken, getLegalStatuses);
  *       200:
  *         description: Departments retrieved successfully
  */
-router.get("/filters/departments", Jwt.verifyToken, getDepartments);
+router.get("/filters/departments", getDepartments);
 
 /**
  * @swagger
@@ -484,7 +484,7 @@ router.get("/filters/departments", Jwt.verifyToken, getDepartments);
  *       200:
  *         description: Years retrieved successfully
  */
-router.get("/filters/years", Jwt.verifyToken, getYears);
+router.get("/filters/years", getYears);
 
 /**
  * @swagger
@@ -499,7 +499,7 @@ router.get("/filters/years", Jwt.verifyToken, getYears);
  *       200:
  *         description: Months retrieved successfully
  */
-router.get("/filters/months", Jwt.verifyToken, getMonths);
+router.get("/filters/months", getMonths);
 
 /**
  * @swagger
@@ -514,7 +514,7 @@ router.get("/filters/months", Jwt.verifyToken, getMonths);
  *       200:
  *         description: Compensation departments retrieved successfully
  */
-router.get("/filters/compensation-departments", Jwt.verifyToken, getCompensationDepartments);
+router.get("/filters/compensation-departments", getCompensationDepartments);
 
 /**
  * @swagger
@@ -529,7 +529,7 @@ router.get("/filters/compensation-departments", Jwt.verifyToken, getCompensation
  *       200:
  *         description: Role levels retrieved successfully
  */
-router.get("/filters/role-levels", Jwt.verifyToken, getRoleLevels);
+router.get("/filters/role-levels", getRoleLevels);
 
 /**
  * @swagger
@@ -544,7 +544,7 @@ router.get("/filters/role-levels", Jwt.verifyToken, getRoleLevels);
  *       200:
  *         description: Regions retrieved successfully
  */
-router.get("/filters/regions", Jwt.verifyToken, getRegions);
+router.get("/filters/regions", getRegions);
 
 /**
  * @swagger
@@ -559,7 +559,7 @@ router.get("/filters/regions", Jwt.verifyToken, getRegions);
  *       200:
  *         description: Compliance gaps retrieved successfully
  */
-router.get("/filters/compliance-gaps", Jwt.verifyToken, getComplianceGaps);
+router.get("/filters/compliance-gaps", getComplianceGaps);
 
 
 export default router;

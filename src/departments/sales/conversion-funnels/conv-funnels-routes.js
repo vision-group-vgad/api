@@ -140,10 +140,10 @@ const convFunnelsRouter = express.Router();
  *           type: integer
  *           example: 75
  */
-convFunnelsRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+convFunnelsRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
-  validateRange(startDate, endDate, res);
+  if (validateRange(startDate, endDate, res)) return;
 
   try {
     const results = await convFunController.getInRangeAnalytics(

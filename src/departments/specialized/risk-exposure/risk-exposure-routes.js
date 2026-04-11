@@ -90,7 +90,7 @@ const riskExposureRouter = express.Router();
  *       500:
  *         description: Server error
  */
-riskExposureRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+riskExposureRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

@@ -39,6 +39,6 @@ const satisfactionRouter = express.Router();
  *       500:
  *         description: Server error
  */
-satisfactionRouter.get("/", Jwt.verifyToken, generateSatisfactionFeedbackController);
+satisfactionRouter.get("/", generateSatisfactionFeedbackController);
 
 export default satisfactionRouter;

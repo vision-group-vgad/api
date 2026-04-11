@@ -96,7 +96,6 @@ const strategicInitiativeRouter = express.Router();
  */
 strategicInitiativeRouter.get(
   "/in-range",
-  Jwt.verifyToken,
   async (req, res) => {
     const { startDate, endDate } = req.query;
 

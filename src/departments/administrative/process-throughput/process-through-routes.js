@@ -90,7 +90,7 @@ const processThroughRouter = express.Router();
  *       500:
  *         description: Internal server error
  */
-processThroughRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+processThroughRouter.get("/in-range", async (req, res) => {
   let { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

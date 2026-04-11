@@ -81,22 +81,22 @@ const router = express.Router();
  */
 
 
-router.get("/", (req, res) => {
-  const { startDate, endDate, status, department } = req.query;
+router.get("/", async (req, res) => {
+  const { dispatcher, depot, startDate, endDate } = req.query;
 
-  const risks = getRisks({ startDate, endDate, status, department });
+  try {
+    const data = await getAllDeliveries({ dispatcher, depot, startDate, endDate });
 
-  if (risks.length === 0) {
-    return res.json({
-      message: "No risk records exist for the specified filter(s).",
-      data: [],
+    res.json({
+      success: true,
+      data,
+    });
+  } catch {
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve delivery timelines.",
     });
   }
-
-  res.json({
-    message: "Risk records retrieved successfully.",
-    data: risks,
-  });
 });
 
 export default router;

@@ -55,7 +55,7 @@ const patchComplianceController = new PatchComplianceController();
  *       500:
  *         description: Server error retrieving patch compliance data
  */
-router.get('/',Jwt.verifyToken, (req, res) =>
+router.get('/', (req, res) =>
     patchComplianceController.getPatchComplianceStatus(req, res)
   );  
 

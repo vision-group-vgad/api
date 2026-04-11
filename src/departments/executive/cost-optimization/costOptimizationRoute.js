@@ -68,6 +68,6 @@ const costOptimizationRoute = express.Router();
  *                   items:
  *                     type: object
  */
-costOptimizationRoute.get("/", Jwt.verifyToken,getCostOptimization);
+costOptimizationRoute.get("/",getCostOptimization);
 
 export default costOptimizationRoute;

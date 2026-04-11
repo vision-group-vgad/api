@@ -84,6 +84,6 @@ const attendanceRoute = express.Router();
  *       500:
  *         description: Server error
  */
-attendanceRoute.get("/", Jwt.verifyToken, getAttendanceAnalysis);
+attendanceRoute.get("/", getAttendanceAnalysis);
 
 export default attendanceRoute;

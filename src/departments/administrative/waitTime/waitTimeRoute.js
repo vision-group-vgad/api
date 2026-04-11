@@ -122,6 +122,6 @@ const waitTimeRoute = express.Router();
  *         description: Server error
  */
 
-waitTimeRoute.get("/", Jwt.verifyToken, getWaitTimeAnalytics);
+waitTimeRoute.get("/", getWaitTimeAnalytics);
 
 export default waitTimeRoute;

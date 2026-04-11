@@ -98,37 +98,17 @@ class OperationsProductionAnalyticsService {
 
   initialize() {
     if (this.initialized) return;
-    this.baseURL = process.env.CMC_API_BASE_URL || "https://cms-vgad.visiongroup.co.ug/api";
-    this.bearerToken = process.env.CMC_API_BEARER_TOKEN;
-    this.credentials = {
-      username: process.env.CMC_API_USERNAME || "intern-developer@newvision.co.ug",
-      password: process.env.CMC_API_PASSWORD || "45!3@Vgad2025",
-    };
+
+    const apiKey = process.env.CMC_API_BEARER_TOKEN || process.env.CMS_API_KEY;
 
     this.apiClient = axios.create({
-      baseURL: this.baseURL,
+      baseURL: process.env.CMC_API_BASE_URL || "https://cms-vgad.visiongroup.co.ug/api",
       timeout: 30000,
-      headers: { "Content-Type": "application/json" },
-    });
-
-    this.setupAuthentication();
-    this.initialized = true;
-    console.log("🔧 [Production Service] OperationsProductionAnalyticsService initialized");
-  }
-
-  setupAuthentication() {
-    this.apiClient.interceptors.request.use((config) => {
-      if (this.bearerToken) {
-        config.headers.Authorization = `Bearer ${this.bearerToken}`;
-        console.log("🔐 [Production Service] Using Bearer token authentication");
-      } else {
-        const token = Buffer.from(
-          `${this.credentials.username}:${this.credentials.password}`
-        ).toString("base64");
-        config.headers.Authorization = `Basic ${token}`;
-        console.log("🔐 [Production Service] Using Basic authentication");
-      }
-      return config;
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`,
+        "x-api-key": apiKey,
+      },
     });
 
     this.apiClient.interceptors.response.use(
@@ -138,14 +118,27 @@ class OperationsProductionAnalyticsService {
         throw error;
       }
     );
+
+    this.initialized = true;
+    console.log("🔧 [Production Service] Initialized with CMC API credentials");
   }
 
   // --- Production Yield ---
   async fetchProductionYield(filters = {}) {
-    // Uncomment below when real API is ready
-    // this.initialize();
-    // const response = await this.apiClient.get('/production-yield', { params: filters });
-    // return response.data;
+    this.initialize();
+    try {
+      const response = await this.apiClient.get('/operations/production-yield', { params: filters });
+      const liveBatches = response.data?.batches || response.data?.data || [];
+      if (Array.isArray(liveBatches) && liveBatches.length > 0) {
+        const totalCount = liveBatches.length;
+        const { page = 1, pageSize = 10 } = filters;
+        const startIdx = (page - 1) * pageSize;
+        return { batches: liveBatches.slice(startIdx, startIdx + pageSize), totalCount };
+      }
+      console.warn('[ProductionYield] Live data empty, falling back to generated data');
+    } catch (error) {
+      console.warn('[ProductionYield] Live data fetch failed, using generated data:', error.message);
+    }
 
     let batches = generateProductionYieldData();
     const { date, shift, machine, operator, page = 1, pageSize = 10 } = filters;
@@ -198,13 +191,23 @@ class OperationsProductionAnalyticsService {
 
   // --- Machine OEE ---
   async fetchMachineOEE(filters = {}) {
-    // Uncomment below when real API is ready
-    // this.initialize();
-    // const response = await this.apiClient.get('/machine-oee', { params: filters });
-    // return response.data;
+    this.initialize();
+    try {
+      const response = await this.apiClient.get('/operations/machine-oee', { params: filters });
+      const liveMachines = response.data?.machines || response.data?.data || [];
+      if (Array.isArray(liveMachines) && liveMachines.length > 0) {
+        const totalCount = liveMachines.length;
+        const { page = 1, pageSize = 10 } = filters;
+        const startIdx = (page - 1) * pageSize;
+        return { machines: liveMachines.slice(startIdx, startIdx + pageSize), totalCount };
+      }
+      console.warn('[MachineOEE] Live data empty, falling back to generated data');
+    } catch (error) {
+      console.warn('[MachineOEE] Live data fetch failed, using generated data:', error.message);
+    }
 
     let machinesData = generateMachineOEEData();
-    const { machine, line, shift, date, page = 1, pageSize = 10 } = filters;
+    const { machine, page = 1, pageSize = 10 } = filters;
     if (machine) machinesData = machinesData.filter(m => m.machine_id === machine);
 
     const totalCount = machinesData.length;
@@ -248,13 +251,23 @@ class OperationsProductionAnalyticsService {
 
   // --- Material Waste Analysis ---
   async fetchMaterialWaste(filters = {}) {
-    // Uncomment below when real API is ready
-    // this.initialize();
-    // const response = await this.apiClient.get('/material-waste', { params: filters });
-    // return response.data;
+    this.initialize();
+    try {
+      const response = await this.apiClient.get('/operations/material-waste', { params: filters });
+      const liveWastes = response.data?.wastes || response.data?.data || [];
+      if (Array.isArray(liveWastes) && liveWastes.length > 0) {
+        const totalCount = liveWastes.length;
+        const { page = 1, pageSize = 10 } = filters;
+        const startIdx = (page - 1) * pageSize;
+        return { wastes: liveWastes.slice(startIdx, startIdx + pageSize), totalCount };
+      }
+      console.warn('[MaterialWaste] Live data empty, falling back to generated data');
+    } catch (error) {
+      console.warn('[MaterialWaste] Live data fetch failed, using generated data:', error.message);
+    }
 
     let wastes = generateMaterialWasteData();
-    const { date, material, machine, waste_reason, page = 1, pageSize = 10 } = filters;
+    const { material, waste_reason, page = 1, pageSize = 10 } = filters;
     if (material) wastes = wastes.filter(w => w.material_name === material);
     if (waste_reason) wastes = wastes.filter(w => w.waste_reason === waste_reason);
 

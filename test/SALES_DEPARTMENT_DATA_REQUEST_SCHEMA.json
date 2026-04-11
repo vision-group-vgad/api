@@ -1,0 +1,1422 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Sales & Marketing Department Data Request Schema",
+  "description": "Comprehensive data schema for Vision Group Sales & Marketing Department Analytics - This document defines all required data fields to achieve accurate sales statistics, revenue metrics, and marketing KPIs",
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-16",
+  
+  "dataCategories": {
+    
+    "1_REVENUE_ATTRIBUTION": {
+      "description": "Revenue tracking by segment, product line, and business unit",
+      "endpoints": ["/api/v1/sales/revenue-attribution"],
+      "requiredFields": {
+        "revenueId": {
+          "type": "string",
+          "description": "Unique revenue transaction identifier",
+          "example": "REV-2026-00542",
+          "required": true
+        },
+        "transactionDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of revenue transaction",
+          "example": "2026-02-15",
+          "required": true
+        },
+        "businessSegment": {
+          "type": "string",
+          "enum": ["Print Newspaper", "TV Broadcast", "Digital Subscriptions", "Education Publishing", "Commercial Printing", "Radio Broadcasting", "Events & Conferences", "Advertising Services"],
+          "description": "Business segment generating revenue",
+          "required": true
+        },
+        "revenueAmount": {
+          "type": "number",
+          "description": "Revenue amount in base currency",
+          "example": 2500000,
+          "required": true
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency code",
+          "example": "UGX",
+          "required": true
+        },
+        "revenueType": {
+          "type": "string",
+          "enum": ["Subscription", "Advertisement", "One-time Sale", "Recurring", "Project-based", "Commission"],
+          "description": "Type of revenue",
+          "required": true
+        },
+        "customerId": {
+          "type": "string",
+          "description": "Customer/client identifier",
+          "example": "CUST-1234",
+          "required": true
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Customer/client name",
+          "example": "ABC Corporation Ltd",
+          "required": true
+        },
+        "customerType": {
+          "type": "string",
+          "enum": ["Corporate", "SME", "Individual", "Government", "NGO"],
+          "description": "Type of customer",
+          "required": true
+        },
+        "salesChannel": {
+          "type": "string",
+          "enum": ["Direct Sales", "Online", "Partner/Reseller", "Retail", "Phone Sales"],
+          "description": "Channel through which sale was made",
+          "required": true
+        },
+        "salesRepId": {
+          "type": "string",
+          "description": "Sales representative identifier",
+          "example": "SREP-045",
+          "required": true
+        },
+        "salesRepName": {
+          "type": "string",
+          "description": "Sales representative name",
+          "example": "Jane Doe",
+          "required": true
+        },
+        "territory": {
+          "type": "string",
+          "description": "Sales territory/region",
+          "example": "Central Region",
+          "required": true
+        },
+        "costOfSale": {
+          "type": "number",
+          "description": "Direct costs associated with this sale",
+          "example": 1000000,
+          "required": false
+        },
+        "grossProfit": {
+          "type": "number",
+          "description": "Gross profit from this transaction",
+          "example": 1500000,
+          "required": false
+        },
+        "profitMarginPercent": {
+          "type": "number",
+          "description": "Profit margin percentage",
+          "example": 60.0,
+          "required": false
+        }
+      }
+    },
+
+    "2_CLIENT_LIFETIME_VALUE": {
+      "description": "Customer lifetime value, retention, and relationship metrics",
+      "endpoints": ["/api/v1/sales/client-lifetime-value"],
+      "requiredFields": {
+        "customerId": {
+          "type": "string",
+          "description": "Unique customer identifier",
+          "example": "CUST-5678",
+          "required": true
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Customer name",
+          "example": "XYZ Enterprise",
+          "required": true
+        },
+        "firstPurchaseDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of first purchase",
+          "example": "2023-03-15",
+          "required": true
+        },
+        "lastPurchaseDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of most recent purchase",
+          "example": "2026-02-10",
+          "required": true
+        },
+        "totalRevenue": {
+          "type": "number",
+          "description": "Total revenue generated from this customer",
+          "example": 45000000,
+          "required": true
+        },
+        "totalTransactions": {
+          "type": "number",
+          "description": "Total number of transactions",
+          "example": 36,
+          "required": true
+        },
+        "averageTransactionValue": {
+          "type": "number",
+          "description": "Average value per transaction",
+          "example": 1250000,
+          "required": true
+        },
+        "customerLifetimeMonths": {
+          "type": "number",
+          "description": "Number of months as active customer",
+          "example": 35,
+          "required": true
+        },
+        "lifetimeValue": {
+          "type": "number",
+          "description": "Calculated customer lifetime value",
+          "example": 45000000,
+          "required": true
+        },
+        "predictedLifetimeValue": {
+          "type": "number",
+          "description": "Predicted future lifetime value",
+          "example": 75000000,
+          "required": false
+        },
+        "acquisitionCost": {
+          "type": "number",
+          "description": "Cost to acquire this customer",
+          "example": 500000,
+          "required": false
+        },
+        "customerStatus": {
+          "type": "string",
+          "enum": ["Active", "Inactive", "At Risk", "Churned", "VIP"],
+          "description": "Current customer status",
+          "required": true
+        },
+        "churnRisk": {
+          "type": "string",
+          "enum": ["Low", "Medium", "High"],
+          "description": "Risk of customer churning",
+          "required": false
+        },
+        "lastContactDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of last contact/engagement",
+          "required": false
+        },
+        "customerSegment": {
+          "type": "string",
+          "enum": ["Premium", "Standard", "Basic", "Enterprise"],
+          "description": "Customer segment classification",
+          "required": true
+        },
+        "referralSource": {
+          "type": "string",
+          "description": "How customer was acquired",
+          "example": "Website",
+          "required": false
+        }
+      }
+    },
+
+    "3_CAMPAIGN_ROI": {
+      "description": "Marketing campaign performance and return on investment",
+      "endpoints": ["/api/v1/sales/campaign-roi"],
+      "requiredFields": {
+        "campaignId": {
+          "type": "string",
+          "description": "Unique campaign identifier",
+          "example": "CAMP-2026-Q1-001",
+          "required": true
+        },
+        "campaignName": {
+          "type": "string",
+          "description": "Campaign name",
+          "example": "Summer Digital Promotion 2026",
+          "required": true
+        },
+        "campaignType": {
+          "type": "string",
+          "enum": ["Digital Marketing", "Print Advertising", "TV Campaign", "Radio Campaign", "Event Sponsorship", "Social Media", "Email Marketing", "Outdoor/Billboard"],
+          "description": "Type of marketing campaign",
+          "required": true
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Campaign start date",
+          "example": "2026-01-15",
+          "required": true
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Campaign end date",
+          "example": "2026-03-31",
+          "required": true
+        },
+        "totalBudget": {
+          "type": "number",
+          "description": "Total campaign budget",
+          "example": 15000000,
+          "required": true
+        },
+        "actualSpend": {
+          "type": "number",
+          "description": "Actual amount spent",
+          "example": 14200000,
+          "required": true
+        },
+        "impressions": {
+          "type": "number",
+          "description": "Total impressions/views",
+          "example": 500000,
+          "required": true
+        },
+        "clicks": {
+          "type": "number",
+          "description": "Total clicks (for digital campaigns)",
+          "example": 25000,
+          "required": false
+        },
+        "clickThroughRatePercent": {
+          "type": "number",
+          "description": "Click-through rate percentage",
+          "example": 5.0,
+          "required": false
+        },
+        "leads": {
+          "type": "number",
+          "description": "Number of leads generated",
+          "example": 450,
+          "required": true
+        },
+        "conversions": {
+          "type": "number",
+          "description": "Number of conversions/sales",
+          "example": 90,
+          "required": true
+        },
+        "conversionRatePercent": {
+          "type": "number",
+          "description": "Conversion rate percentage",
+          "example": 20.0,
+          "required": true
+        },
+        "revenueGenerated": {
+          "type": "number",
+          "description": "Total revenue attributed to campaign",
+          "example": 45000000,
+          "required": true
+        },
+        "roi": {
+          "type": "number",
+          "description": "Return on investment (ratio)",
+          "example": 3.17,
+          "required": true
+        },
+        "roiPercent": {
+          "type": "number",
+          "description": "ROI as percentage",
+          "example": 217.0,
+          "required": true
+        },
+        "costPerLead": {
+          "type": "number",
+          "description": "Cost to acquire each lead",
+          "example": 31555,
+          "required": true
+        },
+        "costPerAcquisition": {
+          "type": "number",
+          "description": "Cost to acquire each customer",
+          "example": 157777,
+          "required": true
+        },
+        "targetAudience": {
+          "type": "string",
+          "description": "Target demographic/audience",
+          "example": "Business professionals 25-45",
+          "required": false
+        },
+        "channels": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Marketing channels used",
+          "example": ["Facebook", "Google Ads", "LinkedIn"],
+          "required": true
+        }
+      }
+    },
+
+    "4_TERRITORY_PERFORMANCE": {
+      "description": "Sales performance by geographic territory and region",
+      "endpoints": ["/api/v1/sales/territory-performance"],
+      "requiredFields": {
+        "territoryId": {
+          "type": "string",
+          "description": "Territory identifier",
+          "example": "TER-CENTRAL-001",
+          "required": true
+        },
+        "territoryName": {
+          "type": "string",
+          "enum": ["Central Region", "Northern Region", "Eastern Region", "Western Region", "International"],
+          "description": "Territory/region name",
+          "required": true
+        },
+        "reportingDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date for this performance snapshot",
+          "example": "2026-02-15",
+          "required": true
+        },
+        "totalRevenue": {
+          "type": "number",
+          "description": "Total revenue from territory",
+          "example": 125000000,
+          "required": true
+        },
+        "grossProfit": {
+          "type": "number",
+          "description": "Gross profit from territory",
+          "example": 75000000,
+          "required": true
+        },
+        "netProfit": {
+          "type": "number",
+          "description": "Net profit from territory",
+          "example": 50000000,
+          "required": true
+        },
+        "profitMarginPercent": {
+          "type": "number",
+          "description": "Profit margin percentage",
+          "example": 40.0,
+          "required": true
+        },
+        "totalSales": {
+          "type": "number",
+          "description": "Total number of sales transactions",
+          "example": 350,
+          "required": true
+        },
+        "averageSaleValue": {
+          "type": "number",
+          "description": "Average value per sale",
+          "example": 357142,
+          "required": true
+        },
+        "prospectedClients": {
+          "type": "number",
+          "description": "Number of prospected/contacted clients",
+          "example": 1200,
+          "required": true
+        },
+        "salesConversionRatePercent": {
+          "type": "number",
+          "description": "Conversion rate from prospects to sales",
+          "example": 29.17,
+          "required": true
+        },
+        "customerAcquisitionCost": {
+          "type": "number",
+          "description": "Average cost to acquire a customer",
+          "example": 125000,
+          "required": false
+        },
+        "returnOnMarketingInvestment": {
+          "type": "number",
+          "description": "ROMI ratio",
+          "example": 4.5,
+          "required": false
+        },
+        "activeCustomers": {
+          "type": "number",
+          "description": "Number of active customers in territory",
+          "example": 850,
+          "required": true
+        },
+        "newCustomers": {
+          "type": "number",
+          "description": "New customers acquired in period",
+          "example": 45,
+          "required": true
+        },
+        "lostCustomers": {
+          "type": "number",
+          "description": "Customers lost/churned in period",
+          "example": 12,
+          "required": true
+        },
+        "salesTeamSize": {
+          "type": "number",
+          "description": "Number of sales reps in territory",
+          "example": 8,
+          "required": true
+        },
+        "topPerformer": {
+          "type": "string",
+          "description": "Name of top sales rep in territory",
+          "example": "John Smith",
+          "required": false
+        }
+      }
+    },
+
+    "5_LEAD_GENERATION_EFFICIENCY": {
+      "description": "Lead generation, qualification, and conversion funnel metrics",
+      "endpoints": ["/api/v1/sales/lead-efficiency"],
+      "requiredFields": {
+        "leadId": {
+          "type": "string",
+          "description": "Unique lead identifier",
+          "example": "LEAD-2026-5432",
+          "required": true
+        },
+        "campaignId": {
+          "type": "string",
+          "description": "Source campaign ID",
+          "example": "CAMP-2026-Q1-001",
+          "required": true
+        },
+        "campaignName": {
+          "type": "string",
+          "description": "Source campaign name",
+          "example": "LinkedIn B2B Campaign",
+          "required": true
+        },
+        "leadSource": {
+          "type": "string",
+          "enum": ["Google Ads", "LinkedIn", "Facebook", "Referral", "Email", "Website", "Event", "Cold Call", "Partner"],
+          "description": "Lead source channel",
+          "required": true
+        },
+        "leadCreatedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When lead was created",
+          "example": "2026-02-01T10:30:00Z",
+          "required": true
+        },
+        "currentStage": {
+          "type": "string",
+          "enum": ["Lead", "MQL", "SQL", "Opportunity", "Customer", "Closed Lost"],
+          "description": "Current stage in sales funnel",
+          "required": true
+        },
+        "leadScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Lead quality score (0-100)",
+          "example": 75,
+          "required": false
+        },
+        "qualifiedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When lead was qualified (MQL/SQL)",
+          "example": "2026-02-05T14:20:00Z",
+          "required": false
+        },
+        "convertedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When lead converted to customer",
+          "required": false
+        },
+        "daysToQualification": {
+          "type": "number",
+          "description": "Days from lead creation to qualification",
+          "example": 4,
+          "required": false
+        },
+        "daysToConversion": {
+          "type": "number",
+          "description": "Days from lead creation to conversion",
+          "example": 21,
+          "required": false
+        },
+        "campaignSpend": {
+          "type": "number",
+          "description": "Marketing spend attributed to this lead",
+          "example": 45000,
+          "required": false
+        },
+        "expectedValue": {
+          "type": "number",
+          "description": "Expected revenue from this lead",
+          "example": 2500000,
+          "required": false
+        },
+        "actualValue": {
+          "type": "number",
+          "description": "Actual revenue if converted",
+          "required": false
+        },
+        "assignedSalesRep": {
+          "type": "string",
+          "description": "Sales rep handling this lead",
+          "example": "Mary Johnson",
+          "required": true
+        },
+        "industry": {
+          "type": "string",
+          "description": "Lead's industry",
+          "example": "Banking & Finance",
+          "required": false
+        },
+        "companySize": {
+          "type": "string",
+          "enum": ["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"],
+          "description": "Company size bracket",
+          "required": false
+        }
+      }
+    },
+
+    "6_CONVERSION_FUNNELS": {
+      "description": "Sales funnel conversion rates and drop-off analysis",
+      "endpoints": ["/api/v1/sales/conversion-funnels"],
+      "requiredFields": {
+        "funnelId": {
+          "type": "string",
+          "description": "Funnel tracking identifier",
+          "example": "FUNNEL-2026-02",
+          "required": true
+        },
+        "periodStart": {
+          "type": "string",
+          "format": "date",
+          "description": "Reporting period start",
+          "example": "2026-02-01",
+          "required": true
+        },
+        "periodEnd": {
+          "type": "string",
+          "format": "date",
+          "description": "Reporting period end",
+          "example": "2026-02-28",
+          "required": true
+        },
+        "stage1_Visitors": {
+          "type": "number",
+          "description": "Number at top of funnel (visitors/prospects)",
+          "example": 10000,
+          "required": true
+        },
+        "stage2_Leads": {
+          "type": "number",
+          "description": "Number who became leads",
+          "example": 2500,
+          "required": true
+        },
+        "stage3_MQL": {
+          "type": "number",
+          "description": "Marketing Qualified Leads",
+          "example": 1200,
+          "required": true
+        },
+        "stage4_SQL": {
+          "type": "number",
+          "description": "Sales Qualified Leads",
+          "example": 600,
+          "required": true
+        },
+        "stage5_Opportunities": {
+          "type": "number",
+          "description": "Active opportunities/proposals",
+          "example": 300,
+          "required": true
+        },
+        "stage6_Customers": {
+          "type": "number",
+          "description": "Converted customers",
+          "example": 120,
+          "required": true
+        },
+        "conversionRate_VisitorToLead": {
+          "type": "number",
+          "description": "Conversion percentage from visitor to lead",
+          "example": 25.0,
+          "required": true
+        },
+        "conversionRate_LeadToMQL": {
+          "type": "number",
+          "description": "Conversion percentage from lead to MQL",
+          "example": 48.0,
+          "required": true
+        },
+        "conversionRate_MQLToSQL": {
+          "type": "number",
+          "description": "Conversion percentage from MQL to SQL",
+          "example": 50.0,
+          "required": true
+        },
+        "conversionRate_SQLToOpportunity": {
+          "type": "number",
+          "description": "Conversion percentage from SQL to opportunity",
+          "example": 50.0,
+          "required": true
+        },
+        "conversionRate_OpportunityToCustomer": {
+          "type": "number",
+          "description": "Conversion percentage from opportunity to customer",
+          "example": 40.0,
+          "required": true
+        },
+        "overallConversionRate": {
+          "type": "number",
+          "description": "Overall visitor to customer conversion percentage",
+          "example": 1.2,
+          "required": true
+        },
+        "averageSaleValue": {
+          "type": "number",
+          "description": "Average value of converted sales",
+          "example": 2500000,
+          "required": true
+        },
+        "totalRevenue": {
+          "type": "number",
+          "description": "Total revenue from conversions",
+          "example": 300000000,
+          "required": true
+        },
+        "funnelType": {
+          "type": "string",
+          "enum": ["B2B Sales", "B2C Sales", "Enterprise", "SME", "Digital Products"],
+          "description": "Type of sales funnel",
+          "required": true
+        }
+      }
+    },
+
+    "7_CLICK_THROUGH_RATE": {
+      "description": "Digital advertising CTR and engagement metrics",
+      "endpoints": ["/api/v1/sales/ctr"],
+      "requiredFields": {
+        "adId": {
+          "type": "string",
+          "description": "Advertisement identifier",
+          "example": "AD-2026-FB-102",
+          "required": true
+        },
+        "campaignId": {
+          "type": "string",
+          "description": "Parent campaign ID",
+          "required": true
+        },
+        "adName": {
+          "type": "string",
+          "description": "Advertisement name/title",
+          "example": "Spring Digital Subscription Offer",
+          "required": true
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["Google Ads", "Facebook", "Instagram", "LinkedIn", "Twitter", "YouTube", "Display Network", "Email"],
+          "description": "Advertising platform",
+          "required": true
+        },
+        "adFormat": {
+          "type": "string",
+          "enum": ["Banner", "Video", "Carousel", "Text", "Native", "Email"],
+          "description": "Advertisement format",
+          "required": true
+        },
+        "reportDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date for this metrics snapshot",
+          "example": "2026-02-15",
+          "required": true
+        },
+        "impressions": {
+          "type": "number",
+          "description": "Total number of impressions",
+          "example": 50000,
+          "required": true
+        },
+        "clicks": {
+          "type": "number",
+          "description": "Total number of clicks",
+          "example": 2500,
+          "required": true
+        },
+        "clickThroughRatePercent": {
+          "type": "number",
+          "description": "CTR as percentage",
+          "example": 5.0,
+          "required": true
+        },
+        "cost": {
+          "type": "number",
+          "description": "Cost for this ad",
+          "example": 1500000,
+          "required": true
+        },
+        "costPerClick": {
+          "type": "number",
+          "description": "Average cost per click",
+          "example": 600,
+          "required": true
+        },
+        "costPerImpression": {
+          "type": "number",
+          "description": "Cost per 1000 impressions (CPM)",
+          "example": 30,
+          "required": true
+        },
+        "conversions": {
+          "type": "number",
+          "description": "Number of conversions from this ad",
+          "example": 125,
+          "required": false
+        },
+        "conversionRate": {
+          "type": "number",
+          "description": "Percentage of clicks that converted",
+          "example": 5.0,
+          "required": false
+        },
+        "revenue": {
+          "type": "number",
+          "description": "Revenue attributed to this ad",
+          "example": 7500000,
+          "required": false
+        },
+        "device": {
+          "type": "string",
+          "enum": ["Mobile", "Desktop", "Tablet"],
+          "description": "Primary device type",
+          "required": true
+        },
+        "targetAudience": {
+          "type": "string",
+          "description": "Target demographic",
+          "example": "Men 25-45, Urban",
+          "required": false
+        }
+      }
+    },
+
+    "8_RATE_CARD_UTILIZATION": {
+      "description": "Advertising rate card usage and pricing effectiveness",
+      "endpoints": ["/api/v1/sales/rate-card-utilization"],
+      "requiredFields": {
+        "rateCardId": {
+          "type": "string",
+          "description": "Rate card identifier",
+          "example": "RC-TV-PRIME-2026",
+          "required": true
+        },
+        "productType": {
+          "type": "string",
+          "enum": ["TV Advertising", "Radio Advertising", "Print Advertising", "Digital Advertising", "Sponsored Content", "Event Sponsorship"],
+          "description": "Advertising product type",
+          "required": true
+        },
+        "adSlot": {
+          "type": "string",
+          "description": "Specific ad slot or placement",
+          "example": "Prime Time 7-9 PM",
+          "required": true
+        },
+        "standardRate": {
+          "type": "number",
+          "description": "Standard/list price",
+          "example": 5000000,
+          "required": true
+        },
+        "averageSellingPrice": {
+          "type": "number",
+          "description": "Average actual selling price",
+          "example": 4200000,
+          "required": true
+        },
+        "discountPercent": {
+          "type": "number",
+          "description": "Average discount given",
+          "example": 16.0,
+          "required": true
+        },
+        "utilizationPercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percentage of inventory sold",
+          "example": 87.5,
+          "required": true
+        },
+        "totalSlots": {
+          "type": "number",
+          "description": "Total available slots/inventory",
+          "example": 120,
+          "required": true
+        },
+        "soldSlots": {
+          "type": "number",
+          "description": "Number of slots sold",
+          "example": 105,
+          "required": true
+        },
+        "availableSlots": {
+          "type": "number",
+          "description": "Remaining available slots",
+          "example": 15,
+          "required": true
+        },
+        "totalRevenue": {
+          "type": "number",
+          "description": "Total revenue from this rate card",
+          "example": 441000000,
+          "required": true
+        },
+        "reportingMonth": {
+          "type": "string",
+          "format": "month",
+          "description": "Month being reported (YYYY-MM)",
+          "example": "2026-02",
+          "required": true
+        }
+      }
+    },
+
+    "9_IMPRESSION_SHARE": {
+      "description": "Market share of advertising impressions and visibility",
+      "endpoints": ["/api/v1/sales/impression-shares"],
+      "requiredFields": {
+        "recordId": {
+          "type": "string",
+          "description": "Record identifier",
+          "required": true
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["TV", "Radio", "Print", "Digital", "Social Media", "Outdoor"],
+          "description": "Media platform",
+          "required": true
+        },
+        "market": {
+          "type": "string",
+          "description": "Geographic market",
+          "example": "Uganda",
+          "required": true
+        },
+        "reportDate": {
+          "type": "string",
+          "format": "date",
+          "required": true
+        },
+        "ourImpressions": {
+          "type": "number",
+          "description": "Our total impressions",
+          "example": 5000000,
+          "required": true
+        },
+        "totalMarketImpressions": {
+          "type": "number",
+          "description": "Total market impressions",
+          "example": 25000000,
+          "required": true
+        },
+        "impressionSharePercent": {
+          "type": "number",
+          "description": "Our percentage of total impressions",
+          "example": 20.0,
+          "required": true
+        },
+        "competitorImpressions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitorName": {"type": "string"},
+              "impressions": {"type": "number"},
+              "sharePercent": {"type": "number"}
+            }
+          },
+          "description": "Competitor impression data",
+          "required": false
+        },
+        "rankPosition": {
+          "type": "number",
+          "description": "Our rank in market (1=leader)",
+          "example": 2,
+          "required": false
+        }
+      }
+    },
+
+    "10_AB_TEST_RESULTS": {
+      "description": "A/B testing results for marketing campaigns and content",
+      "endpoints": ["/api/v1/sales/ab-tests"],
+      "requiredFields": {
+        "testId": {
+          "type": "string",
+          "description": "A/B test identifier",
+          "example": "TEST-2026-EMAIL-05",
+          "required": true
+        },
+        "testName": {
+          "type": "string",
+          "description": "Test name/description",
+          "example": "Email Subject Line Test",
+          "required": true
+        },
+        "hypothesis": {
+          "type": "string",
+          "description": "What is being tested",
+          "example": "Subject line with urgency will increase open rate",
+          "required": true
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date",
+          "required": true
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "required": true
+        },
+        "variantA_Name": {
+          "type": "string",
+          "description": "Control variant name",
+          "example": "Original Subject",
+          "required": true
+        },
+        "variantA_Impressions": {
+          "type": "number",
+          "description": "Impressions for variant A",
+          "example": 5000,
+          "required": true
+        },
+        "variantA_Clicks": {
+          "type": "number",
+          "description": "Clicks for variant A",
+          "example": 250,
+          "required": true
+        },
+        "variantA_Conversions": {
+          "type": "number",
+          "description": "Conversions for variant A",
+          "example": 25,
+          "required": true
+        },
+        "variantA_ConversionRate": {
+          "type": "number",
+          "description": "Conversion rate for variant A",
+          "example": 10.0,
+          "required": true
+        },
+        "variantB_Name": {
+          "type": "string",
+          "description": "Test variant name",
+          "example": "Urgent Subject",
+          "required": true
+        },
+        "variantB_Impressions": {
+          "type": "number",
+          "description": "Impressions for variant B",
+          "example": 5000,
+          "required": true
+        },
+        "variantB_Clicks": {
+          "type": "number",
+          "description": "Clicks for variant B",
+          "example": 350,
+          "required": true
+        },
+        "variantB_Conversions": {
+          "type": "number",
+          "description": "Conversions for variant B",
+          "example": 42,
+          "required": true
+        },
+        "variantB_ConversionRate": {
+          "type": "number",
+          "description": "Conversion rate for variant B",
+          "example": 12.0,
+          "required": true
+        },
+        "winner": {
+          "type": "string",
+          "enum": ["A", "B", "No significant difference"],
+          "description": "Which variant won",
+          "required": true
+        },
+        "confidenceLevel": {
+          "type": "number",
+          "description": "Statistical confidence percentage",
+          "example": 95.0,
+          "required": false
+        },
+        "improvementPercent": {
+          "type": "number",
+          "description": "Percentage improvement of winner",
+          "example": 20.0,
+          "required": false
+        }
+      }
+    },
+
+    "11_CAMPAIGN_ATTRIBUTION": {
+      "description": "Multi-touch attribution for marketing campaigns",
+      "endpoints": ["/api/v1/sales/campaign-attribution"],
+      "requiredFields": {
+        "customerId": {
+          "type": "string",
+          "description": "Customer who converted",
+          "required": true
+        },
+        "conversionDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When conversion occurred",
+          "required": true
+        },
+        "conversionValue": {
+          "type": "number",
+          "description": "Value of conversion",
+          "example": 2500000,
+          "required": true
+        },
+        "touchpoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "touchpointId": {"type": "string"},
+              "campaignId": {"type": "string"},
+              "campaignName": {"type": "string"},
+              "channel": {"type": "string"},
+              "touchDate": {"type": "string", "format": "date-time"},
+              "attributionWeight": {"type": "number", "description": "Weight in attribution model (0-1)"},
+              "attributedRevenue": {"type": "number"}
+            }
+          },
+          "description": "All touchpoints in customer journey",
+          "required": true
+        },
+        "attributionModel": {
+          "type": "string",
+          "enum": ["Last Touch", "First Touch", "Linear", "Time Decay", "Position Based", "Data Driven"],
+          "description": "Attribution model used",
+          "required": true
+        },
+        "journeyDuration": {
+          "type": "number",
+          "description": "Days from first touch to conversion",
+          "example": 21,
+          "required": true
+        },
+        "totalTouchpoints": {
+          "type": "number",
+          "description": "Number of touchpoints in journey",
+          "example": 7,
+          "required": true
+        }
+      }
+    },
+
+    "12_BRAND_LIFT": {
+      "description": "Brand awareness and perception measurement",
+      "endpoints": ["/api/v1/sales/brand-lift"],
+      "requiredFields": {
+        "studyId": {
+          "type": "string",
+          "description": "Brand lift study identifier",
+          "example": "BLS-2026-Q1",
+          "required": true
+        },
+        "campaignId": {
+          "type": "string",
+          "description": "Campaign being measured",
+          "required": false
+        },
+        "studyPeriodStart": {
+          "type": "string",
+          "format": "date",
+          "required": true
+        },
+        "studyPeriodEnd": {
+          "type": "string",
+          "format": "date",
+          "required": true
+        },
+        "sampleSize": {
+          "type": "number",
+          "description": "Number of survey respondents",
+          "example": 1000,
+          "required": true
+        },
+        "metricName": {
+          "type": "string",
+          "enum": ["Brand Awareness", "Brand Recall", "Purchase Intent", "Brand Favorability", "Message Association"],
+          "description": "What metric is being measured",
+          "required": true
+        },
+        "baselinePercent": {
+          "type": "number",
+          "description": "Baseline metric before campaign",
+          "example": 45.0,
+          "required": true
+        },
+        "exposedGroupPercent": {
+          "type": "number",
+          "description": "Metric for group exposed to campaign",
+          "example": 62.0,
+          "required": true
+        },
+        "controlGroupPercent": {
+          "type": "number",
+          "description": "Metric for control group (not exposed)",
+          "example": 47.0,
+          "required": true
+        },
+        "brandLiftPercent": {
+          "type": "number",
+          "description": "Percentage point increase (exposed - control)",
+          "example": 15.0,
+          "required": true
+        },
+        "brandLiftPercentage": {
+          "type": "number",
+          "description": "Relative percentage increase",
+          "example": 31.91,
+          "required": true
+        },
+        "statisticalSignificance": {
+          "type": "boolean",
+          "description": "Whether lift is statistically significant",
+          "required": true
+        }
+      }
+    },
+
+    "13_CONTRACT_VALUE_TRENDS": {
+      "description": "Contract values, deal sizes, and pricing trends",
+      "endpoints": ["/api/v1/sales/contract-value-trends"],
+      "requiredFields": {
+        "contractId": {
+          "type": "string",
+          "description": "Contract identifier",
+          "example": "CONTRACT-2026-0125",
+          "required": true
+        },
+        "customerId": {
+          "type": "string",
+          "description": "Customer identifier",
+          "required": true
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Customer name",
+          "required": true
+        },
+        "contractType": {
+          "type": "string",
+          "enum": ["New Business", "Renewal", "Upsell", "Cross-sell", "Expansion"],
+          "description": "Type of contract",
+          "required": true
+        },
+        "signedDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Contract signing date",
+          "required": true
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Contract start date",
+          "required": true
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Contract end date",
+          "required": true
+        },
+        "contractValue": {
+          "type": "number",
+          "description": "Total contract value",
+          "example": 25000000,
+          "required": true
+        },
+        "annualContractValue": {
+          "type": "number",
+          "description": "Annualized contract value (ACV)",
+          "example": 12500000,
+          "required": true
+        },
+        "contractDurationMonths": {
+          "type": "number",
+          "description": "Contract duration in months",
+          "example": 24,
+          "required": true
+        },
+        "productCategory": {
+          "type": "string",
+          "description": "Primary product/service category",
+          "example": "Enterprise Subscription",
+          "required": true
+        },
+        "dealSize": {
+          "type": "string",
+          "enum": ["Small (<5M)", "Medium (5-20M)", "Large (20-50M)", "Enterprise (>50M)"],
+          "description": "Deal size category",
+          "required": true
+        },
+        "paymentTerms": {
+          "type": "string",
+          "enum": ["Monthly", "Quarterly", "Annual", "One-time", "Custom"],
+          "description": "Payment frequency",
+          "required": true
+        },
+        "salesCycleLength": {
+          "type": "number",
+          "description": "Days from first contact to signing",
+          "example": 45,
+          "required": false
+        }
+      }
+    },
+
+    "14_SUPERVISOR_SALES_ANALYTICS": {
+      "description": "Sales team performance and supervisor metrics",
+      "endpoints": ["/api/v1/sales/SupervisorSalesAnalytics"],
+      "requiredFields": {
+        "supervisorId": {
+          "type": "string",
+          "description": "Supervisor identifier",
+          "example": "SUP-001",
+          "required": true
+        },
+        "supervisorName": {
+          "type": "string",
+          "description": "Supervisor name",
+          "example": "Alice Manager",
+          "required": true
+        },
+        "reportingPeriod": {
+          "type": "string",
+          "format": "month",
+          "description": "Reporting month (YYYY-MM)",
+          "example": "2026-02",
+          "required": true
+        },
+        "teamSize": {
+          "type": "number",
+          "description": "Number of sales reps in team",
+          "example": 8,
+          "required": true
+        },
+        "teamTotalRevenue": {
+          "type": "number",
+          "description": "Total revenue generated by team",
+          "example": 150000000,
+          "required": true
+        },
+        "teamTotalSales": {
+          "type": "number",
+          "description": "Total number of sales",
+          "example": 425,
+          "required": true
+        },
+        "averageRevenuePerRep": {
+          "type": "number",
+          "description": "Average revenue per sales rep",
+          "example": 18750000,
+          "required": true
+        },
+        "teamQuota": {
+          "type": "number",
+          "description": "Team sales quota",
+          "example": 140000000,
+          "required": true
+        },
+        "quotaAttainmentPercent": {
+          "type": "number",
+          "description": "Percentage of quota achieved",
+          "example": 107.14,
+          "required": true
+        },
+        "repsAtQuota": {
+          "type": "number",
+          "description": "Number of reps meeting quota",
+          "example": 6,
+          "required": true
+        },
+        "topPerformer": {
+          "type": "string",
+          "description": "Name of top performing rep",
+          "required": false
+        },
+        "averageDealSize": {
+          "type": "number",
+          "description": "Average deal size for team",
+          "example": 352941,
+          "required": true
+        },
+        "winRate": {
+          "type": "number",
+          "description": "Win rate percentage",
+          "example": 35.0,
+          "required": true
+        }
+      }
+    }
+  },
+
+  "dataSubmissionGuidelines": {
+    "format": "JSON",
+    "encoding": "UTF-8",
+    "dateTimeFormat": "ISO 8601 (YYYY-MM-DDTHH:mm:ssZ)",
+    "dateFormat": "ISO 8601 (YYYY-MM-DD)",
+    "monthFormat": "YYYY-MM",
+    "booleanFormat": "true/false (lowercase)",
+    "numberFormat": "Decimal notation, use period (.) for decimal separator",
+    "nullValues": "Use null for missing optional fields, omit field entirely if not applicable",
+    "currency": "All amounts should be in Uganda Shillings (UGX) unless otherwise specified",
+    
+    "dataFrequency": {
+      "realTimeMetrics": ["Lead Tracking", "Campaign Performance"],
+      "dailyMetrics": ["Revenue Attribution", "Sales Transactions", "Ad Performance"],
+      "weeklyMetrics": ["Territory Performance", "Conversion Funnels", "Team Performance"],
+      "monthlyMetrics": ["Contract Values", "Client Lifetime Value", "Campaign ROI"]
+    },
+    
+    "dataQualityRequirements": {
+      "accuracy": "All metrics must be actual measured values, not estimates",
+      "completeness": "All required fields must be provided",
+      "consistency": "Use consistent customer and campaign identifiers across all data categories",
+      "timeliness": "Transactional data should be provided within 24 hours",
+      "validation": "Revenue figures must reconcile with finance department records"
+    }
+  },
+
+  "integrationEndpoints": {
+    "dataIngestion": {
+      "method": "POST",
+      "baseUrl": "http://localhost:4000/api/v1/sales",
+      "authentication": "Bearer token required",
+      "contentType": "application/json"
+    }
+  },
+
+  "contactInformation": {
+    "department": "Sales & Marketing Department - Vision Group",
+    "dataOwner": "Head of Sales",
+    "email": "headofsales@vision.com",
+    "technicalSupport": "itsupport@vision.com"
+  },
+
+  "notes": {
+    "customerIdentification": "Use consistent customer IDs across all systems. If a customer appears in multiple categories, use the same customerId.",
+    "campaignTracking": "Ensure all campaigns have unique IDs and are consistently tracked across all touchpoints.",
+    "revenueAttribution": "Revenue should be attributed to sales reps, territories, and campaigns consistently.",
+    "dataPrivacy": "Ensure all customer data complies with data protection regulations. Anonymize personal information where required."
+  }
+}

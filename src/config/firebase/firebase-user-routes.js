@@ -12,7 +12,6 @@ const firebaseUserRouter = express.Router();
 
 firebaseUserRouter.get(
   "/users/all-users",
-  Jwt.verifyToken,
   async (req, res) => {
     try {
       const users = await fetchUsers();
@@ -23,7 +22,7 @@ firebaseUserRouter.get(
   }
 );
 
-firebaseUserRouter.post("/users/add", Jwt.verifyToken, async (req, res) => {
+firebaseUserRouter.post("/users/add", async (req, res) => {
   try {
     const { user_name, user_email, password, department, role_code } = req.body;
 
@@ -47,7 +46,7 @@ firebaseUserRouter.post("/users/add", Jwt.verifyToken, async (req, res) => {
   }
 });
 
-firebaseUserRouter.put("/users/update", Jwt.verifyToken, async (req, res) => {
+firebaseUserRouter.put("/users/update", async (req, res) => {
   try {
     const { user_email, user_name, password, department, role_code } = req.body;
 
@@ -76,7 +75,6 @@ firebaseUserRouter.put("/users/update", Jwt.verifyToken, async (req, res) => {
 
 firebaseUserRouter.delete(
   "/users/delete",
-  Jwt.verifyToken,
   async (req, res) => {
     try {
       const { user_email } = req.query;
@@ -95,7 +93,6 @@ firebaseUserRouter.delete(
 
 firebaseUserRouter.post(
   "/users/bulk-add",
-  Jwt.verifyToken,
   async (req, res) => {
     try {
       await bulkAddUsersFromFile("users.json");

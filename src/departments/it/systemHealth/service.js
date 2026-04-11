@@ -1,4 +1,8 @@
-export const systems = [
+import IT from "../../../utils/common/IT.js";
+
+const _it = new IT();
+
+export const fallbackSystems = [
   { name: "ERP", status: "operational" },
   { name: "Google Analytics", status: "operational" },
   { name: "Email", status: "offline" },
@@ -11,9 +15,12 @@ export const systems = [
 
 export function computeHealth(systemsArray) {
   const total = systemsArray.length;
-  const operational = systemsArray.filter(
-    (s) => s.status === "operational"
-  ).length;
+  const operational = systemsArray.filter((s) => {
+    if (s.status === 'operational') return true;
+    if (s.healthScore != null)       return s.healthScore >= 70;
+    if (s.availabilityPercent != null) return s.availabilityPercent >= 95;
+    return false;
+  }).length;
   const offline = total - operational;
   const percentage = total === 0 ? 0 : Math.round((operational / total) * 100);
 
@@ -27,14 +34,22 @@ export function computeHealth(systemsArray) {
 }
 
 
-export const getSystemHealth = (req, res) => {
+export const getSystemHealth = async (req, res) => {
   const { system } = req.query;
 
-  let filteredSystems = systems;
+  let systemsArray;
+  try {
+    const liveData = await _it.fetchLiveData('/it/system-health');
+    systemsArray = Array.isArray(liveData) && liveData.length > 0 ? liveData : fallbackSystems;
+  } catch (err) {
+    console.warn('[SystemHealth] Live fetch failed, using dummy:', err.message);
+    systemsArray = fallbackSystems;
+  }
 
+  let filteredSystems = systemsArray;
   if (system) {
-    filteredSystems = systems.filter(
-      (s) => s.name.toLowerCase() === system.toLowerCase()
+    filteredSystems = systemsArray.filter(s =>
+      (s.name || s.systemName || '').toLowerCase() === system.toLowerCase()
     );
     if (filteredSystems.length === 0) {
       return res.status(404).json({ message: `System '${system}' not found.` });

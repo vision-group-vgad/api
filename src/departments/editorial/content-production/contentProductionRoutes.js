@@ -77,6 +77,6 @@ const contentProductionRoutes = express.Router();
  *                   example: Total articles published grouped by week
  */
 
-contentProductionRoutes.get("/", Jwt.verifyToken ,getContentProductionStats);
+contentProductionRoutes.get("/" ,getContentProductionStats);
 
 export default contentProductionRoutes;

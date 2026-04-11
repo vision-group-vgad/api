@@ -3,44 +3,39 @@ import axios from "axios";
 class OpsProduction {
   constructor() {
     this.initialized = false;
-    this.BACKEND_URL = process.env.CMC_API_BASE_URL;
-    this.API_KEY = process.env.CMS_API_KEY;
   }
 
   initialize() {
     if (this.initialized) return;
 
+    const apiKey = process.env.CMC_API_BEARER_TOKEN || process.env.CMS_API_KEY;
+
     this.apiClient = axios.create({
-      baseURL: this.BACKEND_URL,
+      baseURL: process.env.CMC_API_BASE_URL,
       timeout: 30000,
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`,
+        "x-api-key": apiKey,
       },
-    });
-
-    this.apiClient.interceptors.request.use((config) => {
-      config.headers.Authorization = `Bearer ${this.API_KEY}`;
-      return config;
     });
 
     this.apiClient.interceptors.response.use(
       (response) => response,
-      (error) => {
-        throw error;
-      }
+      (error) => { throw error; }
     );
 
     this.initialized = true;
   }
 
-  async #fetchData(url) {
+  async #fetchData(url, params = {}) {
     this.initialize();
 
     try {
-      const response = await this.apiClient.get(url);
+      const response = await this.apiClient.get(url, { params });
       const data = response.data?.data || [];
       const metaData = response.data?.meta || [];
-      return { data: data, metaData };
+      return { data, metaData };
     } catch (error) {
       throw new Error(`Error fetching data from ${url}: ${error.message}`);
     }
@@ -48,9 +43,16 @@ class OpsProduction {
 
   async getInRangeAnalytics(startDate, endDate) {
     const url = `/data/${startDate}/${endDate}`;
-    const analytics = this.#fetchData(url);
-    return analytics;
+    return this.#fetchData(url);
+  }
+
+  async fetchModuleData(module, startDate, endDate) {
+    const params = {};
+    if (startDate) params.startDate = startDate;
+    if (endDate) params.endDate = endDate;
+    return this.#fetchData(`/operations/${module}`, params);
   }
 }
 
 export default OpsProduction;
+

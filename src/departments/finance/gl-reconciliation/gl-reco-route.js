@@ -93,7 +93,7 @@ const glRecController = new GLRecoController();
  *             example:
  *               error: "Failed to retrieve reconciliation data"
  */
-glRecRouter.get("/range", Jwt.verifyToken, async (req, res) => {
+glRecRouter.get("/range", async (req, res) => {
   try {
     const { startDate, endDate } = req.query;
 
@@ -176,7 +176,7 @@ glRecRouter.get("/range", Jwt.verifyToken, async (req, res) => {
  *       500:
  *         description: Failed to retrieve reconciliation data
  */
-glRecRouter.get("/start-year", Jwt.verifyToken, async (req, res) => {
+glRecRouter.get("/start-year", async (req, res) => {
   try {
     const { year } = req.query;
 

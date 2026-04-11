@@ -139,6 +139,6 @@ const visitorPatternRoute = express.Router();
  *       500:
  *         description: Server error
  */
-visitorPatternRoute.get("/", Jwt.verifyToken, getVisitorPatterns);
+visitorPatternRoute.get("/", getVisitorPatterns);
 
 export default visitorPatternRoute;

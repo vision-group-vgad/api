@@ -99,7 +99,7 @@ const upDowntimeRouter = express.Router();
  *       500:
  *         description: Internal server error
  */
-upDowntimeRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+upDowntimeRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

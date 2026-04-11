@@ -160,7 +160,7 @@ const compBenchRouter = express.Router();
  *       500:
  *         description: Server error.
  */
-compBenchRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+compBenchRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

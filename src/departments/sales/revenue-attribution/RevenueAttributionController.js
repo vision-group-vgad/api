@@ -29,13 +29,23 @@ class RevenueAttributionController {
   }
 
   async getInRangeAnalytics(startDate, endDate) {
-    // const data = await this.#salesMkt.getInRangeSalesAnalytics(startDate, endDate)
-    const processedAnalytics = this.#processData(
-      revenueData,
-      startDate,
-      endDate
-    );
-    return processedAnalytics;
+    try {
+      const liveData = await this.#salesMkt.getRevenueAttributionData(
+        startDate,
+        endDate
+      );
+
+      if (liveData.length > 0) {
+        return this.#processData(liveData, startDate, endDate);
+      }
+    } catch (error) {
+      console.warn(
+        "Using fallback revenue attribution data due to live fetch error:",
+        error.message
+      );
+    }
+
+    return this.#processData(revenueData, startDate, endDate);
   }
 }
 

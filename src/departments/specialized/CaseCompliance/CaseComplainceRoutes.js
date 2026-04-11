@@ -52,7 +52,7 @@ const router = express.Router();
  *       200:
  *         description: Case resolution analytics retrieved successfully
  */
-router.get("/cases", Jwt.verifyToken, getCaseResolution);
+router.get("/cases", getCaseResolution);
 
 /**
  * @swagger
@@ -89,7 +89,7 @@ router.get("/cases", Jwt.verifyToken, getCaseResolution);
  *       200:
  *         description: Compliance breach tracking retrieved successfully
  */
-router.get("/compliance-breaches", Jwt.verifyToken, getComplianceBreach);
+router.get("/compliance-breaches", getComplianceBreach);
 
 /**
  * @swagger
@@ -104,7 +104,7 @@ router.get("/compliance-breaches", Jwt.verifyToken, getComplianceBreach);
  *       200:
  *         description: Case resolution KPIs retrieved successfully
  */
-router.get("/cases/kpis", Jwt.verifyToken, getCaseResolutionKPIs);
+router.get("/cases/kpis", getCaseResolutionKPIs);
 
 /**
  * @swagger
@@ -119,7 +119,7 @@ router.get("/cases/kpis", Jwt.verifyToken, getCaseResolutionKPIs);
  *       200:
  *         description: Compliance breach KPIs retrieved successfully
  */
-router.get("/compliance-breaches/kpis", Jwt.verifyToken, getComplianceBreachKPIs);
+router.get("/compliance-breaches/kpis", getComplianceBreachKPIs);
 
 // --- Filter Endpoints ---
 
@@ -136,7 +136,7 @@ router.get("/compliance-breaches/kpis", Jwt.verifyToken, getComplianceBreachKPIs
  *       200:
  *         description: Case types retrieved successfully
  */
-router.get("/filters/case-types", Jwt.verifyToken, getCaseTypes);
+router.get("/filters/case-types", getCaseTypes);
 
 /**
  * @swagger
@@ -151,7 +151,7 @@ router.get("/filters/case-types", Jwt.verifyToken, getCaseTypes);
  *       200:
  *         description: Case departments retrieved successfully
  */
-router.get("/filters/case-departments", Jwt.verifyToken, getCaseDepartments);
+router.get("/filters/case-departments", getCaseDepartments);
 
 /**
  * @swagger
@@ -166,7 +166,7 @@ router.get("/filters/case-departments", Jwt.verifyToken, getCaseDepartments);
  *       200:
  *         description: Case priorities retrieved successfully
  */
-router.get("/filters/case-priorities", Jwt.verifyToken, getCasePriorities);
+router.get("/filters/case-priorities", getCasePriorities);
 
 /**
  * @swagger
@@ -181,7 +181,7 @@ router.get("/filters/case-priorities", Jwt.verifyToken, getCasePriorities);
  *       200:
  *         description: Case statuses retrieved successfully
  */
-router.get("/filters/case-statuses", Jwt.verifyToken, getCaseStatuses);
+router.get("/filters/case-statuses", getCaseStatuses);
 
 /**
  * @swagger
@@ -196,7 +196,7 @@ router.get("/filters/case-statuses", Jwt.verifyToken, getCaseStatuses);
  *       200:
  *         description: Breach types retrieved successfully
  */
-router.get("/filters/breach-types", Jwt.verifyToken, getBreachTypes);
+router.get("/filters/breach-types", getBreachTypes);
 
 /**
  * @swagger
@@ -211,7 +211,7 @@ router.get("/filters/breach-types", Jwt.verifyToken, getBreachTypes);
  *       200:
  *         description: Breach departments retrieved successfully
  */
-router.get("/filters/breach-departments", Jwt.verifyToken, getBreachDepartments);
+router.get("/filters/breach-departments", getBreachDepartments);
 
 /**
  * @swagger
@@ -226,7 +226,7 @@ router.get("/filters/breach-departments", Jwt.verifyToken, getBreachDepartments)
  *       200:
  *         description: Severity levels retrieved successfully
  */
-router.get("/filters/severity-levels", Jwt.verifyToken, getSeverityLevels);
+router.get("/filters/severity-levels", getSeverityLevels);
 
 /**
  * @swagger
@@ -241,6 +241,6 @@ router.get("/filters/severity-levels", Jwt.verifyToken, getSeverityLevels);
  *       200:
  *         description: Years retrieved successfully
  */
-router.get("/filters/years", Jwt.verifyToken, getYears);
+router.get("/filters/years", getYears);
 
 export default router;

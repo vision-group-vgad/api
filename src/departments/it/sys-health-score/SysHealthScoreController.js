@@ -12,15 +12,20 @@ class SysHealthCont {
   }
 
   async getInRangeData(startDate, endDate) {
-    // const data = await this.#it.getInRangeAnalytics(startDate, endDate)
+    try {
+      const liveData = await this.#it.fetchLiveData('/it/system-health');
+      if (Array.isArray(liveData) && liveData.length > 0) {
+        const filtered = liveData.filter(obj => !startDate || !endDate || (obj.date >= startDate && obj.date <= endDate));
+        return { dailyData: filtered.length > 0 ? filtered : liveData, summary: {} };
+      }
+    } catch (err) {
+      console.warn('[SysHealthScore] Live fetch failed, using dummy:', err.message);
+    }
     const filteredAnalytics = dummy_data.dailyData.filter(
       (obj) => obj.date >= startDate && obj.date <= endDate
     );
     const summary = dummy_data.summary;
-    return {
-      dailyData: filteredAnalytics,
-      summary,
-    };
+    return { dailyData: filteredAnalytics, summary };
   }
 }
 

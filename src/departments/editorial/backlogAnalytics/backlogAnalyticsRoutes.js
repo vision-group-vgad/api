@@ -42,6 +42,6 @@ const backlogAnalyticsRouter = express.Router();
  *         description: Internal server error
  */
 
-backlogAnalyticsRouter.get('/', Jwt.verifyToken, getBacklogAnalytics);
+backlogAnalyticsRouter.get('/', getBacklogAnalytics);
 
 export default backlogAnalyticsRouter;

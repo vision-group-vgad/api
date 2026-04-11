@@ -75,13 +75,23 @@ class TerritoryPerformController {
   }
 
   async getInRangeAnalytics(startDate, endDate) {
-    // const data = await this.#salesMkt.getInRangeSalesAnalytics(startDate, endDate)
-    const processedAnalytics = this.#processData(
-      territories,
-      startDate,
-      endDate
-    );
-    return processedAnalytics;
+    try {
+      const liveData = await this.#salesMkt.getTerritoryPerformanceData(
+        startDate,
+        endDate
+      );
+
+      if (liveData.length > 0) {
+        return this.#processData(liveData, startDate, endDate);
+      }
+    } catch (error) {
+      console.warn(
+        "Using fallback territory performance data due to live fetch error:",
+        error.message
+      );
+    }
+
+    return this.#processData(territories, startDate, endDate);
   }
 }
 

@@ -1,8 +1,26 @@
 import { generatePartsUtilization } from "./partsUtilizationData.js";
+import OpsProduction from "../../../utils/common/OpsProduction.js";
 
-export const getPartsUtilization = (req, res) => {
+const opsProduction = new OpsProduction();
+
+export const getPartsUtilization = async (req, res) => {
   try {
-    const data = generatePartsUtilization(300);
+    const today = new Date().toISOString().slice(0, 10);
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    const fetchStart = req.query.startDate || thirtyDaysAgo;
+    const fetchEnd = req.query.endDate || today;
+
+    let data;
+    try {
+      const response = await opsProduction.fetchModuleData('parts-utilization', fetchStart, fetchEnd);
+      data = Array.isArray(response.data) && response.data.length > 0 ? response.data : generatePartsUtilization(300);
+      if (!Array.isArray(response.data) || response.data.length === 0) {
+        console.warn('[PartsUtilization] Live data empty, falling back to generated data');
+      }
+    } catch (fetchError) {
+      console.warn('[PartsUtilization] Live data fetch failed, using generated data:', fetchError.message);
+      data = generatePartsUtilization(300);
+    }
 
     const { partName, equipmentType, jobType } = req.query;
 

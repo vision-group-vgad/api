@@ -62,6 +62,6 @@ const roiRoute = express.Router();
  *       500:
  *         description: Server error
  */
-roiRoute.get("/", Jwt.verifyToken, getRoiAnalysis);
+roiRoute.get("/", getRoiAnalysis);
 
 export default roiRoute;

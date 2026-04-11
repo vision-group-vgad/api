@@ -91,7 +91,7 @@ const serverController = new ServerController();
  *       401:
  *         description: Unauthorized - Missing or invalid token
  */
-serverLoadRouter.get("/:year", Jwt.verifyToken, async (req, res) => {
+serverLoadRouter.get("/:year", async (req, res) => {
   const { year } = req.params;
   const { month = null, date = null } = req.query;
 

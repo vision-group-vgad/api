@@ -77,7 +77,7 @@ const sectPerRouter = express.Router();
  *       500:
  *         description: Internal server error
  */
-sectPerRouter.get("/", Jwt.verifyToken, async (req, res) => {
+sectPerRouter.get("/", async (req, res) => {
   const results = await sectPerController.getSectionPerformanceData();
   res.status(200).json(results);
 });

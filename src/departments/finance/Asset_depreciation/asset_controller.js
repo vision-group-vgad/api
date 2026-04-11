@@ -46,7 +46,7 @@ const BEARER_TOKEN = process.env.CMS_API_KEY;
  *                         type: string
  */
 
-router.get("/", Jwt.verifyToken, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const response = await axios.get(CMS_API_URL, {
       headers: {
@@ -130,7 +130,7 @@ router.get("/", Jwt.verifyToken, async (req, res) => {
  *                               type: number
  */
 
-router.get("/dummy", Jwt.verifyToken, async (req, res) => {
+router.get("/dummy", async (req, res) => {
   const dummyDepreciation = [
     {
       asset_id: "VEH-2020-01",

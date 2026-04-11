@@ -68,8 +68,19 @@ class SignalQualityMetricsController {
   }
 
   async getInRangeAnalytics(startDate, endDate) {
-    // const data = await this.#salesMkt.getInRangeSalesAnalytics(startDate, endDate)
-    const processedAnalytics = this.#processData(towers, startDate, endDate);
+    let data;
+    try {
+      const result = await this.#opsProduction.fetchModuleData('signal-quality', startDate, endDate);
+      data = result.data;
+      if (!Array.isArray(data) || data.length === 0) {
+        console.warn('[SignalQuality] Live data empty, falling back to dummy data');
+        data = towers;
+      }
+    } catch (error) {
+      console.warn('[SignalQuality] Live data fetch failed, using dummy data:', error.message);
+      data = towers;
+    }
+    const processedAnalytics = this.#processData(data, startDate, endDate);
     return processedAnalytics;
   }
 }

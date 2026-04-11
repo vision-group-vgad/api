@@ -1,8 +1,24 @@
 import { generateBrandLiftData } from "./brandLiftData.js";
+import SalesMarketing from "../../../utils/common/SalesMkting.js";
 
-export const getBrandLift = (req, res) => {
+const salesMarketing = new SalesMarketing();
+
+export const getBrandLift = async (req, res) => {
   try {
-    const data = generateBrandLiftData(300);
+    let data = [];
+    try {
+      data = await salesMarketing.getBrandLiftData(
+        req.query.startDate,
+        req.query.endDate
+      );
+    } catch (error) {
+      console.warn("Using fallback brand-lift data:", error.message);
+      data = generateBrandLiftData(300);
+    }
+
+    if (!Array.isArray(data) || data.length === 0) {
+      data = generateBrandLiftData(300);
+    }
 
     const { channel: channelFilter, campaign: campaignFilter } = req.query;
 

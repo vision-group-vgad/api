@@ -77,7 +77,7 @@ const dsoController = new DsoController();
  *                   type: string
  *                   example: Failed to fetch DSO datasets. [error message]
  */
-dsoRouter.get("/", Jwt.verifyToken, async (req, res) => {
+dsoRouter.get("/", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   if (!startDate || !endDate) {

@@ -89,11 +89,11 @@ const router = express.Router();
 
 
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const { machine, startDate, endDate } = req.query;
 
-    const data = getSetupTimeOptimization({ machine, startDate, endDate });
+    const data = await getSetupTimeOptimization({ machine, startDate, endDate });
 
     res.status(200).json({
       success: true,

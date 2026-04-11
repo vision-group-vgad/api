@@ -1,10 +1,11 @@
 import Jwt from "./jwt.js";
 import bcrypt from "bcrypt";
-import { fetchUserByEmail } from "../config/firebase/firebase-user-service.js";
-import { fetchRoleByCode } from "../config/firebase/firebase-role-service.js";
-import { fetchImageByEmail } from "../config/firebase/firebase-user-mgt-service.js";
-const encodeKey = (email) => email.replace(/\./g, ",");
-import { getUniqueName } from "../utils/common/common-functionalities.js";
+import { readFileSync } from "fs";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const users = JSON.parse(readFileSync(path.join(__dirname, "users.json"), "utf8"));
 
 class AuthenticationController {
   constructor() {
@@ -15,36 +16,24 @@ class AuthenticationController {
   }
 
   async authenticate(email, password) {
-    const encodedEmail = encodeKey(email);
-    const user = await fetchUserByEmail(encodedEmail);
+    const user = users.find((u) => u.email === email);
     if (!user) throw new Error("Invalid credentials");
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) throw new Error("Invalid credentials");
 
-    const role = await fetchRoleByCode(user.role_code);
-    if (!role) throw new Error("Authentication error, role not found.");
-
-    const token = Jwt.generateToken(user.user_email, {
+    const token = Jwt.generateToken(user.email, {
+      role: user.role,
+      name: user.name,
       department: user.department,
-      position: role.role_name,
-      firstName: user.user_name.split(" ")[0] || user.user_name,
-      lastName: user.user_name.split(" ").slice(1).join(" ") || "",
-      role_code: user.role_code,
-      role_name: role.role_name,
     });
 
-    const imageBytes = await fetchImageByEmail(user.user_email);
-    const names = `${getUniqueName()}`;
-
     return {
-      user_name: names,
-      user_email: user.user_email,
+      user_name: user.name,
+      user_email: user.email,
       department: user.department,
-      role_name: user.user_name,
-      role_code: user.role_code,
+      role: user.role,
       token: token,
-      image_bytes: imageBytes,
     };
   }
 }

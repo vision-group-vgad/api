@@ -144,7 +144,7 @@ const systemHealth = [
  *                   latency:
  *                     type: number
  */
-router.get("/", Jwt.verifyToken, async (req, res) => {
+router.get("/", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   let filteredData = systemHealth;

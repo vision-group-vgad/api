@@ -32,7 +32,7 @@
 // //  *         description: Unauthorized – missing or invalid token
 // //  */
 
-// capExCardRouter.get("/", Jwt.verifyToken, async (req, res) => {
+// capExCardRouter.get("/", async (req, res) => {
 //   res.json(await capExCardController.getCapEx());
 // });
 

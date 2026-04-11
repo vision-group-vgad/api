@@ -63,10 +63,10 @@ const clvRouter = express.Router();
  *       500:
  *         description: Server error
  */
-clvRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+clvRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
-  validateRange(startDate, endDate, res);
+  if (validateRange(startDate, endDate, res)) return;
 
   try {
     const results = await clvController.getInRangeAnalytics(startDate, endDate);

@@ -44,9 +44,20 @@ class CTRController {
   }
 
   async getInRangeAnalytics(startDate, endDate) {
-    // const data = await this.#salesMkt.getInRangeSalesAnalytics(startDate, endDate)
-    const processedAnalytics = this.#processData(ctrData, startDate, endDate);
-    return processedAnalytics;
+    try {
+      const liveData = await this.#salesMkt.getCTRAnalyticsData(
+        startDate,
+        endDate
+      );
+
+      if (liveData.length > 0) {
+        return this.#processData(liveData, startDate, endDate);
+      }
+    } catch (error) {
+      console.warn("Using fallback CTR data due to live fetch error:", error.message);
+    }
+
+    return this.#processData(ctrData, startDate, endDate);
   }
 }
 

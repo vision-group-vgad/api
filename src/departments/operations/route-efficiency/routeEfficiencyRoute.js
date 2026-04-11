@@ -76,6 +76,6 @@ const routeEfficiencyRoute = express.Router();
  *       500:
  *         description: Server error
  */
-routeEfficiencyRoute.get("/", Jwt.verifyToken, getRouteEfficiency);
+routeEfficiencyRoute.get("/", getRouteEfficiency);
 
 export default routeEfficiencyRoute;

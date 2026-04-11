@@ -82,6 +82,6 @@ const contentFreshnessRouter = express.Router();
  *         description: Internal server error
  */
 
-contentFreshnessRouter.get('/', Jwt.verifyToken, getFreshnessAnalytics);
+contentFreshnessRouter.get('/', getFreshnessAnalytics);
 
 export default contentFreshnessRouter;

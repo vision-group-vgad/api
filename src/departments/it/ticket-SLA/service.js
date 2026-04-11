@@ -1,4 +1,24 @@
-// Dummy ticket dataset
+import IT from "../../../utils/common/IT.js";
+
+const _it = new IT();
+
+let _liveSummary = null;
+
+async function getLiveTickets() {
+  try {
+    _it.initialize();
+    const response = await _it.apiClient.get('/it/ticket-sla');
+    const body = response.data;
+    _liveSummary = body?.summary || null;
+    const data = body?.data;
+    if (Array.isArray(data) && data.length > 0) return data;
+  } catch (err) {
+    console.warn('[TicketSLA] Live fetch failed, using dummy:', err.message);
+    _liveSummary = null;
+  }
+  return tickets;
+}
+
 // Dummy ticket dataset (30 records)
 const tickets = [
   {
@@ -363,67 +383,77 @@ const tickets = [
   }
 ];
 
-// Utility: check if SLA met
+// Utility: check if SLA met — handles both live (slaResponseMet) and dummy (responseTime/responseSla) shapes
 const checkSlaCompliance = (ticket) => ({
   ...ticket,
-  responseMet: ticket.responseTime <= ticket.responseSla,
-  resolutionMet: ticket.resolutionTime <= ticket.resolutionSla
+  priority: ticket.priority || 'Unknown',
+  agent: ticket.assignedAgent || ticket.agent || 'Unknown',
+  responseTime: ticket.actualResponseTimeMinutes ?? ticket.responseTime ?? 0,
+  resolutionTime: ticket.actualResolutionTimeMinutes ?? ticket.resolutionTime ?? 0,
+  responseSla: ticket.responseSlaMinutes ?? ticket.responseSla ?? 0,
+  resolutionSla: ticket.resolutionSlaMinutes ?? ticket.resolutionSla ?? 0,
+  responseMet: ticket.slaResponseMet ?? (ticket.responseTime <= ticket.responseSla),
+  resolutionMet: ticket.slaResolutionMet ?? (ticket.resolutionTime <= ticket.resolutionSla),
 });
 
 // Get overall SLA compliance %
-export const getSlaOverview = () => {
-  const evaluated = tickets.map(checkSlaCompliance);
+export const getSlaOverview = async () => {
+  const allTickets = await getLiveTickets();
+  // Use CMC summary when available (more accurate — covers all 248 tickets)
+  if (_liveSummary) {
+    return {
+      totalTickets: _liveSummary.totalTickets,
+      openTickets: _liveSummary.openTickets,
+      resolvedTickets: _liveSummary.resolvedTickets,
+      responseCompliance: _liveSummary.slaComplianceRate?.toFixed(1) ?? '0.0',
+      resolutionCompliance: _liveSummary.slaComplianceRate?.toFixed(1) ?? '0.0',
+      avgResolutionTime: _liveSummary.avgResolutionTimeMinutes?.toFixed(1) ?? '0.0',
+      escalationRate: _liveSummary.escalationRate,
+    };
+  }
+  const evaluated = allTickets.map(checkSlaCompliance);
   const total = evaluated.length;
-
   const responseCompliance = (evaluated.filter(t => t.responseMet).length / total) * 100;
   const resolutionCompliance = (evaluated.filter(t => t.resolutionMet).length / total) * 100;
-
-  const avgResolutionTime = evaluated.reduce((sum, t) => sum + t.resolutionTime, 0) / total;
-
+  const avgResolutionTime = evaluated.reduce((sum, t) => sum + (t.resolutionTime || 0), 0) / total;
   return {
     totalTickets: total,
     responseCompliance: responseCompliance.toFixed(1),
     resolutionCompliance: resolutionCompliance.toFixed(1),
-    avgResolutionTime: avgResolutionTime.toFixed(1)
+    avgResolutionTime: avgResolutionTime.toFixed(1),
   };
 };
 
 // SLA compliance by priority
-export const getSlaByPriority = () => {
-  const evaluated = tickets.map(checkSlaCompliance);
+export const getSlaByPriority = async () => {
+  const allTickets = await getLiveTickets();
+  const evaluated = allTickets.map(checkSlaCompliance);
   const grouped = {};
-
   evaluated.forEach(ticket => {
-    if (!grouped[ticket.priority]) {
-      grouped[ticket.priority] = { total: 0, met: 0 };
-    }
+    if (!grouped[ticket.priority]) grouped[ticket.priority] = { total: 0, met: 0 };
     grouped[ticket.priority].total++;
     if (ticket.resolutionMet) grouped[ticket.priority].met++;
   });
-
   return Object.entries(grouped).map(([priority, stats]) => ({
     priority,
-    compliance: ((stats.met / stats.total) * 100).toFixed(1)
+    compliance: ((stats.met / stats.total) * 100).toFixed(1),
   }));
 };
 
 // Agent performance
-export const getSlaByAgent = () => {
-  const evaluated = tickets.map(checkSlaCompliance);
+export const getSlaByAgent = async () => {
+  const allTickets = await getLiveTickets();
+  const evaluated = allTickets.map(checkSlaCompliance);
   const grouped = {};
-
   evaluated.forEach(ticket => {
-    if (!grouped[ticket.agent]) {
-      grouped[ticket.agent] = { total: 0, met: 0, totalTime: 0 };
-    }
+    if (!grouped[ticket.agent]) grouped[ticket.agent] = { total: 0, met: 0, totalTime: 0 };
     grouped[ticket.agent].total++;
     if (ticket.resolutionMet) grouped[ticket.agent].met++;
-    grouped[ticket.agent].totalTime += ticket.resolutionTime;
+    grouped[ticket.agent].totalTime += ticket.resolutionTime || 0;
   });
-
   return Object.entries(grouped).map(([agent, stats]) => ({
     agent,
     compliance: ((stats.met / stats.total) * 100).toFixed(1),
-    avgResolutionTime: (stats.totalTime / stats.total).toFixed(1)
+    avgResolutionTime: (stats.totalTime / stats.total).toFixed(1),
   }));
 };

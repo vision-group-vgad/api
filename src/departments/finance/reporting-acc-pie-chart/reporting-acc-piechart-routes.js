@@ -65,7 +65,7 @@ const repoAccController = new ReportingAccController();
  *                       degree_of_modification:
  *                         type: number
  */
-repoAccRouter.get("/:year", Jwt.verifyToken, async (req, res) => {
+repoAccRouter.get("/:year", async (req, res) => {
   const { year } = req.params;
   const { month = null, date = null } = req.query;
 

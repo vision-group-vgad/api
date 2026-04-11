@@ -58,10 +58,10 @@ const router = express.Router();
  *         description: Internal Server Error
  */
 
-router.get("/", Jwt.verifyToken, (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const { label } = req.query;
-    const data = getStorageUtilization(label);
+    const data = await getStorageUtilization(label);
     res.status(200).json({ success: true, data });
   } catch (err) {
     console.error("Storage utilization error:", err);

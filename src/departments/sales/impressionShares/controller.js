@@ -45,7 +45,7 @@ const router = express.Router();
  *       200:
  *         description: Impression Share analytics
  */
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const filters = {
       advertiser: req.query.advertiser,
@@ -54,7 +54,7 @@ router.get("/", (req, res) => {
       endDate: req.query.endDate,
     };
 
-    const data = getImpressionShare(filters);
+    const data = await getImpressionShare(filters);
     res.json({ success: true, data });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });

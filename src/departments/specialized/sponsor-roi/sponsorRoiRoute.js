@@ -105,6 +105,6 @@ const sponsorRoute = express.Router();
  *       500:
  *         description: Server error
  */
-sponsorRoute.get("/", Jwt.verifyToken, getSponsorAnalysis);
+sponsorRoute.get("/", getSponsorAnalysis);
 
 export default sponsorRoute;

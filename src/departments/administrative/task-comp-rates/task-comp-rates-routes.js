@@ -91,7 +91,7 @@ const taskRouter = express.Router();
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-taskRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+taskRouter.get("/in-range", async (req, res) => {
   let { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

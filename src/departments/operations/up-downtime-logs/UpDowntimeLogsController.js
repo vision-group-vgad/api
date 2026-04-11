@@ -80,8 +80,19 @@ class UpDowntimeController {
   }
 
   async getInRangeAnalytics(startDate, endDate) {
-    // const data = await this.#salesMkt.getInRangeSalesAnalytics(startDate, endDate)
-    const processedAnalytics = this.#processData(logs, startDate, endDate);
+    let data;
+    try {
+      const result = await this.#opsProduction.fetchModuleData('updown-time', startDate, endDate);
+      data = result.data;
+      if (!Array.isArray(data) || data.length === 0) {
+        console.warn('[UpDowntime] Live data empty, falling back to dummy data');
+        data = logs;
+      }
+    } catch (error) {
+      console.warn('[UpDowntime] Live data fetch failed, using dummy data:', error.message);
+      data = logs;
+    }
+    const processedAnalytics = this.#processData(data, startDate, endDate);
     return processedAnalytics;
   }
 }

@@ -35,7 +35,7 @@ const router = express.Router();
  *       200:
  *         description: Combined RVS analytics overview
  */
-router.get("/overview", Jwt.verifyToken, getRVSOverview);
+router.get("/overview", getRVSOverview);
 
 /**
  * @swagger
@@ -49,7 +49,7 @@ router.get("/overview", Jwt.verifyToken, getRVSOverview);
  *       200:
  *         description: Resource utilization analytics
  */
-router.get("/resources/analytics", Jwt.verifyToken, getResourceUtilizationAnalytics);
+router.get("/resources/analytics", getResourceUtilizationAnalytics);
 
 /**
  * @swagger
@@ -63,7 +63,7 @@ router.get("/resources/analytics", Jwt.verifyToken, getResourceUtilizationAnalyt
  *       200:
  *         description: Resource KPIs
  */
-router.get("/resources/kpis", Jwt.verifyToken, getResourceKPIs);
+router.get("/resources/kpis", getResourceKPIs);
 
 /**
  * @swagger
@@ -77,7 +77,7 @@ router.get("/resources/kpis", Jwt.verifyToken, getResourceKPIs);
  *       200:
  *         description: Chart data for resources
  */
-router.get("/resources/chart", Jwt.verifyToken, getResourceChartData);
+router.get("/resources/chart", getResourceChartData);
 
 /**
  * @swagger
@@ -91,7 +91,7 @@ router.get("/resources/chart", Jwt.verifyToken, getResourceChartData);
  *       200:
  *         description: Paginated resource list
  */
-router.get("/resources/list", Jwt.verifyToken, getResourceList);
+router.get("/resources/list", getResourceList);
 
 /**
  * @swagger
@@ -105,7 +105,7 @@ router.get("/resources/list", Jwt.verifyToken, getResourceList);
  *       200:
  *         description: Space optimization analytics
  */
-router.get("/spaces/analytics", Jwt.verifyToken, getSpaceOptimizationAnalytics);
+router.get("/spaces/analytics", getSpaceOptimizationAnalytics);
 
 /**
  * @swagger
@@ -119,7 +119,7 @@ router.get("/spaces/analytics", Jwt.verifyToken, getSpaceOptimizationAnalytics);
  *       200:
  *         description: Space KPIs
  */
-router.get("/spaces/kpis", Jwt.verifyToken, getSpaceKPIs);
+router.get("/spaces/kpis", getSpaceKPIs);
 
 /**
  * @swagger
@@ -133,7 +133,7 @@ router.get("/spaces/kpis", Jwt.verifyToken, getSpaceKPIs);
  *       200:
  *         description: Chart data for spaces
  */
-router.get("/spaces/chart", Jwt.verifyToken, getSpaceChartData);
+router.get("/spaces/chart", getSpaceChartData);
 
 /**
  * @swagger
@@ -147,7 +147,7 @@ router.get("/spaces/chart", Jwt.verifyToken, getSpaceChartData);
  *       200:
  *         description: Paginated space list
  */
-router.get("/spaces/list", Jwt.verifyToken, getSpaceList);
+router.get("/spaces/list", getSpaceList);
 
 /**
  * @swagger
@@ -161,7 +161,7 @@ router.get("/spaces/list", Jwt.verifyToken, getSpaceList);
  *       200:
  *         description: Vendor performance analytics
  */
-router.get("/vendors/analytics", Jwt.verifyToken, getVendorPerformanceAnalytics);
+router.get("/vendors/analytics", getVendorPerformanceAnalytics);
 
 /**
  * @swagger
@@ -175,7 +175,7 @@ router.get("/vendors/analytics", Jwt.verifyToken, getVendorPerformanceAnalytics)
  *       200:
  *         description: Vendor KPIs
  */
-router.get("/vendors/kpis", Jwt.verifyToken, getVendorKPIs);
+router.get("/vendors/kpis", getVendorKPIs);
 
 /**
  * @swagger
@@ -189,7 +189,7 @@ router.get("/vendors/kpis", Jwt.verifyToken, getVendorKPIs);
  *       200:
  *         description: Chart data for vendors
  */
-router.get("/vendors/chart", Jwt.verifyToken, getVendorChartData);
+router.get("/vendors/chart", getVendorChartData);
 
 /**
  * @swagger
@@ -203,7 +203,7 @@ router.get("/vendors/chart", Jwt.verifyToken, getVendorChartData);
  *       200:
  *         description: Paginated vendor list
  */
-router.get("/vendors/list", Jwt.verifyToken, getVendorList);
+router.get("/vendors/list", getVendorList);
 
 /**
  * @swagger
@@ -217,7 +217,7 @@ router.get("/vendors/list", Jwt.verifyToken, getVendorList);
  *       200:
  *         description: List of departments
  */
-router.get("/filters/departments", Jwt.verifyToken, getDepartments);
+router.get("/filters/departments", getDepartments);
 
 /**
  * @swagger
@@ -231,7 +231,7 @@ router.get("/filters/departments", Jwt.verifyToken, getDepartments);
  *       200:
  *         description: List of resource types
  */
-router.get("/filters/resource-types", Jwt.verifyToken, getResourceTypes);
+router.get("/filters/resource-types", getResourceTypes);
 
 /**
  * @swagger
@@ -245,7 +245,7 @@ router.get("/filters/resource-types", Jwt.verifyToken, getResourceTypes);
  *       200:
  *         description: List of locations
  */
-router.get("/filters/locations", Jwt.verifyToken, getLocations);
+router.get("/filters/locations", getLocations);
 
 /**
  * @swagger
@@ -259,7 +259,7 @@ router.get("/filters/locations", Jwt.verifyToken, getLocations);
  *       200:
  *         description: List of service types
  */
-router.get("/filters/service-types", Jwt.verifyToken, getServiceTypes);
+router.get("/filters/service-types", getServiceTypes);
 
 /**
  * @swagger
@@ -273,7 +273,7 @@ router.get("/filters/service-types", Jwt.verifyToken, getServiceTypes);
  *       200:
  *         description: List of vendor names
  */
-router.get("/filters/vendor-names", Jwt.verifyToken, getVendorNames);
+router.get("/filters/vendor-names", getVendorNames);
 
 /**
  * @swagger
@@ -287,7 +287,7 @@ router.get("/filters/vendor-names", Jwt.verifyToken, getVendorNames);
  *       200:
  *         description: Test response
  */
-router.get("/test", Jwt.verifyToken, (req, res) => {
+router.get("/test", (req, res) => {
   res.json({
     success: true,
     message: "RVS Analytics routes working",

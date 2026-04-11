@@ -45,7 +45,6 @@ const router = express.Router();
  */
 router.get(
   "/production-yield",
-  Jwt.verifyToken,
   getProductionYield
 );
 
@@ -77,7 +76,6 @@ router.get(
  */
 router.get(
   "/production-yield/kpis",
-  Jwt.verifyToken,
   getProductionYieldKPIs
 );
 
@@ -115,7 +113,6 @@ router.get(
  */
 router.get(
   "/machine-oee",
-  Jwt.verifyToken,
   getMachineOEE
 );
 
@@ -138,7 +135,6 @@ router.get(
  */
 router.get(
   "/machine-oee/kpis",
-  Jwt.verifyToken,
   getMachineOEEKPIs
 );
 
@@ -176,7 +172,6 @@ router.get(
  */
 router.get(
   "/material-waste",
-  Jwt.verifyToken,
   getMaterialWaste
 );
 
@@ -202,7 +197,6 @@ router.get(
  */
 router.get(
   "/material-waste/kpis",
-  Jwt.verifyToken,
   getMaterialWasteKPIs
 );
 

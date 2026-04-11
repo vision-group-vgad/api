@@ -74,6 +74,6 @@ const campaignAttributionRoute = express.Router();
  *       500:
  *         description: Server error
  */
-campaignAttributionRoute.get("/", Jwt.verifyToken, getCampaignAttribution);
+campaignAttributionRoute.get("/", getCampaignAttribution);
 
 export default campaignAttributionRoute;
