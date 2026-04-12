@@ -14,6 +14,52 @@ async function fetchLive(endpoint, fallback) {
   return fallback();
 }
 
+// Normalize CMS live data OR fallback generated data to a consistent schema
+function mapServerRecord(s) {
+  return {
+    server_id: s.serverId || s.server_id || '',
+    hostname: s.serverName || s.hostname || '',
+    cpu_usage: s.cpuUsagePercent ?? s.cpu_usage ?? 0,
+    memory_usage: s.memoryUsagePercent ?? s.memory_usage ?? 0,
+    active_processes: s.active_processes ?? 0,
+    network_in: s.networkTrafficMbps ?? s.network_in ?? 0,
+    network_out: s.network_out ?? 0,
+    uptime_hours: s.uptime ?? s.uptime_hours ?? 0,
+  };
+}
+
+function mapStorageRecord(s) {
+  const utilizationPct = s.utilizationPercent ?? 0;
+  return {
+    storage_id: s.storageId || s.storage_id || '',
+    disk_name: s.storageName || s.disk_name || '',
+    capacity_total: s.totalCapacityGB ?? s.capacity_total ?? 0,
+    capacity_used: s.usedCapacityGB ?? s.capacity_used ?? 0,
+    capacity_free: s.availableCapacityGB ?? s.capacity_free ?? 0,
+    iops: s.iops ?? 0,
+    growth_rate: s.growthRateGBPerMonth ?? s.growth_rate ?? 0,
+    backup_status: s.backup_status || 'Unknown',
+    backup_completion_rate: s.backup_completion_rate ?? 0,
+    threshold_alert: s.threshold_alert ?? (utilizationPct > 80),
+  };
+}
+
+function mapPatchRecord(p) {
+  const rawDate = p.lastPatchDate || p.last_patch_date || '';
+  return {
+    server_id: p.systemId || p.server_id || '',
+    os_version: p.osVersion || p.os_version || '',
+    last_patch_date: rawDate.slice(0, 10),
+    pending_patches: p.patchesPending ?? p.pending_patches ?? 0,
+    compliance_score: p.compliancePercent ?? p.compliance_score ?? 0,
+    vulnerability_count: p.vulnerability_count ?? 0,
+    patch_age_days: p.daysSinceLastPatch ?? p.patch_age_days ?? 0,
+    critical_issues: p.criticalPatchesMissing ?? p.critical_issues ?? 0,
+    high_issues: p.high_issues ?? 0,
+    medium_issues: p.medium_issues ?? 0,
+  };
+}
+
 const generateServerData = () => [
   { server_id: "srv001", hostname: "web01", cpu_usage: 62, memory_usage: 78, active_processes: 112, network_in: 120, network_out: 95, uptime_hours: 720 },
   { server_id: "srv002", hostname: "db01", cpu_usage: 45, memory_usage: 65, active_processes: 89, network_in: 80, network_out: 70, uptime_hours: 680 },
@@ -39,8 +85,8 @@ class ServerStoragePatchService {
     if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
       return { servers: cached.data, totalCount: cached.totalCount };
     }
-    let allServers = await fetchLive('/it/server-infrastructure', generateServerData);
-    if (hostname) allServers = allServers.filter(s => s.hostname === hostname || s.serverName?.toLowerCase().includes(hostname.toLowerCase()));
+    let allServers = (await fetchLive('/it/server-infrastructure', generateServerData)).map(mapServerRecord);
+    if (hostname) allServers = allServers.filter(s => s.hostname?.toLowerCase().includes(hostname.toLowerCase()));
     const totalCount = allServers.length;
     const paged = allServers.slice((page - 1) * pageSize, page * pageSize);
     cache.set(cacheKey, { data: paged, totalCount, timestamp: Date.now() });
@@ -64,8 +110,8 @@ class ServerStoragePatchService {
     if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
       return { storages: cached.data, totalCount: cached.totalCount };
     }
-    let allStorages = await fetchLive('/it/storage-utilization', generateStorageData);
-    if (diskName) allStorages = allStorages.filter(s => s.disk_name === diskName);
+    let allStorages = (await fetchLive('/it/storage-utilization', generateStorageData)).map(mapStorageRecord);
+    if (diskName) allStorages = allStorages.filter(s => s.disk_name?.toLowerCase().includes(diskName.toLowerCase()));
     const totalCount = allStorages.length;
     const paged = allStorages.slice((page - 1) * pageSize, page * pageSize);
     cache.set(cacheKey, { data: paged, totalCount, timestamp: Date.now() });
@@ -91,8 +137,8 @@ class ServerStoragePatchService {
     if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
       return { patchCompliance: cached.data, totalCount: cached.totalCount };
     }
-    let allPatch = await fetchLive('/it/patch-compliance', generatePatchData);
-    if (osVersion) allPatch = allPatch.filter(s => s.os_version === osVersion);
+    let allPatch = (await fetchLive('/it/patch-compliance', generatePatchData)).map(mapPatchRecord);
+    if (osVersion) allPatch = allPatch.filter(s => s.os_version?.toLowerCase().includes(osVersion.toLowerCase()));
     const totalCount = allPatch.length;
     const paged = allPatch.slice((page - 1) * pageSize, page * pageSize);
     cache.set(cacheKey, { data: paged, totalCount, timestamp: Date.now() });

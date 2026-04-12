@@ -15,8 +15,11 @@ class CyberSecPostController {
     try {
       const liveData = await this.#it.fetchLiveData('/it/cybersecurity');
       if (Array.isArray(liveData) && liveData.length > 0) {
-        const filtered = liveData.filter(obj => !startDate || !endDate || (obj.date >= startDate && obj.date <= endDate));
-        return filtered.length > 0 ? filtered : liveData;
+        // Only use live data when it matches the expected posture snapshot schema
+        if (liveData[0].date !== undefined && liveData[0].overallCyberSecurityScore !== undefined) {
+          const filtered = liveData.filter(obj => !startDate || !endDate || (obj.date >= startDate && obj.date <= endDate));
+          return filtered.length > 0 ? filtered : liveData;
+        }
       }
     } catch (err) {
       console.warn('[CyberSecPost] Live fetch failed, using dummy:', err.message);

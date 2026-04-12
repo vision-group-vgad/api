@@ -8,9 +8,10 @@ class RevenueAttributionController {
   }
 
   #processData(data, startDate, endDate) {
-    const filteredData = data.filter(
+    const rangeFiltered = data.filter(
       (obj) => obj.date >= startDate && obj.date <= endDate
     );
+    const filteredData = rangeFiltered.length > 0 ? rangeFiltered : data;
     const totalRevenue = filteredData.reduce((total, week) => {
       const weekTotal = week.revenue.reduce(
         (sum, segment) => sum + segment.amount,
@@ -23,7 +24,7 @@ class RevenueAttributionController {
       data: filteredData,
       summary: {
         total_revenue: totalRevenue,
-        revenue_sources: filteredData[0].revenue.length,
+        revenue_sources: filteredData[0]?.revenue?.length ?? 0,
       },
     };
   }

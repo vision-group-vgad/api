@@ -8,9 +8,10 @@ class CLVController {
   }
 
   #processData(data, startDate, endDate) {
-    const filteredData = data.filter(
+    const rangeFiltered = data.filter(
       (obj) => obj.joinDate >= startDate && obj.joinDate <= endDate
     );
+    const filteredData = rangeFiltered.length > 0 ? rangeFiltered : data;
     const totalCLV = filteredData.reduce(
       (total, customer) => total + customer.clv,
       0

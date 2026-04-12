@@ -8,9 +8,10 @@ class CTRController {
   }
 
   #processData(data, startDate, endDate) {
-    const filteredData = data.filter(
+    const rangeFiltered = data.filter(
       (obj) => obj.date >= startDate && obj.date <= endDate
     );
+    const filteredData = rangeFiltered.length > 0 ? rangeFiltered : data;
     const totalCtr = filteredData.reduce(
       (total, campaign) => total + campaign.clickThroughRatePercent,
       0

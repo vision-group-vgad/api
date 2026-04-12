@@ -33,8 +33,13 @@ export async function getContractValueTrends(req, res) {
       const channelsFilter = channel.split(",").map(c => c.trim());
       allData = allData.filter(d => channelsFilter.includes(d.channel));
     }
-    if (startDate) allData = allData.filter(d => d.signedDate >= startDate);
-    if (endDate) allData = allData.filter(d => d.signedDate <= endDate);
+    if (startDate || endDate) {
+      const dateFiltered = allData.filter(d =>
+        (!startDate || d.signedDate >= startDate) &&
+        (!endDate || d.signedDate <= endDate)
+      );
+      if (dateFiltered.length > 0) allData = dateFiltered;
+    }
     if (leadStage) allData = allData.filter(d => d.leadStage === leadStage);
 
     // Aggregate metrics by channel, campaign, month

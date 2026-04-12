@@ -28,7 +28,7 @@ class SupervisorSalesAnalyticsService {
   }
 
   getDateRange(filters = {}) {
-    const startDate = filters.startDate || filters.start_date || "2024-01-01";
+    const startDate = filters.startDate || filters.start_date || "2021-01-01";
     const endDate =
       filters.endDate ||
       filters.end_date ||
