@@ -1,0 +1,46 @@
+export const waitTimeDummy = {
+  totalVisitors: 240,
+  filters: { department: "All", visitorType: "All" },
+  departmentVisitTypeStats: [
+    { department: "Administration", visitTypes: [{ type: "Guest", avgWait: 8.2 }, { type: "Vendor", avgWait: 12.5 }] },
+    { department: "HR", visitTypes: [{ type: "Applicant", avgWait: 15.3 }, { type: "Guest", avgWait: 7.1 }] },
+    { department: "IT", visitTypes: [{ type: "Vendor", avgWait: 9.8 }, { type: "Guest", avgWait: 6.4 }] },
+  ],
+  waitTimeHistogram: [
+    { bin: "0-5", count: 42 },
+    { bin: "6-10", count: 78 },
+    { bin: "11-15", count: 55 },
+    { bin: "16-20", count: 38 },
+    { bin: "21-30", count: 19 },
+    { bin: "31+", count: 8 },
+  ],
+  avgWaitTimePerDay: [
+    { date: "2025-03-01", averageWaitTime: "7.8" },
+    { date: "2025-03-02", averageWaitTime: "9.2" },
+    { date: "2025-03-03", averageWaitTime: "11.4" },
+    { date: "2025-03-04", averageWaitTime: "8.6" },
+    { date: "2025-03-05", averageWaitTime: "10.1" },
+  ],
+  avgWaitTimePerHour: [
+    { hour: "08:00", averageWaitTime: "6.5" },
+    { hour: "09:00", averageWaitTime: "8.9" },
+    { hour: "10:00", averageWaitTime: "11.2" },
+    { hour: "11:00", averageWaitTime: "9.7" },
+    { hour: "14:00", averageWaitTime: "10.3" },
+    { hour: "15:00", averageWaitTime: "7.8" },
+  ],
+  avgWaitTimePerMonth: [
+    { month: "2025-01", averageWaitTime: "8.1" },
+    { month: "2025-02", averageWaitTime: "9.4" },
+    { month: "2025-03", averageWaitTime: "10.2" },
+  ],
+  excessiveWaitThreshold: 10,
+  excessiveWaitCount: 27,
+  excessiveWaitPercentage: 11.25,
+  visitors: [
+    { Visitor_ID: "V2001", Visit_Date: "2025-03-01", Visit_Type: "Guest", Arrival_Time: "09:10:00", Check_In_Time: "09:18:00", Assistance_Start_Time: "09:22:00", Department_Visited: "Administration", Wait_Time: 8 },
+    { Visitor_ID: "V2002", Visit_Date: "2025-03-01", Visit_Type: "Vendor", Arrival_Time: "10:00:00", Check_In_Time: "10:14:00", Assistance_Start_Time: "10:25:00", Department_Visited: "IT", Wait_Time: 14 },
+    { Visitor_ID: "V2003", Visit_Date: "2025-03-02", Visit_Type: "Applicant", Arrival_Time: "08:45:00", Check_In_Time: "08:52:00", Assistance_Start_Time: "09:05:00", Department_Visited: "HR", Wait_Time: 7 },
+    { Visitor_ID: "V2004", Visit_Date: "2025-03-03", Visit_Type: "Guest", Arrival_Time: "14:05:00", Check_In_Time: "14:22:00", Assistance_Start_Time: "14:38:00", Department_Visited: "Finance", Wait_Time: 17 },
+  ],
+};

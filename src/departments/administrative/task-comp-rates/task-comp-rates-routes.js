@@ -93,7 +93,7 @@ const taskRouter = express.Router();
 taskRouter.get("/in-range", async (req, res) => {
   let { startDate, endDate } = req.query;
 
-  validateRange(startDate, endDate, res);
+  if (validateRange(startDate, endDate, res)) return;
 
   try {
     const results = await taskController.getInRangeAnalytics(

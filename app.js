@@ -215,7 +215,7 @@ app.use("/api/v1/administrative/task-comp-rates", taskRouter);
 app.use("/api/v1/administrative/process-throughput", processThroughRouter);
 app.use("/api/v1/editorial/content-production", contentProductionRoutes);
 app.use(
-  "/api/v1/admnistrative/meetingAnalytics",
+  "/api/v1/administrative/meetingAnalytics",
   ExecutiveMeetingAnalyticsRoutes
 );
 app.use("/api/v1/editorial/deadline-compliance", deadlineCompliance);

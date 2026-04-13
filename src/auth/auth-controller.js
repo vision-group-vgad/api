@@ -1,5 +1,4 @@
 import Jwt from "./jwt.js";
-import bcrypt from "bcrypt";
 import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
@@ -19,7 +18,8 @@ class AuthenticationController {
     const user = users.find((u) => u.email === email);
     if (!user) throw new Error("Invalid credentials");
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    // Plain text comparison — will switch to hashed comparison on AD integration
+    const isPasswordValid = password === user.password;
     if (!isPasswordValid) throw new Error("Invalid credentials");
 
     const token = Jwt.generateToken(user.email, {

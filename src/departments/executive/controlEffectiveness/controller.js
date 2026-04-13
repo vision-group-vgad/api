@@ -44,17 +44,17 @@ const router = express.Router();
  *       200:
  *         description: List of control effectiveness records or message
  */
-router.get('/', (req, res) => {
-  const { startDate, endDate, department, status } = req.query;
-  const filters = { startDate, endDate, department, status };
-  const data = getControls(filters);
-
-  // If data is an object with message, return that message
-  if (data.message) {
-    return res.status(200).json({ message: data.message });
+router.get('/', async (req, res) => {
+  try {
+    const { startDate, endDate, department, status } = req.query;
+    const data = await getControls({ startDate, endDate, department, status });
+    if (data && data.message) {
+      return res.status(200).json({ message: data.message });
+    }
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch control effectiveness', error: err.message });
   }
-
-  res.status(200).json(data);
 });
 
 export default router;

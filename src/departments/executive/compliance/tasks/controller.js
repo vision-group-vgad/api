@@ -64,22 +64,17 @@ const router = express.Router();
  *                       dueDate: "2025-01-15"
  *                       completionDate: "2025-01-12"
  */
-router.get("/", (req, res) => {
-  const { department, status, startDate, endDate } = req.query;
-
-  const tasks = getFilteredTasks({ department, status, startDate, endDate });
-
-  if (tasks.length === 0) {
-    return res.status(200).json({
-      message: "No records found for the applied filters",
-      data: []
-    });
+router.get("/", async (req, res) => {
+  try {
+    const { department, status, startDate, endDate } = req.query;
+    const tasks = await getFilteredTasks({ department, status, startDate, endDate });
+    if (tasks.length === 0) {
+      return res.status(200).json({ message: "No records found for the applied filters", data: [] });
+    }
+    res.status(200).json({ message: `${tasks.length} task(s) found`, data: tasks });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch compliance tasks", error: err.message });
   }
-
-  res.status(200).json({
-    message: `${tasks.length} task(s) found`,
-    data: tasks
-  });
 });
 
 export default router;

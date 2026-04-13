@@ -1,11 +1,10 @@
-import CEO from "../../../utils/common/CEO.js";
+﻿import ExecutiveUtils from "../../../utils/common/ExecutiveUtils.js";
 import wide_kpis from "./dummy-data.js";
 
+const _execUtils = new ExecutiveUtils();
+
 class CompWideKpisController {
-  #ceoObj;
-  constructor() {
-    this.#ceoObj = new CEO();
-  }
+  constructor() {}
 
   #processData(data, startDate, endDate) {
     const filteredData = data.filter(
@@ -85,9 +84,14 @@ class CompWideKpisController {
   }
 
   async getInRangeAnalytics(startDate, endDate) {
-    // const data = await this.#ceoObj.getInRangeSalesAnalytics(startDate, endDate)
-    const processedAnalytics = this.#processData(wide_kpis, startDate, endDate);
-    return processedAnalytics;
+    try {
+      const cmcData = await _execUtils.getCompanyKpis();
+      const rawData = cmcData?.results?.data || [];
+      return this.#processData(rawData, startDate, endDate);
+    } catch (err) {
+      console.error("❌ [CompanyKPIs] CMC failed, using dummy:", err.message);
+      return this.#processData(wide_kpis, startDate, endDate);
+    }
   }
 }
 

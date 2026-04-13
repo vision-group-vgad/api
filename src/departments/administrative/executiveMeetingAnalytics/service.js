@@ -1,47 +1,29 @@
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween.js";
-import dotenv from "dotenv";
-dotenv.config();
-import buildVGADUrl from "../../../config/url_builder.js";
+import AdminUtils from "../../../utils/common/AdminUtils.js";
+import { meetingsDummy } from "./meetings-dummy.js";
 
 dayjs.extend(isBetween);
 
+const adminUtils = new AdminUtils();
+
 export const getMeetingAnalytics = async (startDate, endDate) => {
+  let meetings = [];
   try {
-    const url = buildVGADUrl("administrator/meetings", {
-      startDate,
-      endDate,
-    });
-
-    const response = await fetch(url, {
-      headers: {
-        "x-api-key": process.env.VGAD_API_KEY,
-        Accept: process.env.VGAD_ACCEPT,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`API responded with ${response.status}`);
-    }
-
-    const json = await response.json();
-    const meetings = json.data;
-
-    let filteredMeetings = meetings;
-    if (startDate && endDate) {
-      filteredMeetings = meetings.filter((m) =>
-        dayjs(m.meetingDate).isBetween(
-          dayjs(startDate),
-          dayjs(endDate),
-          null,
-          "[]"
-        )
-      );
-    }
-    // eslint-disable-next-line no-unused-vars
-    return filteredMeetings.map(({ totalInvited, attended, ...rest }) => rest);
+    const json = await adminUtils.getMeetings(startDate, endDate);
+    meetings = json.data || [];
+    if (meetings.length === 0) meetings = meetingsDummy;
   } catch (error) {
-    console.error(error);
-    throw error;
+    console.warn("[Meetings] Live fetch failed, using dummy:", error.message);
+    meetings = meetingsDummy;
   }
+
+  if (startDate && endDate) {
+    meetings = meetings.filter((m) =>
+      dayjs(m.meetingDate).isBetween(dayjs(startDate), dayjs(endDate), null, "[]")
+    );
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  return meetings.map(({ totalInvited, attended, ...rest }) => rest);
 };

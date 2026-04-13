@@ -1,5 +1,5 @@
 import express from "express";
-import { getScheduleEfficiency } from "./controller.js";
+import { getScheduleEfficiency, getScheduleEfficiencySummary, getScheduleEfficiencyTaskProgress } from "./controller.js";
 
 const router = express.Router();
 
@@ -37,6 +37,8 @@ const router = express.Router();
  *                 tasks:
  *                   type: array
  */
+router.get("/summary", getScheduleEfficiencySummary);
+router.get("/taskProgress", getScheduleEfficiencyTaskProgress);
 router.get("/", getScheduleEfficiency);
 
 export default router;

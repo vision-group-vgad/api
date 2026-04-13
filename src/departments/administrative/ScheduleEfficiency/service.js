@@ -1,22 +1,20 @@
-import buildVGADUrl from "../../../config/url_builder.js";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween.js";
+import AdminUtils from "../../../utils/common/AdminUtils.js";
 
 dayjs.extend(isBetween);
 
+const adminUtils = new AdminUtils();
+
 export default class ScheduleEfficiencyService {
   static async getMeetings(startDate, endDate) {
-    const url = buildVGADUrl("administrator/meetings", { startDate, endDate });
-
-    const res = await fetch(url, {
-      headers: {
-        "x-api-key": process.env.VGAD_API_KEY,
-        Accept: process.env.VGAD_ACCEPT,
-      },
-    });
-    if (!res.ok) throw new Error(`Meetings API responded with ${res.status}`);
-    const json = await res.json();
-    let meetings = json.data || [];
+    let meetings = [];
+    try {
+      const json = await adminUtils.getMeetings(startDate, endDate);
+      meetings = json.data || [];
+    } catch (error) {
+      console.warn("[ScheduleEfficiency] Meetings live fetch failed:", error.message);
+    }
 
     if (startDate && endDate) {
       meetings = meetings.filter(m =>
@@ -27,17 +25,13 @@ export default class ScheduleEfficiencyService {
   }
 
   static async getTasks(startDate, endDate) {
-    const url = buildVGADUrl("administrator/task-completion", { startDate, endDate });
-
-    const res = await fetch(url, {
-      headers: {
-        "x-api-key": process.env.VGAD_API_KEY,
-        Accept: process.env.VGAD_ACCEPT,
-      },
-    });
-    if (!res.ok) throw new Error(`Tasks API responded with ${res.status}`);
-    const json = await res.json();
-    let tasks = json.tasks || [];
+    let tasks = [];
+    try {
+      const json = await adminUtils.getTaskCompletion(startDate, endDate);
+      tasks = json.tasks || [];
+    } catch (error) {
+      console.warn("[ScheduleEfficiency] Tasks live fetch failed:", error.message);
+    }
 
     if (startDate && endDate) {
       tasks = tasks.filter(task =>

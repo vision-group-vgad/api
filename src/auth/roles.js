@@ -136,7 +136,7 @@ const ROLES = {
     "/api/v1/editorial/segment-popularity/*",
   ],
 
-  // ── Admin ─────────────────────────────────────────────────────────────────
+  // ── Admin ──────────────────────────────────────────────────────────────────────
   admin_staff: [
     "/api/v1/administrative/*",
     "/api/v1/admnistrative/*",
@@ -148,6 +148,59 @@ const ROLES = {
     "/api/v1/executive/strategic-init-tracking",
     "/api/v1/executive/company-wide-kpis",
     "/api/v1/executives/compliance/*",
+  ],
+
+  // ── Executive ─────────────────────────────────────────────────────────────────
+  managingdirector: [
+    "/api/v1/executive/*",
+    "/api/v1/executives/*",
+  ],
+  ceo: ["*"],
+  deputymanagingdirector: [
+    "/api/v1/executive/*",
+    "/api/v1/executives/*",
+  ],
+  companysecretary: [
+    "/api/v1/executive/*",
+    "/api/v1/executives/*",
+  ],
+  chiefhumanresourceofficer: [
+    "/api/v1/executive/*",
+    "/api/v1/executives/*",
+  ],
+  chiefinternalauditor: [
+    "/api/v1/executive/*",
+    "/api/v1/executives/*",
+    "/api/v1/executives/compliance/*",
+    "/api/v1/executives/control-effectiveness",
+  ],
+
+  // ── Specialized Roles ─────────────────────────────────────────────────────────
+  legalofficer: [
+    "/api/v1/specialized/*",
+    "/api/v1/executive/cost-optimization",
+    "/api/v1/executives/risk-heatmap",
+  ],
+  riskmanager: [
+    "/api/v1/specialized/*",
+    "/api/v1/executives/risk-heatmap",
+    "/api/v1/executives/control-effectiveness",
+    "/api/v1/executives/compliance/*",
+  ],
+  eventsmanager: [
+    "/api/v1/specialized/*",
+    "/api/v1/administrative/*",
+  ],
+  hrroles: [
+    "/api/v1/specialized/*",
+    "/api/v1/executive/CEOAnalytics/workforce-analytics",
+    "/api/v1/executive/CEOAnalytics/retention-rates",
+    "/api/v1/executive/CEOAnalytics/compensation-benchmarks",
+  ],
+  "research&datamanager": [
+    "/api/v1/specialized/*",
+    "/api/v1/editorial/*",
+    "/api/v1/executive/company-wide-kpis",
   ],
 };
 

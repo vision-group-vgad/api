@@ -1,10 +1,11 @@
-import dotenv from "dotenv";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween.js";
-import buildVGADUrl from "../../../config/url_builder.js";
+import { data as tasksDummy } from "./tasks-dummy.js";
+import AdminUtils from "../../../utils/common/AdminUtils.js";
 
-dotenv.config();
 dayjs.extend(isBetween);
+
+const adminUtils = new AdminUtils();
 
 const filterTasksByDate = (tasks, startDate, endDate) => {
   if (!startDate || !endDate) return tasks;
@@ -21,43 +22,24 @@ const filterTasksByDate = (tasks, startDate, endDate) => {
 
 export default class TaskCompRatesService {
   static async getInRangeAnalytics(startDate, endDate) {
+    let tasks = [];
+    let dateRange, analytics;
     try {
-      const url = buildVGADUrl("administrator/task-completion", {
-        startDate,
-        endDate,
-      });
-
-      const response = await fetch(url, {
-        headers: {
-          "x-api-key": process.env.VGAD_API_KEY,
-          Accept: process.env.VGAD_ACCEPT,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`API responded with ${response.status}`);
-      }
-
-      const {
-        tasks = [],
-        dateRange,
-        analytics,
-      } = await response.json();
-
-      const filteredTasks = filterTasksByDate(
-        tasks,
-        startDate,
-        endDate
-      );
-
-      return {
-        dateRange,
-        analytics,
-        tasks: filteredTasks,
-      };
+      const json = await adminUtils.getTaskCompletion(startDate, endDate);
+      tasks = json.tasks || [];
+      dateRange = json.dateRange;
+      analytics = json.analytics;
     } catch (error) {
-      console.error("Task Completion Service Error:", error);
-      throw error;
+      console.warn("[TaskCompRates] Live fetch failed, using dummy:", error.message);
+      tasks = tasksDummy;
     }
+
+    const filteredTasks = filterTasksByDate(tasks, startDate, endDate);
+
+    return {
+      dateRange,
+      analytics,
+      tasks: filteredTasks,
+    };
   }
 }

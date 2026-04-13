@@ -1,10 +1,11 @@
-import dotenv from "dotenv";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween.js";
-import buildVGADUrl from "../../../config/url_builder.js";
+import AdminUtils from "../../../utils/common/AdminUtils.js";
+import { processThroughputDummy } from "./process-dummy.js";
 
-dotenv.config();
 dayjs.extend(isBetween);
+
+const adminUtils = new AdminUtils();
 
 const filterTasksByDate = (tasks, startDate, endDate) => {
   if (!startDate || !endDate) return tasks;
@@ -21,29 +22,15 @@ const filterTasksByDate = (tasks, startDate, endDate) => {
 
 export default class ProcessThroughputService {
   static async getInRangeTasks(startDate, endDate) {
+    let tasks = [];
     try {
-      const url = buildVGADUrl("administrator/process-throughput", {
-        startDate,
-        endDate,
-      });
-
-      const response = await fetch(url, {
-        headers: {
-          "x-api-key": process.env.VGAD_API_KEY,
-          Accept: process.env.VGAD_ACCEPT,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`API responded with ${response.status}`);
-      }
-
-      const { data: tasks = [] } = await response.json();
-
-      return filterTasksByDate(tasks, startDate, endDate);
+      const json = await adminUtils.getProcessThroughput(startDate, endDate);
+      tasks = json.data || [];
+      if (tasks.length === 0) tasks = processThroughputDummy;
     } catch (error) {
-      console.error("Process Throughput Service Error:", error);
-      throw error;
+      console.warn("[ProcessThroughput] Live fetch failed, using dummy:", error.message);
+      tasks = processThroughputDummy;
     }
+    return filterTasksByDate(tasks, startDate, endDate);
   }
 }

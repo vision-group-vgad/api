@@ -64,22 +64,17 @@ const router = express.Router();
  *                       status: "On Track"
  *                       category: "Data Protection"
  */
-router.get("/", (req, res) => {
-  const { department, status, category, startDate, endDate } = req.query;
-
-  const filtered = getFilteredPolicies({ department, status, category, startDate, endDate });
-
-  if (filtered.length === 0) {
-    return res.status(200).json({
-      message: "No policies found for the applied filters",
-      data: []
-    });
+router.get("/", async (req, res) => {
+  try {
+    const { department, status, category, startDate, endDate } = req.query;
+    const filtered = await getFilteredPolicies({ department, status, category, startDate, endDate });
+    if (filtered.length === 0) {
+      return res.status(200).json({ message: "No policies found for the applied filters", data: [] });
+    }
+    res.status(200).json({ message: `${filtered.length} policy(ies) found`, data: filtered });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch policies", error: err.message });
   }
-
-  res.status(200).json({
-    message: `${filtered.length} policy(ies) found`,
-    data: filtered
-  });
 });
 
 export default router;

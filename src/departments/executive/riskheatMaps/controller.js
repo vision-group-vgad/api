@@ -74,12 +74,14 @@ const router = express.Router();
  *                     type: string
  *                     format: date
  */
-router.get("/", (req, res) => {
-  const { startDate, endDate, status, department } = req.query;
-
-  const risks = getRisks({ startDate, endDate, status, department });
-
-  res.json(risks);
+router.get("/", async (req, res) => {
+  try {
+    const { startDate, endDate, status, department } = req.query;
+    const risks = await getRisks({ startDate, endDate, status, department });
+    res.json(risks);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch risk heatmap", error: err.message });
+  }
 });
 
 export default router;

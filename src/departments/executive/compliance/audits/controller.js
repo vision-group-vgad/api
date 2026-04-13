@@ -66,22 +66,17 @@ const router = express.Router();
  *                       riskLevel: "Medium"
  *                       category: "Financial"
  */
-router.get("/", (req, res) => {
-  const { department, status, category, startDate, endDate } = req.query;
-
-  const filtered = getFilteredAudits({ department, status, category, startDate, endDate });
-
-  if (filtered.length === 0) {
-    return res.status(200).json({
-      message: "No audits found for the applied filters",
-      data: []
-    });
+router.get("/", async (req, res) => {
+  try {
+    const { department, status, category, startDate, endDate } = req.query;
+    const filtered = await getFilteredAudits({ department, status, category, startDate, endDate });
+    if (filtered.length === 0) {
+      return res.status(200).json({ message: "No audits found for the applied filters", data: [] });
+    }
+    res.status(200).json({ message: `${filtered.length} audit(s) found`, data: filtered });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch audits", error: err.message });
   }
-
-  res.status(200).json({
-    message: `${filtered.length} audit(s) found`,
-    data: filtered
-  });
 });
 
 export default router;

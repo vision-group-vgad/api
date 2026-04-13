@@ -1,5 +1,8 @@
 import axios from "axios";
 import { faker } from "@faker-js/faker";
+import ExecutiveUtils from "../../../utils/common/ExecutiveUtils.js";
+
+const _execUtils = new ExecutiveUtils();
 
 // --- Helper: Generate random dates in 2023-2025 ---
 function randomDate(start, end) {
@@ -410,24 +413,96 @@ class CEOAnalyticsService {
     return { total, data: paged };
   }
 
-  // --- KPI Methods ---
+  // --- KPI Methods (live CMC with dummy fallback) ---
   async fetchGovernanceComplianceKPIs() {
-    return getGovernanceComplianceKPIs();
+    try {
+      const d = await _execUtils.getCeoAnalytics();
+      const kpis = d.kpis;
+      return {
+        total: kpis.total_controls,
+        compliant: kpis.status_breakdown.compliant,
+        atRisk: kpis.status_breakdown.at_risk,
+        nonCompliant: kpis.status_breakdown.non_compliant,
+        compliantPercent: kpis.status_percentages.compliant_percent,
+        atRiskPercent: kpis.status_percentages.at_risk_percent,
+        nonCompliantPercent: kpis.status_percentages.non_compliant_percent,
+      };
+    } catch (err) {
+      console.error("❌ [CEO] fetchGovernanceComplianceKPIs CMC failed:", err.message);
+      return getGovernanceComplianceKPIs();
+    }
   }
   async fetchLegalExposureKPIs() {
-    return getLegalExposureKPIs();
+    try {
+      const d = await _execUtils.getRiskCases();
+      const kpis = d.kpis;
+      return {
+        totalCases: kpis.total_cases,
+        totalExposure: kpis.total_exposure,
+        openCases: kpis.open_cases,
+        closedCases: kpis.closed_cases,
+        pendingCases: kpis.pending_cases,
+        highRiskCases: kpis.high_risk_cases,
+        highRiskRatioPercent: kpis.high_risk_ratio_percent,
+        currency: d.currency,
+      };
+    } catch (err) {
+      console.error("❌ [CEO] fetchLegalExposureKPIs CMC failed:", err.message);
+      return getLegalExposureKPIs();
+    }
   }
   async fetchBoardReportingKPIs() {
-    return getBoardReportingKPIs();
+    try {
+      const d = await _execUtils.getCeoAnalytics();
+      const kpis = d.kpis;
+      return {
+        revenue_growth: kpis.revenue_growth_percent,
+        profit_margin: kpis.profit_margin_percent,
+        market_share: kpis.market_share_percent,
+        headcount: kpis.headcount,
+        strategic_projects_completed: kpis.strategic_projects_completed,
+      };
+    } catch (err) {
+      console.error("❌ [CEO] fetchBoardReportingKPIs CMC failed:", err.message);
+      return getBoardReportingKPIs();
+    }
   }
   async fetchWorkforceKPIs() {
     return getWorkforceKPIs();
   }
   async fetchRetentionKPIs() {
-    return getRetentionKPIs();
+    try {
+      const d = await _execUtils.getRetention();
+      const kpis = d.kpis;
+      return {
+        latestRetentionRate: kpis.latest_retention_rate_percent,
+        totalEmployees: kpis.total_employees,
+        retained: kpis.retained_employees,
+        attritionCount: kpis.attrition_count,
+        period: d.period,
+      };
+    } catch (err) {
+      console.error("❌ [CEO] fetchRetentionKPIs CMC failed:", err.message);
+      return getRetentionKPIs();
+    }
   }
   async fetchCompensationBenchmarksKPIs() {
-    return getCompensationBenchmarksKPIs();
+    try {
+      const d = await _execUtils.getCompensation();
+      const kpis = d.kpis;
+      return {
+        totalPositions: kpis.total_positions,
+        aboveBenchmark: kpis.above_market_benchmark,
+        belowBenchmark: kpis.below_market_benchmark,
+        highRiskGaps: kpis.high_risk_salary_gaps,
+        avgDifference: kpis.average_percent_difference,
+        complianceRate: kpis.compensation_compliance_rate_percent,
+        currency: d.currency,
+      };
+    } catch (err) {
+      console.error("❌ [CEO] fetchCompensationBenchmarksKPIs CMC failed:", err.message);
+      return getCompensationBenchmarksKPIs();
+    }
   }
 
   // --- Filter Dropdown Methods ---
