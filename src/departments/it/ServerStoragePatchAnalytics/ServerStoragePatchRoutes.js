@@ -34,7 +34,6 @@ const router = express.Router();
  */
 router.get(
   "/server-load",
-  Jwt.verifyToken,
   getServerLoadAnalytics
 );
 
@@ -55,7 +54,6 @@ router.get(
  */
 router.get(
   "/server-load/kpis",
-  Jwt.verifyToken,
   getServerLoadKPIs
 );
 
@@ -82,7 +80,6 @@ router.get(
  */
 router.get(
   "/storage",
-  Jwt.verifyToken,
   getStorageAnalytics
 );
 
@@ -103,7 +100,6 @@ router.get(
  */
 router.get(
   "/storage/kpis",
-  Jwt.verifyToken,
   getStorageKPIs
 );
 
@@ -130,7 +126,6 @@ router.get(
  */
 router.get(
   "/patch-compliance",
-  Jwt.verifyToken,
   getPatchComplianceAnalytics
 );
 
@@ -151,7 +146,6 @@ router.get(
  */
 router.get(
   "/patch-compliance/kpis",
-  Jwt.verifyToken,
   getPatchComplianceKPIs
 );
 

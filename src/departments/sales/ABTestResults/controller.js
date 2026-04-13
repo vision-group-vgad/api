@@ -64,10 +64,10 @@ const router = express.Router();
  *                         type: object
  */
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const { startDate, endDate, testName } = req.query;
-    let results = calculateABTestResults();
+    let results = await calculateABTestResults(startDate, endDate);
 
     // Filter by startDate
     if (startDate) {

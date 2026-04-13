@@ -1,7 +1,24 @@
 import { impressionShareData }  from "./dummy.js";
+import SalesMarketing from "../../../utils/common/SalesMkting.js";
 
-export const getImpressionShare = (filters = {}) => {
-  let data = impressionShareData;
+const salesMarketing = new SalesMarketing();
+
+export const getImpressionShare = async (filters = {}) => {
+  let data = [];
+
+  try {
+    data = await salesMarketing.getImpressionShareData(
+      filters.startDate,
+      filters.endDate
+    );
+  } catch (error) {
+    console.warn("Using fallback impression-share data:", error.message);
+    data = impressionShareData;
+  }
+
+  if (!Array.isArray(data) || data.length === 0) {
+    data = impressionShareData;
+  }
 
 
   if (filters.advertiser) {

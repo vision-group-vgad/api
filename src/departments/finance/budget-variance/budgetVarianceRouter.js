@@ -64,6 +64,6 @@ const budVarienceRouter = express.Router();
  *         description: Internal server error
  */
 
-budVarienceRouter.get('/', Jwt.verifyToken, getBudgetVariance);
+budVarienceRouter.get('/', getBudgetVariance);
 
 export default budVarienceRouter;

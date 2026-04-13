@@ -1,10 +1,28 @@
 import { generateRouteEfficiency } from "./routeEfficiencyData.js";
+import OpsProduction from "../../../utils/common/OpsProduction.js";
 
-export const getRouteEfficiency = (req, res) => {
+const opsProduction = new OpsProduction();
+
+export const getRouteEfficiency = async (req, res) => {
   try {
-    const data = generateRouteEfficiency(200);
-
     const { driverName, vehicle, region, startDate, endDate } = req.query;
+
+    const today = new Date().toISOString().slice(0, 10);
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    const fetchStart = startDate || thirtyDaysAgo;
+    const fetchEnd = endDate || today;
+
+    let data;
+    try {
+      const response = await opsProduction.fetchModuleData('route-efficiency', fetchStart, fetchEnd);
+      data = Array.isArray(response.data) && response.data.length > 0 ? response.data : generateRouteEfficiency(200);
+      if (!Array.isArray(response.data) || response.data.length === 0) {
+        console.warn('[RouteEfficiency] Live data empty, falling back to generated data');
+      }
+    } catch (fetchError) {
+      console.warn('[RouteEfficiency] Live data fetch failed, using generated data:', fetchError.message);
+      data = generateRouteEfficiency(200);
+    }
 
     let filteredData = data;
 

@@ -1,16 +1,13 @@
 import { getSlaOverview, getSlaByPriority, getSlaByAgent } from "./service.js";
 
-// SLA Overview
-export const slaOverview = (req, res) => {
-  res.json(getSlaOverview());
+export const slaOverview = async (req, res) => {
+  res.json(await getSlaOverview());
 };
 
-// SLA by Priority
-export const slaByPriority = (req, res) => {
-  res.json(getSlaByPriority());
+export const slaByPriority = async (req, res) => {
+  res.json(await getSlaByPriority());
 };
 
-// SLA by Agent
-export const slaByAgent = (req, res) => {
-  res.json(getSlaByAgent());
+export const slaByAgent = async (req, res) => {
+  res.json(await getSlaByAgent());
 };

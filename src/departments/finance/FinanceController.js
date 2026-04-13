@@ -22,6 +22,8 @@ export const getFinancialCloseMetrics = async (req, res) => {
 
     console.log('📊 Financial Close Metrics request with filters:', filters);
 
+    // Initialize service with roleCode from JWT
+    FinanceService.initialize(req.user?.role_code);
     const data = await FinanceService.getFinancialCloseMetrics(filters);
     res.status(200).json({ 
       success: true, 
@@ -56,6 +58,7 @@ export const getAuditTrailAnalysis = async (req, res) => {
       limit: req.query.limit || 5000
     };
 
+    FinanceService.initialize(req.user?.role_code);
     const data = await FinanceService.getAuditTrailAnalysis(filters);
     res.status(200).json({ 
       success: true, 
@@ -83,6 +86,7 @@ export const getReportingAccuracy = async (req, res) => {
       limit: req.query.limit || 10000
     };
 
+  FinanceService.initialize(req.user?.role_code);
     const data = await FinanceService.getReportingAccuracy(filters);
     res.status(200).json({ 
       success: true, 
@@ -113,6 +117,8 @@ export const getRegionalPnL = async (req, res) => {
 
     console.log('🌍 Regional P&L request with filters:', filters);
 
+    // Initialize service with roleCode from JWT
+    FinanceService.initialize(req.user?.role_code);
     const data = await FinanceService.getRegionalPnL(filters);
     
     // Calculate summary metrics
@@ -174,6 +180,7 @@ export const getFinancialData = async (req, res) => {
       limit: req.query.limit || 1000
     };
 
+    FinanceService.initialize(req.user?.role_code);
     const data = await FinanceService.getFinancialData(filters);
     res.status(200).json({ 
       success: true, 

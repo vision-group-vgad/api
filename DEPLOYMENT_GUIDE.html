@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>VGAD — DigitalOcean Deployment Guide</title>
+  <style>
+    body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; color: #222; margin: 60px; line-height: 1.6; }
+    h1 { font-size: 22pt; color: #1a56db; border-bottom: 3px solid #1a56db; padding-bottom: 8px; margin-top: 0; }
+    h2 { font-size: 15pt; color: #1a56db; border-bottom: 1px solid #c5d8f7; padding-bottom: 4px; margin-top: 30px; }
+    h3 { font-size: 12pt; color: #333; margin-top: 20px; }
+    pre, code { font-family: Consolas, "Courier New", monospace; font-size: 10pt; }
+    pre { background: #f4f6fa; border: 1px solid #d0d7e6; border-left: 4px solid #1a56db; padding: 12px 16px; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
+    code { background: #eef2f9; padding: 1px 5px; border-radius: 3px; }
+    table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 10pt; }
+    th { background: #1a56db; color: #fff; padding: 8px 12px; text-align: left; }
+    td { border: 1px solid #d0d7e6; padding: 7px 12px; vertical-align: top; }
+    tr:nth-child(even) td { background: #f4f6fa; }
+    .note { background: #fff8e1; border-left: 4px solid #f59e0b; padding: 10px 14px; margin: 14px 0; border-radius: 4px; }
+    .warn { background: #fef2f2; border-left: 4px solid #ef4444; padding: 10px 14px; margin: 14px 0; border-radius: 4px; }
+    .tip  { background: #f0fdf4; border-left: 4px solid #22c55e; padding: 10px 14px; margin: 14px 0; border-radius: 4px; }
+    .step { font-weight: bold; display: inline-block; background: #1a56db; color: #fff; border-radius: 50%; width: 22px; height: 22px; text-align: center; line-height: 22px; margin-right: 8px; font-size: 10pt; }
+    ol li, ul li { margin-bottom: 6px; }
+    .toc { background: #f4f6fa; border: 1px solid #d0d7e6; padding: 16px 24px; border-radius: 6px; display: inline-block; min-width: 340px; }
+    .toc a { color: #1a56db; text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .arch-box { border: 1px solid #d0d7e6; border-radius: 6px; padding: 16px; background: #f9fafc; font-family: Consolas, monospace; font-size: 9.5pt; line-height: 1.8; margin: 12px 0; }
+    .section-break { border: none; border-top: 2px dashed #d0d7e6; margin: 36px 0; }
+    @media print { body { margin: 30px; } }
+  </style>
+</head>
+<body>
+
+<h1>VGAD — DigitalOcean Deployment Guide</h1>
+<p><strong>Project:</strong> Vision Group Analytics Dashboard (VGAD)<br/>
+<strong>Backend:</strong> Node.js / Express API &nbsp;|&nbsp; <strong>Frontend:</strong> React + Vite + TypeScript<br/>
+<strong>Prepared:</strong> April 2026</p>
+
+<div class="toc">
+  <strong>Table of Contents</strong>
+  <ol style="margin:8px 0 0 0; padding-left:20px;">
+    <li><a href="#architecture">Architecture Overview &amp; Droplet Options</a></li>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#create-droplets">Create Your DigitalOcean Droplet(s)</a></li>
+    <li><a href="#server-setup">Server Setup (All Droplets)</a></li>
+    <li><a href="#deploy-backend">Deploy the Backend API</a></li>
+    <li><a href="#deploy-frontend">Deploy the Frontend</a></li>
+    <li><a href="#nginx">Configure Nginx Reverse Proxy</a></li>
+    <li><a href="#ssl">Enable HTTPS with Let's Encrypt</a></li>
+    <li><a href="#env-vars">Environment Variables Reference</a></li>
+    <li><a href="#pm2">PM2 Process Management</a></li>
+    <li><a href="#firewall">Firewall Rules</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a></li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════ SECTION 1 ═══════ -->
+<h2 id="architecture">1 · Architecture Overview &amp; Droplet Options</h2>
+
+<h3>What you are deploying</h3>
+<table>
+  <tr><th>Component</th><th>Technology</th><th>Local Port</th><th>Entry Point</th></tr>
+  <tr><td><strong>Backend API</strong></td><td>Node.js 20 / Express 5</td><td>4000</td><td><code>server.js</code></td></tr>
+  <tr><td><strong>Frontend</strong></td><td>React 18 / Vite / TypeScript</td><td>—</td><td>Static files after <code>npm run build</code></td></tr>
+</table>
+
+<h3>Option A — Two Separate Droplets (Recommended for production)</h3>
+<div class="arch-box">
+┌──────────────────────────┐        ┌──────────────────────────┐
+│  Droplet 1 — Backend API │        │  Droplet 2 — Frontend    │
+│                          │        │                          │
+│  Node.js  + PM2          │◄──────►│  Nginx serves            │
+│  Nginx reverse proxy     │  HTTP  │  /dist (static files)    │
+│  api.yourdomain.com      │        │  app.yourdomain.com      │
+│  Port 4000 → :443        │        │  Port 80 / 443           │
+└──────────────────────────┘        └──────────────────────────┘
+                    ▲                          ▲
+                    └──── DigitalOcean ────────┘
+</div>
+<table>
+  <tr><th>Pros</th><th>Cons</th></tr>
+  <tr><td>Independent scaling — scale API without redeploying frontend</td><td>Two droplets = double the monthly cost</td></tr>
+  <tr><td>Isolated failures — backend crash does not take down the UI</td><td>Slightly more Nginx/DNS configuration</td></tr>
+  <tr><td>Better security surface (separate SSH access)</td><td>CORS must be configured between them</td></tr>
+</table>
+
+<h3>Option B — Single Droplet (Good for staging / low budget)</h3>
+<div class="arch-box">
+┌────────────────────────────────────────────────┐
+│  Single Droplet                                │
+│                                                │
+│  Nginx                                         │
+│   ├── yourdomain.com        → /var/www/dist    │
+│   └── yourdomain.com/api/   → localhost:4000   │
+│                                                │
+│  PM2  →  Node.js API  (port 4000, internal)    │
+└────────────────────────────────────────────────┘
+</div>
+<table>
+  <tr><th>Pros</th><th>Cons</th></tr>
+  <tr><td>Cheapest option — one $12/mo droplet is enough</td><td>One crash/restart affects everything</td></tr>
+  <tr><td>Simpler DNS — only one IP address</td><td>Harder to scale independently</td></tr>
+  <tr><td>No CORS issues — same origin</td><td>Less isolation for security</td></tr>
+</table>
+
+<div class="tip"><strong>Recommendation:</strong> Start with <strong>Option B (single droplet)</strong> to verify everything works. Migrate to two droplets when you go fully live with real users.</div>
+
+<hr class="section-break"/>
+
+<!-- ═══════════════════════════════════════════ SECTION 2 ═══════ -->
+<h2 id="prerequisites">2 · Prerequisites</h2>
+<ul>
+  <li>A DigitalOcean account — <a href="https://cloud.digitalocean.com">cloud.digitalocean.com</a></li>
+  <li>A domain name (e.g., <code>visiongroup.co.ug</code>) with DNS you can manage</li>
+  <li>Your backend and frontend code pushed to GitHub (repos: <code>vision-group-vgad/api</code> and <code>vision-group-vgad/vgad</code>)</li>
+  <li>SSH key pair — generate on Windows with: <code>ssh-keygen -t ed25519 -C "deploy-key"</code></li>
+  <li>All <code>.env</code> values saved somewhere safe (see Section 9)</li>
+</ul>
+
+<hr class="section-break"/>
+
+<!-- ═══════════════════════════════════════════ SECTION 3 ═══════ -->
+<h2 id="create-droplets">3 · Create Your DigitalOcean Droplet(s)</h2>
+
+<h3>Recommended Droplet Size</h3>
+<table>
+  <tr><th>Purpose</th><th>Size</th><th>RAM</th><th>CPU</th><th>Est. Cost</th></tr>
+  <tr><td>Single droplet (Option B)</td><td>Basic — Regular</td><td>2 GB</td><td>1 vCPU</td><td>$12 / month</td></tr>
+  <tr><td>Backend (Option A)</td><td>Basic — Regular</td><td>2 GB</td><td>1 vCPU</td><td>$12 / month</td></tr>
+  <tr><td>Frontend (Option A)</td><td>Basic — Regular</td><td>1 GB</td><td>1 vCPU</td><td>$6 / month</td></tr>
+</table>
+
+<h3>Steps in the DigitalOcean Dashboard</h3>
+<ol>
+  <li>Go to <strong>Create → Droplet</strong></li>
+  <li>Choose <strong>Ubuntu 24.04 LTS x64</strong></li>
+  <li>Select your droplet size (table above)</li>
+  <li>Choose the region closest to your users (e.g., <em>London</em> or <em>Frankfurt</em> for East Africa)</li>
+  <li>Under <strong>Authentication</strong> → paste your SSH public key</li>
+  <li>Set a hostname: e.g., <code>vgad-api</code> or <code>vgad-app</code></li>
+  <li>Click <strong>Create Droplet</strong> — note the public IP address shown</li>
+</ol>
+
+<h3>Configure DNS</h3>
+<p>In your domain registrar (or DigitalOcean DNS), create A records:</p>
+<table>
+  <tr><th>Record Type</th><th>Name</th><th>Value</th></tr>
+  <tr><td>A</td><td><code>api.yourdomain.com</code></td><td>Backend droplet IP</td></tr>
+  <tr><td>A</td><td><code>app.yourdomain.com</code> or <code>@</code></td><td>Frontend droplet IP (or same IP for Option B)</td></tr>
+</table>
+
+<div class="note"><strong>Note:</strong> DNS propagation can take up to 48 hours, but usually works within 5–15 minutes with DigitalOcean DNS.</div>
+
+<hr class="section-break"/>
+
+<!-- ═══════════════════════════════════════════ SECTION 4 ═══════ -->
+<h2 id="server-setup">4 · Server Setup (Run on Every Droplet)</h2>
+
+<p>Connect via SSH: <code>ssh root@YOUR_DROPLET_IP</code></p>
+
+<h3>4.1 — Update the system</h3>
+<pre>apt update &amp;&amp; apt upgrade -y</pre>
+
+<h3>4.2 — Install Node.js 20</h3>
+<pre>curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+apt install -y nodejs
+node -v    # Should show v20.x.x
+npm -v</pre>
+
+<h3>4.3 — Install Git, Nginx, and PM2</h3>
+<pre>apt install -y git nginx
+npm install -g pm2
+pm2 startup systemd   # Copy and run the output command it gives you
+</pre>
+
+<h3>4.4 — Create an application user (recommended — do not run as root)</h3>
+<pre>adduser --disabled-password --gecos "" vgad
+usermod -aG sudo vgad
+mkdir -p /var/www
+chown vgad:vgad /var/www</pre>
+
+<hr class="section-break"/>
+
+<!-- ═══════════════════════════════════════════ SECTION 5 ═══════ -->
+<h2 id="deploy-backend">5 · Deploy the Backend API</h2>
+
+<p>Run these on the <strong>backend droplet</strong> (or the single droplet for Option B).</p>
+
+<h3>5.1 — Clone the repository</h3>
+<pre>su - vgad
+cd /var/www
+git clone https://github.com/vision-group-vgad/api.git
+cd api</pre>
+
+<h3>5.2 — Install dependencies</h3>
+<pre>npm install --omit=dev</pre>
+
+<h3>5.3 — Create the .env file</h3>
+<div class="warn"><strong>Important:</strong> Never commit your <code>.env</code> file to GitHub. Create it manually on the server.</div>
+<pre>nano /var/www/api/.env</pre>
+<p>Paste in all your environment variables (see <strong>Section 9</strong> for the full list). Minimum required to start:</p>
+<pre>PORT=4000
+SECRET_KEY=your_jwt_secret_key_here
+DATABASE_URL=postgresql://user:pass@host:5432/dbname
+CMS_API_KEY=your_cms_api_key
+CMC_API_BASE_URL=https://cms-vgad.visiongroup.co.ug/api
+CMC_API_BEARER_TOKEN=your_bearer_token
+ALLOWED_ORIGIN=https://app.yourdomain.com
+ALLOWED_ORIGINS=https://app.yourdomain.com</pre>
+
+<h3>5.4 — Start with PM2</h3>
+<pre>cd /var/www/api
+pm2 start server.js --name vgad-api --watch false
+pm2 save
+pm2 status</pre>
+
+<p>Verify the API is running internally:</p>
+<pre>curl http://localhost:4000/api/v1/auth/login -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"email":"headofsales@vision.com","password":"SalesHead@2024!"}'
+# Should return a JSON token</pre>
+
+<h3>5.5 — Updating the backend (re-deploying)</h3>
+<pre>cd /var/www/api
+git pull origin main
+npm install --omit=dev
+pm2 restart vgad-api</pre>
+
+<hr class="section-break"/>
+
+<!-- ═══════════════════════════════════════════ SECTION 6 ═══════ -->
+<h2 id="deploy-frontend">6 · Deploy the Frontend</h2>
+
+<p>Run these on the <strong>frontend droplet</strong> (or the same single droplet for Option B).</p>
+
+<h3>6.1 — Clone the repository</h3>
+<pre>su - vgad
+cd /var/www
+git clone https://github.com/vision-group-vgad/vgad.git
+cd vgad</pre>
+
+<h3>6.2 — Create the .env file for the build</h3>
+<div class="note"><strong>Important:</strong> Vite bakes environment variables into the built static files at <em>build time</em>. You must set these before running <code>npm run build</code>.</div>
+<pre>nano /var/www/vgad/.env</pre>
+<p>Contents — replace with your real domain:</p>
+<pre># Base URL used by globalApi.tsx (axios instance)
+VITE_API_BASE_URL=https://api.yourdomain.com
+
+# Base URL used by salesApi.tsx, executiveApi.tsx, finianceAPis.tsx
+VITE_API_BASE=https://api.yourdomain.com/api/v1</pre>
+
+<div class="tip"><strong>Single Droplet (Option B):</strong> If both apps are on the same server, you can use the same domain with a path prefix: <code>VITE_API_BASE_URL=https://yourdomain.com</code> and <code>VITE_API_BASE=https://yourdomain.com/api/v1</code></div>
+
+<h3>6.3 — Install dependencies and build</h3>
+<pre>cd /var/www/vgad
+npm install
+npm run build</pre>
+<p>This produces a <code>/var/www/vgad/dist/</code> folder — these are the static files Nginx will serve.</p>
+
+<h3>6.4 — Verify the build output</h3>
+<pre>ls -la /var/www/vgad/dist/
+# Should show: index.html, assets/, etc.</pre>
+
+<h3>6.5 — Updating the frontend (re-deploying)</h3>
+<pre>cd /var/www/vgad
+git pull origin main
+npm install
+npm run build
+# Nginx picks up the new files automatically — no restart needed.</pre>
+
+<hr class="section-break"/>
+
+<!-- ═══════════════════════════════════════════ SECTION 7 ═══════ -->
+<h2 id="nginx">7 · Configure Nginx Reverse Proxy</h2>
+
+<h3>Option A — Two Droplets (Backend Nginx)</h3>
+<p>Create <code>/etc/nginx/sites-available/vgad-api</code>:</p>
+<pre>server {
+    listen 80;
+    server_name api.yourdomain.com;
+
+    location / {
+        proxy_pass         http://localhost:4000;
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection 'upgrade';
+        proxy_set_header   Host $host;
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+
+        # WebSocket support (Socket.IO notifications)
+        proxy_read_timeout 86400;
+    }
+}</pre>
+
+<p>Create <code>/etc/nginx/sites-available/vgad-frontend</code> on the frontend droplet:</p>
+<pre>server {
+    listen 80;
+    server_name app.yourdomain.com;
+    root /var/www/vgad/dist;
+    index index.html;
+
+    # React Router — send all routes to index.html
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Cache static assets for 1 year
+    location /assets/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript;
+}</pre>
+
+<h3>Option B — Single Droplet (one Nginx config)</h3>
+<p>Create <code>/etc/nginx/sites-available/vgad</code>:</p>
+<pre>server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com;
+    root /var/www/vgad/dist;
+    index index.html;
+
+    # API — proxy to Node.js backend
+    location /api/ {
+        proxy_pass         http://localhost:4000;
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection 'upgrade';
+        proxy_set_header   Host $host;
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+        proxy_read_timeout 86400;
+    }
+
+    # Socket.IO WebSocket path
+    location /socket.io/ {
+        proxy_pass         http://localhost:4000;
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection 'upgrade';
+    }
+
+    # Frontend — serve static files, React Router fallback
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /assets/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript;
+}</pre>
+
+<h3>Enable the site and test</h3>
+<pre># Link site config and disable default
+ln -s /etc/nginx/sites-available/vgad /etc/nginx/sites-enabled/
+rm -f /etc/nginx/sites-enabled/default
+
+# Test configuration
+nginx -t
+
+# Restart Nginx
+systemctl restart nginx
+systemctl enable nginx</pre>
+
+<hr class="section-break"/>
+
+<!-- ═══════════════════════════════════════════ SECTION 8 ═══════ -->
+<h2 id="ssl">8 · Enable HTTPS with Let's Encrypt</h2>
+
+<div class="tip"><strong>Why HTTPS?</strong> Browsers block mixed-content (HTTP API calls from an HTTPS page). You need SSL on both frontend and API.</div>
+
+<h3>8.1 — Install Certbot</h3>
+<pre>apt install -y certbot python3-certbot-nginx</pre>
+
+<h3>8.2 — Obtain SSL certificates</h3>
+<p><strong>Two droplets:</strong> Run on each droplet with its own domain:</p>
+<pre>certbot --nginx -d api.yourdomain.com
+certbot --nginx -d app.yourdomain.com</pre>
+
+<p><strong>Single droplet:</strong></p>
+<pre>certbot --nginx -d yourdomain.com -d www.yourdomain.com</pre>
+
+<p>Follow the prompts — Certbot will automatically update your Nginx config to redirect HTTP → HTTPS.</p>
+
+<h3>8.3 — Auto-renewal</h3>
+<pre>systemctl enable certbot.timer
+# Test renewal:
+certbot renew --dry-run</pre>
+
+<div class="note"><strong>After getting SSL:</strong> Update your <code>.env</code> on the frontend build machine to use <code>https://</code> URLs, then rebuild and redeploy. Also update <code>ALLOWED_ORIGIN</code> and <code>ALLOWED_ORIGINS</code> in the backend <code>.env</code> to use <code>https://</code>.</div>
+
+<hr class="section-break"/>
+
+<!-- ═══════════════════════════════════════════ SECTION 9 ═══════ -->
+<h2 id="env-vars">9 · Environment Variables Reference</h2>
+
+<h3>Backend — <code>/var/www/api/.env</code></h3>
+<table>
+  <tr><th>Variable</th><th>Description</th><th>Example Value</th></tr>
+  <tr><td><code>PORT</code></td><td>Port the API listens on</td><td><code>4000</code></td></tr>
+  <tr><td><code>SECRET_KEY</code></td><td>JWT signing secret — keep this long and random</td><td><code>a8f3k2...64chars...</code></td></tr>
+  <tr><td><code>DATABASE_URL</code></td><td>PostgreSQL connection string</td><td><code>postgresql://user:pass@host:5432/db</code></td></tr>
+  <tr><td><code>PGHOST</code></td><td>Postgres host</td><td><code>db.yourdomain.com</code></td></tr>
+  <tr><td><code>PGUSER</code></td><td>Postgres username</td><td><code>vgad_user</code></td></tr>
+  <tr><td><code>PGPASSWORD</code></td><td>Postgres password</td><td><code>strongpassword</code></td></tr>
+  <tr><td><code>PGDATABASE</code></td><td>Postgres database name</td><td><code>vgad_db</code></td></tr>
+  <tr><td><code>PGPORT</code></td><td>Postgres port</td><td><code>5432</code></td></tr>
+  <tr><td><code>CMS_API_KEY</code></td><td>Bearer token for the CMS API</td><td><code>38d79da...</code></td></tr>
+  <tr><td><code>CMC_API_BASE_URL</code></td><td>CMS base URL</td><td><code>https://cms-vgad.visiongroup.co.ug/api</code></td></tr>
+  <tr><td><code>CMC_API_BEARER_TOKEN</code></td><td>CMS bearer token (same as CMS_API_KEY)</td><td><code>38d79da...</code></td></tr>
+  <tr><td><code>ALLOWED_ORIGIN</code></td><td>Frontend URL for CORS</td><td><code>https://app.yourdomain.com</code></td></tr>
+  <tr><td><code>ALLOWED_ORIGINS</code></td><td>Comma-separated list of allowed origins</td><td><code>https://app.yourdomain.com</code></td></tr>
+  <tr><td><code>SESSION_SECRET</code></td><td>Session encryption secret</td><td><code>random64charstring</code></td></tr>
+  <tr><td><code>ENCRYPTION_KEY</code></td><td>Data encryption key</td><td><code>32charkey</code></td></tr>
+  <tr><td><code>BCRYPT_ROUNDS</code></td><td>Password hashing rounds</td><td><code>10</code></td></tr>
+  <tr><td><code>FIREBASE_SERVICE_KEY</code></td><td>Firebase service account JSON (stringified)</td><td><code>{"type":"service_account",...}</code></td></tr>
+  <tr><td><code>FIREBASE_DATABASE_URL</code></td><td>Firebase Realtime DB URL</td><td><code>https://vgad.firebaseio.com</code></td></tr>
+  <tr><td><code>DEEPSEEK_API_KEY</code></td><td>DeepSeek AI API key</td><td><code>sk-...</code></td></tr>
+  <tr><td><code>DEEPSEEK_API_URL</code></td><td>DeepSeek endpoint</td><td><code>https://api.deepseek.com</code></td></tr>
+  <tr><td><code>REJECTUNAUTHORIZED</code></td><td>SSL cert validation</td><td><code>false</code> (set <code>true</code> in production)</td></tr>
+</table>
+
+<h3>Frontend — build-time <code>.env</code></h3>
+<table>
+  <tr><th>Variable</th><th>Used By</th><th>Value (Two Droplets)</th><th>Value (Single Droplet)</th></tr>
+  <tr><td><code>VITE_API_BASE_URL</code></td><td><code>globalApi.tsx</code></td><td><code>https://api.yourdomain.com</code></td><td><code>https://yourdomain.com</code></td></tr>
+  <tr><td><code>VITE_API_BASE</code></td><td><code>salesApi.tsx</code>, <code>executiveApi.tsx</code>, <code>finianceAPis.tsx</code></td><td><code>https://api.yourdomain.com/api/v1</code></td><td><code>https://yourdomain.com/api/v1</code></td></tr>
+</table>
+
+<hr class="section-break"/>
+
+<!-- ═══════════════════════════════════════════ SECTION 10 ═══════ -->
+<h2 id="pm2">10 · PM2 Process Management</h2>
+
+<h3>Useful PM2 commands</h3>
+<table>
+  <tr><th>Command</th><th>What it does</th></tr>
+  <tr><td><code>pm2 status</code></td><td>Show all running processes and their status</td></tr>
+  <tr><td><code>pm2 logs vgad-api</code></td><td>Stream live logs for the API</td></tr>
+  <tr><td><code>pm2 logs vgad-api --lines 200</code></td><td>Show last 200 log lines</td></tr>
+  <tr><td><code>pm2 restart vgad-api</code></td><td>Restart the API process</td></tr>
+  <tr><td><code>pm2 stop vgad-api</code></td><td>Stop the API process</td></tr>
+  <tr><td><code>pm2 delete vgad-api</code></td><td>Remove the process from PM2</td></tr>
+  <tr><td><code>pm2 save</code></td><td>Save process list so it auto-starts after reboot</td></tr>
+  <tr><td><code>pm2 monit</code></td><td>Live dashboard of CPU/RAM/logs</td></tr>
+</table>
+
+<h3>Create a PM2 ecosystem file (easier config)</h3>
+<p>Create <code>/var/www/api/ecosystem.config.cjs</code>:</p>
+<pre>module.exports = {
+  apps: [{
+    name: "vgad-api",
+    script: "server.js",
+    cwd: "/var/www/api",
+    env_production: {
+      NODE_ENV: "production",
+      PORT: 4000
+    },
+    instances: 1,
+    exec_mode: "fork",
+    watch: false,
+    max_memory_restart: "400M",
+    error_file: "/var/log/pm2/vgad-api-error.log",
+    out_file: "/var/log/pm2/vgad-api-out.log",
+    merge_logs: true,
+    log_date_format: "YYYY-MM-DD HH:mm:ss"
+  }]
+};
+</pre>
+<pre>pm2 start ecosystem.config.cjs --env production
+pm2 save</pre>
+
+<hr class="section-break"/>
+
+<!-- ═══════════════════════════════════════════ SECTION 11 ═══════ -->
+<h2 id="firewall">11 · Firewall Rules</h2>
+
+<h3>Use UFW (Uncomplicated Firewall)</h3>
+<pre>ufw allow OpenSSH
+ufw allow 'Nginx Full'    # Allows ports 80 and 443
+ufw enable
+ufw status</pre>
+
+<div class="warn"><strong>Port 4000 should NOT be publicly exposed.</strong> Nginx acts as a reverse proxy so all traffic goes through port 80/443. Port 4000 should only be accessible internally (from Nginx on the same server, or between private network droplets). Do NOT run <code>ufw allow 4000</code>.</div>
+
+<h3>DigitalOcean Firewall (additional layer)</h3>
+<p>In the DigitalOcean dashboard, go to <strong>Networking → Firewalls</strong> and create a cloud firewall:</p>
+<table>
+  <tr><th>Inbound Rule</th><th>Protocol</th><th>Port</th><th>Source</th></tr>
+  <tr><td>HTTP</td><td>TCP</td><td>80</td><td>All IPv4, All IPv6</td></tr>
+  <tr><td>HTTPS</td><td>TCP</td><td>443</td><td>All IPv4, All IPv6</td></tr>
+  <tr><td>SSH</td><td>TCP</td><td>22</td><td>Your office IP only</td></tr>
+</table>
+
+<hr class="section-break"/>
+
+<!-- ═══════════════════════════════════════════ SECTION 12 ═══════ -->
+<h2 id="troubleshooting">12 · Troubleshooting</h2>
+
+<table>
+  <tr><th>Problem</th><th>What to check</th></tr>
+  <tr>
+    <td>API returns 502 Bad Gateway</td>
+    <td>
+      Node.js may not be running. Check with:<br/>
+      <code>pm2 status</code><br/>
+      <code>pm2 logs vgad-api --lines 50</code><br/>
+      Then restart: <code>pm2 restart vgad-api</code>
+    </td>
+  </tr>
+  <tr>
+    <td>Frontend shows blank page</td>
+    <td>
+      Check the browser console. Usually a wrong <code>VITE_API_BASE_URL</code>. Rebuild the frontend with the correct <code>.env</code> values.
+    </td>
+  </tr>
+  <tr>
+    <td>CORS errors in browser console</td>
+    <td>
+      Backend <code>ALLOWED_ORIGINS</code> must exactly match the frontend URL (including <code>https://</code> and no trailing slash). Restart the API after changing <code>.env</code>.
+    </td>
+  </tr>
+  <tr>
+    <td>Login works but dashboard shows no data</td>
+    <td>
+      The CMS API may be unreachable from the server. Test: <code>curl -H "Authorization: Bearer YOUR_CMS_KEY" https://cms-vgad.visiongroup.co.ug/api/bc-datasets</code>
+    </td>
+  </tr>
+  <tr>
+    <td>Nginx test fails (<code>nginx -t</code>)</td>
+    <td>
+      Check for syntax errors in your site config file. Logs: <code>cat /var/log/nginx/error.log | tail -30</code>
+    </td>
+  </tr>
+  <tr>
+    <td>SSL certificate fails (Certbot)</td>
+    <td>
+      Ensure DNS A record points to the droplet IP. Check with: <code>dig +short api.yourdomain.com</code>. Wait for propagation if recently changed.
+    </td>
+  </tr>
+  <tr>
+    <td>After reboot, API not running</td>
+    <td>
+      Run <code>pm2 save</code> and <code>pm2 startup systemd</code>, then execute the command it outputs. This makes PM2 auto-start on boot.
+    </td>
+  </tr>
+  <tr>
+    <td>Port 4000 shows "connection refused"</td>
+    <td>
+      This is expected if you query it from outside. Nginx should be the only public entry point. From inside the server: <code>curl http://localhost:4000/api/v1/health</code>
+    </td>
+  </tr>
+  <tr>
+    <td>Database connection errors</td>
+    <td>
+      Check <code>DATABASE_URL</code> in <code>.env</code>. If using a managed DigitalOcean DB, whitelist the droplet's IP in the DB trusted sources settings.
+    </td>
+  </tr>
+</table>
+
+<hr class="section-break"/>
+
+<h2>Quick Reference — Full Deployment Checklist</h2>
+<table>
+  <tr><th>#</th><th>Step</th><th>Done?</th></tr>
+  <tr><td>1</td><td>Create Droplet(s) on DigitalOcean with Ubuntu 24.04</td><td>☐</td></tr>
+  <tr><td>2</td><td>Point DNS A records to droplet IPs</td><td>☐</td></tr>
+  <tr><td>3</td><td>SSH in, run system update</td><td>☐</td></tr>
+  <tr><td>4</td><td>Install Node.js 20, Git, Nginx, PM2</td><td>☐</td></tr>
+  <tr><td>5</td><td>Clone backend repo to <code>/var/www/api</code></td><td>☐</td></tr>
+  <tr><td>6</td><td>Create backend <code>.env</code> with all required variables</td><td>☐</td></tr>
+  <tr><td>7</td><td>Start backend with PM2, verify with <code>curl localhost:4000</code></td><td>☐</td></tr>
+  <tr><td>8</td><td>Clone frontend repo to <code>/var/www/vgad</code></td><td>☐</td></tr>
+  <tr><td>9</td><td>Create frontend <code>.env</code> with <code>https://</code> API URLs</td><td>☐</td></tr>
+  <tr><td>10</td><td>Run <code>npm install &amp;&amp; npm run build</code> in frontend folder</td><td>☐</td></tr>
+  <tr><td>11</td><td>Create and enable Nginx config, test with <code>nginx -t</code></td><td>☐</td></tr>
+  <tr><td>12</td><td>Run Certbot to get SSL certificates</td><td>☐</td></tr>
+  <tr><td>13</td><td>Update backend <code>ALLOWED_ORIGINS</code> to use <code>https://</code></td><td>☐</td></tr>
+  <tr><td>14</td><td>Rebuild frontend with <code>https://</code> env URLs, redeploy</td><td>☐</td></tr>
+  <tr><td>15</td><td>Configure UFW firewall, block port 4000 from public</td><td>☐</td></tr>
+  <tr><td>16</td><td>Run <code>pm2 save</code> and set PM2 startup command</td><td>☐</td></tr>
+  <tr><td>17</td><td>Test login from browser at <code>https://app.yourdomain.com</code></td><td>☐</td></tr>
+</table>
+
+<p style="margin-top:40px; color:#666; font-size:9pt;">
+  <em>This document was generated for the Vision Group Analytics Dashboard (VGAD) project. Keep this document confidential — it references your deployment architecture.</em>
+</p>
+
+</body>
+</html>

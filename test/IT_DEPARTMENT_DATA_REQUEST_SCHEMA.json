@@ -1,0 +1,923 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "IT Department Data Request Schema",
+  "description": "Comprehensive data schema for Vision Group IT Department Analytics - This document defines all required data fields to achieve accurate IT statistics, metrics, and KPIs",
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-16",
+  
+  "dataCategories": {
+    
+    "1_SERVER_INFRASTRUCTURE": {
+      "description": "Server performance, load balancing, and compute resource metrics",
+      "endpoints": ["/api/v1/server-load", "/api/v1/it/ServerStoragePatch"],
+      "requiredFields": {
+        "serverId": {
+          "type": "string",
+          "description": "Unique identifier for each server",
+          "example": "SRV-WEB-001",
+          "required": true
+        },
+        "serverName": {
+          "type": "string",
+          "description": "Human-readable server name",
+          "example": "Production Web Server 1",
+          "required": true
+        },
+        "serverType": {
+          "type": "string",
+          "enum": ["Web Server", "Database Server", "Application Server", "File Server", "Mail Server", "Backup Server"],
+          "description": "Type/role of the server",
+          "required": true
+        },
+        "cpuUsagePercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Current CPU utilization percentage",
+          "example": 67.5,
+          "required": true
+        },
+        "memoryUsagePercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Current RAM utilization percentage",
+          "example": 82.3,
+          "required": true
+        },
+        "diskUsagePercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Current disk space utilization percentage",
+          "example": 45.8,
+          "required": true
+        },
+        "networkTrafficMbps": {
+          "type": "number",
+          "description": "Current network traffic in megabits per second",
+          "example": 245.7,
+          "required": true
+        },
+        "uptime": {
+          "type": "number",
+          "description": "Server uptime in hours",
+          "example": 720.5,
+          "required": true
+        },
+        "lastRestartDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of last server restart",
+          "example": "2025-12-15T03:30:00Z",
+          "required": true
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this metric was recorded",
+          "example": "2026-02-16T10:30:00Z",
+          "required": true
+        }
+      }
+    },
+
+    "2_STORAGE_UTILIZATION": {
+      "description": "Storage systems, capacity planning, and disk usage metrics",
+      "endpoints": ["/api/v1/storageUtilization", "/api/v1/it/ServerStoragePatch"],
+      "requiredFields": {
+        "storageId": {
+          "type": "string",
+          "description": "Unique identifier for storage unit",
+          "example": "DISK-SAN-001",
+          "required": true
+        },
+        "storageName": {
+          "type": "string",
+          "description": "Storage unit name/label",
+          "example": "SAN Storage Array 1",
+          "required": true
+        },
+        "storageType": {
+          "type": "string",
+          "enum": ["SAN", "NAS", "DAS", "Cloud Storage", "Local Disk"],
+          "description": "Type of storage system",
+          "required": true
+        },
+        "totalCapacityGB": {
+          "type": "number",
+          "description": "Total storage capacity in gigabytes",
+          "example": 5000,
+          "required": true
+        },
+        "usedCapacityGB": {
+          "type": "number",
+          "description": "Currently used storage in gigabytes",
+          "example": 3200,
+          "required": true
+        },
+        "availableCapacityGB": {
+          "type": "number",
+          "description": "Available free storage in gigabytes",
+          "example": 1800,
+          "required": true
+        },
+        "utilizationPercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Storage utilization percentage",
+          "example": 64.0,
+          "required": true
+        },
+        "growthRateGBPerMonth": {
+          "type": "number",
+          "description": "Monthly storage growth rate in GB",
+          "example": 150.5,
+          "required": false
+        },
+        "dataType": {
+          "type": "string",
+          "enum": ["Database", "File Share", "Backup", "Archive", "Media", "Application Data"],
+          "description": "Primary type of data stored",
+          "required": true
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "required": true
+        }
+      }
+    },
+
+    "3_CYBERSECURITY_POSTURE": {
+      "description": "Security incidents, threats, vulnerabilities, and compliance metrics",
+      "endpoints": ["/api/v1/cyber-posture", "/api/v1/it/cycber-sec-router"],
+      "requiredFields": {
+        "incidentId": {
+          "type": "string",
+          "description": "Unique security incident identifier",
+          "example": "SEC-2026-0125",
+          "required": true
+        },
+        "incidentType": {
+          "type": "string",
+          "enum": ["Malware", "Phishing", "DDoS", "Unauthorized Access", "Data Breach", "Policy Violation", "Vulnerability Exploit"],
+          "description": "Type of security incident",
+          "required": true
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["Critical", "High", "Medium", "Low", "Informational"],
+          "description": "Incident severity level",
+          "required": true
+        },
+        "detectedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the incident was detected",
+          "required": true
+        },
+        "resolvedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the incident was resolved (null if ongoing)",
+          "required": false
+        },
+        "affectedSystems": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "List of affected system identifiers",
+          "example": ["SRV-WEB-001", "DB-PROD-002"],
+          "required": true
+        },
+        "attackVector": {
+          "type": "string",
+          "description": "How the attack/incident occurred",
+          "example": "Spear-phishing email",
+          "required": false
+        },
+        "impactLevel": {
+          "type": "string",
+          "enum": ["None", "Minor", "Moderate", "Significant", "Severe"],
+          "description": "Business impact of incident",
+          "required": true
+        },
+        "responseTimeMinutes": {
+          "type": "number",
+          "description": "Time to respond to incident in minutes",
+          "example": 45,
+          "required": true
+        },
+        "resolutionTimeMinutes": {
+          "type": "number",
+          "description": "Total time to resolve incident in minutes",
+          "example": 240,
+          "required": false
+        },
+        "vulnerabilitiesFound": {
+          "type": "number",
+          "description": "Number of vulnerabilities discovered",
+          "example": 3,
+          "required": true
+        },
+        "vulnerabilitiesPatched": {
+          "type": "number",
+          "description": "Number of vulnerabilities remediated",
+          "example": 3,
+          "required": true
+        }
+      }
+    },
+
+    "4_PATCH_COMPLIANCE": {
+      "description": "System patching, updates, and compliance tracking",
+      "endpoints": ["/api/v1/patch-compliance", "/api/v1/it/ServerStoragePatch"],
+      "requiredFields": {
+        "systemId": {
+          "type": "string",
+          "description": "Unique system/device identifier",
+          "example": "SYS-WIN-1245",
+          "required": true
+        },
+        "systemName": {
+          "type": "string",
+          "description": "System/device name",
+          "example": "Finance Workstation 12",
+          "required": true
+        },
+        "systemType": {
+          "type": "string",
+          "enum": ["Server", "Workstation", "Laptop", "Network Device", "Mobile Device"],
+          "description": "Type of system",
+          "required": true
+        },
+        "operatingSystem": {
+          "type": "string",
+          "description": "Operating system and version",
+          "example": "Windows Server 2022",
+          "required": true
+        },
+        "osVersion": {
+          "type": "string",
+          "description": "Specific OS version number",
+          "example": "21H2",
+          "required": true
+        },
+        "lastPatchDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date of last successful patch",
+          "required": true
+        },
+        "totalPatchesAvailable": {
+          "type": "number",
+          "description": "Total patches available for this system",
+          "example": 15,
+          "required": true
+        },
+        "patchesInstalled": {
+          "type": "number",
+          "description": "Number of patches currently installed",
+          "example": 12,
+          "required": true
+        },
+        "patchesPending": {
+          "type": "number",
+          "description": "Number of patches awaiting installation",
+          "example": 3,
+          "required": true
+        },
+        "complianceStatus": {
+          "type": "string",
+          "enum": ["Compliant", "Non-Compliant", "Partially Compliant", "Unknown"],
+          "description": "Patch compliance status",
+          "required": true
+        },
+        "compliancePercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percentage of required patches installed",
+          "example": 80.0,
+          "required": true
+        },
+        "criticalPatchesMissing": {
+          "type": "number",
+          "description": "Number of critical patches not installed",
+          "example": 1,
+          "required": true
+        },
+        "daysSinceLastPatch": {
+          "type": "number",
+          "description": "Days elapsed since last patch",
+          "example": 7,
+          "required": true
+        }
+      }
+    },
+
+    "5_SYSTEM_HEALTH": {
+      "description": "Overall system availability, performance, and health monitoring",
+      "endpoints": ["/api/v1/system-health", "/api/v1/it/sys-health-score"],
+      "requiredFields": {
+        "systemId": {
+          "type": "string",
+          "description": "System identifier",
+          "required": true
+        },
+        "systemName": {
+          "type": "string",
+          "description": "System name",
+          "required": true
+        },
+        "healthScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Overall system health score (0-100)",
+          "example": 92.5,
+          "required": true
+        },
+        "availabilityPercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "System availability percentage (uptime)",
+          "example": 99.95,
+          "required": true
+        },
+        "performanceScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Performance rating based on response times and throughput",
+          "example": 88.0,
+          "required": true
+        },
+        "errorCount": {
+          "type": "number",
+          "description": "Number of errors in monitoring period",
+          "example": 5,
+          "required": true
+        },
+        "warningCount": {
+          "type": "number",
+          "description": "Number of warnings in monitoring period",
+          "example": 12,
+          "required": true
+        },
+        "avgResponseTimeMs": {
+          "type": "number",
+          "description": "Average system response time in milliseconds",
+          "example": 250.5,
+          "required": true
+        },
+        "downtimeMinutes": {
+          "type": "number",
+          "description": "Total downtime in monitoring period (minutes)",
+          "example": 15,
+          "required": true
+        },
+        "lastIncidentDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date of last significant incident",
+          "required": false
+        },
+        "monitoringPeriodStart": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start of monitoring period",
+          "required": true
+        },
+        "monitoringPeriodEnd": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End of monitoring period",
+          "required": true
+        }
+      }
+    },
+
+    "6_INFRASTRUCTURE_COSTS": {
+      "description": "IT infrastructure spending, cloud costs, and budget tracking",
+      "endpoints": ["/api/v1/IT/infrastructure-costs", "/api/v1/it/infra-costs", "/api/v1/infrastructure"],
+      "requiredFields": {
+        "costId": {
+          "type": "string",
+          "description": "Unique cost entry identifier",
+          "example": "COST-2026-0215",
+          "required": true
+        },
+        "category": {
+          "type": "string",
+          "enum": ["Compute", "Storage", "Network", "Database", "Security", "Backup", "Software Licenses", "Hardware", "Cloud Services", "Support & Maintenance"],
+          "description": "Cost category",
+          "required": true
+        },
+        "service": {
+          "type": "string",
+          "description": "Specific service or resource name",
+          "example": "AWS EC2 Instances",
+          "required": true
+        },
+        "costAmount": {
+          "type": "number",
+          "description": "Cost amount in base currency",
+          "example": 1200000,
+          "required": true
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency code",
+          "example": "UGX",
+          "required": true
+        },
+        "billingPeriodStart": {
+          "type": "string",
+          "format": "date",
+          "description": "Start date of billing period",
+          "example": "2026-02-01",
+          "required": true
+        },
+        "billingPeriodEnd": {
+          "type": "string",
+          "format": "date",
+          "description": "End date of billing period",
+          "example": "2026-02-28",
+          "required": true
+        },
+        "vendor": {
+          "type": "string",
+          "description": "Service provider/vendor name",
+          "example": "Amazon Web Services",
+          "required": true
+        },
+        "department": {
+          "type": "string",
+          "description": "Department or team charged",
+          "example": "IT Infrastructure",
+          "required": false
+        },
+        "resourceUtilization": {
+          "type": "number",
+          "description": "Resource utilization percentage",
+          "example": 75.5,
+          "required": false
+        },
+        "budgetAmount": {
+          "type": "number",
+          "description": "Budgeted amount for this service",
+          "example": 1500000,
+          "required": false
+        },
+        "variancePercent": {
+          "type": "number",
+          "description": "Variance from budget (positive = over budget)",
+          "example": -20.0,
+          "required": false
+        }
+      }
+    },
+
+    "7_TICKET_SLA_MANAGEMENT": {
+      "description": "IT support tickets, service level agreements, and response metrics",
+      "endpoints": ["/api/v1/IT/sla"],
+      "requiredFields": {
+        "ticketId": {
+          "type": "string",
+          "description": "Unique ticket identifier",
+          "example": "TCK-2026-0542",
+          "required": true
+        },
+        "category": {
+          "type": "string",
+          "enum": ["Hardware", "Software", "Network", "Access Control", "Email", "Application", "Security", "Other"],
+          "description": "Issue category",
+          "required": true
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["Critical", "High", "Medium", "Low"],
+          "description": "Ticket priority level",
+          "required": true
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Open", "In Progress", "Pending", "Resolved", "Closed", "Escalated"],
+          "description": "Current ticket status",
+          "required": true
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Ticket creation timestamp",
+          "required": true
+        },
+        "firstResponseDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When first response was provided",
+          "required": false
+        },
+        "resolvedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When ticket was resolved",
+          "required": false
+        },
+        "closedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When ticket was closed",
+          "required": false
+        },
+        "responseSlaMinutes": {
+          "type": "number",
+          "description": "SLA target for first response (minutes)",
+          "example": 30,
+          "required": true
+        },
+        "resolutionSlaMinutes": {
+          "type": "number",
+          "description": "SLA target for resolution (minutes)",
+          "example": 240,
+          "required": true
+        },
+        "actualResponseTimeMinutes": {
+          "type": "number",
+          "description": "Actual time to first response (minutes)",
+          "example": 25,
+          "required": false
+        },
+        "actualResolutionTimeMinutes": {
+          "type": "number",
+          "description": "Actual time to resolution (minutes)",
+          "example": 180,
+          "required": false
+        },
+        "slaResponseMet": {
+          "type": "boolean",
+          "description": "Whether response SLA was met",
+          "required": false
+        },
+        "slaResolutionMet": {
+          "type": "boolean",
+          "description": "Whether resolution SLA was met",
+          "required": false
+        },
+        "assignedAgent": {
+          "type": "string",
+          "description": "Support agent assigned to ticket",
+          "example": "John Doe",
+          "required": true
+        },
+        "assignedTeam": {
+          "type": "string",
+          "description": "Support team handling the ticket",
+          "example": "Network Team",
+          "required": false
+        },
+        "requesterName": {
+          "type": "string",
+          "description": "User who submitted the ticket",
+          "example": "Jane Smith",
+          "required": true
+        },
+        "requesterDepartment": {
+          "type": "string",
+          "description": "Department of requester",
+          "example": "Finance",
+          "required": false
+        },
+        "escalated": {
+          "type": "boolean",
+          "description": "Whether ticket was escalated",
+          "required": true
+        }
+      }
+    },
+
+    "8_USER_SATISFACTION": {
+      "description": "IT service satisfaction surveys and feedback metrics",
+      "endpoints": ["/api/v1/it/satisfaction"],
+      "requiredFields": {
+        "surveyId": {
+          "type": "string",
+          "description": "Unique survey response identifier",
+          "example": "SURV-2026-1234",
+          "required": true
+        },
+        "ticketId": {
+          "type": "string",
+          "description": "Related ticket ID if applicable",
+          "example": "TCK-2026-0542",
+          "required": false
+        },
+        "respondentName": {
+          "type": "string",
+          "description": "Name of respondent (can be anonymized)",
+          "example": "User-A123",
+          "required": false
+        },
+        "respondentDepartment": {
+          "type": "string",
+          "description": "Department of respondent",
+          "example": "Sales",
+          "required": true
+        },
+        "satisfactionScore": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Overall satisfaction rating (1-5 scale)",
+          "example": 4,
+          "required": true
+        },
+        "responseTimeRating": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Rating for response time (1-5)",
+          "example": 5,
+          "required": true
+        },
+        "resolutionQualityRating": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Rating for quality of resolution (1-5)",
+          "example": 4,
+          "required": true
+        },
+        "communicationRating": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Rating for communication quality (1-5)",
+          "example": 4,
+          "required": true
+        },
+        "professionalismRating": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Rating for agent professionalism (1-5)",
+          "example": 5,
+          "required": true
+        },
+        "serviceType": {
+          "type": "string",
+          "enum": ["Technical Support", "Hardware Repair", "Software Installation", "Account Access", "Network Issue", "Other"],
+          "description": "Type of IT service provided",
+          "required": true
+        },
+        "npsScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10,
+          "description": "Net Promoter Score (0-10)",
+          "example": 8,
+          "required": false
+        },
+        "comments": {
+          "type": "string",
+          "description": "Additional feedback comments",
+          "example": "Very helpful and quick response",
+          "required": false
+        },
+        "surveyDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When survey was completed",
+          "required": true
+        }
+      }
+    },
+
+    "9_ASSET_INVENTORY": {
+      "description": "IT asset tracking, lifecycle management, and inventory",
+      "endpoints": ["/api/v1/it/assets-inventory"],
+      "requiredFields": {
+        "assetId": {
+          "type": "string",
+          "description": "Unique asset identifier/tag",
+          "example": "ASSET-LAP-1234",
+          "required": true
+        },
+        "assetType": {
+          "type": "string",
+          "enum": ["Laptop", "Desktop", "Server", "Network Device", "Mobile Device", "Printer", "Monitor", "Software License", "Other"],
+          "description": "Type of IT asset",
+          "required": true
+        },
+        "manufacturer": {
+          "type": "string",
+          "description": "Asset manufacturer/brand",
+          "example": "Dell",
+          "required": true
+        },
+        "model": {
+          "type": "string",
+          "description": "Asset model number/name",
+          "example": "Latitude 7420",
+          "required": true
+        },
+        "serialNumber": {
+          "type": "string",
+          "description": "Manufacturer serial number",
+          "example": "SN123456789",
+          "required": true
+        },
+        "purchaseDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date asset was purchased",
+          "example": "2024-05-15",
+          "required": true
+        },
+        "purchaseCost": {
+          "type": "number",
+          "description": "Original purchase cost",
+          "example": 2500000,
+          "required": true
+        },
+        "currency": {
+          "type": "string",
+          "example": "UGX",
+          "required": true
+        },
+        "currentValue": {
+          "type": "number",
+          "description": "Current depreciated value",
+          "example": 2000000,
+          "required": false
+        },
+        "warrantyExpiryDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Warranty expiration date",
+          "example": "2027-05-15",
+          "required": false
+        },
+        "assignedTo": {
+          "type": "string",
+          "description": "User/employee to whom asset is assigned",
+          "example": "John Doe",
+          "required": false
+        },
+        "assignedDepartment": {
+          "type": "string",
+          "description": "Department where asset is assigned",
+          "example": "Finance",
+          "required": true
+        },
+        "location": {
+          "type": "string",
+          "description": "Physical location of asset",
+          "example": "Kampala HQ - Floor 3",
+          "required": true
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Active", "In Storage", "Under Repair", "Disposed", "Lost", "Retired"],
+          "description": "Current asset status",
+          "required": true
+        },
+        "lastMaintenanceDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of last maintenance",
+          "required": false
+        },
+        "nextMaintenanceDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Scheduled next maintenance date",
+          "required": false
+        }
+      }
+    },
+
+    "10_CPU_PERFORMANCE": {
+      "description": "Detailed CPU utilization and performance metrics",
+      "endpoints": ["/api/v1/it/cpu-usage"],
+      "requiredFields": {
+        "serverId": {
+          "type": "string",
+          "description": "Server identifier",
+          "required": true
+        },
+        "serverName": {
+          "type": "string",
+          "description": "Server name",
+          "required": true
+        },
+        "cpuModel": {
+          "type": "string",
+          "description": "CPU model/specifications",
+          "example": "Intel Xeon Gold 6248R",
+          "required": true
+        },
+        "coreCount": {
+          "type": "number",
+          "description": "Number of CPU cores",
+          "example": 24,
+          "required": true
+        },
+        "cpuUsagePercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Current overall CPU usage",
+          "example": 68.5,
+          "required": true
+        },
+        "perCoreUsage": {
+          "type": "array",
+          "items": {"type": "number"},
+          "description": "Usage percentage for each core",
+          "example": [45.2, 67.8, 52.1],
+          "required": false
+        },
+        "loadAverage1Min": {
+          "type": "number",
+          "description": "1-minute load average",
+          "example": 2.5,
+          "required": false
+        },
+        "loadAverage5Min": {
+          "type": "number",
+          "description": "5-minute load average",
+          "example": 2.3,
+          "required": false
+        },
+        "loadAverage15Min": {
+          "type": "number",
+          "description": "15-minute load average",
+          "example": 2.1,
+          "required": false
+        },
+        "cpuTemperatureCelsius": {
+          "type": "number",
+          "description": "CPU temperature",
+          "example": 65.5,
+          "required": false
+        },
+        "throttling": {
+          "type": "boolean",
+          "description": "Whether CPU is being throttled",
+          "required": false
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "required": true
+        }
+      }
+    }
+  },
+
+  "dataSubmissionGuidelines": {
+    "format": "JSON",
+    "encoding": "UTF-8",
+    "dateTimeFormat": "ISO 8601 (YYYY-MM-DDTHH:mm:ssZ)",
+    "dateFormat": "ISO 8601 (YYYY-MM-DD)",
+    "booleanFormat": "true/false (lowercase)",
+    "numberFormat": "Decimal notation, use period (.) for decimal separator",
+    "nullValues": "Use null for missing optional fields, omit field entirely if not applicable",
+    
+    "dataFrequency": {
+      "realTimeMetrics": ["Server Load", "CPU Usage", "Storage Utilization"],
+      "hourlyMetrics": ["System Health", "Network Traffic"],
+      "dailyMetrics": ["Tickets", "User Satisfaction", "Security Incidents"],
+      "weeklyMetrics": ["Patch Compliance", "Asset Inventory Updates"],
+      "monthlyMetrics": ["Infrastructure Costs", "Budget Reports"]
+    },
+    
+    "dataQualityRequirements": {
+      "accuracy": "All metrics must be actual measured values, not estimates",
+      "completeness": "All required fields must be provided",
+      "consistency": "Use consistent identifiers across all data categories",
+      "timeliness": "Real-time data should be provided within 5 minutes of collection",
+      "validation": "Data should be validated at source before submission"
+    }
+  },
+
+  "integrationEndpoints": {
+    "dataIngestion": {
+      "method": "POST",
+      "baseUrl": "http://localhost:4000/api/v1/it",
+      "authentication": "Bearer token required",
+      "contentType": "application/json"
+    }
+  },
+
+  "contactInformation": {
+    "department": "IT Department - Vision Group",
+    "dataOwner": "Head of IT",
+    "email": "headofit@vision.com",
+    "technicalSupport": "itsupport@vision.com"
+  }
+}

@@ -1,8 +1,26 @@
 import { generateMaintenanceTickets } from "./ticketResolutionData.js";
+import OpsProduction from "../../../utils/common/OpsProduction.js";
 
-export const getTicketResolution = (req, res) => {
+const opsProduction = new OpsProduction();
+
+export const getTicketResolution = async (req, res) => {
   try {
-    const data = generateMaintenanceTickets(300);
+    const today = new Date().toISOString().slice(0, 10);
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    const fetchStart = req.query.startDate || thirtyDaysAgo;
+    const fetchEnd = req.query.endDate || today;
+
+    let data;
+    try {
+      const response = await opsProduction.fetchModuleData('ticket-resolution', fetchStart, fetchEnd);
+      data = Array.isArray(response.data) && response.data.length > 0 ? response.data : generateMaintenanceTickets(300);
+      if (!Array.isArray(response.data) || response.data.length === 0) {
+        console.warn('[TicketResolution] Live data empty, falling back to generated data');
+      }
+    } catch (fetchError) {
+      console.warn('[TicketResolution] Live data fetch failed, using generated data:', fetchError.message);
+      data = generateMaintenanceTickets(300);
+    }
 
     const { 
       technicianName: techNameFilter, 

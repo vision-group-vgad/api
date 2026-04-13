@@ -104,7 +104,7 @@ const versionContRouter = express.Router();
  *                   type: string
  *                   example: No data found for that range. Only 2025 data is available.
  */
-versionContRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+versionContRouter.get("/in-range", async (req, res) => {
   let { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

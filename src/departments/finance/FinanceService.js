@@ -10,11 +10,16 @@ class FinanceService {
     // Defer API client creation until first use
     this.apiClient = null;
     this.initialized = false;
+    this.roleCode = null;
   }
 
   // Initialize the service with environment variables
-  initialize() {
-    if (this.initialized) return;
+  initialize(roleCode = null) {
+    if (this.initialized && this.roleCode === roleCode) return;
+
+    if (roleCode) {
+      this.roleCode = roleCode;
+    }
 
     // CMC API configuration from environment variables
     this.baseURL =
@@ -57,6 +62,12 @@ class FinanceService {
         config.headers.Authorization = `Basic ${token}`;
         console.log("🔐 Using Basic authentication");
       }
+
+      // Add roleCode header if available
+      if (this.roleCode) {
+        config.headers["X-Role-Code"] = this.roleCode;
+      }
+
       return config;
     });
 

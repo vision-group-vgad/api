@@ -8,9 +8,10 @@ class ConvFunnelsController {
   }
 
   #processData(data, startDate, endDate) {
-    const filteredData = data.filter(
+    const rangeFiltered = data.filter(
       (obj) => obj.date >= startDate && obj.date <= endDate
     );
+    const filteredData = rangeFiltered.length > 0 ? rangeFiltered : data;
     const totalVisits = filteredData.reduce(
       (total, campaign) => total + campaign.visits,
       0
@@ -45,9 +46,23 @@ class ConvFunnelsController {
   }
 
   async getInRangeAnalytics(startDate, endDate) {
-    // const data = await this.#salesMkt.getInRangeSalesAnalytics(startDate, endDate)
-    const processedAnalytics = this.#processData(campaigns, startDate, endDate);
-    return processedAnalytics;
+    try {
+      const liveData = await this.#salesMkt.getConversionFunnelsData(
+        startDate,
+        endDate
+      );
+
+      if (liveData.length > 0) {
+        return this.#processData(liveData, startDate, endDate);
+      }
+    } catch (error) {
+      console.warn(
+        "Using fallback conversion funnel data due to live fetch error:",
+        error.message
+      );
+    }
+
+    return this.#processData(campaigns, startDate, endDate);
   }
 }
 

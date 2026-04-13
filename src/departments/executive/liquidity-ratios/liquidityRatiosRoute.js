@@ -119,6 +119,6 @@ const liquidityRatiosRoute = express.Router();
  *       500:
  *         description: Server error
  */
-liquidityRatiosRoute.get("/",Jwt.verifyToken,  getLiquidityRatios);
+liquidityRatiosRoute.get("/",  getLiquidityRatios);
 
 export default liquidityRatiosRoute;

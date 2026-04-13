@@ -20,11 +20,25 @@ class AccessController {
 
         const requestedEndpoint = req.baseUrl + req.path;
 
+        // Backward/alias compatibility for sales supervisor analytics path.
+        // This keeps RBAC mappings stable while supporting /api/sales/supervisor-analytics.
+        const endpointCandidates = [requestedEndpoint];
+        if (requestedEndpoint.startsWith("/api/sales/supervisor-analytics")) {
+          endpointCandidates.push(
+            requestedEndpoint.replace(
+              "/api/sales/supervisor-analytics",
+              "/api/v1/sales/SupervisorSalesAnalytics"
+            )
+          );
+        }
+
         const accessibleUrls = await fetchEndpointsByRole(roleCode);
 
         const hasAccess = accessibleUrls.some((urlPattern) => {
           const matcher = match(urlPattern, { decode: decodeURIComponent });
-          return matcher(requestedEndpoint) !== false;
+          return endpointCandidates.some(
+            (candidateEndpoint) => matcher(candidateEndpoint) !== false
+          );
         });
 
         if (!hasAccess) {

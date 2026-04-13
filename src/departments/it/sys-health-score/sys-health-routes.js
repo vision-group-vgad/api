@@ -82,7 +82,7 @@ const sysHealthRouter = express.Router();
  *                   type: string
  *                   example: "Something went wrong"
  */
-sysHealthRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+sysHealthRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

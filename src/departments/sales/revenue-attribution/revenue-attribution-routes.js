@@ -61,10 +61,10 @@ const revAttRouter = express.Router();
  *       500:
  *         description: Internal server error
  */
-revAttRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+revAttRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
-  validateRange(startDate, endDate, res);
+  if (validateRange(startDate, endDate, res)) return;
 
   try {
     const results = await revAttController.getInRangeAnalytics(

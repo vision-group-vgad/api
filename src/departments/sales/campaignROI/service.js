@@ -1,8 +1,20 @@
 import { campaigns } from "./dummy.js";
+import SalesMarketing from "../../../utils/common/SalesMkting.js";
+
+const salesMarketing = new SalesMarketing();
 
 export const calculateROI = (cost, revenue) => ((revenue - cost) / cost) * 100;
 
-export const getCampaigns = (startDate, endDate) => {
+export const getCampaigns = async (startDate, endDate) => {
+  try {
+    const liveData = await salesMarketing.getCampaignROIData(startDate, endDate);
+    if (liveData.length > 0) {
+      return liveData;
+    }
+  } catch (error) {
+    console.warn("Using fallback campaign ROI data:", error.message);
+  }
+
   let filtered = campaigns;
 
   if (startDate && endDate) {

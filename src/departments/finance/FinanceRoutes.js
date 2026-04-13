@@ -102,7 +102,7 @@ const router = express.Router();
  *                 granularity: "monthly"
  *                 limit: 1000
  */
-router.get("/close-metrics", Jwt.verifyToken, getFinancialCloseMetrics);
+router.get("/close-metrics", getFinancialCloseMetrics);
 
 /**
  * @swagger
@@ -158,7 +158,7 @@ router.get("/close-metrics", Jwt.verifyToken, getFinancialCloseMetrics);
  *                     count: 450
  *                     percentage: 36
  */
-router.get("/audit-trail", Jwt.verifyToken, getAuditTrailAnalysis);
+router.get("/audit-trail", getAuditTrailAnalysis);
 
 /**
  * @swagger
@@ -208,7 +208,7 @@ router.get("/audit-trail", Jwt.verifyToken, getAuditTrailAnalysis);
  *                   - errorType: "Unbalanced Entry"
  *                     count: 10
  */
-router.get("/reporting-accuracy", Jwt.verifyToken, getReportingAccuracy);
+router.get("/reporting-accuracy", getReportingAccuracy);
 
 /**
  * @swagger
@@ -354,7 +354,7 @@ router.get("/reporting-accuracy", Jwt.verifyToken, getReportingAccuracy);
  *       500:
  *         description: Server error
  */
-router.get("/raw-data", Jwt.verifyToken, getFinancialData);
+router.get("/raw-data", getFinancialData);
 
 /**
  * @swagger
@@ -418,7 +418,7 @@ router.get("/raw-data", Jwt.verifyToken, getFinancialData);
  *               chartType: "line"
  *               metric: "closeMetrics"
  */
-router.get("/chart-data", Jwt.verifyToken, getFinancialChartData);
+router.get("/chart-data", getFinancialChartData);
 
 /**
  * @swagger
@@ -466,7 +466,7 @@ router.get("/chart-data", Jwt.verifyToken, getFinancialChartData);
  *       500:
  *         description: Server error
  */
-router.get("/gl-accounts", Jwt.verifyToken, getGLAccountNames);
+router.get("/gl-accounts", getGLAccountNames);
 
 /**
  * @swagger
@@ -514,7 +514,7 @@ router.get("/gl-accounts", Jwt.verifyToken, getGLAccountNames);
  *       500:
  *         description: Server error
  */
-router.get("/document-types", Jwt.verifyToken, getDocumentTypes);
+router.get("/document-types", getDocumentTypes);
 
 /**
  * @swagger
@@ -583,7 +583,7 @@ router.get("/document-types", Jwt.verifyToken, getDocumentTypes);
  *                     profitableRegions:
  *                       type: integer
  */
-router.get('/regional-pnl', Jwt.verifyToken, getRegionalPnL);
+router.get('/regional-pnl', getRegionalPnL);
 
 /**
  * @swagger
@@ -598,7 +598,7 @@ router.get('/regional-pnl', Jwt.verifyToken, getRegionalPnL);
  *       200:
  *         description: Regions retrieved successfully
  */
-router.get('/regions', Jwt.verifyToken, getRegions);
+router.get('/regions', getRegions);
 
 
 
@@ -639,6 +639,6 @@ router.get('/regions', Jwt.verifyToken, getRegions);
  *       500:
  *         description: Server error
  */
-router.get("/diagnostics", Jwt.verifyToken, getDiagnosticInfo);
+router.get("/diagnostics", getDiagnosticInfo);
 
 export default router;

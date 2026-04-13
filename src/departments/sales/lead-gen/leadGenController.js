@@ -1,9 +1,25 @@
 import { generateLeadGenData } from "./leadGenData.js";
+import SalesMarketing from "../../../utils/common/SalesMkting.js";
+
+const salesMarketing = new SalesMarketing();
 
 // Controller for Lead Gen Efficiency + Funnel + Time-to-Qualification
-export const getLeadGenEfficiency = (req, res) => {
+export const getLeadGenEfficiency = async (req, res) => {
   try {
-    const data = generateLeadGenData(300);
+    let data = [];
+    try {
+      data = await salesMarketing.getLeadEfficiencyRecords(
+        req.query.startDate,
+        req.query.endDate
+      );
+    } catch (error) {
+      console.warn("Using fallback lead-efficiency data:", error.message);
+      data = generateLeadGenData(300);
+    }
+
+    if (!Array.isArray(data) || data.length === 0) {
+      data = generateLeadGenData(300);
+    }
 
     // --- Apply filters ---
     let filtered = data;

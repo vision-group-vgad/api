@@ -69,7 +69,7 @@ const backlogMgtRouter = express.Router();
  *       404:
  *         description: No data found for the given year. Only 2025 is available.
  */
-backlogMgtRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
+backlogMgtRouter.get("/annual", async (req, res) => {
   let { year } = req.query;
   year = parseInt(year);
 
@@ -149,7 +149,7 @@ backlogMgtRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
  *       404:
  *         description: No data found for that year. Only 2025 Jan - April data is available.
  */
-backlogMgtRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+backlogMgtRouter.get("/in-range", async (req, res) => {
   let { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

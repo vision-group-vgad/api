@@ -69,7 +69,7 @@ const fuelConsRouter = express.Router();
  *       500:
  *         description: Internal server error
  */
-fuelConsRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+fuelConsRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

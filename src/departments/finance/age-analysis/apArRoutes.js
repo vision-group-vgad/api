@@ -69,6 +69,6 @@ const ageRouter = express.Router();
  * @route GET /api/v1/ap-ar-aging
  */
 
-ageRouter.get('/',Jwt.verifyToken, getApArAging);
+ageRouter.get('/', getApArAging);
 
 export default ageRouter;

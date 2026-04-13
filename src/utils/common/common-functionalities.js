@@ -172,12 +172,12 @@ export const validateRange = (startDate, endDate, res) => {
     });
   }
   if (
-    extractYearFromDate(startDate) > 2025 ||
-    extractYearFromDate(endDate) < 2025
+    extractYearFromDate(startDate) > 2030 ||
+    extractYearFromDate(endDate) < 2020
   ) {
     return res.status(404).json({
       message:
-        "No data found for that year. Only 2025 Jan - April, data is available.",
+        "No data found for that year. Please provide a date range between 2020 and 2030.",
     });
   }
 };

@@ -81,7 +81,7 @@ const statVarController = new StatementsVarianceController();
  *               example:
  *                 error: "Failed to fetch financial statements variance data"
  */
-statVarRouter.get("/", Jwt.verifyToken, async (req, res) => {
+statVarRouter.get("/", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   if (!startDate || !endDate) {

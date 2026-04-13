@@ -152,6 +152,6 @@ const leadGenRoute = express.Router();
  *       500:
  *         description: Server error
  */
-leadGenRoute.get("/", Jwt.verifyToken, getLeadGenEfficiency);
+leadGenRoute.get("/", getLeadGenEfficiency);
 
 export default leadGenRoute;

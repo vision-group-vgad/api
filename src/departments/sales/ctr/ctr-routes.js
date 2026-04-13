@@ -97,10 +97,10 @@ const ctrRouter = express.Router();
  *       500:
  *         description: Server error
  */
-ctrRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+ctrRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
-  validateRange(startDate, endDate, res);
+  if (validateRange(startDate, endDate, res)) return;
 
   try {
     const results = await ctrController.getInRangeAnalytics(startDate, endDate);

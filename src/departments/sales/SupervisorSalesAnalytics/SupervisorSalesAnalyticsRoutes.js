@@ -1,6 +1,7 @@
 import express from "express";
 import Jwt from "../../../auth/jwt.js";
 import {
+  getSupervisorAnalyticsOverview,
   getPipelineVelocity,
   getPipelineVelocityKPIs,
   getQuotaAttainment,
@@ -12,6 +13,8 @@ import {
 } from "./SupervisorSalesAnalyticsController.js";
 
 const router = express.Router();
+
+router.get("/", getSupervisorAnalyticsOverview);
 
 /**
  * @swagger
@@ -47,7 +50,6 @@ const router = express.Router();
  */
 router.get(
   "/pipeline-velocity",
-  Jwt.verifyToken,
   getPipelineVelocity
 );
 
@@ -79,7 +81,6 @@ router.get(
  */
 router.get(
   "/pipeline-velocity/kpis",
-  Jwt.verifyToken,
   getPipelineVelocityKPIs
 );
 
@@ -114,7 +115,6 @@ router.get(
  */
 router.get(
   "/quota-attainment",
-  Jwt.verifyToken,
   getQuotaAttainment
 );
 
@@ -143,7 +143,6 @@ router.get(
  */
 router.get(
   "/quota-attainment/kpis",
-  Jwt.verifyToken,
   getQuotaAttainmentKPIs
 );
 
@@ -178,7 +177,6 @@ router.get(
  */
 router.get(
   "/account-penetration",
-  Jwt.verifyToken,
   getAccountPenetration
 );
 
@@ -207,7 +205,6 @@ router.get(
  */
 router.get(
   "/account-penetration/kpis",
-  Jwt.verifyToken,
   getAccountPenetrationKPIs
 );
 
@@ -245,7 +242,6 @@ router.get(
  */
 router.get(
   "/corporate-account-health",
-  Jwt.verifyToken,
   getCorporateAccountHealth
 );
 
@@ -277,7 +273,6 @@ router.get(
  */
 router.get(
   "/corporate-account-health/kpis",
-  Jwt.verifyToken,
   getCorporateAccountHealthKPIs
 );
 

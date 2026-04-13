@@ -12,11 +12,19 @@ class CyberSecPostController {
   }
 
   async getInRangeData(startDate, endDate) {
-    // const data = await this.#it.getInRangeAnalytics(startDate, endDate)
-    const filteredAnalytics = dummy_data.filter(
-      (obj) => obj.date >= startDate && obj.date <= endDate
-    );
-    return filteredAnalytics;
+    try {
+      const liveData = await this.#it.fetchLiveData('/it/cybersecurity');
+      if (Array.isArray(liveData) && liveData.length > 0) {
+        // Only use live data when it matches the expected posture snapshot schema
+        if (liveData[0].date !== undefined && liveData[0].overallCyberSecurityScore !== undefined) {
+          const filtered = liveData.filter(obj => !startDate || !endDate || (obj.date >= startDate && obj.date <= endDate));
+          return filtered.length > 0 ? filtered : liveData;
+        }
+      }
+    } catch (err) {
+      console.warn('[CyberSecPost] Live fetch failed, using dummy:', err.message);
+    }
+    return dummy_data.filter(obj => obj.date >= startDate && obj.date <= endDate);
   }
 }
 

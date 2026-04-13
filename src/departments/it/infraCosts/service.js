@@ -1,3 +1,6 @@
+import IT from "../../../utils/common/IT.js";
+
+const _it = new IT();
 const dummyCosts = [
   {
     cost_id: 1,
@@ -203,8 +206,15 @@ const dummyCosts = [
 /**
  * Get all costs (optionally filter by category, date range)
  */
-export const getInfrastructureCosts = (filters = {}) => {
-  let results = [...dummyCosts];
+export const getInfrastructureCosts = async (filters = {}) => {
+  let results;
+  try {
+    const liveData = await _it.fetchLiveData('/it/infrastructure-costs');
+    results = Array.isArray(liveData) && liveData.length > 0 ? [...liveData] : [...dummyCosts];
+  } catch (err) {
+    console.warn('[InfraCosts] Live fetch failed, using dummy:', err.message);
+    results = [...dummyCosts];
+  }
 
   if (filters.category) {
     results = results.filter(c => c.category === filters.category);

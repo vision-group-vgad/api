@@ -81,23 +81,22 @@ const router = express.Router();
  */
 
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   const { dispatcher, depot, startDate, endDate } = req.query;
 
- 
-  const deliveries = getAllDeliveries({ dispatcher, depot, startDate, endDate });
+  try {
+    const data = await getAllDeliveries({ dispatcher, depot, startDate, endDate });
 
-  if (deliveries.length === 0) {
-    return res.json({
-      message: "No delivery records exist for the specified filter(s).",
-      data: [],
+    res.json({
+      success: true,
+      data,
+    });
+  } catch {
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve delivery timelines.",
     });
   }
-
-  res.json({
-    message: "Delivery records retrieved successfully.",
-    data: deliveries,
-  });
 });
 
 export default router;

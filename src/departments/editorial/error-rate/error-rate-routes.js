@@ -88,7 +88,7 @@ const errorRateRouter = express.Router();
  *       500:
  *         description: Internal server error
  */
-errorRateRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+errorRateRouter.get("/in-range", async (req, res) => {
   let { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

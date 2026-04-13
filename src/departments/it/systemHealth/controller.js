@@ -41,6 +41,6 @@ const router = express.Router();
  *         description: System not found
  */
 
-router.get("/", Jwt.verifyToken, getSystemHealth);
+router.get("/", getSystemHealth);
 
 export default router;

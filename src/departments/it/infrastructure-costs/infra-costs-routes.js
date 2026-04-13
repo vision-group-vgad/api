@@ -76,7 +76,7 @@ const infraCostsController = new InfraCostsController();
  *                   type: string
  *                   example: "Internal Server Error"
  */
-infraCostsRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+infraCostsRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

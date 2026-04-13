@@ -72,7 +72,7 @@ const router = express.Router();
  */
 
 
-router.get("/", Jwt.verifyToken, assessEditorialCalendar);
+router.get("/", assessEditorialCalendar);
 
 export default router;
 

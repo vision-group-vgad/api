@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import authRouter from "./src/auth/auth-routes.js";
+import unifiedAuth from "./src/auth/unified-auth.js";
 import serverLoadRouter from "./src/departments/it/server-load-piechart/server-load-routes.js";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
@@ -95,7 +96,6 @@ import fuelConsRouter from "./src/departments/operations/fuel-consumption/fuel-c
 import sigQualityRouter from "./src/departments/operations/signal-quality-metrics/signal-quality-routes.js";
 import upDowntimeRouter from "./src/departments/operations/up-downtime-logs/up-downtime-routes.js";
 import CEOAnalyticsRoutes from "./src/departments/executive/CEOAnalytics/CEOAnalyticsRoutes.js";
-import aiRoutes from "./src/ai/aiRoutes.js";
 import revPerfromanceRouter from "./src/departments/executive/revenue-performance/rev-perfromance-routes.js";
 import mktShareRouter from "./src/departments/executive/market-share/market-share-routes.js";
 import financialHealthRoute from "./src/departments/executive/finance-health/financeHealthRoute.js";
@@ -120,8 +120,6 @@ import firebaseUserRouter from "./src/config/firebase/firebase-user-routes.js";
 import retentionRiskRoute from "./src/departments/specialized/retentionRisk/controller.js";
 import feedbackRoute from "./src/departments/specialized/feedback/feedbackRoute.js";
 import trainingEffectivenessRoute from "./src/departments/specialized/trainingEffectiveness/controller.js";
-// import AccessController from "./src/auth/access-controller.js";
-// import Jwt from "./src/auth/jwt.js";
 import pipelineRoute from "./src/departments/finance/pipeline-metrics/pipelineMetricsRoute.js";
 import userMgtRouter from "./src/config/firebase/firebase-user-mgt-routes.js";
 import dataGovernRouter from "./src/departments/specialized/data-governance/data-govern-routes.js";
@@ -136,43 +134,31 @@ const corsOption = {
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 };
-// const excludePaths = (paths, ...middlewares) => {
-//   return (req, res, next) => {
-//     if (paths.some((p) => req.path.startsWith(p.replace(/\/$/, "")))) {
-//       return next();
-//     }
-
-//     let i = 0;
-//     const run = (err) => {
-//       if (err) return next(err);
-//       if (i >= middlewares.length) return next();
-//       const current = middlewares[i++];
-//       current(req, res, run);
-//     };
-//     run();
-//   };
-// };
-
-for (const path in swaggerSpec.paths) {
-  for (const method in swaggerSpec.paths[path]) {
-    if (!swaggerSpec.paths[path][method].parameters) {
-      swaggerSpec.paths[path][method].parameters = [];
+const excludePaths = (paths, ...middlewares) => {
+  return (req, res, next) => {
+    if (paths.some((p) => req.path.startsWith(p.replace(/\/$/, "")))) {
+      return next();
     }
-    swaggerSpec.paths[path][method].parameters.push({
-      $ref: "#/components/parameters/OptionalRoleHeader",
-    });
-  }
-}
+
+    let i = 0;
+    const run = (err) => {
+      if (err) return next(err);
+      if (i >= middlewares.length) return next();
+      const current = middlewares[i++];
+      current(req, res, run);
+    };
+    run();
+  };
+};
 
 app.use(cors(corsOption));
 app.use(express.json());
-// app.use(
-//   excludePaths(
-//     ["/api/api-docs", "/api/v1/auth", "/assets/profile_pics", "/api/v1/ai"],
-//     Jwt.verifyToken,
-//     AccessController.authorizeRole()
-//   )
-// );
+app.use(
+  excludePaths(
+    ["/api/api-docs", "/api/v1/auth", "/assets/profile_pics"],
+    unifiedAuth
+  )
+);
 app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(
   "/assets/profile_pics",
@@ -257,30 +243,14 @@ app.use(
   "/api/v1/sales/SupervisorSalesAnalytics",
   SupervisorSalesAnalyticsRoutes
 );
-app.use(
-  "/api/v1/operations/OperationsProductionAnalytics",
-  OperationsProductionAnalyticsRoutes
-);
-app.use(
-  "/api/v1/sales/SupervisorSalesAnalytics",
-  SupervisorSalesAnalyticsRoutes
-);
+app.use("/api/sales/supervisor-analytics", SupervisorSalesAnalyticsRoutes);
 app.use(
   "/api/v1/operations/OperationsProductionAnalytics",
   OperationsProductionAnalyticsRoutes
 );
 app.use("/api/v1/sales/impression-shares", impressionShareRoute);
-app.use(
-  "/api/v1/sales/SupervisorSalesAnalytics",
-  SupervisorSalesAnalyticsRoutes
-);
-app.use(
-  "/api/v1/operations/OperationsProductionAnalytics",
-  OperationsProductionAnalyticsRoutes
-);
 app.use("/api/v1/sales/ctr", ctrRouter);
 app.use("/api/v1/sales/rate-card-utilization", rateCardUtilisationRoute);
-app.use("/api/v1/sales/conversion-funnels", convFunnelsRouter);
 app.use("/api/v1/sales/conversion-funnels", convFunnelsRouter);
 app.use("/api/v1/sales/territory-performance", territoryPerformRouter);
 app.use("/api/v1/marketing/lead-efficiency", leadGenRoute);
@@ -289,10 +259,8 @@ app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
 app.use("/api/v1/sales/campaign-attribution", campaignAttributionRoute);
 app.use("/api/v1/operations/delivery-timelines", ddeliveryTimelineRoute);
 app.use("/api/v1/operations/ticket-resolution", ticketResolutionRoute);
-app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
 app.use("/api/v1/executive/liquidity-ratios", liquidityRatiosRoute);
 app.use("/api/v1/sales/brand-lift", brandLiftRoute);
-app.use("/api/v1/sales/contract-value-trends", contractValueRoute);
 app.use("/api/v1/sales/contract-value-trends", contractValueRoute);
 app.use("/api/v1/operations/setup-time", setupTimeOptimizationRoute);
 app.use("/api/v1/operations/job-scheduling", jobSchedulingRoute);
@@ -302,11 +270,9 @@ app.use("/api/v1/operations/fuel-consumption", fuelConsRouter);
 app.use("/api/v1/operations/signal-quality-metrics", sigQualityRouter);
 app.use("/api/v1/operations/up-downtime-logs", upDowntimeRouter);
 app.use("/api/v1/executive/CEOAnalytics", CEOAnalyticsRoutes);
-app.use("/api/v1/ai", aiRoutes);
 app.use("/api/v1/executive/revenue-performance", revPerfromanceRouter);
 app.use("/api/v1/executive/market-share", mktShareRouter);
 app.use("/api/v1/executive/financial-health", financialHealthRoute);
-app.use("/api/v1/sales/lead-efficiency", leadGenRoute);
 app.use("/api/v1/executive/cost-optimization", costOptimizationRoute);
 app.use("/api/v1/executive/roi-analysis", roiAnalysisRoute);
 app.use("/api/v1/executive/strategic-init-tracking", strategicInitiativeRouter);

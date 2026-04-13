@@ -90,7 +90,7 @@ const revPerfromanceRouter = express.Router();
  *                   type: string
  *                   example: Internal server error
  */
-revPerfromanceRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+revPerfromanceRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

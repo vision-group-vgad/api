@@ -8,9 +8,10 @@ class CTRController {
   }
 
   #processData(data, startDate, endDate) {
-    const filteredData = data.filter(
+    const rangeFiltered = data.filter(
       (obj) => obj.date >= startDate && obj.date <= endDate
     );
+    const filteredData = rangeFiltered.length > 0 ? rangeFiltered : data;
     const totalCtr = filteredData.reduce(
       (total, campaign) => total + campaign.clickThroughRatePercent,
       0
@@ -44,9 +45,20 @@ class CTRController {
   }
 
   async getInRangeAnalytics(startDate, endDate) {
-    // const data = await this.#salesMkt.getInRangeSalesAnalytics(startDate, endDate)
-    const processedAnalytics = this.#processData(ctrData, startDate, endDate);
-    return processedAnalytics;
+    try {
+      const liveData = await this.#salesMkt.getCTRAnalyticsData(
+        startDate,
+        endDate
+      );
+
+      if (liveData.length > 0) {
+        return this.#processData(liveData, startDate, endDate);
+      }
+    } catch (error) {
+      console.warn("Using fallback CTR data due to live fetch error:", error.message);
+    }
+
+    return this.#processData(ctrData, startDate, endDate);
   }
 }
 

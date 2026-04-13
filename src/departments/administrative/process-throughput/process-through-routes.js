@@ -1,4 +1,5 @@
 import express from "express";
+import Jwt from "../../../auth/jwt.js";
 import ProcessThrController from "./ProcessThroughputController.js";
 import { validateRange } from "../../../utils/common/common-functionalities.js";
 
@@ -88,9 +89,7 @@ const processThroughRouter = express.Router();
  *         description: Invalid date range
  *       500:
  *         description: Internal server error
- *     security: []  # <-- explicitly marks no authentication required
  */
-
 processThroughRouter.get("/in-range", async (req, res) => {
   let { startDate, endDate } = req.query;
 

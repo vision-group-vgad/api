@@ -104,7 +104,7 @@ const sigQualityRouter = express.Router();
  *       500:
  *         description: Internal server error
  */
-sigQualityRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+sigQualityRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

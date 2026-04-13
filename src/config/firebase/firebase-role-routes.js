@@ -17,7 +17,6 @@ const firebaseRoleRouter = express.Router();
 
 firebaseRoleRouter.get(
   "/roles/all-roles",
-  Jwt.verifyToken,
   async (req, res) => {
     try {
       const roles = await fetchRoles();
@@ -28,7 +27,7 @@ firebaseRoleRouter.get(
   }
 );
 
-firebaseRoleRouter.get("/roles/by-code", Jwt.verifyToken, async (req, res) => {
+firebaseRoleRouter.get("/roles/by-code", async (req, res) => {
   try {
     const { role_code } = req.query;
     if (!role_code)
@@ -43,7 +42,7 @@ firebaseRoleRouter.get("/roles/by-code", Jwt.verifyToken, async (req, res) => {
   }
 });
 
-firebaseRoleRouter.post("/roles/add", Jwt.verifyToken, async (req, res) => {
+firebaseRoleRouter.post("/roles/add", async (req, res) => {
   try {
     const { role_name, department } = req.body;
     if (!role_name)
@@ -59,7 +58,7 @@ firebaseRoleRouter.post("/roles/add", Jwt.verifyToken, async (req, res) => {
   }
 });
 
-firebaseRoleRouter.put("/roles/update", Jwt.verifyToken, async (req, res) => {
+firebaseRoleRouter.put("/roles/update", async (req, res) => {
   try {
     const { role_name, department, new_role_name } = req.body;
     if (!role_name)
@@ -81,7 +80,6 @@ firebaseRoleRouter.put("/roles/update", Jwt.verifyToken, async (req, res) => {
 
 firebaseRoleRouter.delete(
   "/roles/delete",
-  Jwt.verifyToken,
   async (req, res) => {
     try {
       const { role_name } = req.query;
@@ -121,7 +119,6 @@ firebaseRoleRouter.delete(
 
 firebaseRoleRouter.post(
   "/roles/mappings/add",
-  Jwt.verifyToken,
   async (req, res) => {
     try {
       const { role_code, endpoints } = req.body;
@@ -154,7 +151,6 @@ firebaseRoleRouter.post(
 
 firebaseRoleRouter.get(
   "/roles/mappings/all",
-  Jwt.verifyToken,
   async (req, res) => {
     try {
       const mappings = await fetchAllRoleMappings();
@@ -167,7 +163,6 @@ firebaseRoleRouter.get(
 
 firebaseRoleRouter.get(
   "/roles/mappings/by-role",
-  Jwt.verifyToken,
   async (req, res) => {
     try {
       const { role_code } = req.query;
@@ -184,7 +179,6 @@ firebaseRoleRouter.get(
 
 firebaseRoleRouter.post(
   "/roles/mappings/bulk-upload",
-  Jwt.verifyToken,
   async (req, res) => {
     try {
       const { fileName } = req.body;

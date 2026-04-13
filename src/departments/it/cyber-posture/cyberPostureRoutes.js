@@ -54,7 +54,7 @@ const cyberPostureController = new CyberPostureController();
  *       500:
  *         description: Server error retrieving posture data
  */
-router.get("/", Jwt.verifyToken, (req, res) =>
+router.get("/", (req, res) =>
   cyberPostureController.getCyberPosture(req, res)
 );
 

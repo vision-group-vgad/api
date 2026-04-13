@@ -1,0 +1,795 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Editorial Department Data Request Schema",
+  "description": "Comprehensive data schema for Vision Group Editorial Department Analytics - This document defines all required data fields to achieve accurate editorial statistics, content performance metrics, and audience engagement KPIs",
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-17",
+  
+  "dataCategories": {
+    
+    "1_PERSONAL_BYLINE_PERFORMANCE": {
+      "description": "Individual journalist/author performance metrics and content quality indicators",
+      "endpoints": ["/api/v1/editorial/analytics/personal-byline-performance"],
+      "purpose": "Track individual writer productivity, engagement, and content quality to identify top performers and training needs",
+      "requiredFields": {
+        "articleId": {
+          "type": "string",
+          "description": "Unique article identifier",
+          "example": "ART-2026-12345",
+          "required": true
+        },
+        "authorId": {
+          "type": "string",
+          "description": "Unique author/journalist identifier",
+          "example": "AUTH-001",
+          "required": true
+        },
+        "authorName": {
+          "type": "string",
+          "description": "Full name of author/journalist",
+          "example": "John Mugisha",
+          "required": true
+        },
+        "authorRole": {
+          "type": "string",
+          "enum": ["Reporter", "Senior Reporter", "Editor", "News Editor", "Columnist", "Contributor", "Correspondent"],
+          "description": "Author's role/position",
+          "required": true
+        },
+        "articleTitle": {
+          "type": "string",
+          "description": "Article headline/title",
+          "example": "Uganda's Economy Shows Growth in Q1 2026",
+          "required": true
+        },
+        "publishedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When article was published",
+          "example": "2026-02-15T08:30:00Z",
+          "required": true
+        },
+        "category": {
+          "type": "string",
+          "enum": ["News", "Business", "Sports", "Entertainment", "Politics", "Technology", "Opinion", "Features"],
+          "description": "Article category",
+          "required": true
+        },
+        "wordCount": {
+          "type": "number",
+          "description": "Total word count of article",
+          "example": 850,
+          "required": true
+        },
+        "totalReads": {
+          "type": "number",
+          "description": "Total number of reads/views",
+          "example": 15420,
+          "required": true
+        },
+        "uniqueReaders": {
+          "type": "number",
+          "description": "Number of unique readers",
+          "example": 12350,
+          "required": true
+        },
+        "averageReadDurationSeconds": {
+          "type": "number",
+          "description": "Average time readers spent on article (seconds)",
+          "example": 145.5,
+          "required": true
+        },
+        "completionRatePercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percentage of readers who read to the end",
+          "example": 67.5,
+          "required": true
+        },
+        "averageScrollDepthPercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Average scroll depth percentage",
+          "example": 78.2,
+          "required": true
+        },
+        "socialShares": {
+          "type": "number",
+          "description": "Total social media shares",
+          "example": 234,
+          "required": true
+        },
+        "comments": {
+          "type": "number",
+          "description": "Number of comments",
+          "example": 45,
+          "required": true
+        },
+        "likes": {
+          "type": "number",
+          "description": "Number of likes/reactions",
+          "example": 567,
+          "required": false
+        },
+        "bounceRatePercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percentage of readers who left immediately",
+          "example": 32.5,
+          "required": true
+        },
+        "engagementScore": {
+          "type": "number",
+          "description": "Calculated engagement score (0-100)",
+          "example": 78.5,
+          "required": false
+        },
+        "readabilityScore": {
+          "type": "number",
+          "description": "Content readability score (Flesch-Kincaid or similar)",
+          "example": 65.3,
+          "required": false
+        },
+        "seoScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "SEO optimization score",
+          "example": 82.0,
+          "required": false
+        },
+        "articleQualityRating": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Editorial quality rating (1-5)",
+          "example": 4.5,
+          "required": false
+        },
+        "corrections": {
+          "type": "number",
+          "description": "Number of corrections/updates made post-publication",
+          "example": 1,
+          "required": false
+        },
+        "timeToPublishHours": {
+          "type": "number",
+          "description": "Time from assignment to publication (hours)",
+          "example": 6.5,
+          "required": false
+        }
+      },
+      "aggregatedMetrics": {
+        "description": "Summary metrics per author for reporting periods",
+        "fields": {
+          "authorId": {"type": "string", "required": true},
+          "reportingPeriod": {"type": "string", "format": "month", "example": "2026-02", "required": true},
+          "totalArticles": {"type": "number", "description": "Articles published in period", "required": true},
+          "totalReads": {"type": "number", "description": "Total reads across all articles", "required": true},
+          "averageReadsPerArticle": {"type": "number", "required": true},
+          "averageEngagementScore": {"type": "number", "required": true},
+          "totalSocialShares": {"type": "number", "required": true},
+          "averageCompletionRate": {"type": "number", "required": true},
+          "topPerformingArticleId": {"type": "string", "required": false},
+          "productivityScore": {"type": "number", "description": "Articles per week", "required": false}
+        }
+      }
+    },
+
+    "2_SOURCE_EFFECTIVENESS": {
+      "description": "Traffic source analysis and referrer performance metrics",
+      "endpoints": ["/api/v1/editorial/analytics/source-effectiveness"],
+      "purpose": "Measure which traffic sources (search, social, direct, referrals) drive the most engaged readers",
+      "requiredFields": {
+        "sessionId": {
+          "type": "string",
+          "description": "Unique session identifier",
+          "example": "SESS-2026-789456",
+          "required": true
+        },
+        "articleId": {
+          "type": "string",
+          "description": "Article being read",
+          "example": "ART-2026-12345",
+          "required": true
+        },
+        "sessionStartTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When session started",
+          "example": "2026-02-16T14:25:00Z",
+          "required": true
+        },
+        "trafficSource": {
+          "type": "string",
+          "enum": ["Organic Search", "Direct", "Social Media", "Referral", "Email", "Paid Search", "Display Ads", "Other"],
+          "description": "Primary traffic source category",
+          "required": true
+        },
+        "sourceDetail": {
+          "type": "string",
+          "description": "Specific source within category",
+          "example": "Google Organic",
+          "required": true
+        },
+        "referrerUrl": {
+          "type": "string",
+          "description": "Full referring URL if applicable",
+          "example": "https://www.google.com/search?q=uganda+economy",
+          "required": false
+        },
+        "referrerDomain": {
+          "type": "string",
+          "description": "Referring domain",
+          "example": "google.com",
+          "required": true
+        },
+        "socialPlatform": {
+          "type": "string",
+          "enum": ["Facebook", "Twitter", "Instagram", "LinkedIn", "WhatsApp", "TikTok", "YouTube", "Other", "N/A"],
+          "description": "Social platform if traffic source is social",
+          "required": false
+        },
+        "searchKeywords": {
+          "type": "string",
+          "description": "Search keywords if available",
+          "example": "uganda economic growth 2026",
+          "required": false
+        },
+        "campaignName": {
+          "type": "string",
+          "description": "Marketing campaign identifier (UTM)",
+          "example": "spring_newsletter_2026",
+          "required": false
+        },
+        "utmSource": {
+          "type": "string",
+          "description": "UTM source parameter",
+          "example": "newsletter",
+          "required": false
+        },
+        "utmMedium": {
+          "type": "string",
+          "description": "UTM medium parameter",
+          "example": "email",
+          "required": false
+        },
+        "utmCampaign": {
+          "type": "string",
+          "description": "UTM campaign parameter",
+          "required": false
+        },
+        "deviceType": {
+          "type": "string",
+          "enum": ["Mobile", "Desktop", "Tablet"],
+          "description": "Device used to access content",
+          "required": true
+        },
+        "sessionDurationSeconds": {
+          "type": "number",
+          "description": "Total session duration",
+          "example": 245,
+          "required": true
+        },
+        "pagesViewed": {
+          "type": "number",
+          "description": "Number of pages viewed in session",
+          "example": 3,
+          "required": true
+        },
+        "bounced": {
+          "type": "boolean",
+          "description": "Whether user bounced (left after one page)",
+          "required": true
+        },
+        "converted": {
+          "type": "boolean",
+          "description": "Whether user completed desired action (subscription, registration, etc.)",
+          "required": false
+        },
+        "conversionType": {
+          "type": "string",
+          "enum": ["Subscription", "Newsletter Signup", "Account Creation", "Share", "Comment", "Download", "None"],
+          "description": "Type of conversion if any",
+          "required": false
+        },
+        "userLocation": {
+          "type": "string",
+          "description": "User geographic location (city/region)",
+          "example": "Kampala",
+          "required": false
+        }
+      },
+      "aggregatedMetrics": {
+        "description": "Summary metrics per traffic source",
+        "fields": {
+          "trafficSource": {"type": "string", "required": true},
+          "reportingPeriod": {"type": "string", "format": "month", "required": true},
+          "totalSessions": {"type": "number", "required": true},
+          "totalUsers": {"type": "number", "required": true},
+          "averageSessionDuration": {"type": "number", "required": true},
+          "averagePagesPerSession": {"type": "number", "required": true},
+          "bounceRatePercent": {"type": "number", "required": true},
+          "conversionRatePercent": {"type": "number", "required": true},
+          "totalConversions": {"type": "number", "required": true},
+          "revenueAttribution": {"type": "number", "description": "Revenue attributed to this source", "required": false}
+        }
+      }
+    },
+
+    "3_SOCIAL_AMPLIFICATION": {
+      "description": "Social media engagement, virality, and content sharing metrics",
+      "endpoints": ["/api/v1/editorial/analytics/social-amplification", "/api/v1/editorial/social-sentiment"],
+      "purpose": "Track how content spreads across social platforms and measure social engagement",
+      "requiredFields": {
+        "articleId": {
+          "type": "string",
+          "description": "Article identifier",
+          "example": "ART-2026-12345",
+          "required": true
+        },
+        "articleTitle": {
+          "type": "string",
+          "description": "Article title",
+          "required": true
+        },
+        "publishedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Publication timestamp",
+          "required": true
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["Facebook", "Twitter", "Instagram", "LinkedIn", "WhatsApp", "TikTok", "YouTube", "All Platforms"],
+          "description": "Social media platform",
+          "required": true
+        },
+        "totalShares": {
+          "type": "number",
+          "description": "Total number of shares across all platforms",
+          "example": 1245,
+          "required": true
+        },
+        "platformSpecificShares": {
+          "type": "object",
+          "description": "Breakdown by platform",
+          "properties": {
+            "facebook": {"type": "number"},
+            "twitter": {"type": "number"},
+            "instagram": {"type": "number"},
+            "linkedin": {"type": "number"},
+            "whatsapp": {"type": "number"},
+            "tiktok": {"type": "number"},
+            "other": {"type": "number"}
+          },
+          "required": true
+        },
+        "totalLikes": {
+          "type": "number",
+          "description": "Total likes/reactions across platforms",
+          "example": 3420,
+          "required": true
+        },
+        "totalComments": {
+          "type": "number",
+          "description": "Total comments across platforms",
+          "example": 234,
+          "required": true
+        },
+        "totalRetweets": {
+          "type": "number",
+          "description": "Twitter/X retweets",
+          "example": 567,
+          "required": false
+        },
+        "totalReach": {
+          "type": "number",
+          "description": "Estimated total reach/impressions",
+          "example": 45000,
+          "required": true
+        },
+        "viralityScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Calculated virality score based on velocity and reach",
+          "example": 78.5,
+          "required": false
+        },
+        "sentimentScore": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "Social sentiment score (-1 negative, 0 neutral, 1 positive)",
+          "example": 0.72,
+          "required": false
+        },
+        "sentimentBreakdown": {
+          "type": "object",
+          "properties": {
+            "positive": {"type": "number", "description": "Count of positive mentions"},
+            "neutral": {"type": "number", "description": "Count of neutral mentions"},
+            "negative": {"type": "number", "description": "Count of negative mentions"}
+          },
+          "required": false
+        },
+        "influencerShares": {
+          "type": "number",
+          "description": "Shares by verified/influential accounts",
+          "example": 12,
+          "required": false
+        },
+        "clickThroughsFromSocial": {
+          "type": "number",
+          "description": "Clicks back to article from social posts",
+          "example": 2340,
+          "required": true
+        },
+        "socialConversionRate": {
+          "type": "number",
+          "description": "Percentage of social visitors who convert",
+          "example": 5.6,
+          "required": false
+        },
+        "peakShareTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When sharing peaked",
+          "required": false
+        },
+        "sharesFirst24Hours": {
+          "type": "number",
+          "description": "Shares within first 24 hours (virality indicator)",
+          "example": 890,
+          "required": true
+        },
+        "shareVelocity": {
+          "type": "number",
+          "description": "Shares per hour in first 24 hours",
+          "example": 37.08,
+          "required": false
+        },
+        "topSharingDemographic": {
+          "type": "object",
+          "properties": {
+            "ageGroup": {"type": "string", "example": "25-34"},
+            "gender": {"type": "string", "enum": ["Male", "Female", "All"]},
+            "location": {"type": "string", "example": "Kampala"}
+          },
+          "required": false
+        }
+      }
+    },
+
+    "4_AUDIENCE_RETENTION": {
+      "description": "NEW METRIC - User loyalty, repeat readership, and long-term audience engagement patterns",
+      "endpoints": ["/api/v1/editorial/analytics/audience-retention"],
+      "purpose": "Measure reader loyalty and track how well content retains audiences over time",
+      "status": "MISSING - NEEDS TO BE IMPLEMENTED",
+      "requiredFields": {
+        "userId": {
+          "type": "string",
+          "description": "Unique user identifier (can be anonymized/hashed)",
+          "example": "USER-a7b2c9d4e1f6",
+          "required": true
+        },
+        "firstVisitDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When user first visited the platform",
+          "example": "2025-08-15T10:00:00Z",
+          "required": true
+        },
+        "lastVisitDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Most recent visit",
+          "example": "2026-02-16T14:30:00Z",
+          "required": true
+        },
+        "totalVisits": {
+          "type": "number",
+          "description": "Total number of visits/sessions",
+          "example": 47,
+          "required": true
+        },
+        "totalArticlesRead": {
+          "type": "number",
+          "description": "Total articles read by this user",
+          "example": 142,
+          "required": true
+        },
+        "averageArticlesPerVisit": {
+          "type": "number",
+          "description": "Average articles read per session",
+          "example": 3.02,
+          "required": true
+        },
+        "totalTimeSpentMinutes": {
+          "type": "number",
+          "description": "Total cumulative time on platform (minutes)",
+          "example": 1245,
+          "required": true
+        },
+        "averageSessionDurationMinutes": {
+          "type": "number",
+          "description": "Average session length",
+          "example": 26.5,
+          "required": true
+        },
+        "visitFrequency": {
+          "type": "string",
+          "enum": ["Daily", "Weekly", "Bi-weekly", "Monthly", "Occasional", "One-time"],
+          "description": "How often user visits",
+          "required": true
+        },
+        "daysSinceLastVisit": {
+          "type": "number",
+          "description": "Days since last visit (recency)",
+          "example": 2,
+          "required": true
+        },
+        "userTenureDays": {
+          "type": "number",
+          "description": "Days since first visit (customer lifetime)",
+          "example": 185,
+          "required": true
+        },
+        "retentionCohort": {
+          "type": "string",
+          "description": "Acquisition cohort (month-year of first visit)",
+          "example": "2025-08",
+          "required": true
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Active in last 30 days",
+          "required": true
+        },
+        "isRetained": {
+          "type": "boolean",
+          "description": "Visited in current month after previous month visit",
+          "required": true
+        },
+        "churnRisk": {
+          "type": "string",
+          "enum": ["Low", "Medium", "High"],
+          "description": "Risk of user churning based on behavior",
+          "required": false
+        },
+        "preferredCategories": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Top 3 content categories user reads",
+          "example": ["Business", "Politics", "Sports"],
+          "required": false
+        },
+        "preferredAuthors": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Top authors user follows/reads",
+          "example": ["John Mugisha", "Sarah Nakato"],
+          "required": false
+        },
+        "devicePreference": {
+          "type": "string",
+          "enum": ["Mobile", "Desktop", "Mixed"],
+          "description": "Primary device used",
+          "required": true
+        },
+        "subscriptionStatus": {
+          "type": "string",
+          "enum": ["Free", "Subscriber", "Premium", "Trial", "Cancelled"],
+          "description": "User subscription level",
+          "required": false
+        },
+        "subscriptionStartDate": {
+          "type": "string",
+          "format": "date",
+          "description": "When user subscribed (if applicable)",
+          "required": false
+        },
+        "lifetimeValue": {
+          "type": "number",
+          "description": "Estimated or actual revenue from user (UGX)",
+          "example": 150000,
+          "required": false
+        },
+        "engagementActions": {
+          "type": "object",
+          "properties": {
+            "totalComments": {"type": "number"},
+            "totalShares": {"type": "number"},
+            "totalLikes": {"type": "number"},
+            "totalSaves": {"type": "number"}
+          },
+          "description": "User engagement activity counts",
+          "required": false
+        },
+        "weeklyActiveWeeks": {
+          "type": "number",
+          "description": "Number of weeks user was active (visited at least once)",
+          "example": 24,
+          "required": false
+        },
+        "consecutiveVisitStreak": {
+          "type": "number",
+          "description": "Current streak of consecutive days with visits",
+          "example": 5,
+          "required": false
+        },
+        "longestVisitStreak": {
+          "type": "number",
+          "description": "Longest ever consecutive visit streak",
+          "example": 14,
+          "required": false
+        }
+      },
+      "cohortAnalysis": {
+        "description": "Retention analysis by acquisition cohort",
+        "fields": {
+          "cohortMonth": {"type": "string", "format": "month", "example": "2025-08", "required": true},
+          "totalUsersAcquired": {"type": "number", "description": "Users acquired in cohort month", "required": true},
+          "retention_Month1": {"type": "number", "description": "Users active in month 1 after acquisition", "required": true},
+          "retention_Month2": {"type": "number", "required": true},
+          "retention_Month3": {"type": "number", "required": true},
+          "retention_Month6": {"type": "number", "required": true},
+          "retention_Month12": {"type": "number", "required": false},
+          "retentionRate_Month1": {"type": "number", "description": "% retained in month 1", "required": true},
+          "retentionRate_Month3": {"type": "number", "required": true},
+          "retentionRate_Month6": {"type": "number", "required": true},
+          "churnRate": {"type": "number", "description": "% of users who stopped visiting", "required": true},
+          "averageLifetimeValuePerUser": {"type": "number", "required": false}
+        }
+      },
+      "retentionMetrics": {
+        "description": "Overall platform retention KPIs",
+        "fields": {
+          "reportingPeriod": {"type": "string", "format": "month", "required": true},
+          "dailyActiveUsers": {"type": "number", "description": "DAU - Daily active users", "required": true},
+          "weeklyActiveUsers": {"type": "number", "description": "WAU - Weekly active users", "required": true},
+          "monthlyActiveUsers": {"type": "number", "description": "MAU - Monthly active users", "required": true},
+          "dauMauRatio": {"type": "number", "description": "DAU/MAU ratio (stickiness)", "example": 0.25, "required": true},
+          "newUsers": {"type": "number", "description": "New users acquired", "required": true},
+          "returningUsers": {"type": "number", "description": "Users who returned", "required": true},
+          "churnedUsers": {"type": "number", "description": "Users who churned", "required": true},
+          "retentionRate": {"type": "number", "description": "% of users retained month-over-month", "required": true},
+          "churnRate": {"type": "number", "description": "% of users lost", "required": true},
+          "averageSessionsPerUser": {"type": "number", "required": true},
+          "averageArticlesPerUser": {"type": "number", "required": true},
+          "powerUsersCount": {"type": "number", "description": "Users with 10+ visits per month", "required": false}
+        }
+      }
+    }
+  },
+
+  "dataSubmissionGuidelines": {
+    "format": "JSON",
+    "encoding": "UTF-8",
+    "dateTimeFormat": "ISO 8601 (YYYY-MM-DDTHH:mm:ssZ)",
+    "dateFormat": "ISO 8601 (YYYY-MM-DD)",
+    "monthFormat": "YYYY-MM",
+    "booleanFormat": "true/false (lowercase)",
+    "numberFormat": "Decimal notation, use period (.) for decimal separator",
+    "nullValues": "Use null for missing optional fields",
+    
+    "dataFrequency": {
+      "realTimeMetrics": ["Social Amplification", "Traffic Sources"],
+      "hourlyMetrics": ["Article Performance", "Source Effectiveness"],
+      "dailyMetrics": ["Byline Performance", "Audience Sessions", "Retention States"],
+      "weeklyMetrics": ["Retention Analysis", "Cohort Updates"],
+      "monthlyMetrics": ["Retention Metrics", "Author Performance Summaries"]
+    },
+    
+    "dataQualityRequirements": {
+      "accuracy": "All metrics must be actual measured values from analytics platforms",
+      "completeness": "All required fields must be provided for accurate reporting",
+      "consistency": "Use consistent IDs (userId, authorId, articleId) across all categories",
+      "timeliness": "Real-time data should be provided within 1 hour of event",
+      "privacy": "User data must be anonymized - use hashed IDs, not personally identifiable information"
+    },
+
+    "userPrivacy": {
+      "anonymization": "Required - User IDs must be hashed/anonymized",
+      "dataRetention": "User-level data retained for 12 months maximum",
+      "aggregation": "Personal data should be aggregated after 90 days",
+      "compliance": "Must comply with data protection regulations"
+    }
+  },
+
+  "integrationNotes": {
+    "analyticsIntegration": {
+      "platforms": ["Google Analytics 4", "Adobe Analytics", "Custom CMS Analytics"],
+      "existingEndpoints": {
+        "personalByline": "/api/v1/editorial/analytics/personal-byline-performance",
+        "sourceEffectiveness": "/api/v1/editorial/analytics/source-effectiveness",
+        "socialAmplification": "/api/v1/editorial/analytics/social-amplification"
+      },
+      "newEndpointsNeeded": {
+        "audienceRetention": "/api/v1/editorial/analytics/audience-retention"
+      }
+    },
+    
+    "implementationPriority": {
+      "high": ["Audience Retention - completely missing"],
+      "medium": ["Enhanced byline metrics (quality scores, readability)"],
+      "low": ["Advanced social sentiment analysis"]
+    }
+  },
+
+  "businessImpact": {
+    "personalBylinePerformance": {
+      "enables": [
+        "Identify top-performing journalists",
+        "Allocate resources to high-engagement writers",
+        "Provide data-driven feedback and training",
+        "Set performance-based KPIs",
+        "Reward high-quality content creators"
+      ]
+    },
+    "sourceEffectiveness": {
+      "enables": [
+        "Optimize marketing spend across channels",
+        "Improve SEO and organic reach strategies",
+        "Enhance social media campaigns",
+        "Better understand audience acquisition",
+        "Calculate channel ROI"
+      ]
+    },
+    "socialAmplification": {
+      "enables": [
+        "Identify viral content patterns",
+        "Understand audience sharing behavior",
+        "Optimize posting times and formats",
+        "Track brand sentiment",
+        "Measure social campaign success"
+      ]
+    },
+    "audienceRetention": {
+      "enables": [
+        "Reduce reader churn",
+        "Increase subscriber lifetime value",
+        "Improve content strategy based on loyal reader preferences",
+        "Identify at-risk users for re-engagement",
+        "Measure long-term content impact",
+        "Calculate true audience value"
+      ]
+    }
+  },
+
+  "calculatedMetrics": {
+    "engagementScore": {
+      "formula": "(completionRate * 0.3) + (scrollDepth * 0.2) + (socialShares * 0.2) + (comments * 0.15) + (sessionDuration * 0.15)",
+      "range": "0-100"
+    },
+    "viralityScore": {
+      "formula": "(sharesFirst24Hours / averageShares) * shareVelocity * reachFactor",
+      "range": "0-100"
+    },
+    "retentionRate": {
+      "formula": "(usersActiveThisMonth AND activeLastMonth) / usersActiveLastMonth * 100",
+      "range": "0-100%"
+    },
+    "churnRate": {
+      "formula": "100 - retentionRate",
+      "range": "0-100%"
+    },
+    "dauMauRatio": {
+      "formula": "dailyActiveUsers / monthlyActiveUsers",
+      "range": "0-1",
+      "interpretation": "Higher is better - indicates user stickiness"
+    }
+  },
+
+  "contactInformation": {
+    "department": "Editorial Department - Vision Group",
+    "dataOwner": "Editor in Chief",
+    "email": "editorinchief@vision.com",
+    "technicalSupport": "itsupport@vision.com",
+    "analyticsTeam": "analytics@vision.com"
+  }
+}

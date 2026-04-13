@@ -61,7 +61,7 @@
 // //  *                       degree:
 // //  *                         type: number
 // //  */
-// capExPieChartRouter.get("/:year", Jwt.verifyToken, async (req, res) => {
+// capExPieChartRouter.get("/:year", async (req, res) => {
 //   const { year } = req.params;
 //   const { month = null, date = null } = req.query;
 

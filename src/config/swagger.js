@@ -18,31 +18,21 @@ export const swaggerOptions = {
           type: "http",
           scheme: "bearer",
           bearerFormat: "JWT",
+          description: "Enter the CMC system token (full access) OR a user JWT from POST /api/v1/auth/login",
         },
-        xRoleCode: {
+        apiKeyAuth: {
           type: "apiKey",
           in: "header",
-          name: "x-role-code",
-          description: "Role code of the user",
+          name: "x-api-key",
+          description: "Enter the CMC API key (alternative to Bearer for system-level access)",
         },
       },
-      parameters: {
-        OptionalRoleHeader: {
-          name: "x-role-code",
-          in: "header",
-          description:
-            "Optional role code (only if not set via global authorize)",
-          required: false,
-          schema: {
-            type: "string",
-          },
-        },
-      },
+      parameters: {},
     },
     security: [
       {
         bearerAuth: [],
-        xRoleCode: [],
+        apiKeyAuth: [],
       },
     ],
     servers: [

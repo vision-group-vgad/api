@@ -82,15 +82,17 @@ const router = express.Router();
  *       500:
  *         description: Server error
  */
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const filters = {
       channel: req.query.channel,
       placementId: req.query.placementId,
       month: req.query.month,
+      startDate: req.query.startDate,
+      endDate: req.query.endDate,
     };
 
-    const data = getRateCardUtilization(filters);
+    const data = await getRateCardUtilization(filters);
     res.json({ success: true, data });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });

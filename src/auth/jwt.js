@@ -16,7 +16,9 @@ class Jwt {
   static generateToken(email, userInfo = {}) {
     const payload = { 
       email,
+      role: userInfo.role,
       department: userInfo.department,
+      name: userInfo.name,
       position: userInfo.position,
       firstName: userInfo.firstName,
       lastName: userInfo.lastName,

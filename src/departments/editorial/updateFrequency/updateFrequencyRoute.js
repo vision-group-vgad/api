@@ -34,6 +34,6 @@ const updateFrequencyRouter = express.Router();
  *         description: Server error during processing
  */
 
-updateFrequencyRouter.get('/', Jwt.verifyToken, getFreshnessAnalytics);
+updateFrequencyRouter.get('/', getFreshnessAnalytics);
 
 export default updateFrequencyRouter;

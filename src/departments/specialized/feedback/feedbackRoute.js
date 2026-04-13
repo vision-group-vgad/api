@@ -76,6 +76,6 @@ const feedbackRoute = express.Router();
  *       500:
  *         description: Server error
  */
-feedbackRoute.get("/", Jwt.verifyToken, getFeedbackAnalysis);
+feedbackRoute.get("/", getFeedbackAnalysis);
 
 export default feedbackRoute;

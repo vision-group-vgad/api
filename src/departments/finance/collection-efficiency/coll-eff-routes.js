@@ -63,7 +63,7 @@ const collEffController = new CollectionEfficiencyController();
  *                   type: string
  *                   example: Failed to fetch annual transactions. [error message]
  */
-collEffRouter.get("/transactions/annual", Jwt.verifyToken, async (req, res) => {
+collEffRouter.get("/transactions/annual", async (req, res) => {
   const { year } = req.query;
 
   if (!year) {
@@ -111,7 +111,7 @@ collEffRouter.get("/transactions/annual", Jwt.verifyToken, async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-collEffRouter.get("/range", Jwt.verifyToken, async (req, res) => {
+collEffRouter.get("/range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   if (!startDate || !endDate) {
@@ -186,7 +186,7 @@ collEffRouter.get("/range", Jwt.verifyToken, async (req, res) => {
  *                   type: string
  *                   example: Failed to fetch annual collection efficiency data. [error message]
  */
-collEffRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
+collEffRouter.get("/annual", async (req, res) => {
   const { year } = req.query;
 
   if (!year) {
@@ -230,7 +230,7 @@ collEffRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-collEffRouter.get("/month", Jwt.verifyToken, async (req, res) => {
+collEffRouter.get("/month", async (req, res) => {
   const { year, month } = req.query;
 
   if (!year || !month) {
@@ -271,7 +271,7 @@ collEffRouter.get("/month", Jwt.verifyToken, async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-collEffRouter.get("/transactions/day", Jwt.verifyToken, async (req, res) => {
+collEffRouter.get("/transactions/day", async (req, res) => {
   const { date } = req.query;
 
   if (!date) {
@@ -319,7 +319,7 @@ collEffRouter.get("/transactions/day", Jwt.verifyToken, async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-collEffRouter.get("/transactions/month", Jwt.verifyToken, async (req, res) => {
+collEffRouter.get("/transactions/month", async (req, res) => {
   const { year, month } = req.query;
 
   if (!year || !month) {
@@ -368,7 +368,7 @@ collEffRouter.get("/transactions/month", Jwt.verifyToken, async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-collEffRouter.get("/transactions/range", Jwt.verifyToken, async (req, res) => {
+collEffRouter.get("/transactions/range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   if (!startDate || !endDate) {

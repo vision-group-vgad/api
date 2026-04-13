@@ -71,7 +71,7 @@ const taxProvController = new TaxProvController();
  *             example:
  *               error: "Failed to fetch tax provisions."
  */
-taxProvRouter.get("/", Jwt.verifyToken, async (req, res) => {
+taxProvRouter.get("/", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   if (!startDate || !endDate) {

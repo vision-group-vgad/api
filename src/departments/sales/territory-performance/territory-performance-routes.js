@@ -155,10 +155,10 @@ const territoryPerformRouter = express.Router();
  *           type: integer
  *           example: 220
  */
-territoryPerformRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+territoryPerformRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
-  validateRange(startDate, endDate);
+  if (validateRange(startDate, endDate, res)) return;
 
   try {
     const results = await territoryController.getInRangeAnalytics(

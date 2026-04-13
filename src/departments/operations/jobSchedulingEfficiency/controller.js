@@ -61,9 +61,14 @@ const router = express.Router();
  *                       actualJobDurationMinutes:
  *                         type: number
  */
-router.get("/", (req, res) => {
-  const data = getJobSchedulingEfficiency();
-  res.json({ success: true, data });
+router.get("/", async (req, res) => {
+  try {
+    const { machine, startDate, endDate } = req.query;
+    const data = await getJobSchedulingEfficiency({ machine, startDate, endDate });
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "An error occurred while fetching job scheduling records." });
+  }
 });
 
 export default router;

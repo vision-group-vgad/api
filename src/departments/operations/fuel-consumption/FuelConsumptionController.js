@@ -97,8 +97,19 @@ class FuelConsumptionController {
   }
 
   async getInRangeAnalytics(startDate, endDate) {
-    // const data = await this.#salesMkt.getInRangeSalesAnalytics(startDate, endDate)
-    const processedAnalytics = this.#processData(machines, startDate, endDate);
+    let data;
+    try {
+      const result = await this.#fuelConsumption.fetchModuleData('fuel-consumption', startDate, endDate);
+      data = result.data;
+      if (!Array.isArray(data) || data.length === 0) {
+        console.warn('[FuelConsumption] Live data empty, falling back to dummy data');
+        data = machines;
+      }
+    } catch (error) {
+      console.warn('[FuelConsumption] Live data fetch failed, using dummy data:', error.message);
+      data = machines;
+    }
+    const processedAnalytics = this.#processData(data, startDate, endDate);
     return processedAnalytics;
   }
 }

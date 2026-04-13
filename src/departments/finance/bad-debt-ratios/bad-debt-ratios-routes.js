@@ -67,7 +67,7 @@ const bdRatiosController = new BadDebtRatiosController();
  *       500:
  *         description: Internal server error while fetching bad debt ratios
  */
-badDebtRatiosRouter.get("/range", Jwt.verifyToken, async (req, res) => {
+badDebtRatiosRouter.get("/range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   if (!startDate || !endDate) {
@@ -143,7 +143,7 @@ badDebtRatiosRouter.get("/range", Jwt.verifyToken, async (req, res) => {
  *                   type: string
  *                   example: Failed to fetch annual bad debt ratios datasets. [error message]
  */
-badDebtRatiosRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
+badDebtRatiosRouter.get("/annual", async (req, res) => {
   const { year } = req.query;
 
   if (!year) {
@@ -208,7 +208,7 @@ badDebtRatiosRouter.get("/annual", Jwt.verifyToken, async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-badDebtRatiosRouter.get("/month", Jwt.verifyToken, async (req, res) => {
+badDebtRatiosRouter.get("/month", async (req, res) => {
   const { year, month } = req.query;
 
   if (!year || !month) {

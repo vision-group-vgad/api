@@ -174,7 +174,7 @@ const cyberSecPostRouter = express.Router();
  *                   type: string
  *                   example: "Something went wrong"
  */
-cyberSecPostRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+cyberSecPostRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate, res);

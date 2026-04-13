@@ -1,7 +1,21 @@
 import abTestData from "./dummy.js";
+import SalesMarketing from "../../../utils/common/SalesMkting.js";
 
-export const calculateABTestResults = () => {
-  return abTestData.map(test => {
+const salesMarketing = new SalesMarketing();
+
+export const calculateABTestResults = async (startDate, endDate) => {
+  let source = abTestData;
+
+  try {
+    const liveData = await salesMarketing.getABTestResultsData(startDate, endDate);
+    if (Array.isArray(liveData) && liveData.length > 0) {
+      return liveData;
+    }
+  } catch (error) {
+    console.warn("Using fallback AB-test data:", error.message);
+  }
+
+  return source.map(test => {
     const { experimentId, testName, variationA, variationB, startDate, endDate } = test;
 
     // Conversion rates

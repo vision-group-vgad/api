@@ -1,8 +1,24 @@
 import { generateCampaignAttributionData } from "./campaignAttributionData.js";
+import SalesMarketing from "../../../utils/common/SalesMkting.js";
 
-export const getCampaignAttribution = (req, res) => {
+const salesMarketing = new SalesMarketing();
+
+export const getCampaignAttribution = async (req, res) => {
   try {
-    const data = generateCampaignAttributionData(300);
+    let data = [];
+    try {
+      data = await salesMarketing.getCampaignAttributionData(
+        req.query.startDate,
+        req.query.endDate
+      );
+    } catch (error) {
+      console.warn("Using fallback campaign-attribution data:", error.message);
+      data = generateCampaignAttributionData(300);
+    }
+
+    if (!Array.isArray(data) || data.length === 0) {
+      data = generateCampaignAttributionData(300);
+    }
 
     // --- Apply filters (if any) ---
     let filtered = data;

@@ -36,23 +36,21 @@ const authController = new AuthenticationController();
  *             schema:
  *               type: object
  *               properties:
- *                 firstName:
+ *                 user_name:
  *                   type: string
- *                   example: Kalyango
- *                 lastName:
+ *                   example: Admin
+ *                 user_email:
  *                   type: string
- *                   example: Thompson
- *                 email:
- *                   type: string
- *                   example: user@example.com
- *                 position:
- *                   type: string
- *                   example: Software Engineer
+ *                   example: admin@vision.com
  *                 department:
  *                   type: string
- *                   example: Engineering
+ *                   example: Administration
+ *                 role:
+ *                   type: string
+ *                   example: super_admin
  *                 token:
  *                   type: string
+ *                   description: JWT — use as Bearer token for all subsequent requests
  *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
  *       401:
  *         description: Unauthorized – invalid credentials

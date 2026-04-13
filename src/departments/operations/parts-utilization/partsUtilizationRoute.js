@@ -76,6 +76,6 @@ const partsUtilizationRoute = express.Router();
  *       500:
  *         description: Server error
  */
-partsUtilizationRoute.get("/", Jwt.verifyToken,getPartsUtilization);
+partsUtilizationRoute.get("/",getPartsUtilization);
  
 export default partsUtilizationRoute;

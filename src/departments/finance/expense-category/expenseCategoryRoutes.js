@@ -110,6 +110,6 @@ const expenseRouter = express.Router();
  *         description: Failed to retrieve categorized expenses
  */
 
-expenseRouter.get('/', Jwt.verifyToken, getExpenseCategories);
+expenseRouter.get('/', getExpenseCategories);
 
 export default expenseRouter;

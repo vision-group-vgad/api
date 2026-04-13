@@ -65,7 +65,6 @@ const router = express.Router();
  */
 router.get(
   "/analytics/session-duration",
-  Jwt.verifyToken,
   getEditorialSessionAnalytics
 );
 
@@ -105,7 +104,7 @@ router.get(
  *       200:
  *         description: Editorial KPIs retrieved successfully
  */
-router.get("/analytics/kpis", Jwt.verifyToken, getEditorialKPIs);
+router.get("/analytics/kpis", getEditorialKPIs);
 
 /**
  * @swagger
@@ -152,7 +151,7 @@ router.get("/analytics/kpis", Jwt.verifyToken, getEditorialKPIs);
  *       200:
  *         description: Chart data formatted successfully
  */
-router.get("/analytics/chart-data", Jwt.verifyToken, getEditorialChartData);
+router.get("/analytics/chart-data", getEditorialChartData);
 
 // ----- Feature-Specific Endpoints -----
 
@@ -176,7 +175,6 @@ router.get("/analytics/chart-data", Jwt.verifyToken, getEditorialChartData);
  */
 router.get(
   "/analytics/cross-platform-engagement",
-  Jwt.verifyToken,
   getCrossPlatformEngagement
 );
 
@@ -198,7 +196,7 @@ router.get(
  *       200:
  *         description: Chart data for content ROI
  */
-router.get("/analytics/content-roi", Jwt.verifyToken, getContentROI);
+router.get("/analytics/content-roi", getContentROI);
 
 /**
  * @swagger
@@ -220,7 +218,6 @@ router.get("/analytics/content-roi", Jwt.verifyToken, getContentROI);
  */
 router.get(
   "/analytics/audience-demographics",
-  Jwt.verifyToken,
   getAudienceDemographics
 );
 
@@ -244,7 +241,6 @@ router.get(
  */
 router.get(
   "/analytics/personal-byline-performance",
-  Jwt.verifyToken,
   getPersonalBylinePerformance
 );
 
@@ -268,7 +264,6 @@ router.get(
  */
 router.get(
   "/analytics/source-effectiveness",
-  Jwt.verifyToken,
   getSourceEffectiveness
 );
 
@@ -292,7 +287,6 @@ router.get(
  */
 router.get(
   "/analytics/social-amplification",
-  Jwt.verifyToken,
   getSocialAmplification
 );
 
@@ -316,7 +310,6 @@ router.get(
  */
 router.get(
   "/analytics/audience-retention",
-  Jwt.verifyToken,
   getAudienceRetention
 );
 
@@ -330,7 +323,7 @@ router.get(
  *       200:
  *         description: Array of platforms
  */
-router.get("/analytics/platforms", Jwt.verifyToken, getPlatforms);
+router.get("/analytics/platforms", getPlatforms);
 
 /**
  * @swagger
@@ -342,7 +335,7 @@ router.get("/analytics/platforms", Jwt.verifyToken, getPlatforms);
  *       200:
  *         description: Array of streams
  */
-router.get("/analytics/streams", Jwt.verifyToken, getStreams);
+router.get("/analytics/streams", getStreams);
 
 /**
  * @swagger
@@ -354,7 +347,7 @@ router.get("/analytics/streams", Jwt.verifyToken, getStreams);
  *       200:
  *         description: Array of session mediums
  */
-router.get("/analytics/session-mediums", Jwt.verifyToken, getSessionMediums);
+router.get("/analytics/session-mediums", getSessionMediums);
 
 /**
  * @swagger
@@ -366,7 +359,7 @@ router.get("/analytics/session-mediums", Jwt.verifyToken, getSessionMediums);
  *       200:
  *         description: Array of authors
  */
-router.get("/analytics/authors", Jwt.verifyToken, getAuthors);
+router.get("/analytics/authors", getAuthors);
 
 /**
  * @swagger
@@ -378,7 +371,7 @@ router.get("/analytics/authors", Jwt.verifyToken, getAuthors);
  *       200:
  *         description: Array of editors
  */
-router.get("/analytics/editors", Jwt.verifyToken, getEditors);
+router.get("/analytics/editors", getEditors);
 
 /**
  * @swagger
@@ -390,6 +383,6 @@ router.get("/analytics/editors", Jwt.verifyToken, getEditors);
  *       200:
  *         description: Array of categories
  */
-router.get("/analytics/categories", Jwt.verifyToken, getCategories);
+router.get("/analytics/categories", getCategories);
 
 export default router;

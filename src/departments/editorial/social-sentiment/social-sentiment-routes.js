@@ -121,7 +121,7 @@ const socialSentimentRouter = express.Router();
  *                   type: string
  *                   example: Data for only 2025 January - December is available
  */
-socialSentimentRouter.get("/in-range", Jwt.verifyToken, async (req, res) => {
+socialSentimentRouter.get("/in-range", async (req, res) => {
   const { startDate, endDate } = req.query;
 
   validateRange(startDate, endDate);
