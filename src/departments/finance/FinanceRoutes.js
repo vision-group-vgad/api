@@ -14,7 +14,6 @@ import {
   getRegionalPnL,
   getRegions,
 } from "./FinanceController.js";
-import Jwt from "../../auth/jwt.js";
 
 const router = express.Router();
 

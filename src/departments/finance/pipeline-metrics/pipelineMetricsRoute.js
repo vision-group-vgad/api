@@ -1,5 +1,4 @@
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 import { getPipelineAnalysis } from "./pipelineMetricsController.js";
 
 const pipelineRoute = express.Router();

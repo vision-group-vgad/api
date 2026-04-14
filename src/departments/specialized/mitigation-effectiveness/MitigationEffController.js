@@ -1,10 +1,7 @@
-import SpecializedRoles from "../../../utils/common/SpecializedRoles.js";
 import assessments from "./dummy-data.js";
 
 class MitigationEffController {
-  #specializedRoles;
   constructor() {
-    this.#specializedRoles = new SpecializedRoles();
   }
 
   #processData(data, startDate, endDate) {

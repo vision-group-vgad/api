@@ -1,6 +1,5 @@
 import GLRecoController from "./GLRecoController.js";
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 
 const glRecRouter = express.Router();
 const glRecController = new GLRecoController();

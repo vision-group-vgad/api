@@ -139,27 +139,6 @@ class DsoController {
     this.initialized = true;
   }
 
-  async fetchData(startDate, endDate, limit = 100) {
-    this.initialize();
-    const url = `/bc-datasets/${startDate}/${endDate}`;
-
-    try {
-      const response = await this.apiClient.get(url);
-      const allData = response.data?.data || [];
-      const slicedData = allData.slice(0, limit);
-
-      const transformed = slicedData.map((entry) => ({
-        id: entry.id,
-        ...entry.attributes,
-      }));
-
-      this.transformed = this.dummyDSO;
-      return this.transformed;
-    } catch (error) {
-      console.error("Fetch error:", error.response?.data || error.message);
-      return { error: "Failed to fetch data for DSO" };
-    }
-  }
 }
 
 export default DsoController;

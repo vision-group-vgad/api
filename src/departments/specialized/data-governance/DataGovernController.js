@@ -1,10 +1,7 @@
-import SpecializedRoles from "../../../utils/common/SpecializedRoles.js";
 import reports from "./dummy-data.js";
 
 class DataGovernController {
-  #specializedRoles;
   constructor() {
-    this.#specializedRoles = new SpecializedRoles();
   }
 
   #processData(data, startDate, endDate) {

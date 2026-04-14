@@ -19,7 +19,6 @@ import {
   getServiceTypes,
   getVendorNames
 } from "./rvsAnalyticsController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const router = express.Router();
 

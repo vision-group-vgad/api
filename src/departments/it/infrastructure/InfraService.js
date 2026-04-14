@@ -57,9 +57,7 @@ class InfrastructureService {
       
       // Transform the data to match your frontend expectations
       return this.transformCpuMemoryData(response.data);
-    } catch (error) {
-      // Fallback to dummy data during development
-      
+    } catch {
       return this.getDummyCpuMemoryData();
     }
   }
@@ -70,7 +68,7 @@ class InfrastructureService {
       // TODO: Replace with actual Business Central endpoint
       const response = await this.apiClient.get('/infrastructure/latency-trends');
       return this.transformLatencyData(response.data);
-    } catch (error) {
+    } catch {
       
       return this.getDummyLatencyData();
     }
@@ -82,7 +80,7 @@ class InfrastructureService {
       // TODO: Replace with actual Business Central endpoint
       const response = await this.apiClient.get('/infrastructure/asset-status');
       return this.transformAssetData(response.data);
-    } catch (error) {
+    } catch {
       
       return this.getDummyAssetData();
     }

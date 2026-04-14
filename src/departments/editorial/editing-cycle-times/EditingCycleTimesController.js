@@ -90,7 +90,7 @@ class EditCycTimesController {
     return this.#processData(articles);
   }
 
-  async getInRangeData(startDate, endDate) {
+  async getInRangeData(_startDate, _endDate) {
     // const inRangeData = await this.#article.getInRangeArticles(
     //   startDate,
     //   endDate

@@ -1,6 +1,5 @@
 import express from "express";
 import BadDebtRatiosController from "./BadDebtRatiosController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const badDebtRatiosRouter = express.Router();
 const bdRatiosController = new BadDebtRatiosController();

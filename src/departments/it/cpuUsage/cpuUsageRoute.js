@@ -1,5 +1,4 @@
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 import { getCpuUsageTrends } from "./cpuUsageController.js";
 
 const cpuUsageRoute = express.Router();

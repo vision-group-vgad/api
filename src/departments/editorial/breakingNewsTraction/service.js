@@ -56,24 +56,14 @@ class BreakingNewsService {
 
   async fetchSessionDuration(startDate, endDate) {
     const url = `${this.baseUrl}/article-session-duration/${startDate}/${endDate}`;
-    try {
-      const response = await axios.get(url);
-      return response.data;
-    } catch (error) {
-      
-      throw error;
-    }
+    const response = await axios.get(url);
+    return response.data;
   }
 
-  async fetchArticles(startDate, endDate, offset = 0, limit = 50) {
+  async fetchArticles(startDate, endDate, offset = 0, _limit = 50) {
     const url = `${this.baseUrl}/articles/${startDate}/${endDate}/${offset}`;
-    try {
-      const response = await axios.get(url);
-      return response.data;
-    } catch (error) {
-      
-      throw error;
-    }
+    const response = await axios.get(url);
+    return response.data;
   }
 
   async combineArticleData(breakingNewsArticles, sessionData) {

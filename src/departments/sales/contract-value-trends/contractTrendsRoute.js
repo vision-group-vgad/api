@@ -1,6 +1,5 @@
 import express from "express";
 import { getContractValueTrends } from "./contractTrendsController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const contractValueRoute = express.Router();
 

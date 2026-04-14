@@ -41,7 +41,7 @@ router.get("/", async (req, res) => {
 
     const data = await getTopicVitality(startDate, endDate);
     res.json(data);
-  } catch (err) {
+  } catch {
    
     res.status(500).json({ error: "Failed to fetch topic vitality data" });
   }

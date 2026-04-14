@@ -1,6 +1,5 @@
 import express from "express";
 import CyberPostureController from "./cyberPostureController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const router = express.Router();
 const cyberPostureController = new CyberPostureController();

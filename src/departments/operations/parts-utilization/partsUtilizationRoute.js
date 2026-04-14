@@ -1,6 +1,5 @@
 import express from "express";
 import { getPartsUtilization } from "./partsUtilizationController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const partsUtilizationRoute = express.Router();
 

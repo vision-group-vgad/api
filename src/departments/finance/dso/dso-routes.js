@@ -1,6 +1,5 @@
 import express from "express";
 import DsoController from "./DsoController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const dsoRouter = express.Router();
 const dsoController = new DsoController();

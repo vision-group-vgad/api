@@ -1,6 +1,5 @@
 import express from "express";
 import { getRouteEfficiency } from "./routeEfficiencyController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const routeEfficiencyRoute = express.Router();
 

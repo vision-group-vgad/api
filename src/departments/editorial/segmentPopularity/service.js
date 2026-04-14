@@ -50,70 +50,65 @@ async function fetchSessionDurations(startDate, endDate) {
 }
 
 export async function getSegmentPopularity({ startDate, endDate } = {}) {
-  try {
-    const today = new Date();
-    const defaultEnd = today.toISOString().split("T")[0];
-    const defaultStart = new Date(today.setDate(today.getDate() - 30))
-      .toISOString()
-      .split("T")[0];
+  const today = new Date();
+  const defaultEnd = today.toISOString().split("T")[0];
+  const defaultStart = new Date(today.setDate(today.getDate() - 30))
+    .toISOString()
+    .split("T")[0];
 
-    startDate = startDate || defaultStart;
-    endDate = endDate || defaultEnd;
+  startDate = startDate || defaultStart;
+  endDate = endDate || defaultEnd;
 
-    
-
-    const [articles, sessions] = await Promise.all([
-      fetchAllArticles(startDate, endDate),
-      fetchSessionDurations(startDate, endDate),
-    ]);
   
-    const sessionMap = new Map();
-    for (const s of sessions) {
-      const extId = extractExternalId(s.pagePath);
-      if (extId) sessionMap.set(extId, s);
-    }
 
-    const categoryStats = {};
+  const [articles, sessions] = await Promise.all([
+    fetchAllArticles(startDate, endDate),
+    fetchSessionDurations(startDate, endDate),
+  ]);
 
-    for (const article of articles) {
-      const catName = article.category?.name?.trim() || "Unknown";
-      const session = sessionMap.get(article.externalId);
-
-      if (!categoryStats[catName]) {
-        categoryStats[catName] = {
-          count: 0,
-          totalDurationSeconds: 0,
-          totalScrollPercent: 0,
-          totalBounceRate: 0,
-        };
-      }
-
-      categoryStats[catName].count++;
-
-      if (session) {
-        const durSeconds = parseDurationToSeconds(session.averageDuration);
-        const scroll = Number(session.percentScrolled) || 0;
-        const bounce = Number(session.bounceRate) || 0;
-
-        categoryStats[catName].totalDurationSeconds += durSeconds;
-        categoryStats[catName].totalScrollPercent += scroll;
-        categoryStats[catName].totalBounceRate += bounce;
-      }
-    }
-
-    const summary = Object.entries(categoryStats).map(([category, stats]) => ({
-      category,
-      articleCount: stats.count,
-      avgDurationSeconds: +(stats.totalDurationSeconds / stats.count).toFixed(
-        1
-      ),
-      avgScrollPercent: +(stats.totalScrollPercent / stats.count).toFixed(1),
-      avgBounceRate: +(stats.totalBounceRate / stats.count).toFixed(2),
-    }));
-   
-    return summary.sort((a,b) => b.avgDurationSeconds - a.avgDurationSeconds);
-  } catch (err) {
-    
-    throw err;
+  const sessionMap = new Map();
+  for (const s of sessions) {
+    const extId = extractExternalId(s.pagePath);
+    if (extId) sessionMap.set(extId, s);
   }
+
+  const categoryStats = {};
+
+  for (const article of articles) {
+    const catName = article.category?.name?.trim() || "Unknown";
+    const session = sessionMap.get(article.externalId);
+
+    if (!categoryStats[catName]) {
+      categoryStats[catName] = {
+        count: 0,
+        totalDurationSeconds: 0,
+        totalScrollPercent: 0,
+        totalBounceRate: 0,
+      };
+    }
+
+    categoryStats[catName].count++;
+
+    if (session) {
+      const durSeconds = parseDurationToSeconds(session.averageDuration);
+      const scroll = Number(session.percentScrolled) || 0;
+      const bounce = Number(session.bounceRate) || 0;
+
+      categoryStats[catName].totalDurationSeconds += durSeconds;
+      categoryStats[catName].totalScrollPercent += scroll;
+      categoryStats[catName].totalBounceRate += bounce;
+    }
+  }
+
+  const summary = Object.entries(categoryStats).map(([category, stats]) => ({
+    category,
+    articleCount: stats.count,
+    avgDurationSeconds: +(stats.totalDurationSeconds / stats.count).toFixed(
+      1
+    ),
+    avgScrollPercent: +(stats.totalScrollPercent / stats.count).toFixed(1),
+    avgBounceRate: +(stats.totalBounceRate / stats.count).toFixed(2),
+  }));
+ 
+  return summary.sort((a,b) => b.avgDurationSeconds - a.avgDurationSeconds);
 }

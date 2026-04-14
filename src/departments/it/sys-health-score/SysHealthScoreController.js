@@ -7,10 +7,6 @@ class SysHealthCont {
     this.#it = new IT();
   }
 
-  #processAnalytics(data) {
-    return data;
-  }
-
   async getInRangeData(startDate, endDate) {
     try {
       const liveData = await this.#it.fetchLiveData('/it/system-health');

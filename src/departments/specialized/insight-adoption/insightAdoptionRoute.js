@@ -1,5 +1,4 @@
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 import { getInsightAdoptionAnalysis } from "./insightAdoptionController.js";
 
 const insightAdoptionRoute = express.Router();

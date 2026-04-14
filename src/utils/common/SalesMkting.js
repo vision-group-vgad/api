@@ -58,7 +58,7 @@ class SalesMarketing {
     this.initialized = true;
   }
 
-  async #fetchSalesEntries(startDate, endDate, roleCode = null) {
+  async #fetchSalesEntries(startDate, endDate, _roleCode = null) {
     this.initialize();
 
     const response = await this.apiClient.get('/bc-datasets');

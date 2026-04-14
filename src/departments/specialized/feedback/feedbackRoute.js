@@ -1,5 +1,4 @@
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 import { getFeedbackAnalysis } from "./feedbackController.js";
 
 const feedbackRoute = express.Router();

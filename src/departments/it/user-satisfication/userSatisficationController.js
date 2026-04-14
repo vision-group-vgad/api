@@ -145,7 +145,7 @@ export const generateSatisfactionFeedbackController = async (req, res) => {
       feedbackDistribution,
       feedbackData: filtered
     });
-  } catch (error) {
+  } catch {
     
     res.status(500).json({ error: "Internal Server Error" });
   }

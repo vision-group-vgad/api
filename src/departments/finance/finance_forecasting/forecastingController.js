@@ -110,7 +110,7 @@ router.get("/revenue", async (req, res) => {
     const monthly = groupByMonth(timeFiltered, "Credit_Amount");
 
     res.json({ type: "revenue", data: monthly });
-  } catch (err) {
+  } catch {
    
     res.status(500).json({ error: "Failed to compute revenue actuals" });
   }
@@ -161,7 +161,7 @@ router.get("/expense", async (req, res) => {
     const monthly = groupByMonth(timeFiltered, "Debit_Amount");
 
     res.json({ type: "expense", data: monthly });
-  } catch (err) {
+  } catch {
     
     res.status(500).json({ error: "Failed to compute expense actuals" });
   }
@@ -224,7 +224,7 @@ router.get("/net-income", async (req, res) => {
     const net = mergeNetIncome(revenues, expenses);
 
     res.json({ type: "net-income", data: net });
-  } catch (err) {
+  } catch {
     
     res.status(500).json({ error: "Failed to compute net income actuals" });
   }
@@ -274,7 +274,7 @@ router.get("/cashflow", async (req, res) => {
     const monthly = groupCashFlow(timeFiltered);
 
     res.json({ type: "cashflow", data: monthly });
-  } catch (err) {
+  } catch {
     
     res.status(500).json({ error: "Failed to compute cashflow actuals" });
   }

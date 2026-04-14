@@ -1,6 +1,5 @@
 // routes/freshnessRoutes.js
 import express from 'express';
-import Jwt from '../../../auth/jwt.js';
 import { getFreshnessAnalytics } from './contentFreshnessController.js';
 
 const contentFreshnessRouter = express.Router();

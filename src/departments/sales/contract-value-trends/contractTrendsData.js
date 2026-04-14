@@ -1,4 +1,4 @@
-export function generateContractValueTrends(count = 200) {
+export function generateContractValueTrends(_count = 200) {
   const startDate = new Date("2024-07-01T00:00:00Z");
   const endDate = new Date("2025-07-31T23:59:59Z");
 

@@ -1,6 +1,5 @@
 import ReportingAccController from "./ReportingAccController.js";
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 
 const repoAccRouter = express.Router();
 const repoAccController = new ReportingAccController();

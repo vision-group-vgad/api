@@ -57,14 +57,14 @@ describe("CyberPostureController", () => {
     jest.spyOn(console, "error").mockImplementation(() => {}); // suppress console.error in test
 
     // create a mock function to simulate throwing an error inside controller
-    const faultyGetCyberPosture = async (req, res) => {
+    const faultyGetCyberPosture = async (_req, _res) => {
       throw error;
     };
 
     // Call the controller wrapper that handles errors:
     try {
       await faultyGetCyberPosture(req, res);
-    } catch (e) {
+    } catch {
       // simulate catch block in your original controller
       res.status(500).json({
         success: false,

@@ -1,10 +1,7 @@
-import CEO from "../../../utils/common/CEO.js";
 import performances from "./dummy-data.js";
 
 class MarketShareController {
-  #ceoObj;
   constructor() {
-    this.#ceoObj = new CEO();
   }
 
   #processData(data, startDate, endDate) {

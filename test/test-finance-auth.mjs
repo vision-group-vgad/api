@@ -18,7 +18,6 @@ const c = {
 const pass  = (msg) => console.log(`  ${c.green}✔${c.reset}  ${msg}`);
 const fail  = (msg) => console.log(`  ${c.red}✘${c.reset}  ${msg}`);
 const info  = (msg) => console.log(`${c.cyan}${c.bold}${msg}${c.reset}`);
-const dim   = (msg) => console.log(`${c.dim}${msg}${c.reset}`);
 
 // ─── Stats ───────────────────────────────────────────────────────────────────
 let passed = 0, failed = 0;

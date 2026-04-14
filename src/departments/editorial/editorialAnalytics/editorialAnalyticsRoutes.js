@@ -17,7 +17,6 @@ import {
   getEditors,
   getCategories,
 } from "./editorialAnalyticsController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const router = express.Router();
 

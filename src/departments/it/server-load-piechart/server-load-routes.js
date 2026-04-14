@@ -1,6 +1,5 @@
 import express from "express";
 import ServerController from "./ServerController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const serverLoadRouter = express.Router();
 const serverController = new ServerController();
@@ -107,7 +106,7 @@ serverLoadRouter.get("/:year", async (req, res) => {
       duration,
       data,
     });
-  } catch (error) {
+  } catch {
     res.status(500).json({ error: "Failed to fetch server load metrics" });
   }
 });

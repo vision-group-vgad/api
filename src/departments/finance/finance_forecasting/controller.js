@@ -172,7 +172,7 @@ router.get("/", async (req, res) => {
       count: filtered.length,
       data: filtered,
     });
-  } catch (error) {
+  } catch {
     
     res.status(500).json({ error: "Failed to fetch GL data" });
   }

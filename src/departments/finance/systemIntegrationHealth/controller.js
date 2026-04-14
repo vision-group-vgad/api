@@ -1,5 +1,4 @@
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 const router = express.Router();
 
 // Dummy system integration health data

@@ -304,7 +304,7 @@ export const fetchVisualUsageData = async ({ startDate, endDate, author, platfor
     }
 
     return Object.values(assetUsage);
-  } catch (err) {
+  } catch {
     
     return dummyData;
   }

@@ -1,6 +1,5 @@
 import TaxProvController from "./TaxProvController.js";
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 
 const taxProvRouter = express.Router();
 const taxProvController = new TaxProvController();

@@ -1,4 +1,3 @@
-import Article from "../../../utils/common/Article.js";
 import { readFile } from "fs/promises";
 import {
   getMonthFromDate,
@@ -12,9 +11,7 @@ const rawData = await readFile(
 const testData = JSON.parse(rawData);
 
 class CompetitorBenchController {
-  #article;
   constructor() {
-    this.#article = new Article();
   }
 
   #filterMonthlyTrends(trends, startMonth, endMonth, year) {

@@ -1,4 +1,3 @@
-import Jwt from "../../../auth/jwt.js";
 import express from "express";
 import BreakingNewsController from "./BreakingNewsController.js";
 import { validateRange } from "../../../utils/common/common-functionalities.js";

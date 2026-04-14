@@ -1,5 +1,4 @@
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 import { getSponsorAnalysis } from "./sponsorRoiController.js";
 
 const sponsorRoute = express.Router();

@@ -78,7 +78,7 @@ router.get("/", async (req, res) => {
     const newsletters = await fetchNewsletterVirality(fromDate, toDate);
 
     res.json(newsletters);
-  } catch (err) {
+  } catch {
     
     res.status(500).json({ error: "Failed to fetch newsletter virality" });
   }

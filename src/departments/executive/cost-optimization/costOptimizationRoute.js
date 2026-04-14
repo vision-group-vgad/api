@@ -1,7 +1,6 @@
 // costOptimizationRoute.js
 import express from "express";
 import { getCostOptimization } from "./costOptimizationController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const costOptimizationRoute = express.Router();
 

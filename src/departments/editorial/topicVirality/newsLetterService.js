@@ -23,28 +23,23 @@ const computeViralityScore = (nl) => {
 };
 
 export const fetchNewsletterVirality = async (startDate, endDate) => {
-  try {
-    const url = `/top_newsletters/${startDate}/${endDate}`;
-    const response = await axiosInstance.get(url);
+  const url = `/top_newsletters/${startDate}/${endDate}`;
+  const response = await axiosInstance.get(url);
 
-    // API response has the array under response.data.data
-    const newslettersArray = response.data.data || [];
+  // API response has the array under response.data.data
+  const newslettersArray = response.data.data || [];
 
-    return newslettersArray.map((nl) => ({
-      newsletterId: nl.newsletter_id,
-      subject: nl.subject,
-      scheduledDate: nl.scheduled_date,
-      totalOpens: Number(nl.total_opens),
-      uniqueOpens: Number(nl.unique_opens),
-      totalClicks: Number(nl.total_clicks),
-      uniqueClickers: Number(nl.unique_clickers),
-      clickRate: parseFloat(nl.click_rate),
-      estimatedOpenRate: parseFloat(nl.estimated_open_rate),
-      viralityScore: computeViralityScore(nl),
-    }));
-  } catch (err) {
-    
-    throw err;
-  }
+  return newslettersArray.map((nl) => ({
+    newsletterId: nl.newsletter_id,
+    subject: nl.subject,
+    scheduledDate: nl.scheduled_date,
+    totalOpens: Number(nl.total_opens),
+    uniqueOpens: Number(nl.unique_opens),
+    totalClicks: Number(nl.total_clicks),
+    uniqueClickers: Number(nl.unique_clickers),
+    clickRate: parseFloat(nl.click_rate),
+    estimatedOpenRate: parseFloat(nl.estimated_open_rate),
+    viralityScore: computeViralityScore(nl),
+  }));
 };
 

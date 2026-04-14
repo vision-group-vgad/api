@@ -1,6 +1,5 @@
 import express from "express";
 import { assessEditorialCalendar } from "./editorialCalendarController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const router = express.Router();
 

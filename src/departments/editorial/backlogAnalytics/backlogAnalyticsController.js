@@ -1,4 +1,4 @@
-import { parse, format, differenceInDays, isFuture } from 'date-fns';
+import { parse, differenceInDays, isFuture } from 'date-fns';
 import dotenv from 'dotenv';
 import mockBacklogArticles from './backlogAnalyticsData.js';
 dotenv.config();

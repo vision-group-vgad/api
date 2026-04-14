@@ -159,7 +159,7 @@ export async function getTopicVitality(startDate, endDate) {
 
     return results.sort((a, b) => b.vitalityScore - a.vitalityScore);
 
-  } catch (err) {
+  } catch {
     
     return dummyData;
   }

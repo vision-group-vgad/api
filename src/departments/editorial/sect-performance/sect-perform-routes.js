@@ -1,6 +1,5 @@
 import express from "express";
 import SectionPerformanceController from "./SectionPerformance.js";
-import Jwt from "../../../auth/jwt.js";
 
 const sectPerController = new SectionPerformanceController();
 const sectPerRouter = express.Router();

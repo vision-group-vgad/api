@@ -1,6 +1,5 @@
 import express from "express";
 import { getBrandLift } from "./brandLiftController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const brandLiftRoute = express.Router();
 

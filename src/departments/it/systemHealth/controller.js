@@ -1,6 +1,5 @@
 import express from "express";
 import { getSystemHealth } from "./service.js";
-import Jwt from "../../../auth/jwt.js";
 
 const router = express.Router();
 

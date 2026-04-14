@@ -34,7 +34,7 @@ export const fetchVisualEngagementData = async (startDate, endDate) => {
     const final = generateDummyFields(merged);
 
     return final;
-  } catch (error) {
+  } catch {
     
     return dummyMergedData;
   }

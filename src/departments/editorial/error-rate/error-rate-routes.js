@@ -1,6 +1,5 @@
 import express from "express";
 import ErrorRateController from "./ErrorRateController.js";
-import Jwt from "../../../auth/jwt.js";
 import { validateRange } from "../../../utils/common/common-functionalities.js";
 
 const errorController = new ErrorRateController();

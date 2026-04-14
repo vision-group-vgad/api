@@ -5,7 +5,7 @@ export const getRightsData = async (req, res) => {
     const { status, type } = req.query;
     const data = await fetchRightsData({ status, type });
     res.json(data);
-  } catch (error) {
+  } catch {
     
     res.status(500).json({ message: "Internal server error" });
   }

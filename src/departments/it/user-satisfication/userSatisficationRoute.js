@@ -1,6 +1,5 @@
 // routes/satisfactionRoutes.js
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 import { generateSatisfactionFeedbackController } from "./userSatisficationController.js";
 const satisfactionRouter = express.Router();
 

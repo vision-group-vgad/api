@@ -1,7 +1,6 @@
 import CompetitorBenchController from "./CompBenchmarkController.js";
 import express from "express";
 import { validateRange } from "../../../utils/common/common-functionalities.js";
-import Jwt from "../../../auth/jwt.js";
 
 const compBenchController = new CompetitorBenchController();
 const compBenchRouter = express.Router();

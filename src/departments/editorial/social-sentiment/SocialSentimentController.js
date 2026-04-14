@@ -1,4 +1,3 @@
-import Article from "../../../utils/common/Article.js";
 import {
   extractYearFromDate,
   getMonthFromDate,
@@ -15,9 +14,7 @@ const rawData = await readFile(
 const testData = JSON.parse(rawData);
 
 class SocialSentimentController {
-  #article;
   constructor() {
-    this.#article = new Article();
   }
 
   #processSentiments(mentions, ratings) {

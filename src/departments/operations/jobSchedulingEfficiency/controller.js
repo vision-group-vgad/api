@@ -66,7 +66,7 @@ router.get("/", async (req, res) => {
     const { machine, startDate, endDate } = req.query;
     const data = await getJobSchedulingEfficiency({ machine, startDate, endDate });
     res.json({ success: true, data });
-  } catch (error) {
+  } catch {
     res.status(500).json({ success: false, message: "An error occurred while fetching job scheduling records." });
   }
 });

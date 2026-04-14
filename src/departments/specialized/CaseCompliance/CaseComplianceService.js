@@ -11,7 +11,6 @@ function randomDate(start, end) {
 const caseTypes = ["Customer Support", "IT Incident", "HR Grievance", "Editorial Issue", "Production Delay", "Equipment Malfunction"];
 const departments = ["Editorial", "Production", "IT", "Sales", "HR", "Operations", "Finance"];
 const priorities = ["Low", "Medium", "High", "Critical"];
-const statuses = ["Open", "In Progress", "Resolved", "Closed"];
 
 // --- English Case Descriptions ---
 const caseDescriptions = [

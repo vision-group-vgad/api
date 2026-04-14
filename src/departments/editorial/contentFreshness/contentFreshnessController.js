@@ -1,6 +1,6 @@
 // controller/freshnessAnalyticsController.js
 import axios from 'axios';
-import { parseISO, parse, differenceInHours, format, differenceInDays } from 'date-fns';
+import { parse, differenceInHours, format, differenceInDays } from 'date-fns';
 import dotenv from 'dotenv';
 dotenv.config();
 

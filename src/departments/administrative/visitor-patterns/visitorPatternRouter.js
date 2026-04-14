@@ -1,6 +1,5 @@
 import express from "express";
 import { getVisitorPatterns } from "./visitorPatternController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const visitorPatternRoute = express.Router();
 

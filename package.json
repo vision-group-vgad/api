@@ -16,6 +16,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
+    "build": "npm run lint",
+    "lint": "eslint .",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "prisma:sync": "npx prisma db push && npx prisma generate"
   },

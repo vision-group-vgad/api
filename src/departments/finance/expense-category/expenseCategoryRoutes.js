@@ -1,6 +1,5 @@
 import express from 'express';
 import { getExpenseCategories } from './expenseCategoryController.js';
-import Jwt from '../../../auth/jwt.js';
 
 const expenseRouter = express.Router();
 

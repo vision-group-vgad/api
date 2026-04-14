@@ -5,7 +5,7 @@ export const getVisualUsage = async (req, res) => {
     const { startDate, endDate, author, platform } = req.query;
     const data = await fetchVisualUsageData({ startDate, endDate, author, platform });
     res.json(data);
-  } catch (error) {
+  } catch {
     
     res.status(500).json({ message: "Internal server error" });
   }

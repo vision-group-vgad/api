@@ -1,6 +1,5 @@
 import express from 'express';
 import { getBudgetVariance } from './budgetVarianceController.js';
-import Jwt from '../../../auth/jwt.js';
 
 const budVarienceRouter = express.Router();
 

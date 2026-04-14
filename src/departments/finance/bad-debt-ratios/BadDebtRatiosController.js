@@ -145,19 +145,12 @@ class BadDebtRatiosController {
     this.initialized = true;
   }
 
-  async #fetchData(startDate, endDate, limit = 100) {
+  async #fetchData(startDate, endDate, _limit = 100) {
     this.initialize();
     const url = `/bc-datasets/${startDate}/${endDate}`;
 
     try {
-      const response = await this.apiClient.get(url);
-      const allData = response.data?.data || [];
-      const slicedData = allData.slice(0, limit);
-
-      const transformed = slicedData.map((entry) => ({
-        id: entry.id,
-        ...entry.attributes,
-      }));
+      await this.apiClient.get(url);
 
       this.transformed = this.dummyBadDebtsRatios;
       return this.transformed;

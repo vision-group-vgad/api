@@ -1,6 +1,5 @@
 // src/departments/it/patch-compliance/patchComplianceRouter.js
 import express from 'express';
-import Jwt from '../../../auth/jwt.js';
 import PatchComplianceController from './patchComplianceController.js';
 
 const router = express.Router();

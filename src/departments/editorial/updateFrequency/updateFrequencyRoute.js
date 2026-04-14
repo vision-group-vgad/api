@@ -1,6 +1,5 @@
 // routes/updateFrequencyRoutes.js
 import express from 'express';
-import Jwt from '../../../auth/jwt.js';
 import { getFreshnessAnalytics } from './updateFrequencyController.js';
 
 const updateFrequencyRouter = express.Router();

@@ -20,7 +20,7 @@ export const fetchArticleCategorySummary = async (startDate, endDate) => {
     });
 
     return response.data.article_category;
-  } catch (error) {
+  } catch {
     
     throw new Error("Failed to fetch article summary");
   }

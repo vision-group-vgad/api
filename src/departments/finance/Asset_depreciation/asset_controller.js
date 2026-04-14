@@ -1,7 +1,6 @@
 import axios from "axios";
 import express from "express";
 // import dotenv from "dotenv";
-import Jwt from "../../../auth/jwt.js";
 
 const router = express.Router();
 
@@ -71,7 +70,7 @@ router.get("/", async (req, res) => {
     //const filtered = result.filter((e) => e.gl_name);
 
     res.json({ source: "live", count: result.length, data: result });
-  } catch (error) {
+  } catch {
     
     res.status(500).json({ error: "Failed to fetch account names" });
   }

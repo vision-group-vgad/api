@@ -1,10 +1,7 @@
-import SpecializedRoles from "../../../utils/common/SpecializedRoles.js";
 import risks from "./dummy-data.js";
 
 class RiskExposureController {
-  #specializedRoles;
   constructor() {
-    this.#specializedRoles = new SpecializedRoles();
   }
 
   #processData(data, startDate, endDate) {

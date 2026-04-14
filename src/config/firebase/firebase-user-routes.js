@@ -6,7 +6,6 @@ import {
   bulkAddUsersFromFile,
 } from "./firebase-user-service.js";
 import express from "express";
-import Jwt from "../../auth/jwt.js";
 
 const firebaseUserRouter = express.Router();
 

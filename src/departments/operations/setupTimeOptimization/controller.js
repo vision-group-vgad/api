@@ -100,7 +100,7 @@ router.get("/", async (req, res) => {
       data,
       message: data.length ? "Setup time records retrieved successfully." : "No records found.",
     });
-  } catch (error) {
+  } catch {
     
     res.status(500).json({
       success: false,

@@ -600,7 +600,7 @@ class FinanceService {
     return grouped;
   }
 
-  calculatePnLForRegion(region, transactions, filters = {}) {
+  calculatePnLForRegion(region, transactions, _filters = {}) {
     // Debug: Log account distribution for this region
     const accountDistribution = {};
     transactions.forEach(t => {

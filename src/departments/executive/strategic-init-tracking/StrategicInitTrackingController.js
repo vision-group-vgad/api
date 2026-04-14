@@ -1,10 +1,7 @@
-import CEO from "../../../utils/common/CEO.js";
 import initiatives from "./dummy-data.js";
 
 class StrategicInitTrackingController {
-  #ceoObj;
   constructor() {
-    this.#ceoObj = new CEO();
   }
 
   #processData(data, startDate, endDate) {

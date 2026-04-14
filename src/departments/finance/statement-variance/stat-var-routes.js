@@ -1,5 +1,4 @@
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 import StatementsVarianceController from "./StatVarianceController.js";
 
 const statVarRouter = express.Router();

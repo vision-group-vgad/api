@@ -1,6 +1,5 @@
 import express from "express";
 import { getTicketResolution } from "./ticketResolutionController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const ticketResolutionRoute = express.Router();
 

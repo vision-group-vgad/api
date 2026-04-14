@@ -390,12 +390,11 @@ class EditorialAnalyticsService {
       const chunkStart = `${year}-01-01`;
       const chunkEnd = `${year}-12-31`;
       // Loop through pages for each year
-      let page = 1, pageSize = 100, fetched = 0;
+      let page = 1, pageSize = 100;
       while (true) {
         const { articles } = await this.fetchAllArticles({ startDate: chunkStart, endDate: chunkEnd, page, pageSize });
         if (!articles.length) break;
         articles.forEach(a => a.author && allAuthors.add(`${a.author.first_name} ${a.author.last_name}`));
-        fetched += articles.length;
         if (articles.length < pageSize) break;
         page++;
         await sleep(200);
@@ -419,12 +418,11 @@ class EditorialAnalyticsService {
     for (let year = startYear; year <= endYear; year++) {
       const chunkStart = `${year}-01-01`;
       const chunkEnd = `${year}-12-31`;
-      let page = 1, pageSize = 100, fetched = 0;
+      let page = 1, pageSize = 100;
       while (true) {
         const { articles } = await this.fetchAllArticles({ startDate: chunkStart, endDate: chunkEnd, page, pageSize });
         if (!articles.length) break;
         articles.forEach(a => a.editor && allEditors.add(`${a.editor.first_name} ${a.editor.last_name}`));
-        fetched += articles.length;
         if (articles.length < pageSize) break;
         page++;
         await sleep(200);
@@ -448,12 +446,11 @@ class EditorialAnalyticsService {
     for (let year = startYear; year <= endYear; year++) {
       const chunkStart = `${year}-01-01`;
       const chunkEnd = `${year}-12-31`;
-      let page = 1, pageSize = 100, fetched = 0;
+      let page = 1, pageSize = 100;
       while (true) {
         const { articles } = await this.fetchAllArticles({ startDate: chunkStart, endDate: chunkEnd, page, pageSize });
         if (!articles.length) break;
         articles.forEach(a => a.category?.name && allCategories.add(a.category.name));
-        fetched += articles.length;
         if (articles.length < pageSize) break;
         page++;
         await sleep(200);

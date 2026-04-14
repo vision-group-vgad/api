@@ -1,6 +1,5 @@
 import express from "express";
 import dayjs from "dayjs";
-import Jwt from "../../../auth/jwt.js";
 import {dummyCapexData} from "./dummy.js";
 
 const router = express.Router();

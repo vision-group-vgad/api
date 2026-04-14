@@ -20,7 +20,7 @@ class ServerController {
     this.servers = [];
   }
 
-  async getAllServers(duration) {
+  async getAllServers(_duration) {
     try {
       const liveData = await _it.fetchLiveData('/it/server-infrastructure');
       if (Array.isArray(liveData) && liveData.length > 0) {

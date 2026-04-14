@@ -1,6 +1,5 @@
 // roiRoute.js
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 import { getRoiAnalysis } from "./roiAnalysisController.js";
 const roiRoute = express.Router();
 

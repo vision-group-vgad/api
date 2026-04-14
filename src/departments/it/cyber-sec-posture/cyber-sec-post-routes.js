@@ -1,5 +1,4 @@
 import CyberSecPostController from "./CyberSecPostController.js";
-import Jwt from "../../../auth/jwt.js";
 import { validateRange } from "../../../utils/common/common-functionalities.js";
 import express from "express";
 

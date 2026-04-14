@@ -1,6 +1,5 @@
 import express from "express";
 import CollectionEfficiencyController from "./CollEffController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const collEffRouter = express.Router();
 const collEffController = new CollectionEfficiencyController();

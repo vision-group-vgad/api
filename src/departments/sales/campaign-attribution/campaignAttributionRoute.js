@@ -1,6 +1,5 @@
 import express from "express";
 import { getCampaignAttribution } from "./campaignAttributionController.js";
-import Jwt from "../../../auth/jwt.js";
 
 const campaignAttributionRoute = express.Router();
 

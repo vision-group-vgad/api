@@ -11,7 +11,6 @@ import {
   addRoleMappingsBatch,
 } from "./firebase-role-service.js";
 import express from "express";
-import Jwt from "../../auth/jwt.js";
 
 const firebaseRoleRouter = express.Router();
 

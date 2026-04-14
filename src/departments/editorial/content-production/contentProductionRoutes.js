@@ -1,6 +1,5 @@
 // contentProductionRoutes.js
 import express from "express";
-import Jwt from "../../../auth/jwt.js";
 import { getContentProductionStats } from "./contentProductionController.js";
 
 const contentProductionRoutes = express.Router();

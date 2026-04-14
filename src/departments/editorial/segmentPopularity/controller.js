@@ -62,7 +62,7 @@ router.get("/", async (req, res) => {
     const { start, end } = req.query;
     const data = await getSegmentPopularity({ start, end });
     res.json(data);
-  } catch (err) {
+  } catch {
     
     res.status(500).json({ error: "Failed to fetch segment popularity" });
   }

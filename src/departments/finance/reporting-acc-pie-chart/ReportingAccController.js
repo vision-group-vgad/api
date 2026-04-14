@@ -1,5 +1,3 @@
-import axios from "axios";
-
 class ReportingAccController {
   constructor() {
     this.VISION_GROUP_CMS_ROOT_URL = process.env.VISION_GROUP_CMS_ROOT_URL;
@@ -10,7 +8,7 @@ class ReportingAccController {
     this.totalModifiedReports = 0;
   }
 
-  async _fetchData(duration) {
+  async _fetchData(_duration) {
     // const response = await axios.get(
     //   this.VISION_GROUP_CMS_ROOT_URL + "/reports",
     //   {
