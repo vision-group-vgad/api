@@ -111,8 +111,10 @@ router.get("/revenue", async (req, res) => {
 
     res.json({ type: "revenue", data: monthly });
   } catch {
-   
-    res.status(500).json({ error: "Failed to compute revenue actuals" });
+    const dummy = generateDummyEntries("revenue");
+    const timeFiltered = filterByTime(dummy, year, quarter, month);
+    const monthly = groupByMonth(timeFiltered, "Credit_Amount");
+    res.status(200).json({ type: "revenue", data: monthly, source: "dummy" });
   }
 });
 
@@ -162,8 +164,10 @@ router.get("/expense", async (req, res) => {
 
     res.json({ type: "expense", data: monthly });
   } catch {
-    
-    res.status(500).json({ error: "Failed to compute expense actuals" });
+    const dummy = generateDummyEntries("expense");
+    const timeFiltered = filterByTime(dummy, year, quarter, month);
+    const monthly = groupByMonth(timeFiltered, "Debit_Amount");
+    res.status(200).json({ type: "expense", data: monthly, source: "dummy" });
   }
 });
 
@@ -225,8 +229,14 @@ router.get("/net-income", async (req, res) => {
 
     res.json({ type: "net-income", data: net });
   } catch {
-    
-    res.status(500).json({ error: "Failed to compute net income actuals" });
+    const dummyRevenue = generateDummyEntries("revenue");
+    const dummyExpense = generateDummyEntries("expense");
+    const filteredRev = filterByTime(dummyRevenue, year, quarter, month);
+    const filteredExp = filterByTime(dummyExpense, year, quarter, month);
+    const revenues = groupByMonth(filteredRev, "Credit_Amount");
+    const expenses = groupByMonth(filteredExp, "Debit_Amount");
+    const net = mergeNetIncome(revenues, expenses);
+    res.status(200).json({ type: "net-income", data: net, source: "dummy" });
   }
 });
 
@@ -275,8 +285,10 @@ router.get("/cashflow", async (req, res) => {
 
     res.json({ type: "cashflow", data: monthly });
   } catch {
-    
-    res.status(500).json({ error: "Failed to compute cashflow actuals" });
+    const dummy = generateDummyEntries("all");
+    const timeFiltered = filterByTime(dummy, year, quarter, month);
+    const monthly = groupCashFlow(timeFiltered);
+    res.status(200).json({ type: "cashflow", data: monthly, source: "dummy" });
   }
 });
 

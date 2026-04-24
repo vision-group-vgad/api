@@ -162,7 +162,14 @@ class FinanceService {
       console.log("🌐 API endpoint:", endpoint);
       console.log("🌐 API params:", params);
 
-      const response = await this.apiClient.get(endpoint, { params });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 12000);
+      let response;
+      try {
+        response = await this.apiClient.get(endpoint, { params, signal: controller.signal });
+      } finally {
+        clearTimeout(timeoutId);
+      }
 
       // Extract data from the response structure
       const data = response.data.data || [];

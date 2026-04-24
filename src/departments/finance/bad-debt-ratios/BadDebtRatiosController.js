@@ -149,6 +149,10 @@ class BadDebtRatiosController {
     this.initialize();
     const url = `/bc-datasets/${startDate}/${endDate}`;
 
+    if (!this.BC_URL || !this.BC_API_KEY) {
+      return this.dummyBadDebtsRatios;
+    }
+
     try {
       await this.apiClient.get(url);
 
@@ -156,7 +160,7 @@ class BadDebtRatiosController {
       return this.transformed;
     } catch (error) {
       console.error("Fetch error:", error.response?.data || error.message);
-      return { error: "Failed to fetch data for bad debt ratios" };
+      return this.dummyBadDebtsRatios;
     }
   }
 

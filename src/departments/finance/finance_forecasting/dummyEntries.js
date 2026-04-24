@@ -34,7 +34,7 @@ function randomAmount(min = 5000000, max = 500000000) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function generateDummyEntries({ startYear = 2017, endYear = 2020 }) {
+function generateDummyEntries({ startYear = 2021, endYear = 2025 }) {
   const dummyEntries = [];
 
   for (let year = startYear; year <= endYear; year++) {

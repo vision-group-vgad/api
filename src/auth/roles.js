@@ -77,9 +77,9 @@ const ROLES = {
     "/api/v1/reporting-accu-piechart/*",
     "/api/v1/ap-ar-aging",
     "/api/v1/total-assets-value",
-    "/api/v1/asset-depreciation",
-    "/api/v1/expense-category",
-    "/api/v1/budget-variance",
+    "/api/v1/asset-depreciation/*",
+    "/api/v1/expense-category/*",
+    "/api/v1/budget-variance/*",
     "/api/v1/finance-forecasting/*",
     "/api/v1/gl-reconciliation/*",
     "/api/v1/tax-provisioning",
@@ -105,8 +105,8 @@ const ROLES = {
     "/api/v1/finance/audit-trail",
     "/api/v1/finance/reporting-accuracy",
     "/api/v1/finance/gl-accounts",
-    "/api/v1/expense-category",
-    "/api/v1/budget-variance",
+    "/api/v1/expense-category/*",
+    "/api/v1/budget-variance/*",
     "/api/v1/dso",
     "/api/v1/bad-debt-ratios/*",
     "/api/v1/collection-efficiency/*",
@@ -120,20 +120,7 @@ const ROLES = {
     "/api/v1/executive/company-wide-kpis",
   ],
   editorial_staff: [
-    "/api/v1/editorial/analytics/*",
-    "/api/v1/editorial/error-rate/*",
-    "/api/v1/editorial/editing-cycle-times/*",
-    "/api/v1/editorial/journalist-productivity/*",
-    "/api/v1/editorial/readership-trends/*",
-    "/api/v1/editorial/social-sentiment/*",
-    "/api/v1/editorial/content-production/*",
-    "/api/v1/editorial/deadline-compliance/*",
-    "/api/v1/editorial/topic-virality/*",
-    "/api/v1/editorial/breaking-news/*",
-    "/api/v1/editorial/backlog-mgt/*",
-    "/api/v1/editorial/contentFreshness/*",
-    "/api/v1/editorial/updateFrequency/*",
-    "/api/v1/editorial/segment-popularity/*",
+    "/api/v1/editorial/*",
   ],
 
   // ── Admin ──────────────────────────────────────────────────────────────────────
@@ -148,6 +135,14 @@ const ROLES = {
     "/api/v1/executive/strategic-init-tracking",
     "/api/v1/executive/company-wide-kpis",
     "/api/v1/executives/compliance/*",
+  ],
+  administrator: [
+    "/api/v1/administrative/*",
+    "/api/v1/admnistrative/*",
+  ],
+  support: [
+    "/api/v1/administrative/*",
+    "/api/v1/admnistrative/*",
   ],
 
   // ── Executive ─────────────────────────────────────────────────────────────────
@@ -201,6 +196,12 @@ const ROLES = {
     "/api/v1/specialized/*",
     "/api/v1/editorial/*",
     "/api/v1/executive/company-wide-kpis",
+  ],
+  specialized_roles: [
+    "/api/v1/specialized/*",
+    "/api/v1/hr/recruitment-funnel",
+    "/api/v1/hr/retention-risk",
+    "/api/v1/hr/training-effectiveness",
   ],
 };
 

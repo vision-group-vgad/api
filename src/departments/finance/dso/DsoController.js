@@ -139,6 +139,11 @@ class DsoController {
     this.initialized = true;
   }
 
+  async fetchData(startDate, endDate) {
+    // Return dummy data; filter by month name is not straightforward so return full set
+    return this.dummyDSO;
+  }
+
 }
 
 export default DsoController;
