@@ -1,0 +1,206 @@
+2026-04-15T01:36:22: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T01:36:26: Finance API Error: {
+2026-04-15T01:36:26:   data: null,
+2026-04-15T01:36:26:   error: {
+2026-04-15T01:36:26:     status: 404,
+2026-04-15T01:36:26:     name: 'NotFoundError',
+2026-04-15T01:36:26:     message: 'Not Found',
+2026-04-15T01:36:26:     details: {}
+2026-04-15T01:36:26:   }
+2026-04-15T01:36:26: }
+2026-04-15T01:36:26: ⚠️ Using dummy financial data - API not available: Request failed with status code 404
+2026-04-15T01:36:26: Using dummy audit trail data
+2026-04-15T01:36:27: Using dummy reporting accuracy data
+2026-04-15T01:36:41: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T01:36:42: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T01:36:42: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T01:36:42: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T01:36:42: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T01:36:57: Finance API Error: {
+2026-04-15T01:36:57:   data: null,
+2026-04-15T01:36:57:   error: {
+2026-04-15T01:36:57:     status: 404,
+2026-04-15T01:36:57:     name: 'NotFoundError',
+2026-04-15T01:36:57:     message: 'Not Found',
+2026-04-15T01:36:57:     details: {}
+2026-04-15T01:36:57:   }
+2026-04-15T01:36:57: }
+2026-04-15T01:36:57: ⚠️ Using dummy financial data - API not available: Request failed with status code 404
+2026-04-15T01:36:57: Using dummy audit trail data
+2026-04-15T01:36:59: Using dummy reporting accuracy data
+2026-04-15T08:54:56: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T08:55:14: Finance API Error: {
+2026-04-15T08:55:14:   data: null,
+2026-04-15T08:55:14:   error: {
+2026-04-15T08:55:14:     status: 404,
+2026-04-15T08:55:14:     name: 'NotFoundError',
+2026-04-15T08:55:14:     message: 'Not Found',
+2026-04-15T08:55:14:     details: {}
+2026-04-15T08:55:14:   }
+2026-04-15T08:55:14: }
+2026-04-15T08:55:14: ⚠️ Using dummy financial data - API not available: Request failed with status code 404
+2026-04-15T08:55:14: Using dummy audit trail data
+2026-04-15T08:55:15: Using dummy reporting accuracy data
+2026-04-15T08:55:29: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T08:55:43: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T08:55:43: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T08:55:43: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T08:55:43: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T08:58:26: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T08:58:30: Finance API Error: {
+2026-04-15T08:58:30:   data: null,
+2026-04-15T08:58:30:   error: {
+2026-04-15T08:58:30:     status: 404,
+2026-04-15T08:58:30:     name: 'NotFoundError',
+2026-04-15T08:58:30:     message: 'Not Found',
+2026-04-15T08:58:30:     details: {}
+2026-04-15T08:58:30:   }
+2026-04-15T08:58:30: }
+2026-04-15T08:58:30: ⚠️ Using dummy financial data - API not available: Request failed with status code 404
+2026-04-15T08:58:30: Using dummy audit trail data
+2026-04-15T08:58:31: Using dummy reporting accuracy data
+2026-04-15T08:58:43: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T08:58:46: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T08:58:47: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T08:58:47: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T08:58:47: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-15T09:16:04: Finance API Error: {
+2026-04-15T09:16:04:   data: null,
+2026-04-15T09:16:04:   error: {
+2026-04-15T09:16:04:     status: 404,
+2026-04-15T09:16:04:     name: 'NotFoundError',
+2026-04-15T09:16:04:     message: 'Not Found',
+2026-04-15T09:16:04:     details: {}
+2026-04-15T09:16:04:   }
+2026-04-15T09:16:04: }
+2026-04-15T09:16:04: ⚠️ Using dummy financial data - API not available: Request failed with status code 404
+2026-04-15T09:16:04: Using dummy audit trail data
+2026-04-15T09:16:25: Using dummy reporting accuracy data
+2026-04-20T06:07:47: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T06:07:54: Finance API Error: {
+2026-04-20T06:07:54:   data: null,
+2026-04-20T06:07:54:   error: {
+2026-04-20T06:07:54:     status: 404,
+2026-04-20T06:07:54:     name: 'NotFoundError',
+2026-04-20T06:07:54:     message: 'Not Found',
+2026-04-20T06:07:54:     details: {}
+2026-04-20T06:07:54:   }
+2026-04-20T06:07:54: }
+2026-04-20T06:07:54: ⚠️ Using dummy financial data - API not available: Request failed with status code 404
+2026-04-20T06:07:54: Using dummy audit trail data
+2026-04-20T06:07:59: Using dummy reporting accuracy data
+2026-04-20T06:08:09: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T06:08:11: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T06:08:12: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T06:08:12: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T06:08:12: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T08:30:39: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T08:30:44: Finance API Error: {
+2026-04-20T08:30:44:   data: null,
+2026-04-20T08:30:44:   error: {
+2026-04-20T08:30:44:     status: 404,
+2026-04-20T08:30:44:     name: 'NotFoundError',
+2026-04-20T08:30:44:     message: 'Not Found',
+2026-04-20T08:30:44:     details: {}
+2026-04-20T08:30:44:   }
+2026-04-20T08:30:44: }
+2026-04-20T08:30:44: ⚠️ Using dummy financial data - API not available: Request failed with status code 404
+2026-04-20T08:30:44: Using dummy audit trail data
+2026-04-20T08:30:45: Using dummy reporting accuracy data
+2026-04-20T08:30:59: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T08:31:01: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T08:31:01: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T08:31:01: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T08:31:01: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T08:33:40: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T08:33:51: Finance API Error: {
+2026-04-20T08:33:51:   data: null,
+2026-04-20T08:33:51:   error: {
+2026-04-20T08:33:51:     status: 404,
+2026-04-20T08:33:51:     name: 'NotFoundError',
+2026-04-20T08:33:51:     message: 'Not Found',
+2026-04-20T08:33:51:     details: {}
+2026-04-20T08:33:51:   }
+2026-04-20T08:33:51: }
+2026-04-20T08:33:51: ⚠️ Using dummy financial data - API not available: Request failed with status code 404
+2026-04-20T08:33:51: Using dummy audit trail data
+2026-04-20T08:33:53: Using dummy reporting accuracy data
+2026-04-20T08:33:57: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T08:33:59: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T08:33:59: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T08:33:59: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-20T08:33:59: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-23T11:44:59: [2026-04-23T11:44:59.802Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: .\"."} 
+2026-04-23T11:45:08: [2026-04-23T11:45:08.067Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: .\"."} 
+2026-04-24T07:19:04: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T07:19:15: Finance API Error: {
+2026-04-24T07:19:15:   data: null,
+2026-04-24T07:19:15:   error: {
+2026-04-24T07:19:15:     status: 404,
+2026-04-24T07:19:15:     name: 'NotFoundError',
+2026-04-24T07:19:15:     message: 'Not Found',
+2026-04-24T07:19:15:     details: {}
+2026-04-24T07:19:15:   }
+2026-04-24T07:19:15: }
+2026-04-24T07:19:15: ⚠️ Using dummy financial data - API not available: Request failed with status code 404
+2026-04-24T07:19:15: Using dummy audit trail data
+2026-04-24T07:19:16: Using dummy reporting accuracy data
+2026-04-24T07:19:30: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T07:19:32: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T07:19:32: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T07:19:32: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T07:19:32: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:15:51: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:16:03: Using dummy reporting accuracy data
+2026-04-24T08:16:03: Finance API Error: {
+2026-04-24T08:16:03:   data: null,
+2026-04-24T08:16:03:   error: {
+2026-04-24T08:16:03:     status: 404,
+2026-04-24T08:16:03:     name: 'NotFoundError',
+2026-04-24T08:16:03:     message: 'Not Found',
+2026-04-24T08:16:03:     details: {}
+2026-04-24T08:16:03:   }
+2026-04-24T08:16:03: }
+2026-04-24T08:16:03: ⚠️ Using dummy financial data - API not available: Request failed with status code 404
+2026-04-24T08:16:03: Using dummy audit trail data
+2026-04-24T08:16:17: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:16:17: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:16:18: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:16:18: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:16:19: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:16:46: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:16:49: Finance API Error: {
+2026-04-24T08:16:49:   data: null,
+2026-04-24T08:16:49:   error: {
+2026-04-24T08:16:49:     status: 404,
+2026-04-24T08:16:49:     name: 'NotFoundError',
+2026-04-24T08:16:49:     message: 'Not Found',
+2026-04-24T08:16:49:     details: {}
+2026-04-24T08:16:49:   }
+2026-04-24T08:16:49: }
+2026-04-24T08:16:49: ⚠️ Using dummy financial data - API not available: Request failed with status code 404
+2026-04-24T08:16:49: Using dummy audit trail data
+2026-04-24T08:16:50: Using dummy reporting accuracy data
+2026-04-24T08:17:04: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:17:05: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:17:05: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:17:05: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:17:05: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:24:44: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:24:48: Finance API Error: {
+2026-04-24T08:24:48:   data: null,
+2026-04-24T08:24:48:   error: {
+2026-04-24T08:24:48:     status: 404,
+2026-04-24T08:24:48:     name: 'NotFoundError',
+2026-04-24T08:24:48:     message: 'Not Found',
+2026-04-24T08:24:48:     details: {}
+2026-04-24T08:24:48:   }
+2026-04-24T08:24:48: }
+2026-04-24T08:24:48: ⚠️ Using dummy financial data - API not available: Request failed with status code 404
+2026-04-24T08:24:48: Using dummy audit trail data
+2026-04-24T08:24:49: Using dummy reporting accuracy data
+2026-04-24T08:25:04: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:25:05: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:25:05: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:25:05: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
+2026-04-24T08:25:05: [ProcessThroughput] Live fetch failed, using dummy: Request failed with status code 404
