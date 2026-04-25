@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import authRouter from "./src/auth/auth-routes.js";
+import accessControlRouter from "./src/auth/access-control-routes.js";
 import unifiedAuth from "./src/auth/unified-auth.js";
 import serverLoadRouter from "./src/departments/it/server-load-piechart/server-load-routes.js";
 import cors from "cors";
@@ -165,6 +166,7 @@ app.use(
   express.static(path.join(process.cwd(), "assets/profile_pics"))
 );
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/access-control", accessControlRouter);
 app.use("/api/v1/server-load", serverLoadRouter);
 app.use("/api/v1/storageUtilization", storageRoutes);
 app.use("/api/v1/cyber-posture", cyberPostureController);
@@ -192,7 +194,7 @@ app.use("/api/v1/editorial/editing-cycle-times", editCycTimesRouter);
 app.use("/api/v1/editorial/journalist-productivity", journalistProductivity);
 app.use("/api/v1/editorial", editorialAnalyticsRoutes);
 app.use("/api/v1/editorial/breakingNews", breakingNewsRoutes);
-app.use("/api/v1/editorial/segment-popularity", segmentPopularityRoutes);
+app.use("/api/v1/editorial/segment-popularity", segmentPopularityRoute);
 app.use("/api/v1/editorial/readership-trends", readershipRouter);
 app.use("/api/v1/editorial/section-perfromance", sectPerRouter);
 app.use("/api/v1/editorial/social-sentiment", socialSentimentRouter);
@@ -200,6 +202,7 @@ app.use("/api/v1/editorial/version-control", versionContRouter);
 app.use("/api/v1/editorial/topic-virality", router);
 app.use("/api/v1/editorial/backlog-mgt", backlogMgtRouter);
 app.use("/api/v1/editorial/contentFreshness", contentFreshnessRouter);
+app.use("/api/v1/editorial/content-freshness", contentFreshnessRouter);
 app.use("/api/v1/editorial/breaking-news", breakingNewsRouter);
 app.use("/api/v1/editorial/updateFrequency", updateFrequencyRouter);
 app.use("/api/v1/editorial/backlogAnalytics", backlogAnalyticsRouter);

@@ -1,0 +1,16 @@
+{
+  "roles": {
+    "head_of_sales": {
+      "grants": [],
+      "denies": []
+    },
+    "head_of_finance": {
+      "grants": [],
+      "denies": []
+    },
+    "head_of_operations": {
+      "grants": [],
+      "denies": []
+    }
+  }
+}

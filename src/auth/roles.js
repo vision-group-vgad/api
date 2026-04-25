@@ -116,6 +116,31 @@ const ROLES = {
 
   // ── Editorial ─────────────────────────────────────────────────────────────
   head_of_editorial: [
+    "/api/v1/editorial/error-rate/*",
+    "/api/v1/editorial/editing-cycle-times/*",
+    "/api/v1/editorial/journalist-productivity/*",
+    "/api/v1/editorial/breakingNews/*",
+    "/api/v1/editorial/segment-popularity/*",
+    "/api/v1/editorial/readership-trends/*",
+    "/api/v1/editorial/section-perfromance/*",
+    "/api/v1/editorial/social-sentiment/*",
+    "/api/v1/editorial/version-control/*",
+    "/api/v1/editorial/topic-virality/*",
+    "/api/v1/editorial/backlog-mgt/*",
+    "/api/v1/editorial/contentFreshness/*",
+    "/api/v1/editorial/content-freshness/*",
+    "/api/v1/editorial/breaking-news/*",
+    "/api/v1/editorial/updateFrequency/*",
+    "/api/v1/editorial/backlogAnalytics/*",
+    "/api/v1/editorial/visual-engagement/*",
+    "/api/v1/editorial/visual-usage/*",
+    "/api/v1/editorial/comp-bench/*",
+    "/api/v1/editorial/editorial-calendar-adherence/*",
+    "/api/v1/editorial/rights-management/*",
+    "/api/v1/editorial/content-production/*",
+    "/api/v1/editorial/deadline-compliance/*",
+    "/api/v1/editorial/segment-summary/*",
+    "/api/v1/editorial/newsletter-virality/*",
     "/api/v1/editorial/*",
     "/api/v1/executive/company-wide-kpis",
   ],
@@ -205,21 +230,32 @@ const ROLES = {
   ],
 };
 
+export function getRolePatterns(role) {
+  return Array.isArray(ROLES[role]) ? [...ROLES[role]] : [];
+}
+
+export function matchesRolePatterns(patterns, urlPath) {
+  return patterns.some((pattern) => {
+    if (pattern === "*") {
+      return true;
+    }
+
+    if (pattern.endsWith("/*")) {
+      const base = pattern.slice(0, -2);
+      return urlPath === base || urlPath.startsWith(base + "/");
+    }
+
+    return urlPath === pattern;
+  });
+}
+
 /**
  * Returns true if the given role can access the given URL path.
  */
 export function canAccess(role, urlPath) {
-  const patterns = ROLES[role];
+  const patterns = getRolePatterns(role);
   if (!patterns) return false;
-  if (patterns.includes("*")) return true; // super_admin
-
-  return patterns.some((pattern) => {
-    if (pattern.endsWith("/*")) {
-      const base = pattern.slice(0, -2); // strip /*
-      return urlPath === base || urlPath.startsWith(base + "/");
-    }
-    return urlPath === pattern;
-  });
+  return matchesRolePatterns(patterns, urlPath);
 }
 
 export default ROLES;

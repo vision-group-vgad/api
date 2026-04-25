@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { canAccess } from "./roles.js";
+import { canRoleAccessWithOverrides } from "./access-control-service.js";
 
 const CMC_KEY = (process.env.CMC_API_BEARER_TOKEN || process.env.CMS_API_KEY || "").trim();
 
@@ -25,7 +25,7 @@ const unifiedAuth = (req, res, next) => {
     return res.status(401).json({ success: false, message: "Unauthorized: no token provided." });
   }
 
-  jwt.verify(bearerToken, process.env.SECRET_KEY, (err, decoded) => {
+  jwt.verify(bearerToken, process.env.SECRET_KEY, async (err, decoded) => {
     if (err) {
       return res.status(401).json({ success: false, message: "Unauthorized: invalid or expired token." });
     }
@@ -33,12 +33,15 @@ const unifiedAuth = (req, res, next) => {
     const role = decoded.role;
     const urlPath = req.baseUrl + req.path;
 
-    if (!canAccess(role, urlPath)) {
-      return res.status(403).json({
-        success: false,
-        message: `Access denied: your role (${role}) cannot access ${urlPath}`,
-      });
-    }
+    if (!(await canRoleAccessWithOverrides(role, urlPath))) {
+        // Allow all authenticated users to access their own permission info
+        if (urlPath !== "/api/v1/access-control/my-permissions") {
+          return res.status(403).json({
+            success: false,
+            message: `Access denied: your role (${role}) cannot access ${urlPath}`,
+          });
+        }
+      }
 
     req.user = decoded;
     next();
