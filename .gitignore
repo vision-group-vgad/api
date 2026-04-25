@@ -63,3 +63,5 @@ backup-*/
 *.pdf
 preview-*.html
 report-*.pdf
+
+ecosystem.config.cjs
