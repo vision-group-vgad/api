@@ -1,0 +1,11 @@
+﻿OK|/api/v1/editorial/content-production|200|4409|live
+OK|/api/v1/editorial/deadline-compliance|200|114|live
+OK|/api/v1/editorial/journalist-productivity|200|236|live
+FAIL|/api/v1/editorial/readership-trends/|404|8|The remote server returned an error: (404) Not Found.
+OK|/api/v1/editorial/error-rate/in-range?startDate=2025-01-01&endDate=2026-04-25|200|146|live
+OK|/api/v1/editorial/breaking-news/in-range?startDate=2025-01-01&endDate=2026-04-25|200|98|live
+OK|/api/v1/editorial/editing-cycle-times/in-range?startDate=2025-01-01&endDate=2026-04-25|200|115|live
+OK|/api/v1/editorial/version-control/in-range?startDate=2025-01-01&endDate=2026-04-25|200|58|live
+OK|/api/v1/editorial/comp-bench/in-range?startDate=2025-01-01&endDate=2026-04-25|200|65|         
+FAIL|/api/v1/editorial/social-sentiment/annual?year=2025|404|4|The remote server returned an error: (404) Not Found.
+DONE

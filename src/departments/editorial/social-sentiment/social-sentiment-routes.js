@@ -5,6 +5,19 @@ import { validateRange } from "../../../utils/common/common-functionalities.js";
 const socSentController = new SocialSentimentController();
 const socialSentimentRouter = express.Router();
 
+socialSentimentRouter.get("/annual", async (req, res) => {
+  const year = Number(req.query.year || new Date().getFullYear());
+
+  try {
+    const results = socSentController.getAnnualSentiments(year);
+    res.status(200).json(results);
+  } catch (error) {
+    res.status(500).json({
+      message: `${error.message}`,
+    });
+  }
+});
+
 /**
  * @swagger
  * /api/v1/editorial/social-sentiment/in-range:

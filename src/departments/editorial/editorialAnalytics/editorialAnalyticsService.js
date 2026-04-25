@@ -3,6 +3,7 @@ import axios from "axios";
 // Simple in-memory cache for batch fetches
 const cache = new Map();
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const UPSTREAM_TIMEOUT_MS = Number(process.env.EDITORIAL_ANALYTICS_TIMEOUT_MS || 3000);
 
 // Helper to format dates as YYYY-MM-DD
 const formatDate = (date) => date.toISOString().slice(0, 10);
@@ -33,7 +34,7 @@ class EditorialAnalyticsService {
 
     this.apiClient = axios.create({
       baseURL: this.baseURL,
-      timeout: 30000,
+      timeout: UPSTREAM_TIMEOUT_MS,
       headers: { "Content-Type": "application/json" },
     });
 

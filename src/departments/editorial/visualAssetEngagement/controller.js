@@ -35,15 +35,12 @@ const router = express.Router();
  *         description: Internal server error
  */
 router.get("/", async (req, res) => {
-  const { startDate, endDate } = req.query;
+  let { startDate, endDate } = req.query;
+
+  startDate = startDate || "2025-01-01";
+  endDate = endDate || "2025-12-31";
 
   const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-
-  if (!startDate || !endDate) {
-    return res.status(400).json({
-      error: "Missing required query parameters: startDate and endDate.",
-    });
-  }
 
   if (!dateRegex.test(startDate) || !dateRegex.test(endDate)) {
     return res.status(400).json({

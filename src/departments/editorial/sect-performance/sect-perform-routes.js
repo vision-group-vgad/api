@@ -77,8 +77,12 @@ const sectPerRouter = express.Router();
  *         description: Internal server error
  */
 sectPerRouter.get("/", async (req, res) => {
-  const results = await sectPerController.getSectionPerformanceData();
-  res.status(200).json(results);
+  try {
+    const results = await sectPerController.getSectionPerformanceData();
+    res.status(200).json(results);
+  } catch (error) {
+    res.status(500).json({ message: error?.message || "Failed to fetch section performance data." });
+  }
 });
 
 export default sectPerRouter;

@@ -23,8 +23,8 @@ export const fetchVisualEngagementData = async (startDate, endDate) => {
 
   try {
     const [articlesRes, sessionsRes] = await Promise.all([
-      axios.get(articleUrl, { headers }),
-      axios.get(sessionUrl, { headers }),
+      axios.get(articleUrl, { headers, timeout: 6000 }),
+      axios.get(sessionUrl, { headers, timeout: 6000 }),
     ]);
 
     const articles = articlesRes.data?.data || [];

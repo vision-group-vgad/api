@@ -85,9 +85,16 @@ const readershipRouter = express.Router();
  */
 readershipRouter.get("/annual", async (req, res) => {
   let { year } = req.query;
-  year = parseInt(year);
+  year = parseInt(year || "2025");
 
-  validateYear(year, res);
+  if (!year) {
+    return res.status(400).json({ message: "Missing required field: year." });
+  }
+  if (year !== 2025) {
+    return res.status(404).json({
+      message: "No data found for that year, only 2025 data is available.",
+    });
+  }
 
   try {
     const results = await readershipController.getAnnualReadershipTrends(year);
@@ -187,7 +194,11 @@ readershipRouter.get("/annual", async (req, res) => {
 readershipRouter.get("/in-range", async (req, res) => {
   let { startDate, endDate } = req.query;
 
-  validateRange(startDate, endDate, res);
+  startDate = startDate || "2025-01-01";
+  endDate = endDate || "2025-12-31";
+
+  const validationResponse = validateRange(startDate, endDate, res);
+  if (validationResponse) return;
 
   try {
     const results = await readershipController.getInRangeReadershipTrends(
