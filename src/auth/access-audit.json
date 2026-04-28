@@ -103,5 +103,46 @@
     "denies": [],
     "updatedAt": "2026-04-25T19:06:23.651Z",
     "updatedBy": "admin@vision.com"
+  },
+  {
+    "role": "head_of_finance",
+    "grants": [
+      "/api/v1/sales/contract-value-trends"
+    ],
+    "denies": [],
+    "updatedAt": "2026-04-25T20:55:28.612Z",
+    "updatedBy": "admin@vision.com"
+  },
+  {
+    "role": "head_of_finance",
+    "grants": [],
+    "denies": [],
+    "updatedAt": "2026-04-25T20:56:53.699Z",
+    "updatedBy": "admin@vision.com"
+  },
+  {
+    "role": "head_of_editorial",
+    "grants": [
+      "/api/v1/sales/client-lifetime-value/*"
+    ],
+    "denies": [],
+    "updatedAt": "2026-04-28T20:47:23.124Z",
+    "updatedBy": "admin@vision.com"
+  },
+  {
+    "role": "head_of_finance",
+    "grants": [
+      "/api/v1/sales/client-lifetime-value/*"
+    ],
+    "denies": [],
+    "updatedAt": "2026-04-28T20:48:19.555Z",
+    "updatedBy": "admin@vision.com"
+  },
+  {
+    "role": "head_of_finance",
+    "grants": [],
+    "denies": [],
+    "updatedAt": "2026-04-28T20:50:28.071Z",
+    "updatedBy": "admin@vision.com"
   }
 ]

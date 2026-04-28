@@ -82,6 +82,7 @@ class ExecutiveUtils {
 
   async getCompanyKpis() {
     this.initialize();
+    // CMS does not support date-range path params for this endpoint
     const r = await this.apiClient.get("/executive/company-kpis");
     return r.data;
   }

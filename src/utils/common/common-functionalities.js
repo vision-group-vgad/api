@@ -152,6 +152,20 @@ export const validateYear = (year, res) => {
   }
 };
 
+export const formatWeekLabel = (dateStr) => {
+  const start = new Date(`${dateStr}T00:00:00Z`);
+  if (isNaN(start.getTime())) return dateStr;
+
+  const end = new Date(start);
+  end.setUTCDate(start.getUTCDate() + 6);
+
+  const dateOpts = { month: "short", day: "numeric", timeZone: "UTC" };
+  const startLabel = start.toLocaleDateString("en-US", dateOpts);
+  const endLabel = end.toLocaleDateString("en-US", { ...dateOpts, year: "numeric" });
+
+  return `${startLabel} – ${endLabel}`;
+};
+
 export const validateRange = (startDate, endDate, res) => {
   if (!startDate || !endDate) {
     return res.status(400).json({

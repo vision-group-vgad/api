@@ -11,6 +11,12 @@
     "head_of_operations": {
       "grants": [],
       "denies": []
+    },
+    "head_of_editorial": {
+      "grants": [
+        "/api/v1/sales/client-lifetime-value/*"
+      ],
+      "denies": []
     }
   }
 }

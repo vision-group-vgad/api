@@ -61,7 +61,8 @@ class SalesMarketing {
   async #fetchSalesEntries(startDate, endDate, _roleCode = null) {
     this.initialize();
 
-    const response = await this.apiClient.get('/bc-datasets');
+    const { normalizedStartDate, normalizedEndDate } = this.normalizeDateRange(startDate, endDate);
+    const response = await this.apiClient.get(`/bc-datasets/${normalizedStartDate}/${normalizedEndDate}`);
     const rawEntries = response.data?.data || [];
 
     return this.transformCMCData(rawEntries).filter((entry) =>
@@ -235,11 +236,11 @@ class SalesMarketing {
 
   async getRevenueAttributionData(startDate, endDate, roleCode = null) {
     const entries = await this.#fetchSalesEntries(startDate, endDate, roleCode);
-    const grouped = this.groupBy(entries, (entry) => this.getWeekKey(entry.postingDate));
+    const grouped = this.groupBy(entries, (entry) => this.getMonthKey(entry.postingDate));
 
     return Array.from(grouped.entries())
       .sort(([left], [right]) => left.localeCompare(right))
-      .map(([date, periodEntries]) => {
+      .map(([monthKey, periodEntries]) => {
         const revenueBySegment = periodEntries.reduce((segments, entry) => {
           const segment = this.resolveSegment(entry);
           const currentAmount = segments.get(segment) || 0;
@@ -247,8 +248,16 @@ class SalesMarketing {
           return segments;
         }, new Map());
 
+        const date = monthKey.length === 7 ? `${monthKey}-01` : monthKey;
+        const [year, month] = date.slice(0, 7).split("-").map(Number);
+        const month_label = new Date(Date.UTC(year, month - 1, 1)).toLocaleDateString(
+          "en-US",
+          { month: "long", year: "numeric", timeZone: "UTC" }
+        );
+
         return {
           date,
+          month_label,
           revenue: Array.from(revenueBySegment.entries())
             .map(([segment, amount]) => ({
               segment,
