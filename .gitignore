@@ -3,5 +3,6 @@ node_modules
 # Logs
 logs/*.log
 
-# Runtime / generated files
-#src/auth/access-audit.jsonsrc/auth/role-overrides.json
+# Runtime / generated files (written by the server at runtime — never commit)
+src/auth/access-audit.json
+src/auth/role-overrides.json
