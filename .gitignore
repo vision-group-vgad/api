@@ -6,3 +6,4 @@ logs/*.log
 # Runtime / generated files (written by the server at runtime — never commit)
 src/auth/access-audit.json
 src/auth/role-overrides.json
+
