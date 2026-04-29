@@ -10421,3 +10421,2052 @@
 2026-04-24T09:24:30: }
 2026-04-24T09:51:09: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
 2026-04-24T09:51:09: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-25T20:10:28: Server + WebSocket listening on port 4000
+2026-04-25T21:20:52: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-25T21:20:53: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-25T21:21:48: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-25T21:21:50: ➡️ [Controller] storage HIT [Object: null prototype] { diskName: '', page: '1', pageSize: '10' }
+2026-04-25T21:21:51: ➡️ [Controller] patch-compliance HIT [Object: null prototype] { osVersion: '', page: '1', pageSize: '10' }
+2026-04-25T21:22:42: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-25T21:22:42:   page: '1',
+2026-04-25T21:22:42:   pageSize: '10',
+2026-04-25T21:22:42:   startDate: '',
+2026-04-25T21:22:42:   endDate: ''
+2026-04-25T21:22:42: }
+2026-04-25T21:22:42: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-25T21:22:43: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-25T21:22:43:   page: '1',
+2026-04-25T21:22:43:   pageSize: '10',
+2026-04-25T21:22:43:   startDate: '',
+2026-04-25T21:22:43:   endDate: ''
+2026-04-25T21:22:43: }
+2026-04-25T21:23:16: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-25T21:23:16:   page: '1',
+2026-04-25T21:23:16:   pageSize: '10',
+2026-04-25T21:23:16:   startDate: '',
+2026-04-25T21:23:16:   endDate: ''
+2026-04-25T21:23:16: }
+2026-04-25T21:23:32: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-25T21:23:32:   page: '1',
+2026-04-25T21:23:32:   pageSize: '10',
+2026-04-25T21:23:32:   startDate: '',
+2026-04-25T21:23:32:   endDate: ''
+2026-04-25T21:23:32: }
+2026-04-25T21:23:33: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-25T21:23:33:   page: '1',
+2026-04-25T21:23:33:   pageSize: '10',
+2026-04-25T21:23:33:   startDate: '',
+2026-04-25T21:23:33:   endDate: ''
+2026-04-25T21:23:33: }
+2026-04-25T21:23:36: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-25T21:23:36:   page: '1',
+2026-04-25T21:23:36:   pageSize: '10',
+2026-04-25T21:23:36:   startDate: '',
+2026-04-25T21:23:36:   endDate: ''
+2026-04-25T21:23:36: }
+2026-04-25T21:24:21: 📊 Financial Close Metrics request with filters: {
+2026-04-25T21:24:21:   startDate: '2021-08-01',
+2026-04-25T21:24:21:   endDate: '2021-08-31',
+2026-04-25T21:24:21:   accountNo: '10060',
+2026-04-25T21:24:21:   documentType: 'Payment',
+2026-04-25T21:24:21:   granularity: 'monthly',
+2026-04-25T21:24:21:   limit: '1000'
+2026-04-25T21:24:21: }
+2026-04-25T21:24:21: 🔧 FinanceService initialized with:
+2026-04-25T21:24:21: 📍 Base URL: https://cms-vgad.visiongroup.co.ug/api
+2026-04-25T21:24:21: 🔑 Bearer Token: Present
+2026-04-25T21:24:21: 👤 Username: intern-developer@newvision.co.ug
+2026-04-25T21:24:21: 🔍 Getting Financial Close Metrics with filters: {
+2026-04-25T21:24:21:   startDate: '2021-08-01',
+2026-04-25T21:24:21:   endDate: '2021-08-31',
+2026-04-25T21:24:21:   accountNo: '10060',
+2026-04-25T21:24:21:   documentType: 'Payment',
+2026-04-25T21:24:21:   granularity: 'monthly',
+2026-04-25T21:24:21:   limit: '1000'
+2026-04-25T21:24:21: }
+2026-04-25T21:24:21: 🔍 getFinancialData called with filters: {
+2026-04-25T21:24:21:   startDate: '2021-08-01',
+2026-04-25T21:24:21:   endDate: '2021-08-31',
+2026-04-25T21:24:21:   accountNo: '10060',
+2026-04-25T21:24:21:   documentType: 'Payment',
+2026-04-25T21:24:21:   granularity: 'monthly',
+2026-04-25T21:24:21:   limit: '1000'
+2026-04-25T21:24:21: }
+2026-04-25T21:24:21: 🌐 API endpoint: /bc-datasets/2021-08-01/2021-08-31
+2026-04-25T21:24:21: 🌐 API params: { gl_account_no: '10060', document_type: 'Payment', limit: '1000' }
+2026-04-25T21:24:21: 🔐 Using Bearer token authentication
+2026-04-25T21:24:22: ✅ Fetched 20000 financial records from CMC API
+2026-04-25T21:24:22: 🔄 Transformed 20000 records
+2026-04-25T21:24:22: 📊 Sample transformed data: {
+2026-04-25T21:24:22:   "id": 39027,
+2026-04-25T21:24:22:   "entryNo": "19511",
+2026-04-25T21:24:22:   "transactionNo": "2223",
+2026-04-25T21:24:22:   "accountNo": "10060",
+2026-04-25T21:24:22:   "accountName": "Mbarara Cash Control",
+2026-04-25T21:24:22:   "postingDate": "2021-08-10",
+2026-04-25T21:24:22:   "documentDate": "2021-08-10",
+2026-04-25T21:24:22:   "documentType": "Payment",
+2026-04-25T21:24:22:   "documentNo": "B-SK000020RN",
+2026-04-25T21:24:22:   "sourceCode": "CASHRECJNL",
+2026-04-25T21:24:22:   "amount": "19000",
+2026-04-25T21:24:22:   "debitAmount": "19000",
+2026-04-25T21:24:22:   "creditAmount": "0",
+2026-04-25T21:24:22:   "vatAmount": "0",
+2026-04-25T21:24:22:   "additionalCurrencyAmount": "0",
+2026-04-25T21:24:22:   "addCurrencyDebitAmount": "0",
+2026-04-25T21:24:22:   "addCurrencyCreditAmount": "0",
+2026-04-25T21:24:22:   "genPostingType": null,
+2026-04-25T21:24:22:   "genBusPostingGroup": null,
+2026-04-25T21:24:22:   "genProdPostingGroup": null,
+2026-04-25T21:24:22:   "vatBusPostingGroup": null,
+2026-04-25T21:24:22:   "vatProdPostingGroup": null,
+2026-04-25T21:24:22:   "taxAreaCode": null,
+2026-04-25T21:24:22:   "taxLiable": false,
+2026-04-25T21:24:22:   "taxGroupCode": null,
+2026-04-25T21:24:22:   "useTax": false,
+2026-04-25T21:24:22:   "jobNo": null,
+2026-04-25T21:24:22:   "businessUnitCode": null,
+2026-04-25T21:24:22:   "reasonCode": null,
+2026-04-25T21:24:22:   "icPartnerCode": null,
+2026-04-25T21:24:22:   "dimensionSetId": "1736",
+2026-04-25T21:24:22:   "locale": null,
+2026-04-25T21:24:22:   "raw": {
+2026-04-25T21:24:22:     "locale": null,
+2026-04-25T21:24:22:     "Entry_No": "19511",
+2026-04-25T21:24:22:     "Transaction_No": "2223",
+2026-04-25T21:24:22:     "G_L_Account_No": "10060",
+2026-04-25T21:24:22:     "Posting_Date": "2021-08-10",
+2026-04-25T21:24:22:     "Document_Date": "2021-08-10",
+2026-04-25T21:24:22:     "Document_Type": "Payment",
+2026-04-25T21:24:22:     "Document_No": "B-SK000020RN",
+2026-04-25T21:24:22:     "Source_Code": "CASHRECJNL",
+2026-04-25T21:24:22:     "Job_No": null,
+2026-04-25T21:24:22:     "Business_Unit_Code": null,
+2026-04-25T21:24:22:     "Reason_Code": null,
+2026-04-25T21:24:22:     "Gen_Posting_Type": null,
+2026-04-25T21:24:22:     "Gen_Bus_Posting_Group": null,
+2026-04-25T21:24:22:     "Gen_Prod_Posting_Group": null,
+2026-04-25T21:24:22:     "Tax_Area_Code": null,
+2026-04-25T21:24:22:     "Tax_Liable": false,
+2026-04-25T21:24:22:     "Tax_Group_Code": null,
+2026-04-25T21:24:22:     "Use_Tax": false,
+2026-04-25T21:24:22:     "VAT_Bus_Posting_Group": null,
+2026-04-25T21:24:22:     "VAT_Prod_Posting_Group": null,
+2026-04-25T21:24:22:     "IC_Partner_Code": null,
+2026-04-25T21:24:22:     "Amount": "19000",
+2026-04-25T21:24:22:     "Debit_Amount": "19000",
+2026-04-25T21:24:22:     "Credit_Amount": "0",
+2026-04-25T21:24:22:     "VAT_Amount": "0",
+2026-04-25T21:24:22:     "Additional_Currency_Amount": "0",
+2026-04-25T21:24:22:     "Add_Currency_Debit_Amount": "0",
+2026-04-25T21:24:22:     "Add_Currency_Credit_Amount": "0",
+2026-04-25T21:24:22:     "Dimension_Set_ID": "1736",
+2026-04-25T21:24:22:     "G_L_Account_Name": "Mbarara Cash Control"
+2026-04-25T21:24:22:   }
+2026-04-25T21:24:22: }
+2026-04-25T21:24:22: 📊 Processing 20000 records for close metrics
+2026-04-25T21:24:22: 🔄 Calculating close metrics with enhanced granularity
+2026-04-25T21:24:22: 📈 Using monthly granularity
+2026-04-25T21:24:22: 📊 Grouped data into 1 periods
+2026-04-25T21:24:22: ✅ Generated metrics for 1 periods
+2026-04-25T21:24:25: 📊 Financial Close Metrics request with filters: {
+2026-04-25T21:24:25:   startDate: '2021-08-01',
+2026-04-25T21:24:25:   endDate: '2021-08-31',
+2026-04-25T21:24:25:   accountNo: '10060',
+2026-04-25T21:24:25:   documentType: 'Payment',
+2026-04-25T21:24:25:   granularity: 'monthly',
+2026-04-25T21:24:25:   limit: '1000'
+2026-04-25T21:24:25: }
+2026-04-25T21:24:25: 🔍 Getting Financial Close Metrics with filters: {
+2026-04-25T21:24:25:   startDate: '2021-08-01',
+2026-04-25T21:24:25:   endDate: '2021-08-31',
+2026-04-25T21:24:25:   accountNo: '10060',
+2026-04-25T21:24:25:   documentType: 'Payment',
+2026-04-25T21:24:25:   granularity: 'monthly',
+2026-04-25T21:24:25:   limit: '1000'
+2026-04-25T21:24:25: }
+2026-04-25T21:24:25: 🔍 getFinancialData called with filters: {
+2026-04-25T21:24:25:   startDate: '2021-08-01',
+2026-04-25T21:24:25:   endDate: '2021-08-31',
+2026-04-25T21:24:25:   accountNo: '10060',
+2026-04-25T21:24:25:   documentType: 'Payment',
+2026-04-25T21:24:25:   granularity: 'monthly',
+2026-04-25T21:24:25:   limit: '1000'
+2026-04-25T21:24:25: }
+2026-04-25T21:24:25: 🌐 API endpoint: /bc-datasets/2021-08-01/2021-08-31
+2026-04-25T21:24:25: 🌐 API params: { gl_account_no: '10060', document_type: 'Payment', limit: '1000' }
+2026-04-25T21:24:25: 🔐 Using Bearer token authentication
+2026-04-25T21:24:26: ✅ Fetched 20000 financial records from CMC API
+2026-04-25T21:24:26: 🔄 Transformed 20000 records
+2026-04-25T21:24:26: 📊 Sample transformed data: {
+2026-04-25T21:24:26:   "id": 39027,
+2026-04-25T21:24:26:   "entryNo": "19511",
+2026-04-25T21:24:26:   "transactionNo": "2223",
+2026-04-25T21:24:26:   "accountNo": "10060",
+2026-04-25T21:24:26:   "accountName": "Mbarara Cash Control",
+2026-04-25T21:24:26:   "postingDate": "2021-08-10",
+2026-04-25T21:24:26:   "documentDate": "2021-08-10",
+2026-04-25T21:24:26:   "documentType": "Payment",
+2026-04-25T21:24:26:   "documentNo": "B-SK000020RN",
+2026-04-25T21:24:26:   "sourceCode": "CASHRECJNL",
+2026-04-25T21:24:26:   "amount": "19000",
+2026-04-25T21:24:26:   "debitAmount": "19000",
+2026-04-25T21:24:26:   "creditAmount": "0",
+2026-04-25T21:24:26:   "vatAmount": "0",
+2026-04-25T21:24:26:   "additionalCurrencyAmount": "0",
+2026-04-25T21:24:26:   "addCurrencyDebitAmount": "0",
+2026-04-25T21:24:26:   "addCurrencyCreditAmount": "0",
+2026-04-25T21:24:26:   "genPostingType": null,
+2026-04-25T21:24:26:   "genBusPostingGroup": null,
+2026-04-25T21:24:26:   "genProdPostingGroup": null,
+2026-04-25T21:24:26:   "vatBusPostingGroup": null,
+2026-04-25T21:24:26:   "vatProdPostingGroup": null,
+2026-04-25T21:24:26:   "taxAreaCode": null,
+2026-04-25T21:24:26:   "taxLiable": false,
+2026-04-25T21:24:26:   "taxGroupCode": null,
+2026-04-25T21:24:26:   "useTax": false,
+2026-04-25T21:24:26:   "jobNo": null,
+2026-04-25T21:24:26:   "businessUnitCode": null,
+2026-04-25T21:24:26:   "reasonCode": null,
+2026-04-25T21:24:26:   "icPartnerCode": null,
+2026-04-25T21:24:26:   "dimensionSetId": "1736",
+2026-04-25T21:24:26:   "locale": null,
+2026-04-25T21:24:26:   "raw": {
+2026-04-25T21:24:26:     "locale": null,
+2026-04-25T21:24:26:     "Entry_No": "19511",
+2026-04-25T21:24:26:     "Transaction_No": "2223",
+2026-04-25T21:24:26:     "G_L_Account_No": "10060",
+2026-04-25T21:24:26:     "Posting_Date": "2021-08-10",
+2026-04-25T21:24:26:     "Document_Date": "2021-08-10",
+2026-04-25T21:24:26:     "Document_Type": "Payment",
+2026-04-25T21:24:26:     "Document_No": "B-SK000020RN",
+2026-04-25T21:24:26:     "Source_Code": "CASHRECJNL",
+2026-04-25T21:24:26:     "Job_No": null,
+2026-04-25T21:24:26:     "Business_Unit_Code": null,
+2026-04-25T21:24:26:     "Reason_Code": null,
+2026-04-25T21:24:26:     "Gen_Posting_Type": null,
+2026-04-25T21:24:26:     "Gen_Bus_Posting_Group": null,
+2026-04-25T21:24:26:     "Gen_Prod_Posting_Group": null,
+2026-04-25T21:24:26:     "Tax_Area_Code": null,
+2026-04-25T21:24:26:     "Tax_Liable": false,
+2026-04-25T21:24:26:     "Tax_Group_Code": null,
+2026-04-25T21:24:26:     "Use_Tax": false,
+2026-04-25T21:24:26:     "VAT_Bus_Posting_Group": null,
+2026-04-25T21:24:26:     "VAT_Prod_Posting_Group": null,
+2026-04-25T21:24:26:     "IC_Partner_Code": null,
+2026-04-25T21:24:26:     "Amount": "19000",
+2026-04-25T21:24:26:     "Debit_Amount": "19000",
+2026-04-25T21:24:26:     "Credit_Amount": "0",
+2026-04-25T21:24:26:     "VAT_Amount": "0",
+2026-04-25T21:24:26:     "Additional_Currency_Amount": "0",
+2026-04-25T21:24:26:     "Add_Currency_Debit_Amount": "0",
+2026-04-25T21:24:26:     "Add_Currency_Credit_Amount": "0",
+2026-04-25T21:24:26:     "Dimension_Set_ID": "1736",
+2026-04-25T21:24:26:     "G_L_Account_Name": "Mbarara Cash Control"
+2026-04-25T21:24:26:   }
+2026-04-25T21:24:26: }
+2026-04-25T21:24:26: 📊 Processing 20000 records for close metrics
+2026-04-25T21:24:26: 🔄 Calculating close metrics with enhanced granularity
+2026-04-25T21:24:26: 📈 Using monthly granularity
+2026-04-25T21:24:26: 📊 Grouped data into 1 periods
+2026-04-25T21:24:26: ✅ Generated metrics for 1 periods
+2026-04-25T21:24:30: 📊 Financial Close Metrics request with filters: {
+2026-04-25T21:24:30:   startDate: '2021-08-01',
+2026-04-25T21:24:30:   endDate: '2021-08-31',
+2026-04-25T21:24:30:   accountNo: '10060',
+2026-04-25T21:24:30:   documentType: 'Payment',
+2026-04-25T21:24:30:   granularity: 'monthly',
+2026-04-25T21:24:30:   limit: '1000'
+2026-04-25T21:24:30: }
+2026-04-25T21:24:30: 🔍 Getting Financial Close Metrics with filters: {
+2026-04-25T21:24:30:   startDate: '2021-08-01',
+2026-04-25T21:24:30:   endDate: '2021-08-31',
+2026-04-25T21:24:30:   accountNo: '10060',
+2026-04-25T21:24:30:   documentType: 'Payment',
+2026-04-25T21:24:30:   granularity: 'monthly',
+2026-04-25T21:24:30:   limit: '1000'
+2026-04-25T21:24:30: }
+2026-04-25T21:24:30: 🔍 getFinancialData called with filters: {
+2026-04-25T21:24:30:   startDate: '2021-08-01',
+2026-04-25T21:24:30:   endDate: '2021-08-31',
+2026-04-25T21:24:30:   accountNo: '10060',
+2026-04-25T21:24:30:   documentType: 'Payment',
+2026-04-25T21:24:30:   granularity: 'monthly',
+2026-04-25T21:24:30:   limit: '1000'
+2026-04-25T21:24:30: }
+2026-04-25T21:24:30: 🌐 API endpoint: /bc-datasets/2021-08-01/2021-08-31
+2026-04-25T21:24:30: 🌐 API params: { gl_account_no: '10060', document_type: 'Payment', limit: '1000' }
+2026-04-25T21:24:30: 🔐 Using Bearer token authentication
+2026-04-25T21:24:31: ✅ Fetched 20000 financial records from CMC API
+2026-04-25T21:24:31: 🔄 Transformed 20000 records
+2026-04-25T21:24:31: 📊 Sample transformed data: {
+2026-04-25T21:24:31:   "id": 39027,
+2026-04-25T21:24:31:   "entryNo": "19511",
+2026-04-25T21:24:31:   "transactionNo": "2223",
+2026-04-25T21:24:31:   "accountNo": "10060",
+2026-04-25T21:24:31:   "accountName": "Mbarara Cash Control",
+2026-04-25T21:24:31:   "postingDate": "2021-08-10",
+2026-04-25T21:24:31:   "documentDate": "2021-08-10",
+2026-04-25T21:24:31:   "documentType": "Payment",
+2026-04-25T21:24:31:   "documentNo": "B-SK000020RN",
+2026-04-25T21:24:31:   "sourceCode": "CASHRECJNL",
+2026-04-25T21:24:31:   "amount": "19000",
+2026-04-25T21:24:31:   "debitAmount": "19000",
+2026-04-25T21:24:31:   "creditAmount": "0",
+2026-04-25T21:24:31:   "vatAmount": "0",
+2026-04-25T21:24:31:   "additionalCurrencyAmount": "0",
+2026-04-25T21:24:31:   "addCurrencyDebitAmount": "0",
+2026-04-25T21:24:31:   "addCurrencyCreditAmount": "0",
+2026-04-25T21:24:31:   "genPostingType": null,
+2026-04-25T21:24:31:   "genBusPostingGroup": null,
+2026-04-25T21:24:31:   "genProdPostingGroup": null,
+2026-04-25T21:24:31:   "vatBusPostingGroup": null,
+2026-04-25T21:24:31:   "vatProdPostingGroup": null,
+2026-04-25T21:24:31:   "taxAreaCode": null,
+2026-04-25T21:24:31:   "taxLiable": false,
+2026-04-25T21:24:31:   "taxGroupCode": null,
+2026-04-25T21:24:31:   "useTax": false,
+2026-04-25T21:24:31:   "jobNo": null,
+2026-04-25T21:24:31:   "businessUnitCode": null,
+2026-04-25T21:24:31:   "reasonCode": null,
+2026-04-25T21:24:31:   "icPartnerCode": null,
+2026-04-25T21:24:31:   "dimensionSetId": "1736",
+2026-04-25T21:24:31:   "locale": null,
+2026-04-25T21:24:31:   "raw": {
+2026-04-25T21:24:31:     "locale": null,
+2026-04-25T21:24:31:     "Entry_No": "19511",
+2026-04-25T21:24:31:     "Transaction_No": "2223",
+2026-04-25T21:24:31:     "G_L_Account_No": "10060",
+2026-04-25T21:24:31:     "Posting_Date": "2021-08-10",
+2026-04-25T21:24:31:     "Document_Date": "2021-08-10",
+2026-04-25T21:24:31:     "Document_Type": "Payment",
+2026-04-25T21:24:31:     "Document_No": "B-SK000020RN",
+2026-04-25T21:24:31:     "Source_Code": "CASHRECJNL",
+2026-04-25T21:24:31:     "Job_No": null,
+2026-04-25T21:24:31:     "Business_Unit_Code": null,
+2026-04-25T21:24:31:     "Reason_Code": null,
+2026-04-25T21:24:31:     "Gen_Posting_Type": null,
+2026-04-25T21:24:31:     "Gen_Bus_Posting_Group": null,
+2026-04-25T21:24:31:     "Gen_Prod_Posting_Group": null,
+2026-04-25T21:24:31:     "Tax_Area_Code": null,
+2026-04-25T21:24:31:     "Tax_Liable": false,
+2026-04-25T21:24:31:     "Tax_Group_Code": null,
+2026-04-25T21:24:31:     "Use_Tax": false,
+2026-04-25T21:24:31:     "VAT_Bus_Posting_Group": null,
+2026-04-25T21:24:31:     "VAT_Prod_Posting_Group": null,
+2026-04-25T21:24:31:     "IC_Partner_Code": null,
+2026-04-25T21:24:31:     "Amount": "19000",
+2026-04-25T21:24:31:     "Debit_Amount": "19000",
+2026-04-25T21:24:31:     "Credit_Amount": "0",
+2026-04-25T21:24:31:     "VAT_Amount": "0",
+2026-04-25T21:24:31:     "Additional_Currency_Amount": "0",
+2026-04-25T21:24:31:     "Add_Currency_Debit_Amount": "0",
+2026-04-25T21:24:31:     "Add_Currency_Credit_Amount": "0",
+2026-04-25T21:24:31:     "Dimension_Set_ID": "1736",
+2026-04-25T21:24:31:     "G_L_Account_Name": "Mbarara Cash Control"
+2026-04-25T21:24:31:   }
+2026-04-25T21:24:31: }
+2026-04-25T21:24:31: 📊 Processing 20000 records for close metrics
+2026-04-25T21:24:31: 🔄 Calculating close metrics with enhanced granularity
+2026-04-25T21:24:31: 📈 Using monthly granularity
+2026-04-25T21:24:31: 📊 Grouped data into 1 periods
+2026-04-25T21:24:31: ✅ Generated metrics for 1 periods
+2026-04-25T21:24:33: 📊 Financial Close Metrics request with filters: {
+2026-04-25T21:24:33:   startDate: '2021-08-01',
+2026-04-25T21:24:33:   endDate: '2021-08-31',
+2026-04-25T21:24:33:   accountNo: '10060',
+2026-04-25T21:24:33:   documentType: 'Payment',
+2026-04-25T21:24:33:   granularity: 'monthly',
+2026-04-25T21:24:33:   limit: '1000'
+2026-04-25T21:24:33: }
+2026-04-25T21:24:33: 🔍 Getting Financial Close Metrics with filters: {
+2026-04-25T21:24:33:   startDate: '2021-08-01',
+2026-04-25T21:24:33:   endDate: '2021-08-31',
+2026-04-25T21:24:33:   accountNo: '10060',
+2026-04-25T21:24:33:   documentType: 'Payment',
+2026-04-25T21:24:33:   granularity: 'monthly',
+2026-04-25T21:24:33:   limit: '1000'
+2026-04-25T21:24:33: }
+2026-04-25T21:24:33: 🔍 getFinancialData called with filters: {
+2026-04-25T21:24:33:   startDate: '2021-08-01',
+2026-04-25T21:24:33:   endDate: '2021-08-31',
+2026-04-25T21:24:33:   accountNo: '10060',
+2026-04-25T21:24:33:   documentType: 'Payment',
+2026-04-25T21:24:33:   granularity: 'monthly',
+2026-04-25T21:24:33:   limit: '1000'
+2026-04-25T21:24:33: }
+2026-04-25T21:24:33: 🌐 API endpoint: /bc-datasets/2021-08-01/2021-08-31
+2026-04-25T21:24:33: 🌐 API params: { gl_account_no: '10060', document_type: 'Payment', limit: '1000' }
+2026-04-25T21:24:33: 🔐 Using Bearer token authentication
+2026-04-25T21:24:35: ✅ Fetched 20000 financial records from CMC API
+2026-04-25T21:24:35: 🔄 Transformed 20000 records
+2026-04-25T21:24:35: 📊 Sample transformed data: {
+2026-04-25T21:24:35:   "id": 39027,
+2026-04-25T21:24:35:   "entryNo": "19511",
+2026-04-25T21:24:35:   "transactionNo": "2223",
+2026-04-25T21:24:35:   "accountNo": "10060",
+2026-04-25T21:24:35:   "accountName": "Mbarara Cash Control",
+2026-04-25T21:24:35:   "postingDate": "2021-08-10",
+2026-04-25T21:24:35:   "documentDate": "2021-08-10",
+2026-04-25T21:24:35:   "documentType": "Payment",
+2026-04-25T21:24:35:   "documentNo": "B-SK000020RN",
+2026-04-25T21:24:35:   "sourceCode": "CASHRECJNL",
+2026-04-25T21:24:35:   "amount": "19000",
+2026-04-25T21:24:35:   "debitAmount": "19000",
+2026-04-25T21:24:35:   "creditAmount": "0",
+2026-04-25T21:24:35:   "vatAmount": "0",
+2026-04-25T21:24:35:   "additionalCurrencyAmount": "0",
+2026-04-25T21:24:35:   "addCurrencyDebitAmount": "0",
+2026-04-25T21:24:35:   "addCurrencyCreditAmount": "0",
+2026-04-25T21:24:35:   "genPostingType": null,
+2026-04-25T21:24:35:   "genBusPostingGroup": null,
+2026-04-25T21:24:35:   "genProdPostingGroup": null,
+2026-04-25T21:24:35:   "vatBusPostingGroup": null,
+2026-04-25T21:24:35:   "vatProdPostingGroup": null,
+2026-04-25T21:24:35:   "taxAreaCode": null,
+2026-04-25T21:24:35:   "taxLiable": false,
+2026-04-25T21:24:35:   "taxGroupCode": null,
+2026-04-25T21:24:35:   "useTax": false,
+2026-04-25T21:24:35:   "jobNo": null,
+2026-04-25T21:24:35:   "businessUnitCode": null,
+2026-04-25T21:24:35:   "reasonCode": null,
+2026-04-25T21:24:35:   "icPartnerCode": null,
+2026-04-25T21:24:35:   "dimensionSetId": "1736",
+2026-04-25T21:24:35:   "locale": null,
+2026-04-25T21:24:35:   "raw": {
+2026-04-25T21:24:35:     "locale": null,
+2026-04-25T21:24:35:     "Entry_No": "19511",
+2026-04-25T21:24:35:     "Transaction_No": "2223",
+2026-04-25T21:24:35:     "G_L_Account_No": "10060",
+2026-04-25T21:24:35:     "Posting_Date": "2021-08-10",
+2026-04-25T21:24:35:     "Document_Date": "2021-08-10",
+2026-04-25T21:24:35:     "Document_Type": "Payment",
+2026-04-25T21:24:35:     "Document_No": "B-SK000020RN",
+2026-04-25T21:24:35:     "Source_Code": "CASHRECJNL",
+2026-04-25T21:24:35:     "Job_No": null,
+2026-04-25T21:24:35:     "Business_Unit_Code": null,
+2026-04-25T21:24:35:     "Reason_Code": null,
+2026-04-25T21:24:35:     "Gen_Posting_Type": null,
+2026-04-25T21:24:35:     "Gen_Bus_Posting_Group": null,
+2026-04-25T21:24:35:     "Gen_Prod_Posting_Group": null,
+2026-04-25T21:24:35:     "Tax_Area_Code": null,
+2026-04-25T21:24:35:     "Tax_Liable": false,
+2026-04-25T21:24:35:     "Tax_Group_Code": null,
+2026-04-25T21:24:35:     "Use_Tax": false,
+2026-04-25T21:24:35:     "VAT_Bus_Posting_Group": null,
+2026-04-25T21:24:35:     "VAT_Prod_Posting_Group": null,
+2026-04-25T21:24:35:     "IC_Partner_Code": null,
+2026-04-25T21:24:35:     "Amount": "19000",
+2026-04-25T21:24:35:     "Debit_Amount": "19000",
+2026-04-25T21:24:35:     "Credit_Amount": "0",
+2026-04-25T21:24:35:     "VAT_Amount": "0",
+2026-04-25T21:24:35:     "Additional_Currency_Amount": "0",
+2026-04-25T21:24:35:     "Add_Currency_Debit_Amount": "0",
+2026-04-25T21:24:35:     "Add_Currency_Credit_Amount": "0",
+2026-04-25T21:24:35:     "Dimension_Set_ID": "1736",
+2026-04-25T21:24:35:     "G_L_Account_Name": "Mbarara Cash Control"
+2026-04-25T21:24:35:   }
+2026-04-25T21:24:35: }
+2026-04-25T21:24:35: 📊 Processing 20000 records for close metrics
+2026-04-25T21:24:35: 🔄 Calculating close metrics with enhanced granularity
+2026-04-25T21:24:35: 📈 Using monthly granularity
+2026-04-25T21:24:35: 📊 Grouped data into 1 periods
+2026-04-25T21:24:35: ✅ Generated metrics for 1 periods
+2026-04-27T10:11:56: ➡️ [Controller] content-roi HIT [Object: null prototype] {
+2026-04-27T10:11:56:   startDate: '2025-04-01',
+2026-04-27T10:11:56:   endDate: '2025-04-30'
+2026-04-27T10:11:56: }
+2026-04-27T10:11:56: 📈 [Service] getChartData called {
+2026-04-27T10:11:56:   metric: 'averageDuration',
+2026-04-27T10:11:56:   groupBy: 'title',
+2026-04-27T10:11:56:   startDate: '2025-04-01',
+2026-04-27T10:11:56:   endDate: '2025-04-30'
+2026-04-27T10:11:56: }
+2026-04-27T10:11:56: 🔧 [Service] EditorialAnalyticsService initialized
+2026-04-27T10:11:56: 🔍 [Service] fetchAllArticles called {
+2026-04-27T10:11:56:   startDate: '2025-04-01',
+2026-04-27T10:11:56:   endDate: '2025-04-30',
+2026-04-27T10:11:56:   category: undefined,
+2026-04-27T10:11:56:   page: 1,
+2026-04-27T10:11:56:   pageSize: 1000
+2026-04-27T10:11:56: }
+2026-04-27T10:11:56: 🌐 [Service] Fetching articles at offset 0, pageSize 1000
+2026-04-27T10:11:56: 🔐 [Service] Using Bearer token authentication
+2026-04-27T10:11:57: ✅ [Service] Fetched articles: 0 (page 1, totalCount: 0)
+2026-04-27T10:11:57: 🔍 [Service] fetchAllSessions called {
+2026-04-27T10:11:57:   startDate: '2025-04-01',
+2026-04-27T10:11:57:   endDate: '2025-04-30',
+2026-04-27T10:11:57:   platform: undefined,
+2026-04-27T10:11:57:   sessionMedium: undefined,
+2026-04-27T10:11:57:   streamName: undefined
+2026-04-27T10:11:57: }
+2026-04-27T10:11:57: 🌐 [Service] Fetching sessions for chunk: 2025-04-01 - 2025-05-01
+2026-04-27T10:11:57: 🔐 [Service] Using Bearer token authentication
+2026-04-27T10:12:00: ❌ [Service] Editorial API Error: timeout of 3000ms exceeded
+2026-04-27T10:12:00: ❌ [Service] Error in fetchAllSessions: timeout of 3000ms exceeded
+2026-04-27T10:12:00: ❌ [Controller] Error: <ref *1> AxiosError: timeout of 3000ms exceeded
+2026-04-27T10:12:00:     at RedirectableRequest.handleRequestTimeout (file:///var/www/VGAD/api/node_modules/axios/lib/adapters/http.js:913:13)
+2026-04-27T10:12:00:     at RedirectableRequest.emit (node:events:519:28)
+2026-04-27T10:12:00:     at Timeout._onTimeout (/var/www/VGAD/api/node_modules/follow-redirects/index.js:233:12)
+2026-04-27T10:12:00:     at listOnTimeout (node:internal/timers:588:17)
+2026-04-27T10:12:00:     at processTimers (node:internal/timers:523:7)
+2026-04-27T10:12:00:     at Axios.request (file:///var/www/VGAD/api/node_modules/axios/lib/core/Axios.js:46:41)
+2026-04-27T10:12:00:     at processTicksAndRejections (node:internal/process/task_queues:105:5)
+2026-04-27T10:12:00:     at EditorialAnalyticsService.fetchAllSessions (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsService.js:144:23)
+2026-04-27T10:12:00:     at EditorialAnalyticsService.getChartData (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsService.js:469:26)
+2026-04-27T10:12:00:     at getContentROI (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsController.js:120:23) {
+2026-04-27T10:12:00:   isAxiosError: true,
+2026-04-27T10:12:00:   code: 'ECONNABORTED',
+2026-04-27T10:12:00:   config: {
+2026-04-27T10:12:00:     transitional: {
+2026-04-27T10:12:00:       silentJSONParsing: true,
+2026-04-27T10:12:00:       forcedJSONParsing: true,
+2026-04-27T10:12:00:       clarifyTimeoutError: false,
+2026-04-27T10:12:00:       legacyInterceptorReqResOrdering: true
+2026-04-27T10:12:00:     },
+2026-04-27T10:12:00:     adapter: [ 'xhr', 'http', 'fetch' ],
+2026-04-27T10:12:00:     transformRequest: [ [Function: transformRequest] ],
+2026-04-27T10:12:00:     transformResponse: [ [Function: transformResponse] ],
+2026-04-27T10:12:00:     timeout: 3000,
+2026-04-27T10:12:00:     xsrfCookieName: 'XSRF-TOKEN',
+2026-04-27T10:12:00:     xsrfHeaderName: 'X-XSRF-TOKEN',
+2026-04-27T10:12:00:     maxContentLength: -1,
+2026-04-27T10:12:00:     maxBodyLength: -1,
+2026-04-27T10:12:00:     env: { FormData: [Function], Blob: [class Blob] },
+2026-04-27T10:12:00:     validateStatus: [Function: validateStatus],
+2026-04-27T10:12:00:     headers: Object [AxiosHeaders] {
+2026-04-27T10:12:00:       Accept: 'application/json, text/plain, */*',
+2026-04-27T10:12:00:       'Content-Type': 'application/json',
+2026-04-27T10:12:00:       Authorization: 'Bearer 38d79da61a89bf9e65dc1dcac80138a35c542a57832337d0e08bbfa4e4269e6f8ccb2bc1065717d50b29db806272ffec9593dd09c9bb8b13c013e98b687b2ca6f8edde07b57b246a464301e3f0ea63d0b0e6b30b09709ed7f06e1aa39dfd0c54ac632a2fa25f20500acce9d1633cbf2406652154c6f8bb7cf5d5b1c3dd9ce043',
+2026-04-27T10:12:00:       'User-Agent': 'axios/1.15.0',
+2026-04-27T10:12:00:       'Accept-Encoding': 'gzip, compress, deflate, br'
+2026-04-27T10:12:00:     },
+2026-04-27T10:12:00:     baseURL: 'https://cms-vgad.visiongroup.co.ug/api',
+2026-04-27T10:12:00:     params: {},
+2026-04-27T10:12:00:     method: 'get',
+2026-04-27T10:12:00:     url: '/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-27T10:12:00:     allowAbsoluteUrls: true,
+2026-04-27T10:12:00:     data: undefined
+2026-04-27T10:12:00:   },
+2026-04-27T10:12:00:   request: <ref *2> Writable {
+2026-04-27T10:12:00:     _events: {
+2026-04-27T10:12:00:       close: undefined,
+2026-04-27T10:12:00:       error: [Function: handleRequestError],
+2026-04-27T10:12:00:       prefinish: undefined,
+2026-04-27T10:12:00:       finish: undefined,
+2026-04-27T10:12:00:       drain: undefined,
+2026-04-27T10:12:00:       response: [Function: handleResponse],
+2026-04-27T10:12:00:       socket: [Array],
+2026-04-27T10:12:00:       timeout: undefined,
+2026-04-27T10:12:00:       abort: undefined
+2026-04-27T10:12:00:     },
+2026-04-27T10:12:00:     _writableState: WritableState {
+2026-04-27T10:12:00:       highWaterMark: 65536,
+2026-04-27T10:12:00:       length: 0,
+2026-04-27T10:12:00:       corked: 0,
+2026-04-27T10:12:00:       onwrite: [Function: bound onwrite],
+2026-04-27T10:12:00:       writelen: 0,
+2026-04-27T10:12:00:       bufferedIndex: 0,
+2026-04-27T10:12:00:       pendingcb: 0,
+2026-04-27T10:12:00:       [Symbol(kState)]: 17581054,
+2026-04-27T10:12:00:       [Symbol(kBufferedValue)]: null,
+2026-04-27T10:12:00:       [Symbol(kErroredValue)]: [Circular *1]
+2026-04-27T10:12:00:     },
+2026-04-27T10:12:00:     _maxListeners: undefined,
+2026-04-27T10:12:00:     _options: {
+2026-04-27T10:12:00:       maxRedirects: 21,
+2026-04-27T10:12:00:       maxBodyLength: Infinity,
+2026-04-27T10:12:00:       protocol: 'https:',
+2026-04-27T10:12:00:       path: '/api/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-27T10:12:00:       method: 'GET',
+2026-04-27T10:12:00:       headers: [Object: null prototype],
+2026-04-27T10:12:00:       agents: [Object],
+2026-04-27T10:12:00:       auth: undefined,
+2026-04-27T10:12:00:       family: undefined,
+2026-04-27T10:12:00:       beforeRedirect: [Function: dispatchBeforeRedirect],
+2026-04-27T10:12:00:       beforeRedirects: [Object],
+2026-04-27T10:12:00:       http2Options: undefined,
+2026-04-27T10:12:00:       hostname: 'cms-vgad.visiongroup.co.ug',
+2026-04-27T10:12:00:       port: '',
+2026-04-27T10:12:00:       agent: undefined,
+2026-04-27T10:12:00:       nativeProtocols: [Object],
+2026-04-27T10:12:00:       sensitiveHeaders: [],
+2026-04-27T10:12:00:       pathname: '/api/api-listings/article-session-duration/2025-04-01/2025-05-01'
+2026-04-27T10:12:00:     },
+2026-04-27T10:12:00:     _ended: true,
+2026-04-27T10:12:00:     _ending: true,
+2026-04-27T10:12:00:     _redirectCount: 0,
+2026-04-27T10:12:00:     _redirects: [],
+2026-04-27T10:12:00:     _requestBodyLength: 0,
+2026-04-27T10:12:00:     _requestBodyBuffers: [],
+2026-04-27T10:12:00:     _eventsCount: 3,
+2026-04-27T10:12:00:     _onNativeResponse: [Function (anonymous)],
+2026-04-27T10:12:00:     _headerFilter: /^(?:Authorization|Proxy-Authorization|Cookie)$/i,
+2026-04-27T10:12:00:     _currentRequest: ClientRequest {
+2026-04-27T10:12:00:       _events: [Object: null prototype],
+2026-04-27T10:12:00:       _eventsCount: 2,
+2026-04-27T10:12:00:       _maxListeners: undefined,
+2026-04-27T10:12:00:       outputData: [],
+2026-04-27T10:12:00:       outputSize: 0,
+2026-04-27T10:12:00:       writable: true,
+2026-04-27T10:12:00:       destroyed: true,
+2026-04-27T10:12:00:       _last: true,
+2026-04-27T10:12:00:       chunkedEncoding: false,
+2026-04-27T10:12:00:       shouldKeepAlive: true,
+2026-04-27T10:12:00:       maxRequestsOnConnectionReached: false,
+2026-04-27T10:12:00:       _defaultKeepAlive: true,
+2026-04-27T10:12:00:       useChunkedEncodingByDefault: false,
+2026-04-27T10:12:00:       sendDate: false,
+2026-04-27T10:12:00:       _removedConnection: false,
+2026-04-27T10:12:00:       _removedContLen: false,
+2026-04-27T10:12:00:       _removedTE: false,
+2026-04-27T10:12:00:       strictContentLength: false,
+2026-04-27T10:12:00:       _contentLength: 0,
+2026-04-27T10:12:00:       _hasBody: true,
+2026-04-27T10:12:00:       _trailer: '',
+2026-04-27T10:12:00:       finished: true,
+2026-04-27T10:12:00:       _headerSent: true,
+2026-04-27T10:12:00:       _closed: false,
+2026-04-27T10:12:00:       _header: 'GET /api/api-listings/article-session-duration/2025-04-01/2025-05-01 HTTP/1.1\r\n' +
+2026-04-27T10:12:00:         'Accept: application/json, text/plain, */*\r\n' +
+2026-04-27T10:12:00:         'Content-Type: application/json\r\n' +
+2026-04-27T10:12:00:         'Authorization: Bearer 38d79da61a89bf9e65dc1dcac80138a35c542a57832337d0e08bbfa4e4269e6f8ccb2bc1065717d50b29db806272ffec9593dd09c9bb8b13c013e98b687b2ca6f8edde07b57b246a464301e3f0ea63d0b0e6b30b09709ed7f06e1aa39dfd0c54ac632a2fa25f20500acce9d1633cbf2406652154c6f8bb7cf5d5b1c3dd9ce043\r\n' +
+2026-04-27T10:12:00:         'User-Agent: axios/1.15.0\r\n' +
+2026-04-27T10:12:00:         'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+2026-04-27T10:12:00:         'Host: cms-vgad.visiongroup.co.ug\r\n' +
+2026-04-27T10:12:00:         'Connection: keep-alive\r\n' +
+2026-04-27T10:12:00:         '\r\n',
+2026-04-27T10:12:00:       _keepAliveTimeout: 0,
+2026-04-27T10:12:00:       _onPendingData: [Function: nop],
+2026-04-27T10:12:00:       agent: [Agent],
+2026-04-27T10:12:00:       socketPath: undefined,
+2026-04-27T10:12:00:       method: 'GET',
+2026-04-27T10:12:00:       maxHeaderSize: undefined,
+2026-04-27T10:12:00:       insecureHTTPParser: undefined,
+2026-04-27T10:12:00:       joinDuplicateHeaders: undefined,
+2026-04-27T10:12:00:       path: '/api/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-27T10:12:00:       _ended: false,
+2026-04-27T10:12:00:       res: null,
+2026-04-27T10:12:00:       aborted: false,
+2026-04-27T10:12:00:       timeoutCb: [Function: emitRequestTimeout],
+2026-04-27T10:12:00:       upgradeOrConnect: false,
+2026-04-27T10:12:00:       parser: null,
+2026-04-27T10:12:00:       maxHeadersCount: null,
+2026-04-27T10:12:00:       reusedSocket: true,
+2026-04-27T10:12:00:       host: 'cms-vgad.visiongroup.co.ug',
+2026-04-27T10:12:00:       protocol: 'https:',
+2026-04-27T10:12:00:       _redirectable: [Circular *2],
+2026-04-27T10:12:00:       [Symbol(shapeMode)]: false,
+2026-04-27T10:12:00:       [Symbol(kCapture)]: false,
+2026-04-27T10:12:00:       [Symbol(kBytesWritten)]: 0,
+2026-04-27T10:12:00:       [Symbol(kNeedDrain)]: false,
+2026-04-27T10:12:00:       [Symbol(corked)]: 0,
+2026-04-27T10:12:00:       [Symbol(kChunkedBuffer)]: [],
+2026-04-27T10:12:00:       [Symbol(kChunkedLength)]: 0,
+2026-04-27T10:12:00:       [Symbol(kSocket)]: [TLSSocket],
+2026-04-27T10:12:00:       [Symbol(kOutHeaders)]: [Object: null prototype],
+2026-04-27T10:12:00:       [Symbol(errored)]: null,
+2026-04-27T10:12:00:       [Symbol(kHighWaterMark)]: 65536,
+2026-04-27T10:12:00:       [Symbol(kRejectNonStandardBodyWrites)]: false,
+2026-04-27T10:12:00:       [Symbol(kUniqueHeaders)]: null,
+2026-04-27T10:12:00:       [Symbol(kError)]: [Circular *1]
+2026-04-27T10:12:00:     },
+2026-04-27T10:12:00:     _currentUrl: 'https://cms-vgad.visiongroup.co.ug/api/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-27T10:12:00:     _timeout: null,
+2026-04-27T10:12:00:     [Symbol(shapeMode)]: true,
+2026-04-27T10:12:00:     [Symbol(kCapture)]: false
+2026-04-27T10:12:00:   }
+2026-04-27T10:12:00: }
+2026-04-27T10:12:07: ➡️ [Controller] cross-platform-engagement HIT [Object: null prototype] {
+2026-04-27T10:12:07:   startDate: '2025-04-01',
+2026-04-27T10:12:07:   endDate: '2025-04-30'
+2026-04-27T10:12:07: }
+2026-04-27T10:12:07: 📈 [Service] getChartData called {
+2026-04-27T10:12:07:   metric: 'averageDuration',
+2026-04-27T10:12:07:   groupBy: 'platform',
+2026-04-27T10:12:07:   startDate: '2025-04-01',
+2026-04-27T10:12:07:   endDate: '2025-04-30'
+2026-04-27T10:12:07: }
+2026-04-27T10:12:07: 🔍 [Service] fetchAllArticles called {
+2026-04-27T10:12:07:   startDate: '2025-04-01',
+2026-04-27T10:12:07:   endDate: '2025-04-30',
+2026-04-27T10:12:07:   category: undefined,
+2026-04-27T10:12:07:   page: 1,
+2026-04-27T10:12:07:   pageSize: 1000
+2026-04-27T10:12:07: }
+2026-04-27T10:12:07: 💾 [Service] Returning cached articles: 0
+2026-04-27T10:12:07: 🔍 [Service] fetchAllSessions called {
+2026-04-27T10:12:07:   startDate: '2025-04-01',
+2026-04-27T10:12:07:   endDate: '2025-04-30',
+2026-04-27T10:12:07:   platform: undefined,
+2026-04-27T10:12:07:   sessionMedium: undefined,
+2026-04-27T10:12:07:   streamName: undefined
+2026-04-27T10:12:07: }
+2026-04-27T10:12:07: 🌐 [Service] Fetching sessions for chunk: 2025-04-01 - 2025-05-01
+2026-04-27T10:12:07: 🔐 [Service] Using Bearer token authentication
+2026-04-27T10:12:10: ❌ [Service] Editorial API Error: timeout of 3000ms exceeded
+2026-04-27T10:12:10: ❌ [Service] Error in fetchAllSessions: timeout of 3000ms exceeded
+2026-04-27T10:12:10: ❌ [Controller] Error: <ref *1> AxiosError: timeout of 3000ms exceeded
+2026-04-27T10:12:10:     at RedirectableRequest.handleRequestTimeout (file:///var/www/VGAD/api/node_modules/axios/lib/adapters/http.js:913:13)
+2026-04-27T10:12:10:     at RedirectableRequest.emit (node:events:519:28)
+2026-04-27T10:12:10:     at Timeout._onTimeout (/var/www/VGAD/api/node_modules/follow-redirects/index.js:233:12)
+2026-04-27T10:12:10:     at listOnTimeout (node:internal/timers:588:17)
+2026-04-27T10:12:10:     at processTimers (node:internal/timers:523:7)
+2026-04-27T10:12:10:     at Axios.request (file:///var/www/VGAD/api/node_modules/axios/lib/core/Axios.js:46:41)
+2026-04-27T10:12:10:     at processTicksAndRejections (node:internal/process/task_queues:105:5)
+2026-04-27T10:12:10:     at EditorialAnalyticsService.fetchAllSessions (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsService.js:144:23)
+2026-04-27T10:12:10:     at EditorialAnalyticsService.getChartData (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsService.js:469:26)
+2026-04-27T10:12:10:     at getCrossPlatformEngagement (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsController.js:100:23) {
+2026-04-27T10:12:10:   isAxiosError: true,
+2026-04-27T10:12:10:   code: 'ECONNABORTED',
+2026-04-27T10:12:10:   config: {
+2026-04-27T10:12:10:     transitional: {
+2026-04-27T10:12:10:       silentJSONParsing: true,
+2026-04-27T10:12:10:       forcedJSONParsing: true,
+2026-04-27T10:12:10:       clarifyTimeoutError: false,
+2026-04-27T10:12:10:       legacyInterceptorReqResOrdering: true
+2026-04-27T10:12:10:     },
+2026-04-27T10:12:10:     adapter: [ 'xhr', 'http', 'fetch' ],
+2026-04-27T10:12:10:     transformRequest: [ [Function: transformRequest] ],
+2026-04-27T10:12:10:     transformResponse: [ [Function: transformResponse] ],
+2026-04-27T10:12:10:     timeout: 3000,
+2026-04-27T10:12:10:     xsrfCookieName: 'XSRF-TOKEN',
+2026-04-27T10:12:10:     xsrfHeaderName: 'X-XSRF-TOKEN',
+2026-04-27T10:12:10:     maxContentLength: -1,
+2026-04-27T10:12:10:     maxBodyLength: -1,
+2026-04-27T10:12:10:     env: { FormData: [Function], Blob: [class Blob] },
+2026-04-27T10:12:10:     validateStatus: [Function: validateStatus],
+2026-04-27T10:12:10:     headers: Object [AxiosHeaders] {
+2026-04-27T10:12:10:       Accept: 'application/json, text/plain, */*',
+2026-04-27T10:12:10:       'Content-Type': 'application/json',
+2026-04-27T10:12:10:       Authorization: 'Bearer 38d79da61a89bf9e65dc1dcac80138a35c542a57832337d0e08bbfa4e4269e6f8ccb2bc1065717d50b29db806272ffec9593dd09c9bb8b13c013e98b687b2ca6f8edde07b57b246a464301e3f0ea63d0b0e6b30b09709ed7f06e1aa39dfd0c54ac632a2fa25f20500acce9d1633cbf2406652154c6f8bb7cf5d5b1c3dd9ce043',
+2026-04-27T10:12:10:       'User-Agent': 'axios/1.15.0',
+2026-04-27T10:12:10:       'Accept-Encoding': 'gzip, compress, deflate, br'
+2026-04-27T10:12:10:     },
+2026-04-27T10:12:10:     baseURL: 'https://cms-vgad.visiongroup.co.ug/api',
+2026-04-27T10:12:10:     params: {},
+2026-04-27T10:12:10:     method: 'get',
+2026-04-27T10:12:10:     url: '/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-27T10:12:10:     allowAbsoluteUrls: true,
+2026-04-27T10:12:10:     data: undefined
+2026-04-27T10:12:10:   },
+2026-04-27T10:12:10:   request: <ref *2> Writable {
+2026-04-27T10:12:10:     _events: {
+2026-04-27T10:12:10:       close: undefined,
+2026-04-27T10:12:10:       error: [Function: handleRequestError],
+2026-04-27T10:12:10:       prefinish: undefined,
+2026-04-27T10:12:10:       finish: undefined,
+2026-04-27T10:12:10:       drain: undefined,
+2026-04-27T10:12:10:       response: [Function: handleResponse],
+2026-04-27T10:12:10:       socket: [Array],
+2026-04-27T10:12:10:       timeout: undefined,
+2026-04-27T10:12:10:       abort: undefined
+2026-04-27T10:12:10:     },
+2026-04-27T10:12:10:     _writableState: WritableState {
+2026-04-27T10:12:10:       highWaterMark: 65536,
+2026-04-27T10:12:10:       length: 0,
+2026-04-27T10:12:10:       corked: 0,
+2026-04-27T10:12:10:       onwrite: [Function: bound onwrite],
+2026-04-27T10:12:10:       writelen: 0,
+2026-04-27T10:12:10:       bufferedIndex: 0,
+2026-04-27T10:12:10:       pendingcb: 0,
+2026-04-27T10:12:10:       [Symbol(kState)]: 17581054,
+2026-04-27T10:12:10:       [Symbol(kBufferedValue)]: null,
+2026-04-27T10:12:10:       [Symbol(kErroredValue)]: [Circular *1]
+2026-04-27T10:12:10:     },
+2026-04-27T10:12:10:     _maxListeners: undefined,
+2026-04-27T10:12:10:     _options: {
+2026-04-27T10:12:10:       maxRedirects: 21,
+2026-04-27T10:12:10:       maxBodyLength: Infinity,
+2026-04-27T10:12:10:       protocol: 'https:',
+2026-04-27T10:12:10:       path: '/api/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-27T10:12:10:       method: 'GET',
+2026-04-27T10:12:10:       headers: [Object: null prototype],
+2026-04-27T10:12:10:       agents: [Object],
+2026-04-27T10:12:10:       auth: undefined,
+2026-04-27T10:12:10:       family: undefined,
+2026-04-27T10:12:10:       beforeRedirect: [Function: dispatchBeforeRedirect],
+2026-04-27T10:12:10:       beforeRedirects: [Object],
+2026-04-27T10:12:10:       http2Options: undefined,
+2026-04-27T10:12:10:       hostname: 'cms-vgad.visiongroup.co.ug',
+2026-04-27T10:12:10:       port: '',
+2026-04-27T10:12:10:       agent: undefined,
+2026-04-27T10:12:10:       nativeProtocols: [Object],
+2026-04-27T10:12:10:       sensitiveHeaders: [],
+2026-04-27T10:12:10:       pathname: '/api/api-listings/article-session-duration/2025-04-01/2025-05-01'
+2026-04-27T10:12:10:     },
+2026-04-27T10:12:10:     _ended: true,
+2026-04-27T10:12:10:     _ending: true,
+2026-04-27T10:12:10:     _redirectCount: 0,
+2026-04-27T10:12:10:     _redirects: [],
+2026-04-27T10:12:10:     _requestBodyLength: 0,
+2026-04-27T10:12:10:     _requestBodyBuffers: [],
+2026-04-27T10:12:10:     _eventsCount: 3,
+2026-04-27T10:12:10:     _onNativeResponse: [Function (anonymous)],
+2026-04-27T10:12:10:     _headerFilter: /^(?:Authorization|Proxy-Authorization|Cookie)$/i,
+2026-04-27T10:12:10:     _currentRequest: ClientRequest {
+2026-04-27T10:12:10:       _events: [Object: null prototype],
+2026-04-27T10:12:10:       _eventsCount: 2,
+2026-04-27T10:12:10:       _maxListeners: undefined,
+2026-04-27T10:12:10:       outputData: [],
+2026-04-27T10:12:10:       outputSize: 0,
+2026-04-27T10:12:10:       writable: true,
+2026-04-27T10:12:10:       destroyed: true,
+2026-04-27T10:12:10:       _last: true,
+2026-04-27T10:12:10:       chunkedEncoding: false,
+2026-04-27T10:12:10:       shouldKeepAlive: true,
+2026-04-27T10:12:10:       maxRequestsOnConnectionReached: false,
+2026-04-27T10:12:10:       _defaultKeepAlive: true,
+2026-04-27T10:12:10:       useChunkedEncodingByDefault: false,
+2026-04-27T10:12:10:       sendDate: false,
+2026-04-27T10:12:10:       _removedConnection: false,
+2026-04-27T10:12:10:       _removedContLen: false,
+2026-04-27T10:12:10:       _removedTE: false,
+2026-04-27T10:12:10:       strictContentLength: false,
+2026-04-27T10:12:10:       _contentLength: 0,
+2026-04-27T10:12:10:       _hasBody: true,
+2026-04-27T10:12:10:       _trailer: '',
+2026-04-27T10:12:10:       finished: true,
+2026-04-27T10:12:10:       _headerSent: true,
+2026-04-27T10:12:10:       _closed: false,
+2026-04-27T10:12:10:       _header: 'GET /api/api-listings/article-session-duration/2025-04-01/2025-05-01 HTTP/1.1\r\n' +
+2026-04-27T10:12:10:         'Accept: application/json, text/plain, */*\r\n' +
+2026-04-27T10:12:10:         'Content-Type: application/json\r\n' +
+2026-04-27T10:12:10:         'Authorization: Bearer 38d79da61a89bf9e65dc1dcac80138a35c542a57832337d0e08bbfa4e4269e6f8ccb2bc1065717d50b29db806272ffec9593dd09c9bb8b13c013e98b687b2ca6f8edde07b57b246a464301e3f0ea63d0b0e6b30b09709ed7f06e1aa39dfd0c54ac632a2fa25f20500acce9d1633cbf2406652154c6f8bb7cf5d5b1c3dd9ce043\r\n' +
+2026-04-27T10:12:10:         'User-Agent: axios/1.15.0\r\n' +
+2026-04-27T10:12:10:         'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+2026-04-27T10:12:10:         'Host: cms-vgad.visiongroup.co.ug\r\n' +
+2026-04-27T10:12:10:         'Connection: keep-alive\r\n' +
+2026-04-27T10:12:10:         '\r\n',
+2026-04-27T10:12:10:       _keepAliveTimeout: 0,
+2026-04-27T10:12:10:       _onPendingData: [Function: nop],
+2026-04-27T10:12:10:       agent: [Agent],
+2026-04-27T10:12:10:       socketPath: undefined,
+2026-04-27T10:12:10:       method: 'GET',
+2026-04-27T10:12:10:       maxHeaderSize: undefined,
+2026-04-27T10:12:10:       insecureHTTPParser: undefined,
+2026-04-27T10:12:10:       joinDuplicateHeaders: undefined,
+2026-04-27T10:12:10:       path: '/api/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-27T10:12:10:       _ended: false,
+2026-04-27T10:12:10:       res: null,
+2026-04-27T10:12:10:       aborted: false,
+2026-04-27T10:12:10:       timeoutCb: [Function: emitRequestTimeout],
+2026-04-27T10:12:10:       upgradeOrConnect: false,
+2026-04-27T10:12:10:       parser: null,
+2026-04-27T10:12:10:       maxHeadersCount: null,
+2026-04-27T10:12:10:       reusedSocket: false,
+2026-04-27T10:12:10:       host: 'cms-vgad.visiongroup.co.ug',
+2026-04-27T10:12:10:       protocol: 'https:',
+2026-04-27T10:12:10:       _redirectable: [Circular *2],
+2026-04-27T10:12:10:       [Symbol(shapeMode)]: false,
+2026-04-27T10:12:10:       [Symbol(kCapture)]: false,
+2026-04-27T10:12:10:       [Symbol(kBytesWritten)]: 0,
+2026-04-27T10:12:10:       [Symbol(kNeedDrain)]: false,
+2026-04-27T10:12:10:       [Symbol(corked)]: 0,
+2026-04-27T10:12:10:       [Symbol(kChunkedBuffer)]: [],
+2026-04-27T10:12:10:       [Symbol(kChunkedLength)]: 0,
+2026-04-27T10:12:10:       [Symbol(kSocket)]: [TLSSocket],
+2026-04-27T10:12:10:       [Symbol(kOutHeaders)]: [Object: null prototype],
+2026-04-27T10:12:10:       [Symbol(errored)]: null,
+2026-04-27T10:12:10:       [Symbol(kHighWaterMark)]: 65536,
+2026-04-27T10:12:10:       [Symbol(kRejectNonStandardBodyWrites)]: false,
+2026-04-27T10:12:10:       [Symbol(kUniqueHeaders)]: null,
+2026-04-27T10:12:10:       [Symbol(kError)]: [Circular *1]
+2026-04-27T10:12:10:     },
+2026-04-27T10:12:10:     _currentUrl: 'https://cms-vgad.visiongroup.co.ug/api/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-27T10:12:10:     _timeout: null,
+2026-04-27T10:12:10:     [Symbol(shapeMode)]: true,
+2026-04-27T10:12:10:     [Symbol(kCapture)]: false
+2026-04-27T10:12:10:   }
+2026-04-27T10:12:10: }
+2026-04-27T11:18:22: ➡️ [Controller] cross-platform-engagement HIT [Object: null prototype] {
+2026-04-27T11:18:22:   startDate: '2025-04-01',
+2026-04-27T11:18:22:   endDate: '2025-04-30'
+2026-04-27T11:18:22: }
+2026-04-27T11:18:22: 📈 [Service] getChartData called {
+2026-04-27T11:18:22:   metric: 'averageDuration',
+2026-04-27T11:18:22:   groupBy: 'platform',
+2026-04-27T11:18:22:   startDate: '2025-04-01',
+2026-04-27T11:18:22:   endDate: '2025-04-30'
+2026-04-27T11:18:22: }
+2026-04-27T11:18:22: 🔍 [Service] fetchAllArticles called {
+2026-04-27T11:18:22:   startDate: '2025-04-01',
+2026-04-27T11:18:22:   endDate: '2025-04-30',
+2026-04-27T11:18:22:   category: undefined,
+2026-04-27T11:18:22:   page: 1,
+2026-04-27T11:18:22:   pageSize: 1000
+2026-04-27T11:18:22: }
+2026-04-27T11:18:22: 🌐 [Service] Fetching articles at offset 0, pageSize 1000
+2026-04-27T11:18:22: 🔐 [Service] Using Bearer token authentication
+2026-04-27T11:18:22: ✅ [Service] Fetched articles: 0 (page 1, totalCount: 0)
+2026-04-27T11:18:22: 🔍 [Service] fetchAllSessions called {
+2026-04-27T11:18:22:   startDate: '2025-04-01',
+2026-04-27T11:18:22:   endDate: '2025-04-30',
+2026-04-27T11:18:22:   platform: undefined,
+2026-04-27T11:18:22:   sessionMedium: undefined,
+2026-04-27T11:18:22:   streamName: undefined
+2026-04-27T11:18:22: }
+2026-04-27T11:18:22: 🌐 [Service] Fetching sessions for chunk: 2025-04-01 - 2025-05-01
+2026-04-27T11:18:22: 🔐 [Service] Using Bearer token authentication
+2026-04-27T11:18:25: ❌ [Service] Editorial API Error: timeout of 3000ms exceeded
+2026-04-27T11:18:25: ❌ [Service] Error in fetchAllSessions: timeout of 3000ms exceeded
+2026-04-27T11:18:25: ❌ [Controller] Error: <ref *1> AxiosError: timeout of 3000ms exceeded
+2026-04-27T11:18:25:     at RedirectableRequest.handleRequestTimeout (file:///var/www/VGAD/api/node_modules/axios/lib/adapters/http.js:913:13)
+2026-04-27T11:18:25:     at RedirectableRequest.emit (node:events:519:28)
+2026-04-27T11:18:25:     at Timeout._onTimeout (/var/www/VGAD/api/node_modules/follow-redirects/index.js:233:12)
+2026-04-27T11:18:25:     at listOnTimeout (node:internal/timers:588:17)
+2026-04-27T11:18:25:     at processTimers (node:internal/timers:523:7)
+2026-04-27T11:18:25:     at Axios.request (file:///var/www/VGAD/api/node_modules/axios/lib/core/Axios.js:46:41)
+2026-04-27T11:18:25:     at processTicksAndRejections (node:internal/process/task_queues:105:5)
+2026-04-27T11:18:25:     at EditorialAnalyticsService.fetchAllSessions (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsService.js:144:23)
+2026-04-27T11:18:25:     at EditorialAnalyticsService.getChartData (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsService.js:469:26)
+2026-04-27T11:18:25:     at getCrossPlatformEngagement (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsController.js:100:23) {
+2026-04-27T11:18:25:   isAxiosError: true,
+2026-04-27T11:18:25:   code: 'ECONNABORTED',
+2026-04-27T11:18:25:   config: {
+2026-04-27T11:18:25:     transitional: {
+2026-04-27T11:18:25:       silentJSONParsing: true,
+2026-04-27T11:18:25:       forcedJSONParsing: true,
+2026-04-27T11:18:25:       clarifyTimeoutError: false,
+2026-04-27T11:18:25:       legacyInterceptorReqResOrdering: true
+2026-04-27T11:18:25:     },
+2026-04-27T11:18:25:     adapter: [ 'xhr', 'http', 'fetch' ],
+2026-04-27T11:18:25:     transformRequest: [ [Function: transformRequest] ],
+2026-04-27T11:18:25:     transformResponse: [ [Function: transformResponse] ],
+2026-04-27T11:18:25:     timeout: 3000,
+2026-04-27T11:18:25:     xsrfCookieName: 'XSRF-TOKEN',
+2026-04-27T11:18:25:     xsrfHeaderName: 'X-XSRF-TOKEN',
+2026-04-27T11:18:25:     maxContentLength: -1,
+2026-04-27T11:18:25:     maxBodyLength: -1,
+2026-04-27T11:18:25:     env: { FormData: [Function], Blob: [class Blob] },
+2026-04-27T11:18:25:     validateStatus: [Function: validateStatus],
+2026-04-27T11:18:25:     headers: Object [AxiosHeaders] {
+2026-04-27T11:18:25:       Accept: 'application/json, text/plain, */*',
+2026-04-27T11:18:25:       'Content-Type': 'application/json',
+2026-04-27T11:18:25:       Authorization: 'Bearer 38d79da61a89bf9e65dc1dcac80138a35c542a57832337d0e08bbfa4e4269e6f8ccb2bc1065717d50b29db806272ffec9593dd09c9bb8b13c013e98b687b2ca6f8edde07b57b246a464301e3f0ea63d0b0e6b30b09709ed7f06e1aa39dfd0c54ac632a2fa25f20500acce9d1633cbf2406652154c6f8bb7cf5d5b1c3dd9ce043',
+2026-04-27T11:18:25:       'User-Agent': 'axios/1.15.0',
+2026-04-27T11:18:25:       'Accept-Encoding': 'gzip, compress, deflate, br'
+2026-04-27T11:18:25:     },
+2026-04-27T11:18:25:     baseURL: 'https://cms-vgad.visiongroup.co.ug/api',
+2026-04-27T11:18:25:     params: {},
+2026-04-27T11:18:25:     method: 'get',
+2026-04-27T11:18:25:     url: '/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-27T11:18:25:     allowAbsoluteUrls: true,
+2026-04-27T11:18:25:     data: undefined
+2026-04-27T11:18:25:   },
+2026-04-27T11:18:25:   request: <ref *2> Writable {
+2026-04-27T11:18:25:     _events: {
+2026-04-27T11:18:25:       close: undefined,
+2026-04-27T11:18:25:       error: [Function: handleRequestError],
+2026-04-27T11:18:25:       prefinish: undefined,
+2026-04-27T11:18:25:       finish: undefined,
+2026-04-27T11:18:25:       drain: undefined,
+2026-04-27T11:18:25:       response: [Function: handleResponse],
+2026-04-27T11:18:25:       socket: [Array],
+2026-04-27T11:18:25:       timeout: undefined,
+2026-04-27T11:18:25:       abort: undefined
+2026-04-27T11:18:25:     },
+2026-04-27T11:18:25:     _writableState: WritableState {
+2026-04-27T11:18:25:       highWaterMark: 65536,
+2026-04-27T11:18:25:       length: 0,
+2026-04-27T11:18:25:       corked: 0,
+2026-04-27T11:18:25:       onwrite: [Function: bound onwrite],
+2026-04-27T11:18:25:       writelen: 0,
+2026-04-27T11:18:25:       bufferedIndex: 0,
+2026-04-27T11:18:25:       pendingcb: 0,
+2026-04-27T11:18:25:       [Symbol(kState)]: 17581054,
+2026-04-27T11:18:25:       [Symbol(kBufferedValue)]: null,
+2026-04-27T11:18:25:       [Symbol(kErroredValue)]: [Circular *1]
+2026-04-27T11:18:25:     },
+2026-04-27T11:18:25:     _maxListeners: undefined,
+2026-04-27T11:18:25:     _options: {
+2026-04-27T11:18:25:       maxRedirects: 21,
+2026-04-27T11:18:25:       maxBodyLength: Infinity,
+2026-04-27T11:18:25:       protocol: 'https:',
+2026-04-27T11:18:25:       path: '/api/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-27T11:18:25:       method: 'GET',
+2026-04-27T11:18:25:       headers: [Object: null prototype],
+2026-04-27T11:18:25:       agents: [Object],
+2026-04-27T11:18:25:       auth: undefined,
+2026-04-27T11:18:25:       family: undefined,
+2026-04-27T11:18:25:       beforeRedirect: [Function: dispatchBeforeRedirect],
+2026-04-27T11:18:25:       beforeRedirects: [Object],
+2026-04-27T11:18:25:       http2Options: undefined,
+2026-04-27T11:18:25:       hostname: 'cms-vgad.visiongroup.co.ug',
+2026-04-27T11:18:25:       port: '',
+2026-04-27T11:18:25:       agent: undefined,
+2026-04-27T11:18:25:       nativeProtocols: [Object],
+2026-04-27T11:18:25:       sensitiveHeaders: [],
+2026-04-27T11:18:25:       pathname: '/api/api-listings/article-session-duration/2025-04-01/2025-05-01'
+2026-04-27T11:18:25:     },
+2026-04-27T11:18:25:     _ended: true,
+2026-04-27T11:18:25:     _ending: true,
+2026-04-27T11:18:25:     _redirectCount: 0,
+2026-04-27T11:18:25:     _redirects: [],
+2026-04-27T11:18:25:     _requestBodyLength: 0,
+2026-04-27T11:18:25:     _requestBodyBuffers: [],
+2026-04-27T11:18:25:     _eventsCount: 3,
+2026-04-27T11:18:25:     _onNativeResponse: [Function (anonymous)],
+2026-04-27T11:18:25:     _headerFilter: /^(?:Authorization|Proxy-Authorization|Cookie)$/i,
+2026-04-27T11:18:25:     _currentRequest: ClientRequest {
+2026-04-27T11:18:25:       _events: [Object: null prototype],
+2026-04-27T11:18:25:       _eventsCount: 2,
+2026-04-27T11:18:25:       _maxListeners: undefined,
+2026-04-27T11:18:25:       outputData: [],
+2026-04-27T11:18:25:       outputSize: 0,
+2026-04-27T11:18:25:       writable: true,
+2026-04-27T11:18:25:       destroyed: true,
+2026-04-27T11:18:25:       _last: true,
+2026-04-27T11:18:25:       chunkedEncoding: false,
+2026-04-27T11:18:25:       shouldKeepAlive: true,
+2026-04-27T11:18:25:       maxRequestsOnConnectionReached: false,
+2026-04-27T11:18:25:       _defaultKeepAlive: true,
+2026-04-27T11:18:25:       useChunkedEncodingByDefault: false,
+2026-04-27T11:18:25:       sendDate: false,
+2026-04-27T11:18:25:       _removedConnection: false,
+2026-04-27T11:18:25:       _removedContLen: false,
+2026-04-27T11:18:25:       _removedTE: false,
+2026-04-27T11:18:25:       strictContentLength: false,
+2026-04-27T11:18:25:       _contentLength: 0,
+2026-04-27T11:18:25:       _hasBody: true,
+2026-04-27T11:18:25:       _trailer: '',
+2026-04-27T11:18:25:       finished: true,
+2026-04-27T11:18:25:       _headerSent: true,
+2026-04-27T11:18:25:       _closed: false,
+2026-04-27T11:18:25:       _header: 'GET /api/api-listings/article-session-duration/2025-04-01/2025-05-01 HTTP/1.1\r\n' +
+2026-04-27T11:18:25:         'Accept: application/json, text/plain, */*\r\n' +
+2026-04-27T11:18:25:         'Content-Type: application/json\r\n' +
+2026-04-27T11:18:25:         'Authorization: Bearer 38d79da61a89bf9e65dc1dcac80138a35c542a57832337d0e08bbfa4e4269e6f8ccb2bc1065717d50b29db806272ffec9593dd09c9bb8b13c013e98b687b2ca6f8edde07b57b246a464301e3f0ea63d0b0e6b30b09709ed7f06e1aa39dfd0c54ac632a2fa25f20500acce9d1633cbf2406652154c6f8bb7cf5d5b1c3dd9ce043\r\n' +
+2026-04-27T11:18:25:         'User-Agent: axios/1.15.0\r\n' +
+2026-04-27T11:18:25:         'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+2026-04-27T11:18:25:         'Host: cms-vgad.visiongroup.co.ug\r\n' +
+2026-04-27T11:18:25:         'Connection: keep-alive\r\n' +
+2026-04-27T11:18:25:         '\r\n',
+2026-04-27T11:18:25:       _keepAliveTimeout: 0,
+2026-04-27T11:18:25:       _onPendingData: [Function: nop],
+2026-04-27T11:18:25:       agent: [Agent],
+2026-04-27T11:18:25:       socketPath: undefined,
+2026-04-27T11:18:25:       method: 'GET',
+2026-04-27T11:18:25:       maxHeaderSize: undefined,
+2026-04-27T11:18:25:       insecureHTTPParser: undefined,
+2026-04-27T11:18:25:       joinDuplicateHeaders: undefined,
+2026-04-27T11:18:25:       path: '/api/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-27T11:18:25:       _ended: false,
+2026-04-27T11:18:25:       res: null,
+2026-04-27T11:18:25:       aborted: false,
+2026-04-27T11:18:25:       timeoutCb: [Function: emitRequestTimeout],
+2026-04-27T11:18:25:       upgradeOrConnect: false,
+2026-04-27T11:18:25:       parser: null,
+2026-04-27T11:18:25:       maxHeadersCount: null,
+2026-04-27T11:18:25:       reusedSocket: true,
+2026-04-27T11:18:25:       host: 'cms-vgad.visiongroup.co.ug',
+2026-04-27T11:18:25:       protocol: 'https:',
+2026-04-27T11:18:25:       _redirectable: [Circular *2],
+2026-04-27T11:18:25:       [Symbol(shapeMode)]: false,
+2026-04-27T11:18:25:       [Symbol(kCapture)]: false,
+2026-04-27T11:18:25:       [Symbol(kBytesWritten)]: 0,
+2026-04-27T11:18:25:       [Symbol(kNeedDrain)]: false,
+2026-04-27T11:18:25:       [Symbol(corked)]: 0,
+2026-04-27T11:18:25:       [Symbol(kChunkedBuffer)]: [],
+2026-04-27T11:18:25:       [Symbol(kChunkedLength)]: 0,
+2026-04-27T11:18:25:       [Symbol(kSocket)]: [TLSSocket],
+2026-04-27T11:18:25:       [Symbol(kOutHeaders)]: [Object: null prototype],
+2026-04-27T11:18:25:       [Symbol(errored)]: null,
+2026-04-27T11:18:25:       [Symbol(kHighWaterMark)]: 65536,
+2026-04-27T11:18:25:       [Symbol(kRejectNonStandardBodyWrites)]: false,
+2026-04-27T11:18:25:       [Symbol(kUniqueHeaders)]: null,
+2026-04-27T11:18:25:       [Symbol(kError)]: [Circular *1]
+2026-04-27T11:18:25:     },
+2026-04-27T11:18:25:     _currentUrl: 'https://cms-vgad.visiongroup.co.ug/api/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-27T11:18:25:     _timeout: null,
+2026-04-27T11:18:25:     [Symbol(shapeMode)]: true,
+2026-04-27T11:18:25:     [Symbol(kCapture)]: false
+2026-04-27T11:18:25:   }
+2026-04-27T11:18:25: }
+2026-04-27T11:26:02: ➡️ [Controller] social-amplification HIT [Object: null prototype] {
+2026-04-27T11:26:02:   startDate: '2026-02-28',
+2026-04-27T11:26:02:   endDate: '2026-03-30'
+2026-04-27T11:26:02: }
+2026-04-27T11:26:02: 📈 [Service] getChartData called {
+2026-04-27T11:26:02:   metric: 'averageDuration',
+2026-04-27T11:26:02:   groupBy: 'title',
+2026-04-27T11:26:02:   startDate: '2026-02-28',
+2026-04-27T11:26:02:   endDate: '2026-03-30',
+2026-04-27T11:26:02:   sessionMedium: 'social'
+2026-04-27T11:26:02: }
+2026-04-27T11:26:02: 🔍 [Service] fetchAllArticles called {
+2026-04-27T11:26:02:   startDate: '2026-02-28',
+2026-04-27T11:26:02:   endDate: '2026-03-30',
+2026-04-27T11:26:02:   category: undefined,
+2026-04-27T11:26:02:   page: 1,
+2026-04-27T11:26:02:   pageSize: 1000
+2026-04-27T11:26:02: }
+2026-04-27T11:26:02: 🌐 [Service] Fetching articles at offset 0, pageSize 1000
+2026-04-27T11:26:02: 🔐 [Service] Using Bearer token authentication
+2026-04-27T11:26:04: ✅ [Service] Fetched articles: 10 (page 1, totalCount: 1883)
+2026-04-27T11:26:04: 🔍 [Service] fetchAllSessions called {
+2026-04-27T11:26:04:   startDate: '2026-02-28',
+2026-04-27T11:26:04:   endDate: '2026-03-30',
+2026-04-27T11:26:04:   platform: undefined,
+2026-04-27T11:26:04:   sessionMedium: 'social',
+2026-04-27T11:26:04:   streamName: undefined
+2026-04-27T11:26:04: }
+2026-04-27T11:26:04: 🌐 [Service] Fetching sessions for chunk: 2026-02-28 - 2026-03-31
+2026-04-27T11:26:04: 🔐 [Service] Using Bearer token authentication
+2026-04-27T11:26:07: ❌ [Service] Editorial API Error: timeout of 3000ms exceeded
+2026-04-27T11:26:07: ❌ [Service] Error in fetchAllSessions: timeout of 3000ms exceeded
+2026-04-27T11:26:07: ❌ [Controller] Error: <ref *1> AxiosError: timeout of 3000ms exceeded
+2026-04-27T11:26:07:     at RedirectableRequest.handleRequestTimeout (file:///var/www/VGAD/api/node_modules/axios/lib/adapters/http.js:913:13)
+2026-04-27T11:26:07:     at RedirectableRequest.emit (node:events:519:28)
+2026-04-27T11:26:07:     at Timeout._onTimeout (/var/www/VGAD/api/node_modules/follow-redirects/index.js:233:12)
+2026-04-27T11:26:07:     at listOnTimeout (node:internal/timers:588:17)
+2026-04-27T11:26:07:     at processTimers (node:internal/timers:523:7)
+2026-04-27T11:26:07:     at Axios.request (file:///var/www/VGAD/api/node_modules/axios/lib/core/Axios.js:46:41)
+2026-04-27T11:26:07:     at processTicksAndRejections (node:internal/process/task_queues:105:5)
+2026-04-27T11:26:07:     at EditorialAnalyticsService.fetchAllSessions (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsService.js:144:23)
+2026-04-27T11:26:07:     at EditorialAnalyticsService.getChartData (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsService.js:469:26)
+2026-04-27T11:26:07:     at getSocialAmplification (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsController.js:200:23) {
+2026-04-27T11:26:07:   isAxiosError: true,
+2026-04-27T11:26:07:   code: 'ECONNABORTED',
+2026-04-27T11:26:07:   config: {
+2026-04-27T11:26:07:     transitional: {
+2026-04-27T11:26:07:       silentJSONParsing: true,
+2026-04-27T11:26:07:       forcedJSONParsing: true,
+2026-04-27T11:26:07:       clarifyTimeoutError: false,
+2026-04-27T11:26:07:       legacyInterceptorReqResOrdering: true
+2026-04-27T11:26:07:     },
+2026-04-27T11:26:07:     adapter: [ 'xhr', 'http', 'fetch' ],
+2026-04-27T11:26:07:     transformRequest: [ [Function: transformRequest] ],
+2026-04-27T11:26:07:     transformResponse: [ [Function: transformResponse] ],
+2026-04-27T11:26:07:     timeout: 3000,
+2026-04-27T11:26:07:     xsrfCookieName: 'XSRF-TOKEN',
+2026-04-27T11:26:07:     xsrfHeaderName: 'X-XSRF-TOKEN',
+2026-04-27T11:26:07:     maxContentLength: -1,
+2026-04-27T11:26:07:     maxBodyLength: -1,
+2026-04-27T11:26:07:     env: { FormData: [Function], Blob: [class Blob] },
+2026-04-27T11:26:07:     validateStatus: [Function: validateStatus],
+2026-04-27T11:26:07:     headers: Object [AxiosHeaders] {
+2026-04-27T11:26:07:       Accept: 'application/json, text/plain, */*',
+2026-04-27T11:26:07:       'Content-Type': 'application/json',
+2026-04-27T11:26:07:       Authorization: 'Bearer 38d79da61a89bf9e65dc1dcac80138a35c542a57832337d0e08bbfa4e4269e6f8ccb2bc1065717d50b29db806272ffec9593dd09c9bb8b13c013e98b687b2ca6f8edde07b57b246a464301e3f0ea63d0b0e6b30b09709ed7f06e1aa39dfd0c54ac632a2fa25f20500acce9d1633cbf2406652154c6f8bb7cf5d5b1c3dd9ce043',
+2026-04-27T11:26:07:       'User-Agent': 'axios/1.15.0',
+2026-04-27T11:26:07:       'Accept-Encoding': 'gzip, compress, deflate, br'
+2026-04-27T11:26:07:     },
+2026-04-27T11:26:07:     baseURL: 'https://cms-vgad.visiongroup.co.ug/api',
+2026-04-27T11:26:07:     params: { sessionMedium: 'social' },
+2026-04-27T11:26:07:     method: 'get',
+2026-04-27T11:26:07:     url: '/api-listings/article-session-duration/2026-02-28/2026-03-31',
+2026-04-27T11:26:07:     allowAbsoluteUrls: true,
+2026-04-27T11:26:07:     data: undefined
+2026-04-27T11:26:07:   },
+2026-04-27T11:26:07:   request: <ref *2> Writable {
+2026-04-27T11:26:07:     _events: {
+2026-04-27T11:26:07:       close: undefined,
+2026-04-27T11:26:07:       error: [Function: handleRequestError],
+2026-04-27T11:26:07:       prefinish: undefined,
+2026-04-27T11:26:07:       finish: undefined,
+2026-04-27T11:26:07:       drain: undefined,
+2026-04-27T11:26:07:       response: [Function: handleResponse],
+2026-04-27T11:26:07:       socket: [Array],
+2026-04-27T11:26:07:       timeout: undefined,
+2026-04-27T11:26:07:       abort: undefined
+2026-04-27T11:26:07:     },
+2026-04-27T11:26:07:     _writableState: WritableState {
+2026-04-27T11:26:07:       highWaterMark: 65536,
+2026-04-27T11:26:07:       length: 0,
+2026-04-27T11:26:07:       corked: 0,
+2026-04-27T11:26:07:       onwrite: [Function: bound onwrite],
+2026-04-27T11:26:07:       writelen: 0,
+2026-04-27T11:26:07:       bufferedIndex: 0,
+2026-04-27T11:26:07:       pendingcb: 0,
+2026-04-27T11:26:07:       [Symbol(kState)]: 17581054,
+2026-04-27T11:26:07:       [Symbol(kBufferedValue)]: null,
+2026-04-27T11:26:07:       [Symbol(kErroredValue)]: [Circular *1]
+2026-04-27T11:26:07:     },
+2026-04-27T11:26:07:     _maxListeners: undefined,
+2026-04-27T11:26:07:     _options: {
+2026-04-27T11:26:07:       maxRedirects: 21,
+2026-04-27T11:26:07:       maxBodyLength: Infinity,
+2026-04-27T11:26:07:       protocol: 'https:',
+2026-04-27T11:26:07:       path: '/api/api-listings/article-session-duration/2026-02-28/2026-03-31?sessionMedium=social',
+2026-04-27T11:26:07:       method: 'GET',
+2026-04-27T11:26:07:       headers: [Object: null prototype],
+2026-04-27T11:26:07:       agents: [Object],
+2026-04-27T11:26:07:       auth: undefined,
+2026-04-27T11:26:07:       family: undefined,
+2026-04-27T11:26:07:       beforeRedirect: [Function: dispatchBeforeRedirect],
+2026-04-27T11:26:07:       beforeRedirects: [Object],
+2026-04-27T11:26:07:       http2Options: undefined,
+2026-04-27T11:26:07:       hostname: 'cms-vgad.visiongroup.co.ug',
+2026-04-27T11:26:07:       port: '',
+2026-04-27T11:26:07:       agent: undefined,
+2026-04-27T11:26:07:       nativeProtocols: [Object],
+2026-04-27T11:26:07:       sensitiveHeaders: [],
+2026-04-27T11:26:07:       pathname: '/api/api-listings/article-session-duration/2026-02-28/2026-03-31',
+2026-04-27T11:26:07:       search: '?sessionMedium=social'
+2026-04-27T11:26:07:     },
+2026-04-27T11:26:07:     _ended: true,
+2026-04-27T11:26:07:     _ending: true,
+2026-04-27T11:26:07:     _redirectCount: 0,
+2026-04-27T11:26:07:     _redirects: [],
+2026-04-27T11:26:07:     _requestBodyLength: 0,
+2026-04-27T11:26:07:     _requestBodyBuffers: [],
+2026-04-27T11:26:07:     _eventsCount: 3,
+2026-04-27T11:26:07:     _onNativeResponse: [Function (anonymous)],
+2026-04-27T11:26:07:     _headerFilter: /^(?:Authorization|Proxy-Authorization|Cookie)$/i,
+2026-04-27T11:26:07:     _currentRequest: ClientRequest {
+2026-04-27T11:26:07:       _events: [Object: null prototype],
+2026-04-27T11:26:07:       _eventsCount: 2,
+2026-04-27T11:26:07:       _maxListeners: undefined,
+2026-04-27T11:26:07:       outputData: [],
+2026-04-27T11:26:07:       outputSize: 0,
+2026-04-27T11:26:07:       writable: true,
+2026-04-27T11:26:07:       destroyed: true,
+2026-04-27T11:26:07:       _last: true,
+2026-04-27T11:26:07:       chunkedEncoding: false,
+2026-04-27T11:26:07:       shouldKeepAlive: true,
+2026-04-27T11:26:07:       maxRequestsOnConnectionReached: false,
+2026-04-27T11:26:07:       _defaultKeepAlive: true,
+2026-04-27T11:26:07:       useChunkedEncodingByDefault: false,
+2026-04-27T11:26:07:       sendDate: false,
+2026-04-27T11:26:07:       _removedConnection: false,
+2026-04-27T11:26:07:       _removedContLen: false,
+2026-04-27T11:26:07:       _removedTE: false,
+2026-04-27T11:26:07:       strictContentLength: false,
+2026-04-27T11:26:07:       _contentLength: 0,
+2026-04-27T11:26:07:       _hasBody: true,
+2026-04-27T11:26:07:       _trailer: '',
+2026-04-27T11:26:07:       finished: true,
+2026-04-27T11:26:07:       _headerSent: true,
+2026-04-27T11:26:07:       _closed: false,
+2026-04-27T11:26:07:       _header: 'GET /api/api-listings/article-session-duration/2026-02-28/2026-03-31?sessionMedium=social HTTP/1.1\r\n' +
+2026-04-27T11:26:07:         'Accept: application/json, text/plain, */*\r\n' +
+2026-04-27T11:26:07:         'Content-Type: application/json\r\n' +
+2026-04-27T11:26:07:         'Authorization: Bearer 38d79da61a89bf9e65dc1dcac80138a35c542a57832337d0e08bbfa4e4269e6f8ccb2bc1065717d50b29db806272ffec9593dd09c9bb8b13c013e98b687b2ca6f8edde07b57b246a464301e3f0ea63d0b0e6b30b09709ed7f06e1aa39dfd0c54ac632a2fa25f20500acce9d1633cbf2406652154c6f8bb7cf5d5b1c3dd9ce043\r\n' +
+2026-04-27T11:26:07:         'User-Agent: axios/1.15.0\r\n' +
+2026-04-27T11:26:07:         'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+2026-04-27T11:26:07:         'Host: cms-vgad.visiongroup.co.ug\r\n' +
+2026-04-27T11:26:07:         'Connection: keep-alive\r\n' +
+2026-04-27T11:26:07:         '\r\n',
+2026-04-27T11:26:07:       _keepAliveTimeout: 0,
+2026-04-27T11:26:07:       _onPendingData: [Function: nop],
+2026-04-27T11:26:07:       agent: [Agent],
+2026-04-27T11:26:07:       socketPath: undefined,
+2026-04-27T11:26:07:       method: 'GET',
+2026-04-27T11:26:07:       maxHeaderSize: undefined,
+2026-04-27T11:26:07:       insecureHTTPParser: undefined,
+2026-04-27T11:26:07:       joinDuplicateHeaders: undefined,
+2026-04-27T11:26:07:       path: '/api/api-listings/article-session-duration/2026-02-28/2026-03-31?sessionMedium=social',
+2026-04-27T11:26:07:       _ended: false,
+2026-04-27T11:26:07:       res: null,
+2026-04-27T11:26:07:       aborted: false,
+2026-04-27T11:26:07:       timeoutCb: [Function: emitRequestTimeout],
+2026-04-27T11:26:07:       upgradeOrConnect: false,
+2026-04-27T11:26:07:       parser: null,
+2026-04-27T11:26:07:       maxHeadersCount: null,
+2026-04-27T11:26:07:       reusedSocket: true,
+2026-04-27T11:26:07:       host: 'cms-vgad.visiongroup.co.ug',
+2026-04-27T11:26:07:       protocol: 'https:',
+2026-04-27T11:26:07:       _redirectable: [Circular *2],
+2026-04-27T11:26:07:       [Symbol(shapeMode)]: false,
+2026-04-27T11:26:07:       [Symbol(kCapture)]: false,
+2026-04-27T11:26:07:       [Symbol(kBytesWritten)]: 0,
+2026-04-27T11:26:07:       [Symbol(kNeedDrain)]: false,
+2026-04-27T11:26:07:       [Symbol(corked)]: 0,
+2026-04-27T11:26:07:       [Symbol(kChunkedBuffer)]: [],
+2026-04-27T11:26:07:       [Symbol(kChunkedLength)]: 0,
+2026-04-27T11:26:07:       [Symbol(kSocket)]: [TLSSocket],
+2026-04-27T11:26:07:       [Symbol(kOutHeaders)]: [Object: null prototype],
+2026-04-27T11:26:07:       [Symbol(errored)]: null,
+2026-04-27T11:26:07:       [Symbol(kHighWaterMark)]: 65536,
+2026-04-27T11:26:07:       [Symbol(kRejectNonStandardBodyWrites)]: false,
+2026-04-27T11:26:07:       [Symbol(kUniqueHeaders)]: null,
+2026-04-27T11:26:07:       [Symbol(kError)]: [Circular *1]
+2026-04-27T11:26:07:     },
+2026-04-27T11:26:07:     _currentUrl: 'https://cms-vgad.visiongroup.co.ug/api/api-listings/article-session-duration/2026-02-28/2026-03-31?sessionMedium=social',
+2026-04-27T11:26:07:     _timeout: null,
+2026-04-27T11:26:07:     [Symbol(shapeMode)]: true,
+2026-04-27T11:26:07:     [Symbol(kCapture)]: false
+2026-04-27T11:26:07:   }
+2026-04-27T11:26:07: }
+2026-04-27T11:26:12: ➡️ [Controller] audience-demographics HIT [Object: null prototype] {
+2026-04-27T11:26:12:   startDate: '2026-02-28',
+2026-04-27T11:26:12:   endDate: '2026-03-30',
+2026-04-27T11:26:12:   topN: '12',
+2026-04-27T11:26:12:   minSessions: '0'
+2026-04-27T11:26:12: }
+2026-04-27T11:26:12: 📈 [Service] getChartData called {
+2026-04-27T11:26:12:   metric: 'averageDuration',
+2026-04-27T11:26:12:   groupBy: 'sessionMedium',
+2026-04-27T11:26:12:   startDate: '2026-02-28',
+2026-04-27T11:26:12:   endDate: '2026-03-30'
+2026-04-27T11:26:12: }
+2026-04-27T11:26:12: 🔍 [Service] fetchAllArticles called {
+2026-04-27T11:26:12:   startDate: '2026-02-28',
+2026-04-27T11:26:12:   endDate: '2026-03-30',
+2026-04-27T11:26:12:   category: undefined,
+2026-04-27T11:26:12:   page: 1,
+2026-04-27T11:26:12:   pageSize: 1000
+2026-04-27T11:26:12: }
+2026-04-27T11:26:12: 💾 [Service] Returning cached articles: 10
+2026-04-27T11:26:12: 🔍 [Service] fetchAllSessions called {
+2026-04-27T11:26:12:   startDate: '2026-02-28',
+2026-04-27T11:26:12:   endDate: '2026-03-30',
+2026-04-27T11:26:12:   platform: undefined,
+2026-04-27T11:26:12:   sessionMedium: undefined,
+2026-04-27T11:26:12:   streamName: undefined
+2026-04-27T11:26:12: }
+2026-04-27T11:26:12: 🌐 [Service] Fetching sessions for chunk: 2026-02-28 - 2026-03-31
+2026-04-27T11:26:12: 🔐 [Service] Using Bearer token authentication
+2026-04-27T11:26:15: ❌ [Service] Editorial API Error: timeout of 3000ms exceeded
+2026-04-27T11:26:15: ❌ [Service] Error in fetchAllSessions: timeout of 3000ms exceeded
+2026-04-27T11:26:15: ❌ [Controller] Error: <ref *1> AxiosError: timeout of 3000ms exceeded
+2026-04-27T11:26:15:     at RedirectableRequest.handleRequestTimeout (file:///var/www/VGAD/api/node_modules/axios/lib/adapters/http.js:913:13)
+2026-04-27T11:26:15:     at RedirectableRequest.emit (node:events:519:28)
+2026-04-27T11:26:15:     at Timeout._onTimeout (/var/www/VGAD/api/node_modules/follow-redirects/index.js:233:12)
+2026-04-27T11:26:15:     at listOnTimeout (node:internal/timers:588:17)
+2026-04-27T11:26:15:     at processTimers (node:internal/timers:523:7)
+2026-04-27T11:26:15:     at Axios.request (file:///var/www/VGAD/api/node_modules/axios/lib/core/Axios.js:46:41)
+2026-04-27T11:26:15:     at processTicksAndRejections (node:internal/process/task_queues:105:5)
+2026-04-27T11:26:15:     at EditorialAnalyticsService.fetchAllSessions (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsService.js:144:23)
+2026-04-27T11:26:15:     at EditorialAnalyticsService.getChartData (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsService.js:469:26)
+2026-04-27T11:26:15:     at getAudienceDemographics (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsController.js:140:23) {
+2026-04-27T11:26:15:   isAxiosError: true,
+2026-04-27T11:26:15:   code: 'ECONNABORTED',
+2026-04-27T11:26:15:   config: {
+2026-04-27T11:26:15:     transitional: {
+2026-04-27T11:26:15:       silentJSONParsing: true,
+2026-04-27T11:26:15:       forcedJSONParsing: true,
+2026-04-27T11:26:15:       clarifyTimeoutError: false,
+2026-04-27T11:26:15:       legacyInterceptorReqResOrdering: true
+2026-04-27T11:26:15:     },
+2026-04-27T11:26:15:     adapter: [ 'xhr', 'http', 'fetch' ],
+2026-04-27T11:26:15:     transformRequest: [ [Function: transformRequest] ],
+2026-04-27T11:26:15:     transformResponse: [ [Function: transformResponse] ],
+2026-04-27T11:26:15:     timeout: 3000,
+2026-04-27T11:26:15:     xsrfCookieName: 'XSRF-TOKEN',
+2026-04-27T11:26:15:     xsrfHeaderName: 'X-XSRF-TOKEN',
+2026-04-27T11:26:15:     maxContentLength: -1,
+2026-04-27T11:26:15:     maxBodyLength: -1,
+2026-04-27T11:26:15:     env: { FormData: [Function], Blob: [class Blob] },
+2026-04-27T11:26:15:     validateStatus: [Function: validateStatus],
+2026-04-27T11:26:15:     headers: Object [AxiosHeaders] {
+2026-04-27T11:26:15:       Accept: 'application/json, text/plain, */*',
+2026-04-27T11:26:15:       'Content-Type': 'application/json',
+2026-04-27T11:26:15:       Authorization: 'Bearer 38d79da61a89bf9e65dc1dcac80138a35c542a57832337d0e08bbfa4e4269e6f8ccb2bc1065717d50b29db806272ffec9593dd09c9bb8b13c013e98b687b2ca6f8edde07b57b246a464301e3f0ea63d0b0e6b30b09709ed7f06e1aa39dfd0c54ac632a2fa25f20500acce9d1633cbf2406652154c6f8bb7cf5d5b1c3dd9ce043',
+2026-04-27T11:26:15:       'User-Agent': 'axios/1.15.0',
+2026-04-27T11:26:15:       'Accept-Encoding': 'gzip, compress, deflate, br'
+2026-04-27T11:26:15:     },
+2026-04-27T11:26:15:     baseURL: 'https://cms-vgad.visiongroup.co.ug/api',
+2026-04-27T11:26:15:     params: {},
+2026-04-27T11:26:15:     method: 'get',
+2026-04-27T11:26:15:     url: '/api-listings/article-session-duration/2026-02-28/2026-03-31',
+2026-04-27T11:26:15:     allowAbsoluteUrls: true,
+2026-04-27T11:26:15:     data: undefined
+2026-04-27T11:26:15:   },
+2026-04-27T11:26:15:   request: <ref *2> Writable {
+2026-04-27T11:26:15:     _events: {
+2026-04-27T11:26:15:       close: undefined,
+2026-04-27T11:26:15:       error: [Function: handleRequestError],
+2026-04-27T11:26:15:       prefinish: undefined,
+2026-04-27T11:26:15:       finish: undefined,
+2026-04-27T11:26:15:       drain: undefined,
+2026-04-27T11:26:15:       response: [Function: handleResponse],
+2026-04-27T11:26:15:       socket: [Array],
+2026-04-27T11:26:15:       timeout: undefined,
+2026-04-27T11:26:15:       abort: undefined
+2026-04-27T11:26:15:     },
+2026-04-27T11:26:15:     _writableState: WritableState {
+2026-04-27T11:26:15:       highWaterMark: 65536,
+2026-04-27T11:26:15:       length: 0,
+2026-04-27T11:26:15:       corked: 0,
+2026-04-27T11:26:15:       onwrite: [Function: bound onwrite],
+2026-04-27T11:26:15:       writelen: 0,
+2026-04-27T11:26:15:       bufferedIndex: 0,
+2026-04-27T11:26:15:       pendingcb: 0,
+2026-04-27T11:26:15:       [Symbol(kState)]: 17581054,
+2026-04-27T11:26:15:       [Symbol(kBufferedValue)]: null,
+2026-04-27T11:26:15:       [Symbol(kErroredValue)]: [Circular *1]
+2026-04-27T11:26:15:     },
+2026-04-27T11:26:15:     _maxListeners: undefined,
+2026-04-27T11:26:15:     _options: {
+2026-04-27T11:26:15:       maxRedirects: 21,
+2026-04-27T11:26:15:       maxBodyLength: Infinity,
+2026-04-27T11:26:15:       protocol: 'https:',
+2026-04-27T11:26:15:       path: '/api/api-listings/article-session-duration/2026-02-28/2026-03-31',
+2026-04-27T11:26:15:       method: 'GET',
+2026-04-27T11:26:15:       headers: [Object: null prototype],
+2026-04-27T11:26:15:       agents: [Object],
+2026-04-27T11:26:15:       auth: undefined,
+2026-04-27T11:26:15:       family: undefined,
+2026-04-27T11:26:15:       beforeRedirect: [Function: dispatchBeforeRedirect],
+2026-04-27T11:26:15:       beforeRedirects: [Object],
+2026-04-27T11:26:15:       http2Options: undefined,
+2026-04-27T11:26:15:       hostname: 'cms-vgad.visiongroup.co.ug',
+2026-04-27T11:26:15:       port: '',
+2026-04-27T11:26:15:       agent: undefined,
+2026-04-27T11:26:15:       nativeProtocols: [Object],
+2026-04-27T11:26:15:       sensitiveHeaders: [],
+2026-04-27T11:26:15:       pathname: '/api/api-listings/article-session-duration/2026-02-28/2026-03-31'
+2026-04-27T11:26:15:     },
+2026-04-27T11:26:15:     _ended: true,
+2026-04-27T11:26:15:     _ending: true,
+2026-04-27T11:26:15:     _redirectCount: 0,
+2026-04-27T11:26:15:     _redirects: [],
+2026-04-27T11:26:15:     _requestBodyLength: 0,
+2026-04-27T11:26:15:     _requestBodyBuffers: [],
+2026-04-27T11:26:15:     _eventsCount: 3,
+2026-04-27T11:26:15:     _onNativeResponse: [Function (anonymous)],
+2026-04-27T11:26:15:     _headerFilter: /^(?:Authorization|Proxy-Authorization|Cookie)$/i,
+2026-04-27T11:26:15:     _currentRequest: ClientRequest {
+2026-04-27T11:26:15:       _events: [Object: null prototype],
+2026-04-27T11:26:15:       _eventsCount: 2,
+2026-04-27T11:26:15:       _maxListeners: undefined,
+2026-04-27T11:26:15:       outputData: [],
+2026-04-27T11:26:15:       outputSize: 0,
+2026-04-27T11:26:15:       writable: true,
+2026-04-27T11:26:15:       destroyed: true,
+2026-04-27T11:26:15:       _last: true,
+2026-04-27T11:26:15:       chunkedEncoding: false,
+2026-04-27T11:26:15:       shouldKeepAlive: true,
+2026-04-27T11:26:15:       maxRequestsOnConnectionReached: false,
+2026-04-27T11:26:15:       _defaultKeepAlive: true,
+2026-04-27T11:26:15:       useChunkedEncodingByDefault: false,
+2026-04-27T11:26:15:       sendDate: false,
+2026-04-27T11:26:15:       _removedConnection: false,
+2026-04-27T11:26:15:       _removedContLen: false,
+2026-04-27T11:26:15:       _removedTE: false,
+2026-04-27T11:26:15:       strictContentLength: false,
+2026-04-27T11:26:15:       _contentLength: 0,
+2026-04-27T11:26:15:       _hasBody: true,
+2026-04-27T11:26:15:       _trailer: '',
+2026-04-27T11:26:15:       finished: true,
+2026-04-27T11:26:15:       _headerSent: true,
+2026-04-27T11:26:15:       _closed: false,
+2026-04-27T11:26:15:       _header: 'GET /api/api-listings/article-session-duration/2026-02-28/2026-03-31 HTTP/1.1\r\n' +
+2026-04-27T11:26:15:         'Accept: application/json, text/plain, */*\r\n' +
+2026-04-27T11:26:15:         'Content-Type: application/json\r\n' +
+2026-04-27T11:26:15:         'Authorization: Bearer 38d79da61a89bf9e65dc1dcac80138a35c542a57832337d0e08bbfa4e4269e6f8ccb2bc1065717d50b29db806272ffec9593dd09c9bb8b13c013e98b687b2ca6f8edde07b57b246a464301e3f0ea63d0b0e6b30b09709ed7f06e1aa39dfd0c54ac632a2fa25f20500acce9d1633cbf2406652154c6f8bb7cf5d5b1c3dd9ce043\r\n' +
+2026-04-27T11:26:15:         'User-Agent: axios/1.15.0\r\n' +
+2026-04-27T11:26:15:         'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+2026-04-27T11:26:15:         'Host: cms-vgad.visiongroup.co.ug\r\n' +
+2026-04-27T11:26:15:         'Connection: keep-alive\r\n' +
+2026-04-27T11:26:15:         '\r\n',
+2026-04-27T11:26:15:       _keepAliveTimeout: 0,
+2026-04-27T11:26:15:       _onPendingData: [Function: nop],
+2026-04-27T11:26:15:       agent: [Agent],
+2026-04-27T11:26:15:       socketPath: undefined,
+2026-04-27T11:26:15:       method: 'GET',
+2026-04-27T11:26:15:       maxHeaderSize: undefined,
+2026-04-27T11:26:15:       insecureHTTPParser: undefined,
+2026-04-27T11:26:15:       joinDuplicateHeaders: undefined,
+2026-04-27T11:26:15:       path: '/api/api-listings/article-session-duration/2026-02-28/2026-03-31',
+2026-04-27T11:26:15:       _ended: false,
+2026-04-27T11:26:15:       res: null,
+2026-04-27T11:26:15:       aborted: false,
+2026-04-27T11:26:15:       timeoutCb: [Function: emitRequestTimeout],
+2026-04-27T11:26:15:       upgradeOrConnect: false,
+2026-04-27T11:26:15:       parser: null,
+2026-04-27T11:26:15:       maxHeadersCount: null,
+2026-04-27T11:26:15:       reusedSocket: false,
+2026-04-27T11:26:15:       host: 'cms-vgad.visiongroup.co.ug',
+2026-04-27T11:26:15:       protocol: 'https:',
+2026-04-27T11:26:15:       _redirectable: [Circular *2],
+2026-04-27T11:26:15:       [Symbol(shapeMode)]: false,
+2026-04-27T11:26:15:       [Symbol(kCapture)]: false,
+2026-04-27T11:26:15:       [Symbol(kBytesWritten)]: 0,
+2026-04-27T11:26:15:       [Symbol(kNeedDrain)]: false,
+2026-04-27T11:26:15:       [Symbol(corked)]: 0,
+2026-04-27T11:26:15:       [Symbol(kChunkedBuffer)]: [],
+2026-04-27T11:26:15:       [Symbol(kChunkedLength)]: 0,
+2026-04-27T11:26:15:       [Symbol(kSocket)]: [TLSSocket],
+2026-04-27T11:26:15:       [Symbol(kOutHeaders)]: [Object: null prototype],
+2026-04-27T11:26:15:       [Symbol(errored)]: null,
+2026-04-27T11:26:15:       [Symbol(kHighWaterMark)]: 65536,
+2026-04-27T11:26:15:       [Symbol(kRejectNonStandardBodyWrites)]: false,
+2026-04-27T11:26:15:       [Symbol(kUniqueHeaders)]: null,
+2026-04-27T11:26:15:       [Symbol(kError)]: [Circular *1]
+2026-04-27T11:26:15:     },
+2026-04-27T11:26:15:     _currentUrl: 'https://cms-vgad.visiongroup.co.ug/api/api-listings/article-session-duration/2026-02-28/2026-03-31',
+2026-04-27T11:26:15:     _timeout: null,
+2026-04-27T11:26:15:     [Symbol(shapeMode)]: true,
+2026-04-27T11:26:15:     [Symbol(kCapture)]: false
+2026-04-27T11:26:15:   }
+2026-04-27T11:26:15: }
+2026-04-27T11:28:19: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T11:28:19:   page: '1',
+2026-04-27T11:28:19:   pageSize: '10',
+2026-04-27T11:28:19:   startDate: '',
+2026-04-27T11:28:19:   endDate: ''
+2026-04-27T11:28:19: }
+2026-04-27T11:28:19: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-27T11:28:19: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T11:28:19:   page: '1',
+2026-04-27T11:28:19:   pageSize: '10',
+2026-04-27T11:28:19:   startDate: '',
+2026-04-27T11:28:19:   endDate: ''
+2026-04-27T11:28:19: }
+2026-04-27T11:29:36: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T11:29:36:   page: '1',
+2026-04-27T11:29:36:   pageSize: '10',
+2026-04-27T11:29:36:   startDate: '',
+2026-04-27T11:29:36:   endDate: ''
+2026-04-27T11:29:36: }
+2026-04-27T11:29:42: ➡️ [Controller] quota-attainment HIT [Object: null prototype] { page: '1', pageSize: '50' }
+2026-04-27T11:29:45: ➡️ [Controller] account-penetration HIT [Object: null prototype] { page: '1', pageSize: '50' }
+2026-04-27T11:29:51: ➡️ [Controller] corporate-account-health HIT [Object: null prototype] { page: '1', pageSize: '50' }
+2026-04-27T12:13:36: 🔍 getFinancialData called with filters: {
+2026-04-27T12:13:36:   startDate: '2021-08-01',
+2026-04-27T12:13:36:   endDate: '2021-10-31',
+2026-04-27T12:13:36:   documentType: 'Payment',
+2026-04-27T12:13:36:   accountNo: '10060',
+2026-04-27T12:13:36:   limit: '5000'
+2026-04-27T12:13:36: }
+2026-04-27T12:13:36: 🌐 API endpoint: /bc-datasets/2021-08-01/2021-10-31
+2026-04-27T12:13:36: 🌐 API params: { gl_account_no: '10060', document_type: 'Payment', limit: '5000' }
+2026-04-27T12:13:36: 🔐 Using Bearer token authentication
+2026-04-27T12:13:38: ✅ Fetched 20000 financial records from CMC API
+2026-04-27T12:13:38: 🔄 Transformed 20000 records
+2026-04-27T12:13:38: 📊 Sample transformed data: {
+2026-04-27T12:13:38:   "id": 39027,
+2026-04-27T12:13:38:   "entryNo": "19511",
+2026-04-27T12:13:38:   "transactionNo": "2223",
+2026-04-27T12:13:38:   "accountNo": "10060",
+2026-04-27T12:13:38:   "accountName": "Mbarara Cash Control",
+2026-04-27T12:13:38:   "postingDate": "2021-08-10",
+2026-04-27T12:13:38:   "documentDate": "2021-08-10",
+2026-04-27T12:13:38:   "documentType": "Payment",
+2026-04-27T12:13:38:   "documentNo": "B-SK000020RN",
+2026-04-27T12:13:38:   "sourceCode": "CASHRECJNL",
+2026-04-27T12:13:38:   "amount": "19000",
+2026-04-27T12:13:38:   "debitAmount": "19000",
+2026-04-27T12:13:38:   "creditAmount": "0",
+2026-04-27T12:13:38:   "vatAmount": "0",
+2026-04-27T12:13:38:   "additionalCurrencyAmount": "0",
+2026-04-27T12:13:38:   "addCurrencyDebitAmount": "0",
+2026-04-27T12:13:38:   "addCurrencyCreditAmount": "0",
+2026-04-27T12:13:38:   "genPostingType": null,
+2026-04-27T12:13:38:   "genBusPostingGroup": null,
+2026-04-27T12:13:38:   "genProdPostingGroup": null,
+2026-04-27T12:13:38:   "vatBusPostingGroup": null,
+2026-04-27T12:13:38:   "vatProdPostingGroup": null,
+2026-04-27T12:13:38:   "taxAreaCode": null,
+2026-04-27T12:13:38:   "taxLiable": false,
+2026-04-27T12:13:38:   "taxGroupCode": null,
+2026-04-27T12:13:38:   "useTax": false,
+2026-04-27T12:13:38:   "jobNo": null,
+2026-04-27T12:13:38:   "businessUnitCode": null,
+2026-04-27T12:13:38:   "reasonCode": null,
+2026-04-27T12:13:38:   "icPartnerCode": null,
+2026-04-27T12:13:38:   "dimensionSetId": "1736",
+2026-04-27T12:13:38:   "locale": null,
+2026-04-27T12:13:38:   "raw": {
+2026-04-27T12:13:38:     "locale": null,
+2026-04-27T12:13:38:     "Entry_No": "19511",
+2026-04-27T12:13:38:     "Transaction_No": "2223",
+2026-04-27T12:13:38:     "G_L_Account_No": "10060",
+2026-04-27T12:13:38:     "Posting_Date": "2021-08-10",
+2026-04-27T12:13:38:     "Document_Date": "2021-08-10",
+2026-04-27T12:13:38:     "Document_Type": "Payment",
+2026-04-27T12:13:38:     "Document_No": "B-SK000020RN",
+2026-04-27T12:13:38:     "Source_Code": "CASHRECJNL",
+2026-04-27T12:13:38:     "Job_No": null,
+2026-04-27T12:13:38:     "Business_Unit_Code": null,
+2026-04-27T12:13:38:     "Reason_Code": null,
+2026-04-27T12:13:38:     "Gen_Posting_Type": null,
+2026-04-27T12:13:38:     "Gen_Bus_Posting_Group": null,
+2026-04-27T12:13:38:     "Gen_Prod_Posting_Group": null,
+2026-04-27T12:13:38:     "Tax_Area_Code": null,
+2026-04-27T12:13:38:     "Tax_Liable": false,
+2026-04-27T12:13:38:     "Tax_Group_Code": null,
+2026-04-27T12:13:38:     "Use_Tax": false,
+2026-04-27T12:13:38:     "VAT_Bus_Posting_Group": null,
+2026-04-27T12:13:38:     "VAT_Prod_Posting_Group": null,
+2026-04-27T12:13:38:     "IC_Partner_Code": null,
+2026-04-27T12:13:38:     "Amount": "19000",
+2026-04-27T12:13:38:     "Debit_Amount": "19000",
+2026-04-27T12:13:38:     "Credit_Amount": "0",
+2026-04-27T12:13:38:     "VAT_Amount": "0",
+2026-04-27T12:13:38:     "Additional_Currency_Amount": "0",
+2026-04-27T12:13:38:     "Add_Currency_Debit_Amount": "0",
+2026-04-27T12:13:38:     "Add_Currency_Credit_Amount": "0",
+2026-04-27T12:13:38:     "Dimension_Set_ID": "1736",
+2026-04-27T12:13:38:     "G_L_Account_Name": "Mbarara Cash Control"
+2026-04-27T12:13:38:   }
+2026-04-27T12:13:38: }
+2026-04-27T12:13:38: Using dummy audit trail data
+2026-04-27T12:13:48: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T12:13:48:   page: '1',
+2026-04-27T12:13:48:   pageSize: '10',
+2026-04-27T12:13:48:   startDate: '',
+2026-04-27T12:13:48:   endDate: ''
+2026-04-27T12:13:48: }
+2026-04-27T12:13:49: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T12:13:49:   page: '1',
+2026-04-27T12:13:49:   pageSize: '10',
+2026-04-27T12:13:49:   startDate: '',
+2026-04-27T12:13:49:   endDate: ''
+2026-04-27T12:13:49: }
+2026-04-27T17:52:18: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-27T17:52:18: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:52:18:   page: '1',
+2026-04-27T17:52:18:   pageSize: '10',
+2026-04-27T17:52:18:   startDate: '',
+2026-04-27T17:52:18:   endDate: ''
+2026-04-27T17:52:18: }
+2026-04-27T17:52:18: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:52:18:   page: '1',
+2026-04-27T17:52:18:   pageSize: '10',
+2026-04-27T17:52:18:   startDate: '',
+2026-04-27T17:52:18:   endDate: ''
+2026-04-27T17:52:18: }
+2026-04-27T17:52:25: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:52:25:   page: '1',
+2026-04-27T17:52:25:   pageSize: '10',
+2026-04-27T17:52:25:   startDate: '',
+2026-04-27T17:52:25:   endDate: ''
+2026-04-27T17:52:25: }
+2026-04-27T17:52:25: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:52:25:   page: '1',
+2026-04-27T17:52:25:   pageSize: '10',
+2026-04-27T17:52:25:   startDate: '',
+2026-04-27T17:52:25:   endDate: ''
+2026-04-27T17:52:25: }
+2026-04-27T17:52:25: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-27T17:52:37: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:52:37:   page: '1',
+2026-04-27T17:52:37:   pageSize: '10',
+2026-04-27T17:52:37:   startDate: '',
+2026-04-27T17:52:37:   endDate: ''
+2026-04-27T17:52:37: }
+2026-04-27T17:52:51: ➡️ [Controller] quota-attainment HIT [Object: null prototype] { page: '1', pageSize: '50' }
+2026-04-27T17:53:10: ➡️ [Controller] quota-attainment HIT [Object: null prototype] { page: '1', pageSize: '50' }
+2026-04-27T17:55:22: 🔧 [Production Service] Initialized with CMC API credentials
+2026-04-27T17:57:23: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:57:23:   page: '1',
+2026-04-27T17:57:23:   pageSize: '10',
+2026-04-27T17:57:23:   startDate: '',
+2026-04-27T17:57:23:   endDate: ''
+2026-04-27T17:57:23: }
+2026-04-27T17:57:23: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-27T17:57:23: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:57:23:   page: '1',
+2026-04-27T17:57:23:   pageSize: '10',
+2026-04-27T17:57:23:   startDate: '',
+2026-04-27T17:57:23:   endDate: ''
+2026-04-27T17:57:23: }
+2026-04-27T17:58:41: ➡️ [Controller] case-resolution HIT [Object: null prototype] { page: '1', pageSize: '20' }
+2026-04-27T17:58:55: ➡️ [Controller] compliance-breach HIT [Object: null prototype] { page: '1', pageSize: '20' }
+2026-04-27T17:59:24: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-27T17:59:46: ➡️ [Controller] storage HIT [Object: null prototype] { diskName: '', page: '1', pageSize: '10' }
+2026-04-27T17:59:53: ➡️ [Controller] patch-compliance HIT [Object: null prototype] { osVersion: '', page: '1', pageSize: '10' }
+2026-04-28T06:04:11: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-28T06:04:11: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:04:11:   page: '1',
+2026-04-28T06:04:11:   pageSize: '10',
+2026-04-28T06:04:11:   startDate: '',
+2026-04-28T06:04:11:   endDate: ''
+2026-04-28T06:04:11: }
+2026-04-28T06:04:11: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:04:11:   page: '1',
+2026-04-28T06:04:11:   pageSize: '10',
+2026-04-28T06:04:11:   startDate: '',
+2026-04-28T06:04:11:   endDate: ''
+2026-04-28T06:04:11: }
+2026-04-28T06:05:23: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:05:23:   page: '1',
+2026-04-28T06:05:23:   pageSize: '10',
+2026-04-28T06:05:23:   startDate: '',
+2026-04-28T06:05:23:   endDate: ''
+2026-04-28T06:05:23: }
+2026-04-28T06:05:23: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-28T06:05:23: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:05:23:   page: '1',
+2026-04-28T06:05:23:   pageSize: '10',
+2026-04-28T06:05:23:   startDate: '',
+2026-04-28T06:05:23:   endDate: ''
+2026-04-28T06:05:23: }
+2026-04-28T06:06:19: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:06:19:   page: '1',
+2026-04-28T06:06:19:   pageSize: '10',
+2026-04-28T06:06:19:   startDate: '',
+2026-04-28T06:06:19:   endDate: ''
+2026-04-28T06:06:19: }
+2026-04-28T06:06:19: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-28T06:06:19: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:06:19:   page: '1',
+2026-04-28T06:06:19:   pageSize: '10',
+2026-04-28T06:06:19:   startDate: '',
+2026-04-28T06:06:19:   endDate: ''
+2026-04-28T06:06:19: }
+2026-04-28T06:08:01: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:08:01:   page: '1',
+2026-04-28T06:08:01:   pageSize: '10',
+2026-04-28T06:08:01:   startDate: '',
+2026-04-28T06:08:01:   endDate: ''
+2026-04-28T06:08:01: }
+2026-04-28T06:08:01: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-28T06:08:01: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:08:01:   page: '1',
+2026-04-28T06:08:01:   pageSize: '10',
+2026-04-28T06:08:01:   startDate: '',
+2026-04-28T06:08:01:   endDate: ''
+2026-04-28T06:08:01: }
+2026-04-28T06:09:46: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:09:46:   page: '1',
+2026-04-28T06:09:46:   pageSize: '10',
+2026-04-28T06:09:46:   startDate: '',
+2026-04-28T06:09:46:   endDate: ''
+2026-04-28T06:09:46: }
+2026-04-28T06:09:46: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-28T06:09:46: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:09:46:   page: '1',
+2026-04-28T06:09:46:   pageSize: '10',
+2026-04-28T06:09:46:   startDate: '',
+2026-04-28T06:09:46:   endDate: ''
+2026-04-28T06:09:46: }
+2026-04-28T06:11:45: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:11:45:   page: '1',
+2026-04-28T06:11:45:   pageSize: '10',
+2026-04-28T06:11:45:   startDate: '',
+2026-04-28T06:11:45:   endDate: ''
+2026-04-28T06:11:45: }
+2026-04-28T06:11:45: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-28T06:11:45: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:11:45:   page: '1',
+2026-04-28T06:11:45:   pageSize: '10',
+2026-04-28T06:11:45:   startDate: '',
+2026-04-28T06:11:45:   endDate: ''
+2026-04-28T06:11:45: }
+2026-04-28T06:13:05: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:13:05:   page: '1',
+2026-04-28T06:13:05:   pageSize: '10',
+2026-04-28T06:13:05:   startDate: '',
+2026-04-28T06:13:05:   endDate: ''
+2026-04-28T06:13:05: }
+2026-04-28T06:18:43: ➡️ [Controller] cross-platform-engagement HIT [Object: null prototype] {
+2026-04-28T06:18:43:   startDate: '2025-04-01',
+2026-04-28T06:18:43:   endDate: '2025-04-30'
+2026-04-28T06:18:43: }
+2026-04-28T06:18:43: 📈 [Service] getChartData called {
+2026-04-28T06:18:43:   metric: 'averageDuration',
+2026-04-28T06:18:43:   groupBy: 'platform',
+2026-04-28T06:18:43:   startDate: '2025-04-01',
+2026-04-28T06:18:43:   endDate: '2025-04-30'
+2026-04-28T06:18:43: }
+2026-04-28T06:18:43: 🔍 [Service] fetchAllArticles called {
+2026-04-28T06:18:43:   startDate: '2025-04-01',
+2026-04-28T06:18:43:   endDate: '2025-04-30',
+2026-04-28T06:18:43:   category: undefined,
+2026-04-28T06:18:43:   page: 1,
+2026-04-28T06:18:43:   pageSize: 1000
+2026-04-28T06:18:43: }
+2026-04-28T06:18:43: 🌐 [Service] Fetching articles at offset 0, pageSize 1000
+2026-04-28T06:18:43: 🔐 [Service] Using Bearer token authentication
+2026-04-28T06:18:45: ✅ [Service] Fetched articles: 0 (page 1, totalCount: 0)
+2026-04-28T06:18:45: 🔍 [Service] fetchAllSessions called {
+2026-04-28T06:18:45:   startDate: '2025-04-01',
+2026-04-28T06:18:45:   endDate: '2025-04-30',
+2026-04-28T06:18:45:   platform: undefined,
+2026-04-28T06:18:45:   sessionMedium: undefined,
+2026-04-28T06:18:45:   streamName: undefined
+2026-04-28T06:18:45: }
+2026-04-28T06:18:45: 🌐 [Service] Fetching sessions for chunk: 2025-04-01 - 2025-05-01
+2026-04-28T06:18:45: 🔐 [Service] Using Bearer token authentication
+2026-04-28T06:18:48: ❌ [Service] Editorial API Error: timeout of 3000ms exceeded
+2026-04-28T06:18:48: ❌ [Service] Error in fetchAllSessions: timeout of 3000ms exceeded
+2026-04-28T06:18:48: ❌ [Controller] Error: <ref *1> AxiosError: timeout of 3000ms exceeded
+2026-04-28T06:18:48:     at RedirectableRequest.handleRequestTimeout (file:///var/www/VGAD/api/node_modules/axios/lib/adapters/http.js:913:13)
+2026-04-28T06:18:48:     at RedirectableRequest.emit (node:events:519:28)
+2026-04-28T06:18:48:     at Timeout._onTimeout (/var/www/VGAD/api/node_modules/follow-redirects/index.js:233:12)
+2026-04-28T06:18:48:     at listOnTimeout (node:internal/timers:588:17)
+2026-04-28T06:18:48:     at processTimers (node:internal/timers:523:7)
+2026-04-28T06:18:48:     at Axios.request (file:///var/www/VGAD/api/node_modules/axios/lib/core/Axios.js:46:41)
+2026-04-28T06:18:48:     at processTicksAndRejections (node:internal/process/task_queues:105:5)
+2026-04-28T06:18:48:     at EditorialAnalyticsService.fetchAllSessions (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsService.js:144:23)
+2026-04-28T06:18:48:     at EditorialAnalyticsService.getChartData (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsService.js:469:26)
+2026-04-28T06:18:48:     at getCrossPlatformEngagement (file:///var/www/VGAD/api/src/departments/editorial/editorialAnalytics/editorialAnalyticsController.js:100:23) {
+2026-04-28T06:18:48:   isAxiosError: true,
+2026-04-28T06:18:48:   code: 'ECONNABORTED',
+2026-04-28T06:18:48:   config: {
+2026-04-28T06:18:48:     transitional: {
+2026-04-28T06:18:48:       silentJSONParsing: true,
+2026-04-28T06:18:48:       forcedJSONParsing: true,
+2026-04-28T06:18:48:       clarifyTimeoutError: false,
+2026-04-28T06:18:48:       legacyInterceptorReqResOrdering: true
+2026-04-28T06:18:48:     },
+2026-04-28T06:18:48:     adapter: [ 'xhr', 'http', 'fetch' ],
+2026-04-28T06:18:48:     transformRequest: [ [Function: transformRequest] ],
+2026-04-28T06:18:48:     transformResponse: [ [Function: transformResponse] ],
+2026-04-28T06:18:48:     timeout: 3000,
+2026-04-28T06:18:48:     xsrfCookieName: 'XSRF-TOKEN',
+2026-04-28T06:18:48:     xsrfHeaderName: 'X-XSRF-TOKEN',
+2026-04-28T06:18:48:     maxContentLength: -1,
+2026-04-28T06:18:48:     maxBodyLength: -1,
+2026-04-28T06:18:48:     env: { FormData: [Function], Blob: [class Blob] },
+2026-04-28T06:18:48:     validateStatus: [Function: validateStatus],
+2026-04-28T06:18:48:     headers: Object [AxiosHeaders] {
+2026-04-28T06:18:48:       Accept: 'application/json, text/plain, */*',
+2026-04-28T06:18:48:       'Content-Type': 'application/json',
+2026-04-28T06:18:48:       Authorization: 'Bearer 38d79da61a89bf9e65dc1dcac80138a35c542a57832337d0e08bbfa4e4269e6f8ccb2bc1065717d50b29db806272ffec9593dd09c9bb8b13c013e98b687b2ca6f8edde07b57b246a464301e3f0ea63d0b0e6b30b09709ed7f06e1aa39dfd0c54ac632a2fa25f20500acce9d1633cbf2406652154c6f8bb7cf5d5b1c3dd9ce043',
+2026-04-28T06:18:48:       'User-Agent': 'axios/1.15.0',
+2026-04-28T06:18:48:       'Accept-Encoding': 'gzip, compress, deflate, br'
+2026-04-28T06:18:48:     },
+2026-04-28T06:18:48:     baseURL: 'https://cms-vgad.visiongroup.co.ug/api',
+2026-04-28T06:18:48:     params: {},
+2026-04-28T06:18:48:     method: 'get',
+2026-04-28T06:18:48:     url: '/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-28T06:18:48:     allowAbsoluteUrls: true,
+2026-04-28T06:18:48:     data: undefined
+2026-04-28T06:18:48:   },
+2026-04-28T06:18:48:   request: <ref *2> Writable {
+2026-04-28T06:18:48:     _events: {
+2026-04-28T06:18:48:       close: undefined,
+2026-04-28T06:18:48:       error: [Function: handleRequestError],
+2026-04-28T06:18:48:       prefinish: undefined,
+2026-04-28T06:18:48:       finish: undefined,
+2026-04-28T06:18:48:       drain: undefined,
+2026-04-28T06:18:48:       response: [Function: handleResponse],
+2026-04-28T06:18:48:       socket: [Array],
+2026-04-28T06:18:48:       timeout: undefined,
+2026-04-28T06:18:48:       abort: undefined
+2026-04-28T06:18:48:     },
+2026-04-28T06:18:48:     _writableState: WritableState {
+2026-04-28T06:18:48:       highWaterMark: 65536,
+2026-04-28T06:18:48:       length: 0,
+2026-04-28T06:18:48:       corked: 0,
+2026-04-28T06:18:48:       onwrite: [Function: bound onwrite],
+2026-04-28T06:18:48:       writelen: 0,
+2026-04-28T06:18:48:       bufferedIndex: 0,
+2026-04-28T06:18:48:       pendingcb: 0,
+2026-04-28T06:18:48:       [Symbol(kState)]: 17581054,
+2026-04-28T06:18:48:       [Symbol(kBufferedValue)]: null,
+2026-04-28T06:18:48:       [Symbol(kErroredValue)]: [Circular *1]
+2026-04-28T06:18:48:     },
+2026-04-28T06:18:48:     _maxListeners: undefined,
+2026-04-28T06:18:48:     _options: {
+2026-04-28T06:18:48:       maxRedirects: 21,
+2026-04-28T06:18:48:       maxBodyLength: Infinity,
+2026-04-28T06:18:48:       protocol: 'https:',
+2026-04-28T06:18:48:       path: '/api/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-28T06:18:48:       method: 'GET',
+2026-04-28T06:18:48:       headers: [Object: null prototype],
+2026-04-28T06:18:48:       agents: [Object],
+2026-04-28T06:18:48:       auth: undefined,
+2026-04-28T06:18:48:       family: undefined,
+2026-04-28T06:18:48:       beforeRedirect: [Function: dispatchBeforeRedirect],
+2026-04-28T06:18:48:       beforeRedirects: [Object],
+2026-04-28T06:18:48:       http2Options: undefined,
+2026-04-28T06:18:48:       hostname: 'cms-vgad.visiongroup.co.ug',
+2026-04-28T06:18:48:       port: '',
+2026-04-28T06:18:48:       agent: undefined,
+2026-04-28T06:18:48:       nativeProtocols: [Object],
+2026-04-28T06:18:48:       sensitiveHeaders: [],
+2026-04-28T06:18:48:       pathname: '/api/api-listings/article-session-duration/2025-04-01/2025-05-01'
+2026-04-28T06:18:48:     },
+2026-04-28T06:18:48:     _ended: true,
+2026-04-28T06:18:48:     _ending: true,
+2026-04-28T06:18:48:     _redirectCount: 0,
+2026-04-28T06:18:48:     _redirects: [],
+2026-04-28T06:18:48:     _requestBodyLength: 0,
+2026-04-28T06:18:48:     _requestBodyBuffers: [],
+2026-04-28T06:18:48:     _eventsCount: 3,
+2026-04-28T06:18:48:     _onNativeResponse: [Function (anonymous)],
+2026-04-28T06:18:48:     _headerFilter: /^(?:Authorization|Proxy-Authorization|Cookie)$/i,
+2026-04-28T06:18:48:     _currentRequest: ClientRequest {
+2026-04-28T06:18:48:       _events: [Object: null prototype],
+2026-04-28T06:18:48:       _eventsCount: 2,
+2026-04-28T06:18:48:       _maxListeners: undefined,
+2026-04-28T06:18:48:       outputData: [],
+2026-04-28T06:18:48:       outputSize: 0,
+2026-04-28T06:18:48:       writable: true,
+2026-04-28T06:18:48:       destroyed: true,
+2026-04-28T06:18:48:       _last: true,
+2026-04-28T06:18:48:       chunkedEncoding: false,
+2026-04-28T06:18:48:       shouldKeepAlive: true,
+2026-04-28T06:18:48:       maxRequestsOnConnectionReached: false,
+2026-04-28T06:18:48:       _defaultKeepAlive: true,
+2026-04-28T06:18:48:       useChunkedEncodingByDefault: false,
+2026-04-28T06:18:48:       sendDate: false,
+2026-04-28T06:18:48:       _removedConnection: false,
+2026-04-28T06:18:48:       _removedContLen: false,
+2026-04-28T06:18:48:       _removedTE: false,
+2026-04-28T06:18:48:       strictContentLength: false,
+2026-04-28T06:18:48:       _contentLength: 0,
+2026-04-28T06:18:48:       _hasBody: true,
+2026-04-28T06:18:48:       _trailer: '',
+2026-04-28T06:18:48:       finished: true,
+2026-04-28T06:18:48:       _headerSent: true,
+2026-04-28T06:18:48:       _closed: false,
+2026-04-28T06:18:48:       _header: 'GET /api/api-listings/article-session-duration/2025-04-01/2025-05-01 HTTP/1.1\r\n' +
+2026-04-28T06:18:48:         'Accept: application/json, text/plain, */*\r\n' +
+2026-04-28T06:18:48:         'Content-Type: application/json\r\n' +
+2026-04-28T06:18:48:         'Authorization: Bearer 38d79da61a89bf9e65dc1dcac80138a35c542a57832337d0e08bbfa4e4269e6f8ccb2bc1065717d50b29db806272ffec9593dd09c9bb8b13c013e98b687b2ca6f8edde07b57b246a464301e3f0ea63d0b0e6b30b09709ed7f06e1aa39dfd0c54ac632a2fa25f20500acce9d1633cbf2406652154c6f8bb7cf5d5b1c3dd9ce043\r\n' +
+2026-04-28T06:18:48:         'User-Agent: axios/1.15.0\r\n' +
+2026-04-28T06:18:48:         'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+2026-04-28T06:18:48:         'Host: cms-vgad.visiongroup.co.ug\r\n' +
+2026-04-28T06:18:48:         'Connection: keep-alive\r\n' +
+2026-04-28T06:18:48:         '\r\n',
+2026-04-28T06:18:48:       _keepAliveTimeout: 0,
+2026-04-28T06:18:48:       _onPendingData: [Function: nop],
+2026-04-28T06:18:48:       agent: [Agent],
+2026-04-28T06:18:48:       socketPath: undefined,
+2026-04-28T06:18:48:       method: 'GET',
+2026-04-28T06:18:48:       maxHeaderSize: undefined,
+2026-04-28T06:18:48:       insecureHTTPParser: undefined,
+2026-04-28T06:18:48:       joinDuplicateHeaders: undefined,
+2026-04-28T06:18:48:       path: '/api/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-28T06:18:48:       _ended: false,
+2026-04-28T06:18:48:       res: null,
+2026-04-28T06:18:48:       aborted: false,
+2026-04-28T06:18:48:       timeoutCb: [Function: emitRequestTimeout],
+2026-04-28T06:18:48:       upgradeOrConnect: false,
+2026-04-28T06:18:48:       parser: null,
+2026-04-28T06:18:48:       maxHeadersCount: null,
+2026-04-28T06:18:48:       reusedSocket: true,
+2026-04-28T06:18:48:       host: 'cms-vgad.visiongroup.co.ug',
+2026-04-28T06:18:48:       protocol: 'https:',
+2026-04-28T06:18:48:       _redirectable: [Circular *2],
+2026-04-28T06:18:48:       [Symbol(shapeMode)]: false,
+2026-04-28T06:18:48:       [Symbol(kCapture)]: false,
+2026-04-28T06:18:48:       [Symbol(kBytesWritten)]: 0,
+2026-04-28T06:18:48:       [Symbol(kNeedDrain)]: false,
+2026-04-28T06:18:48:       [Symbol(corked)]: 0,
+2026-04-28T06:18:48:       [Symbol(kChunkedBuffer)]: [],
+2026-04-28T06:18:48:       [Symbol(kChunkedLength)]: 0,
+2026-04-28T06:18:48:       [Symbol(kSocket)]: [TLSSocket],
+2026-04-28T06:18:48:       [Symbol(kOutHeaders)]: [Object: null prototype],
+2026-04-28T06:18:48:       [Symbol(errored)]: null,
+2026-04-28T06:18:48:       [Symbol(kHighWaterMark)]: 65536,
+2026-04-28T06:18:48:       [Symbol(kRejectNonStandardBodyWrites)]: false,
+2026-04-28T06:18:48:       [Symbol(kUniqueHeaders)]: null,
+2026-04-28T06:18:48:       [Symbol(kError)]: [Circular *1]
+2026-04-28T06:18:48:     },
+2026-04-28T06:18:48:     _currentUrl: 'https://cms-vgad.visiongroup.co.ug/api/api-listings/article-session-duration/2025-04-01/2025-05-01',
+2026-04-28T06:18:48:     _timeout: null,
+2026-04-28T06:18:48:     [Symbol(shapeMode)]: true,
+2026-04-28T06:18:48:     [Symbol(kCapture)]: false
+2026-04-28T06:18:48:   }
+2026-04-28T06:18:48: }
+2026-04-28T23:23:01: [2026-04-28T23:23:01.816Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:23:11: [2026-04-28T23:23:11.832Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:23:21: [2026-04-28T23:23:21.850Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:23:31: [2026-04-28T23:23:31.866Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:23:41: [2026-04-28T23:23:41.882Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:23:51: [2026-04-28T23:23:51.900Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:24:01: [2026-04-28T23:24:01.918Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:24:11: [2026-04-28T23:24:11.935Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:24:21: [2026-04-28T23:24:21.951Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:24:32: [2026-04-28T23:24:32.436Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:24:45: [2026-04-28T23:24:45.269Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:25:01: [2026-04-28T23:25:01.495Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:25:24: [2026-04-28T23:25:24.481Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:25:49: [2026-04-28T23:25:49.907Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:26:08: [2026-04-28T23:26:08.938Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:26:55: [2026-04-28T23:26:55.393Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:27:12: [2026-04-28T23:27:12.312Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:28:15: [2026-04-28T23:28:15.250Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:29:03: [2026-04-28T23:29:03.545Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:31:01: [2026-04-28T23:31:01.878Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:31:15: [2026-04-28T23:31:15.877Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:34:04: [2026-04-28T23:34:04.563Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:38:14: [2026-04-28T23:38:14.960Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:42:05: [2026-04-28T23:42:05.514Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:46:19: [2026-04-28T23:46:19.792Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:48:32: [2026-04-28T23:48:32.551Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:50:28: [2026-04-28T23:50:28.126Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:52:13: [2026-04-28T23:52:13.473Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:55:52: [2026-04-28T23:55:52.901Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:56:16: [2026-04-28T23:56:16.057Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:56:56: [2026-04-28T23:56:56.049Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-28T23:59:57: [2026-04-28T23:59:57.638Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:03:01: [2026-04-29T00:03:01.059Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:07:37: [2026-04-29T00:07:37.369Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:08:49: [2026-04-29T00:08:49.497Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:12:32: [2026-04-29T00:12:32.168Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:17:24: [2026-04-29T00:17:24.610Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:19:53: [2026-04-29T00:19:53.248Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:22:50: [2026-04-29T00:22:50.278Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:24:00: [2026-04-29T00:24:00.129Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:28:07: [2026-04-29T00:28:07.254Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:31:01: [2026-04-29T00:31:01.885Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:35:22: [2026-04-29T00:35:22.171Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:39:51: [2026-04-29T00:39:51.762Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:43:02: [2026-04-29T00:43:02.736Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:43:25: [2026-04-29T00:43:25.050Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:47:28: [2026-04-29T00:47:28.949Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:48:42: [2026-04-29T00:48:42.654Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:49:12: [2026-04-29T00:49:12.828Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:50:09: [2026-04-29T00:50:09.808Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:50:22: [2026-04-29T00:50:22.639Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:54:33: [2026-04-29T00:54:33.511Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:55:14: [2026-04-29T00:55:14.736Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T00:56:12: [2026-04-29T00:56:12.644Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:00:04: [2026-04-29T01:00:04.156Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:03:36: [2026-04-29T01:03:36.227Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:04:57: [2026-04-29T01:04:57.407Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:09:55: [2026-04-29T01:09:55.749Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:10:16: [2026-04-29T01:10:16.283Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:15:14: [2026-04-29T01:15:14.541Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:16:12: [2026-04-29T01:16:12.408Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:19:51: [2026-04-29T01:19:51.410Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:24:19: [2026-04-29T01:24:19.554Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:29:03: [2026-04-29T01:29:03.535Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:30:15: [2026-04-29T01:30:15.954Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:33:32: [2026-04-29T01:33:32.919Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:37:46: [2026-04-29T01:37:46.525Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:42:01: [2026-04-29T01:42:01.046Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:45:07: [2026-04-29T01:45:07.657Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:46:09: [2026-04-29T01:46:09.802Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:48:33: [2026-04-29T01:48:33.139Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:49:59: [2026-04-29T01:49:59.685Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:51:18: [2026-04-29T01:51:18.363Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:51:56: [2026-04-29T01:51:56.447Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:56:26: [2026-04-29T01:56:26.856Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T01:59:48: [2026-04-29T01:59:48.886Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:01:35: [2026-04-29T02:01:35.840Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:05:11: [2026-04-29T02:05:11.193Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:07:28: [2026-04-29T02:07:28.826Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:07:59: [2026-04-29T02:07:59.288Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:12:33: [2026-04-29T02:12:33.274Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:14:24: [2026-04-29T02:14:24.455Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:17:56: [2026-04-29T02:17:56.889Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:20:54: [2026-04-29T02:20:54.713Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:24:22: [2026-04-29T02:24:22.152Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:25:42: [2026-04-29T02:25:42.478Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:28:28: [2026-04-29T02:28:28.716Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:32:56: [2026-04-29T02:32:56.595Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:37:52: [2026-04-29T02:37:52.768Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:41:14: [2026-04-29T02:41:14.868Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:42:42: [2026-04-29T02:42:42.061Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:45:57: [2026-04-29T02:45:57.427Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:50:45: [2026-04-29T02:50:45.556Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:53:05: [2026-04-29T02:53:05.131Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:56:09: [2026-04-29T02:56:09.330Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:56:56: [2026-04-29T02:56:56.139Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T02:58:24: [2026-04-29T02:58:24.276Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:02:49: [2026-04-29T03:02:49.401Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:03:18: [2026-04-29T03:03:18.027Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:07:08: [2026-04-29T03:07:08.222Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:11:06: [2026-04-29T03:11:06.224Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:13:33: [2026-04-29T03:13:33.280Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:15:22: [2026-04-29T03:15:22.255Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:19:21: [2026-04-29T03:19:21.871Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:22:36: [2026-04-29T03:22:36.241Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:24:30: [2026-04-29T03:24:30.427Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:27:12: [2026-04-29T03:27:12.397Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:29:59: [2026-04-29T03:29:59.941Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:31:55: [2026-04-29T03:31:55.967Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:34:18: [2026-04-29T03:34:18.025Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:36:50: [2026-04-29T03:36:50.046Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:39:40: [2026-04-29T03:39:40.332Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:43:44: [2026-04-29T03:43:44.164Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:48:13: [2026-04-29T03:48:13.976Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:52:03: [2026-04-29T03:52:03.767Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:53:27: [2026-04-29T03:53:27.172Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:56:38: [2026-04-29T03:56:38.831Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:57:27: [2026-04-29T03:57:27.332Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T03:59:35: [2026-04-29T03:59:35.015Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T04:02:38: [2026-04-29T04:02:38.257Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T04:06:16: [2026-04-29T04:06:16.879Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 
+2026-04-29T04:09:36: [2026-04-29T04:09:36.898Z]  @firebase/database: FIREBASE WARNING: {"code":"app/invalid-credential","message":"Credential implementation provided to initializeApp() via the \"credential\" property failed to fetch a valid Google OAuth2 access token with the following error: \"Error fetching access token: Error while making request: getaddrinfo EAI_AGAIN accounts.google.com. Error code: EAI_AGAIN\"."} 

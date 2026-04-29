@@ -10215,3 +10215,878 @@
 2026-04-24T09:24:30: }
 2026-04-24T09:51:09: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
 2026-04-24T09:51:09: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-25T20:10:28: Server + WebSocket listening on port 4000
+2026-04-25T21:20:52: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-25T21:20:53: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-25T21:21:48: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-25T21:21:50: ➡️ [Controller] storage HIT [Object: null prototype] { diskName: '', page: '1', pageSize: '10' }
+2026-04-25T21:21:51: ➡️ [Controller] patch-compliance HIT [Object: null prototype] { osVersion: '', page: '1', pageSize: '10' }
+2026-04-25T21:22:42: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-25T21:22:42:   page: '1',
+2026-04-25T21:22:42:   pageSize: '10',
+2026-04-25T21:22:42:   startDate: '',
+2026-04-25T21:22:42:   endDate: ''
+2026-04-25T21:22:42: }
+2026-04-25T21:22:42: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-25T21:22:43: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-25T21:22:43:   page: '1',
+2026-04-25T21:22:43:   pageSize: '10',
+2026-04-25T21:22:43:   startDate: '',
+2026-04-25T21:22:43:   endDate: ''
+2026-04-25T21:22:43: }
+2026-04-25T21:23:16: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-25T21:23:16:   page: '1',
+2026-04-25T21:23:16:   pageSize: '10',
+2026-04-25T21:23:16:   startDate: '',
+2026-04-25T21:23:16:   endDate: ''
+2026-04-25T21:23:16: }
+2026-04-25T21:23:32: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-25T21:23:32:   page: '1',
+2026-04-25T21:23:32:   pageSize: '10',
+2026-04-25T21:23:32:   startDate: '',
+2026-04-25T21:23:32:   endDate: ''
+2026-04-25T21:23:32: }
+2026-04-25T21:23:33: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-25T21:23:33:   page: '1',
+2026-04-25T21:23:33:   pageSize: '10',
+2026-04-25T21:23:33:   startDate: '',
+2026-04-25T21:23:33:   endDate: ''
+2026-04-25T21:23:33: }
+2026-04-25T21:23:36: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-25T21:23:36:   page: '1',
+2026-04-25T21:23:36:   pageSize: '10',
+2026-04-25T21:23:36:   startDate: '',
+2026-04-25T21:23:36:   endDate: ''
+2026-04-25T21:23:36: }
+2026-04-25T21:24:21: 📊 Financial Close Metrics request with filters: {
+2026-04-25T21:24:21:   startDate: '2021-08-01',
+2026-04-25T21:24:21:   endDate: '2021-08-31',
+2026-04-25T21:24:21:   accountNo: '10060',
+2026-04-25T21:24:21:   documentType: 'Payment',
+2026-04-25T21:24:21:   granularity: 'monthly',
+2026-04-25T21:24:21:   limit: '1000'
+2026-04-25T21:24:21: }
+2026-04-25T21:24:21: 🔧 FinanceService initialized with:
+2026-04-25T21:24:21: 📍 Base URL: https://cms-vgad.visiongroup.co.ug/api
+2026-04-25T21:24:21: 🔑 Bearer Token: Present
+2026-04-25T21:24:21: 👤 Username: intern-developer@newvision.co.ug
+2026-04-25T21:24:21: 🔍 Getting Financial Close Metrics with filters: {
+2026-04-25T21:24:21:   startDate: '2021-08-01',
+2026-04-25T21:24:21:   endDate: '2021-08-31',
+2026-04-25T21:24:21:   accountNo: '10060',
+2026-04-25T21:24:21:   documentType: 'Payment',
+2026-04-25T21:24:21:   granularity: 'monthly',
+2026-04-25T21:24:21:   limit: '1000'
+2026-04-25T21:24:21: }
+2026-04-25T21:24:21: 🔍 getFinancialData called with filters: {
+2026-04-25T21:24:21:   startDate: '2021-08-01',
+2026-04-25T21:24:21:   endDate: '2021-08-31',
+2026-04-25T21:24:21:   accountNo: '10060',
+2026-04-25T21:24:21:   documentType: 'Payment',
+2026-04-25T21:24:21:   granularity: 'monthly',
+2026-04-25T21:24:21:   limit: '1000'
+2026-04-25T21:24:21: }
+2026-04-25T21:24:21: 🌐 API endpoint: /bc-datasets/2021-08-01/2021-08-31
+2026-04-25T21:24:21: 🌐 API params: { gl_account_no: '10060', document_type: 'Payment', limit: '1000' }
+2026-04-25T21:24:21: 🔐 Using Bearer token authentication
+2026-04-25T21:24:22: ✅ Fetched 20000 financial records from CMC API
+2026-04-25T21:24:22: 🔄 Transformed 20000 records
+2026-04-25T21:24:22: 📊 Sample transformed data: {
+2026-04-25T21:24:22:   "id": 39027,
+2026-04-25T21:24:22:   "entryNo": "19511",
+2026-04-25T21:24:22:   "transactionNo": "2223",
+2026-04-25T21:24:22:   "accountNo": "10060",
+2026-04-25T21:24:22:   "accountName": "Mbarara Cash Control",
+2026-04-25T21:24:22:   "postingDate": "2021-08-10",
+2026-04-25T21:24:22:   "documentDate": "2021-08-10",
+2026-04-25T21:24:22:   "documentType": "Payment",
+2026-04-25T21:24:22:   "documentNo": "B-SK000020RN",
+2026-04-25T21:24:22:   "sourceCode": "CASHRECJNL",
+2026-04-25T21:24:22:   "amount": "19000",
+2026-04-25T21:24:22:   "debitAmount": "19000",
+2026-04-25T21:24:22:   "creditAmount": "0",
+2026-04-25T21:24:22:   "vatAmount": "0",
+2026-04-25T21:24:22:   "additionalCurrencyAmount": "0",
+2026-04-25T21:24:22:   "addCurrencyDebitAmount": "0",
+2026-04-25T21:24:22:   "addCurrencyCreditAmount": "0",
+2026-04-25T21:24:22:   "genPostingType": null,
+2026-04-25T21:24:22:   "genBusPostingGroup": null,
+2026-04-25T21:24:22:   "genProdPostingGroup": null,
+2026-04-25T21:24:22:   "vatBusPostingGroup": null,
+2026-04-25T21:24:22:   "vatProdPostingGroup": null,
+2026-04-25T21:24:22:   "taxAreaCode": null,
+2026-04-25T21:24:22:   "taxLiable": false,
+2026-04-25T21:24:22:   "taxGroupCode": null,
+2026-04-25T21:24:22:   "useTax": false,
+2026-04-25T21:24:22:   "jobNo": null,
+2026-04-25T21:24:22:   "businessUnitCode": null,
+2026-04-25T21:24:22:   "reasonCode": null,
+2026-04-25T21:24:22:   "icPartnerCode": null,
+2026-04-25T21:24:22:   "dimensionSetId": "1736",
+2026-04-25T21:24:22:   "locale": null,
+2026-04-25T21:24:22:   "raw": {
+2026-04-25T21:24:22:     "locale": null,
+2026-04-25T21:24:22:     "Entry_No": "19511",
+2026-04-25T21:24:22:     "Transaction_No": "2223",
+2026-04-25T21:24:22:     "G_L_Account_No": "10060",
+2026-04-25T21:24:22:     "Posting_Date": "2021-08-10",
+2026-04-25T21:24:22:     "Document_Date": "2021-08-10",
+2026-04-25T21:24:22:     "Document_Type": "Payment",
+2026-04-25T21:24:22:     "Document_No": "B-SK000020RN",
+2026-04-25T21:24:22:     "Source_Code": "CASHRECJNL",
+2026-04-25T21:24:22:     "Job_No": null,
+2026-04-25T21:24:22:     "Business_Unit_Code": null,
+2026-04-25T21:24:22:     "Reason_Code": null,
+2026-04-25T21:24:22:     "Gen_Posting_Type": null,
+2026-04-25T21:24:22:     "Gen_Bus_Posting_Group": null,
+2026-04-25T21:24:22:     "Gen_Prod_Posting_Group": null,
+2026-04-25T21:24:22:     "Tax_Area_Code": null,
+2026-04-25T21:24:22:     "Tax_Liable": false,
+2026-04-25T21:24:22:     "Tax_Group_Code": null,
+2026-04-25T21:24:22:     "Use_Tax": false,
+2026-04-25T21:24:22:     "VAT_Bus_Posting_Group": null,
+2026-04-25T21:24:22:     "VAT_Prod_Posting_Group": null,
+2026-04-25T21:24:22:     "IC_Partner_Code": null,
+2026-04-25T21:24:22:     "Amount": "19000",
+2026-04-25T21:24:22:     "Debit_Amount": "19000",
+2026-04-25T21:24:22:     "Credit_Amount": "0",
+2026-04-25T21:24:22:     "VAT_Amount": "0",
+2026-04-25T21:24:22:     "Additional_Currency_Amount": "0",
+2026-04-25T21:24:22:     "Add_Currency_Debit_Amount": "0",
+2026-04-25T21:24:22:     "Add_Currency_Credit_Amount": "0",
+2026-04-25T21:24:22:     "Dimension_Set_ID": "1736",
+2026-04-25T21:24:22:     "G_L_Account_Name": "Mbarara Cash Control"
+2026-04-25T21:24:22:   }
+2026-04-25T21:24:22: }
+2026-04-25T21:24:22: 📊 Processing 20000 records for close metrics
+2026-04-25T21:24:22: 🔄 Calculating close metrics with enhanced granularity
+2026-04-25T21:24:22: 📈 Using monthly granularity
+2026-04-25T21:24:22: 📊 Grouped data into 1 periods
+2026-04-25T21:24:22: ✅ Generated metrics for 1 periods
+2026-04-25T21:24:25: 📊 Financial Close Metrics request with filters: {
+2026-04-25T21:24:25:   startDate: '2021-08-01',
+2026-04-25T21:24:25:   endDate: '2021-08-31',
+2026-04-25T21:24:25:   accountNo: '10060',
+2026-04-25T21:24:25:   documentType: 'Payment',
+2026-04-25T21:24:25:   granularity: 'monthly',
+2026-04-25T21:24:25:   limit: '1000'
+2026-04-25T21:24:25: }
+2026-04-25T21:24:25: 🔍 Getting Financial Close Metrics with filters: {
+2026-04-25T21:24:25:   startDate: '2021-08-01',
+2026-04-25T21:24:25:   endDate: '2021-08-31',
+2026-04-25T21:24:25:   accountNo: '10060',
+2026-04-25T21:24:25:   documentType: 'Payment',
+2026-04-25T21:24:25:   granularity: 'monthly',
+2026-04-25T21:24:25:   limit: '1000'
+2026-04-25T21:24:25: }
+2026-04-25T21:24:25: 🔍 getFinancialData called with filters: {
+2026-04-25T21:24:25:   startDate: '2021-08-01',
+2026-04-25T21:24:25:   endDate: '2021-08-31',
+2026-04-25T21:24:25:   accountNo: '10060',
+2026-04-25T21:24:25:   documentType: 'Payment',
+2026-04-25T21:24:25:   granularity: 'monthly',
+2026-04-25T21:24:25:   limit: '1000'
+2026-04-25T21:24:25: }
+2026-04-25T21:24:25: 🌐 API endpoint: /bc-datasets/2021-08-01/2021-08-31
+2026-04-25T21:24:25: 🌐 API params: { gl_account_no: '10060', document_type: 'Payment', limit: '1000' }
+2026-04-25T21:24:25: 🔐 Using Bearer token authentication
+2026-04-25T21:24:26: ✅ Fetched 20000 financial records from CMC API
+2026-04-25T21:24:26: 🔄 Transformed 20000 records
+2026-04-25T21:24:26: 📊 Sample transformed data: {
+2026-04-25T21:24:26:   "id": 39027,
+2026-04-25T21:24:26:   "entryNo": "19511",
+2026-04-25T21:24:26:   "transactionNo": "2223",
+2026-04-25T21:24:26:   "accountNo": "10060",
+2026-04-25T21:24:26:   "accountName": "Mbarara Cash Control",
+2026-04-25T21:24:26:   "postingDate": "2021-08-10",
+2026-04-25T21:24:26:   "documentDate": "2021-08-10",
+2026-04-25T21:24:26:   "documentType": "Payment",
+2026-04-25T21:24:26:   "documentNo": "B-SK000020RN",
+2026-04-25T21:24:26:   "sourceCode": "CASHRECJNL",
+2026-04-25T21:24:26:   "amount": "19000",
+2026-04-25T21:24:26:   "debitAmount": "19000",
+2026-04-25T21:24:26:   "creditAmount": "0",
+2026-04-25T21:24:26:   "vatAmount": "0",
+2026-04-25T21:24:26:   "additionalCurrencyAmount": "0",
+2026-04-25T21:24:26:   "addCurrencyDebitAmount": "0",
+2026-04-25T21:24:26:   "addCurrencyCreditAmount": "0",
+2026-04-25T21:24:26:   "genPostingType": null,
+2026-04-25T21:24:26:   "genBusPostingGroup": null,
+2026-04-25T21:24:26:   "genProdPostingGroup": null,
+2026-04-25T21:24:26:   "vatBusPostingGroup": null,
+2026-04-25T21:24:26:   "vatProdPostingGroup": null,
+2026-04-25T21:24:26:   "taxAreaCode": null,
+2026-04-25T21:24:26:   "taxLiable": false,
+2026-04-25T21:24:26:   "taxGroupCode": null,
+2026-04-25T21:24:26:   "useTax": false,
+2026-04-25T21:24:26:   "jobNo": null,
+2026-04-25T21:24:26:   "businessUnitCode": null,
+2026-04-25T21:24:26:   "reasonCode": null,
+2026-04-25T21:24:26:   "icPartnerCode": null,
+2026-04-25T21:24:26:   "dimensionSetId": "1736",
+2026-04-25T21:24:26:   "locale": null,
+2026-04-25T21:24:26:   "raw": {
+2026-04-25T21:24:26:     "locale": null,
+2026-04-25T21:24:26:     "Entry_No": "19511",
+2026-04-25T21:24:26:     "Transaction_No": "2223",
+2026-04-25T21:24:26:     "G_L_Account_No": "10060",
+2026-04-25T21:24:26:     "Posting_Date": "2021-08-10",
+2026-04-25T21:24:26:     "Document_Date": "2021-08-10",
+2026-04-25T21:24:26:     "Document_Type": "Payment",
+2026-04-25T21:24:26:     "Document_No": "B-SK000020RN",
+2026-04-25T21:24:26:     "Source_Code": "CASHRECJNL",
+2026-04-25T21:24:26:     "Job_No": null,
+2026-04-25T21:24:26:     "Business_Unit_Code": null,
+2026-04-25T21:24:26:     "Reason_Code": null,
+2026-04-25T21:24:26:     "Gen_Posting_Type": null,
+2026-04-25T21:24:26:     "Gen_Bus_Posting_Group": null,
+2026-04-25T21:24:26:     "Gen_Prod_Posting_Group": null,
+2026-04-25T21:24:26:     "Tax_Area_Code": null,
+2026-04-25T21:24:26:     "Tax_Liable": false,
+2026-04-25T21:24:26:     "Tax_Group_Code": null,
+2026-04-25T21:24:26:     "Use_Tax": false,
+2026-04-25T21:24:26:     "VAT_Bus_Posting_Group": null,
+2026-04-25T21:24:26:     "VAT_Prod_Posting_Group": null,
+2026-04-25T21:24:26:     "IC_Partner_Code": null,
+2026-04-25T21:24:26:     "Amount": "19000",
+2026-04-25T21:24:26:     "Debit_Amount": "19000",
+2026-04-25T21:24:26:     "Credit_Amount": "0",
+2026-04-25T21:24:26:     "VAT_Amount": "0",
+2026-04-25T21:24:26:     "Additional_Currency_Amount": "0",
+2026-04-25T21:24:26:     "Add_Currency_Debit_Amount": "0",
+2026-04-25T21:24:26:     "Add_Currency_Credit_Amount": "0",
+2026-04-25T21:24:26:     "Dimension_Set_ID": "1736",
+2026-04-25T21:24:26:     "G_L_Account_Name": "Mbarara Cash Control"
+2026-04-25T21:24:26:   }
+2026-04-25T21:24:26: }
+2026-04-25T21:24:26: 📊 Processing 20000 records for close metrics
+2026-04-25T21:24:26: 🔄 Calculating close metrics with enhanced granularity
+2026-04-25T21:24:26: 📈 Using monthly granularity
+2026-04-25T21:24:26: 📊 Grouped data into 1 periods
+2026-04-25T21:24:26: ✅ Generated metrics for 1 periods
+2026-04-25T21:24:30: 📊 Financial Close Metrics request with filters: {
+2026-04-25T21:24:30:   startDate: '2021-08-01',
+2026-04-25T21:24:30:   endDate: '2021-08-31',
+2026-04-25T21:24:30:   accountNo: '10060',
+2026-04-25T21:24:30:   documentType: 'Payment',
+2026-04-25T21:24:30:   granularity: 'monthly',
+2026-04-25T21:24:30:   limit: '1000'
+2026-04-25T21:24:30: }
+2026-04-25T21:24:30: 🔍 Getting Financial Close Metrics with filters: {
+2026-04-25T21:24:30:   startDate: '2021-08-01',
+2026-04-25T21:24:30:   endDate: '2021-08-31',
+2026-04-25T21:24:30:   accountNo: '10060',
+2026-04-25T21:24:30:   documentType: 'Payment',
+2026-04-25T21:24:30:   granularity: 'monthly',
+2026-04-25T21:24:30:   limit: '1000'
+2026-04-25T21:24:30: }
+2026-04-25T21:24:30: 🔍 getFinancialData called with filters: {
+2026-04-25T21:24:30:   startDate: '2021-08-01',
+2026-04-25T21:24:30:   endDate: '2021-08-31',
+2026-04-25T21:24:30:   accountNo: '10060',
+2026-04-25T21:24:30:   documentType: 'Payment',
+2026-04-25T21:24:30:   granularity: 'monthly',
+2026-04-25T21:24:30:   limit: '1000'
+2026-04-25T21:24:30: }
+2026-04-25T21:24:30: 🌐 API endpoint: /bc-datasets/2021-08-01/2021-08-31
+2026-04-25T21:24:30: 🌐 API params: { gl_account_no: '10060', document_type: 'Payment', limit: '1000' }
+2026-04-25T21:24:30: 🔐 Using Bearer token authentication
+2026-04-25T21:24:31: ✅ Fetched 20000 financial records from CMC API
+2026-04-25T21:24:31: 🔄 Transformed 20000 records
+2026-04-25T21:24:31: 📊 Sample transformed data: {
+2026-04-25T21:24:31:   "id": 39027,
+2026-04-25T21:24:31:   "entryNo": "19511",
+2026-04-25T21:24:31:   "transactionNo": "2223",
+2026-04-25T21:24:31:   "accountNo": "10060",
+2026-04-25T21:24:31:   "accountName": "Mbarara Cash Control",
+2026-04-25T21:24:31:   "postingDate": "2021-08-10",
+2026-04-25T21:24:31:   "documentDate": "2021-08-10",
+2026-04-25T21:24:31:   "documentType": "Payment",
+2026-04-25T21:24:31:   "documentNo": "B-SK000020RN",
+2026-04-25T21:24:31:   "sourceCode": "CASHRECJNL",
+2026-04-25T21:24:31:   "amount": "19000",
+2026-04-25T21:24:31:   "debitAmount": "19000",
+2026-04-25T21:24:31:   "creditAmount": "0",
+2026-04-25T21:24:31:   "vatAmount": "0",
+2026-04-25T21:24:31:   "additionalCurrencyAmount": "0",
+2026-04-25T21:24:31:   "addCurrencyDebitAmount": "0",
+2026-04-25T21:24:31:   "addCurrencyCreditAmount": "0",
+2026-04-25T21:24:31:   "genPostingType": null,
+2026-04-25T21:24:31:   "genBusPostingGroup": null,
+2026-04-25T21:24:31:   "genProdPostingGroup": null,
+2026-04-25T21:24:31:   "vatBusPostingGroup": null,
+2026-04-25T21:24:31:   "vatProdPostingGroup": null,
+2026-04-25T21:24:31:   "taxAreaCode": null,
+2026-04-25T21:24:31:   "taxLiable": false,
+2026-04-25T21:24:31:   "taxGroupCode": null,
+2026-04-25T21:24:31:   "useTax": false,
+2026-04-25T21:24:31:   "jobNo": null,
+2026-04-25T21:24:31:   "businessUnitCode": null,
+2026-04-25T21:24:31:   "reasonCode": null,
+2026-04-25T21:24:31:   "icPartnerCode": null,
+2026-04-25T21:24:31:   "dimensionSetId": "1736",
+2026-04-25T21:24:31:   "locale": null,
+2026-04-25T21:24:31:   "raw": {
+2026-04-25T21:24:31:     "locale": null,
+2026-04-25T21:24:31:     "Entry_No": "19511",
+2026-04-25T21:24:31:     "Transaction_No": "2223",
+2026-04-25T21:24:31:     "G_L_Account_No": "10060",
+2026-04-25T21:24:31:     "Posting_Date": "2021-08-10",
+2026-04-25T21:24:31:     "Document_Date": "2021-08-10",
+2026-04-25T21:24:31:     "Document_Type": "Payment",
+2026-04-25T21:24:31:     "Document_No": "B-SK000020RN",
+2026-04-25T21:24:31:     "Source_Code": "CASHRECJNL",
+2026-04-25T21:24:31:     "Job_No": null,
+2026-04-25T21:24:31:     "Business_Unit_Code": null,
+2026-04-25T21:24:31:     "Reason_Code": null,
+2026-04-25T21:24:31:     "Gen_Posting_Type": null,
+2026-04-25T21:24:31:     "Gen_Bus_Posting_Group": null,
+2026-04-25T21:24:31:     "Gen_Prod_Posting_Group": null,
+2026-04-25T21:24:31:     "Tax_Area_Code": null,
+2026-04-25T21:24:31:     "Tax_Liable": false,
+2026-04-25T21:24:31:     "Tax_Group_Code": null,
+2026-04-25T21:24:31:     "Use_Tax": false,
+2026-04-25T21:24:31:     "VAT_Bus_Posting_Group": null,
+2026-04-25T21:24:31:     "VAT_Prod_Posting_Group": null,
+2026-04-25T21:24:31:     "IC_Partner_Code": null,
+2026-04-25T21:24:31:     "Amount": "19000",
+2026-04-25T21:24:31:     "Debit_Amount": "19000",
+2026-04-25T21:24:31:     "Credit_Amount": "0",
+2026-04-25T21:24:31:     "VAT_Amount": "0",
+2026-04-25T21:24:31:     "Additional_Currency_Amount": "0",
+2026-04-25T21:24:31:     "Add_Currency_Debit_Amount": "0",
+2026-04-25T21:24:31:     "Add_Currency_Credit_Amount": "0",
+2026-04-25T21:24:31:     "Dimension_Set_ID": "1736",
+2026-04-25T21:24:31:     "G_L_Account_Name": "Mbarara Cash Control"
+2026-04-25T21:24:31:   }
+2026-04-25T21:24:31: }
+2026-04-25T21:24:31: 📊 Processing 20000 records for close metrics
+2026-04-25T21:24:31: 🔄 Calculating close metrics with enhanced granularity
+2026-04-25T21:24:31: 📈 Using monthly granularity
+2026-04-25T21:24:31: 📊 Grouped data into 1 periods
+2026-04-25T21:24:31: ✅ Generated metrics for 1 periods
+2026-04-25T21:24:33: 📊 Financial Close Metrics request with filters: {
+2026-04-25T21:24:33:   startDate: '2021-08-01',
+2026-04-25T21:24:33:   endDate: '2021-08-31',
+2026-04-25T21:24:33:   accountNo: '10060',
+2026-04-25T21:24:33:   documentType: 'Payment',
+2026-04-25T21:24:33:   granularity: 'monthly',
+2026-04-25T21:24:33:   limit: '1000'
+2026-04-25T21:24:33: }
+2026-04-25T21:24:33: 🔍 Getting Financial Close Metrics with filters: {
+2026-04-25T21:24:33:   startDate: '2021-08-01',
+2026-04-25T21:24:33:   endDate: '2021-08-31',
+2026-04-25T21:24:33:   accountNo: '10060',
+2026-04-25T21:24:33:   documentType: 'Payment',
+2026-04-25T21:24:33:   granularity: 'monthly',
+2026-04-25T21:24:33:   limit: '1000'
+2026-04-25T21:24:33: }
+2026-04-25T21:24:33: 🔍 getFinancialData called with filters: {
+2026-04-25T21:24:33:   startDate: '2021-08-01',
+2026-04-25T21:24:33:   endDate: '2021-08-31',
+2026-04-25T21:24:33:   accountNo: '10060',
+2026-04-25T21:24:33:   documentType: 'Payment',
+2026-04-25T21:24:33:   granularity: 'monthly',
+2026-04-25T21:24:33:   limit: '1000'
+2026-04-25T21:24:33: }
+2026-04-25T21:24:33: 🌐 API endpoint: /bc-datasets/2021-08-01/2021-08-31
+2026-04-25T21:24:33: 🌐 API params: { gl_account_no: '10060', document_type: 'Payment', limit: '1000' }
+2026-04-25T21:24:33: 🔐 Using Bearer token authentication
+2026-04-25T21:24:35: ✅ Fetched 20000 financial records from CMC API
+2026-04-25T21:24:35: 🔄 Transformed 20000 records
+2026-04-25T21:24:35: 📊 Sample transformed data: {
+2026-04-25T21:24:35:   "id": 39027,
+2026-04-25T21:24:35:   "entryNo": "19511",
+2026-04-25T21:24:35:   "transactionNo": "2223",
+2026-04-25T21:24:35:   "accountNo": "10060",
+2026-04-25T21:24:35:   "accountName": "Mbarara Cash Control",
+2026-04-25T21:24:35:   "postingDate": "2021-08-10",
+2026-04-25T21:24:35:   "documentDate": "2021-08-10",
+2026-04-25T21:24:35:   "documentType": "Payment",
+2026-04-25T21:24:35:   "documentNo": "B-SK000020RN",
+2026-04-25T21:24:35:   "sourceCode": "CASHRECJNL",
+2026-04-25T21:24:35:   "amount": "19000",
+2026-04-25T21:24:35:   "debitAmount": "19000",
+2026-04-25T21:24:35:   "creditAmount": "0",
+2026-04-25T21:24:35:   "vatAmount": "0",
+2026-04-25T21:24:35:   "additionalCurrencyAmount": "0",
+2026-04-25T21:24:35:   "addCurrencyDebitAmount": "0",
+2026-04-25T21:24:35:   "addCurrencyCreditAmount": "0",
+2026-04-25T21:24:35:   "genPostingType": null,
+2026-04-25T21:24:35:   "genBusPostingGroup": null,
+2026-04-25T21:24:35:   "genProdPostingGroup": null,
+2026-04-25T21:24:35:   "vatBusPostingGroup": null,
+2026-04-25T21:24:35:   "vatProdPostingGroup": null,
+2026-04-25T21:24:35:   "taxAreaCode": null,
+2026-04-25T21:24:35:   "taxLiable": false,
+2026-04-25T21:24:35:   "taxGroupCode": null,
+2026-04-25T21:24:35:   "useTax": false,
+2026-04-25T21:24:35:   "jobNo": null,
+2026-04-25T21:24:35:   "businessUnitCode": null,
+2026-04-25T21:24:35:   "reasonCode": null,
+2026-04-25T21:24:35:   "icPartnerCode": null,
+2026-04-25T21:24:35:   "dimensionSetId": "1736",
+2026-04-25T21:24:35:   "locale": null,
+2026-04-25T21:24:35:   "raw": {
+2026-04-25T21:24:35:     "locale": null,
+2026-04-25T21:24:35:     "Entry_No": "19511",
+2026-04-25T21:24:35:     "Transaction_No": "2223",
+2026-04-25T21:24:35:     "G_L_Account_No": "10060",
+2026-04-25T21:24:35:     "Posting_Date": "2021-08-10",
+2026-04-25T21:24:35:     "Document_Date": "2021-08-10",
+2026-04-25T21:24:35:     "Document_Type": "Payment",
+2026-04-25T21:24:35:     "Document_No": "B-SK000020RN",
+2026-04-25T21:24:35:     "Source_Code": "CASHRECJNL",
+2026-04-25T21:24:35:     "Job_No": null,
+2026-04-25T21:24:35:     "Business_Unit_Code": null,
+2026-04-25T21:24:35:     "Reason_Code": null,
+2026-04-25T21:24:35:     "Gen_Posting_Type": null,
+2026-04-25T21:24:35:     "Gen_Bus_Posting_Group": null,
+2026-04-25T21:24:35:     "Gen_Prod_Posting_Group": null,
+2026-04-25T21:24:35:     "Tax_Area_Code": null,
+2026-04-25T21:24:35:     "Tax_Liable": false,
+2026-04-25T21:24:35:     "Tax_Group_Code": null,
+2026-04-25T21:24:35:     "Use_Tax": false,
+2026-04-25T21:24:35:     "VAT_Bus_Posting_Group": null,
+2026-04-25T21:24:35:     "VAT_Prod_Posting_Group": null,
+2026-04-25T21:24:35:     "IC_Partner_Code": null,
+2026-04-25T21:24:35:     "Amount": "19000",
+2026-04-25T21:24:35:     "Debit_Amount": "19000",
+2026-04-25T21:24:35:     "Credit_Amount": "0",
+2026-04-25T21:24:35:     "VAT_Amount": "0",
+2026-04-25T21:24:35:     "Additional_Currency_Amount": "0",
+2026-04-25T21:24:35:     "Add_Currency_Debit_Amount": "0",
+2026-04-25T21:24:35:     "Add_Currency_Credit_Amount": "0",
+2026-04-25T21:24:35:     "Dimension_Set_ID": "1736",
+2026-04-25T21:24:35:     "G_L_Account_Name": "Mbarara Cash Control"
+2026-04-25T21:24:35:   }
+2026-04-25T21:24:35: }
+2026-04-25T21:24:35: 📊 Processing 20000 records for close metrics
+2026-04-25T21:24:35: 🔄 Calculating close metrics with enhanced granularity
+2026-04-25T21:24:35: 📈 Using monthly granularity
+2026-04-25T21:24:35: 📊 Grouped data into 1 periods
+2026-04-25T21:24:35: ✅ Generated metrics for 1 periods
+2026-04-27T10:11:56: ➡️ [Controller] content-roi HIT [Object: null prototype] {
+2026-04-27T10:11:56:   startDate: '2025-04-01',
+2026-04-27T10:11:56:   endDate: '2025-04-30'
+2026-04-27T10:11:56: }
+2026-04-27T10:11:56: 📈 [Service] getChartData called {
+2026-04-27T10:11:56:   metric: 'averageDuration',
+2026-04-27T10:11:56:   groupBy: 'title',
+2026-04-27T10:11:56:   startDate: '2025-04-01',
+2026-04-27T10:11:56:   endDate: '2025-04-30'
+2026-04-27T10:11:56: }
+2026-04-27T10:11:56: 🔧 [Service] EditorialAnalyticsService initialized
+2026-04-27T10:11:56: 🔍 [Service] fetchAllArticles called {
+2026-04-27T10:11:56:   startDate: '2025-04-01',
+2026-04-27T10:11:56:   endDate: '2025-04-30',
+2026-04-27T10:11:56:   category: undefined,
+2026-04-27T10:11:56:   page: 1,
+2026-04-27T10:11:56:   pageSize: 1000
+2026-04-27T10:11:56: }
+2026-04-27T10:11:56: 🌐 [Service] Fetching articles at offset 0, pageSize 1000
+2026-04-27T10:11:56: 🔐 [Service] Using Bearer token authentication
+2026-04-27T10:11:57: ✅ [Service] Fetched articles: 0 (page 1, totalCount: 0)
+2026-04-27T10:11:57: 🔍 [Service] fetchAllSessions called {
+2026-04-27T10:11:57:   startDate: '2025-04-01',
+2026-04-27T10:11:57:   endDate: '2025-04-30',
+2026-04-27T10:11:57:   platform: undefined,
+2026-04-27T10:11:57:   sessionMedium: undefined,
+2026-04-27T10:11:57:   streamName: undefined
+2026-04-27T10:11:57: }
+2026-04-27T10:11:57: 🌐 [Service] Fetching sessions for chunk: 2025-04-01 - 2025-05-01
+2026-04-27T10:11:57: 🔐 [Service] Using Bearer token authentication
+2026-04-27T10:12:07: ➡️ [Controller] cross-platform-engagement HIT [Object: null prototype] {
+2026-04-27T10:12:07:   startDate: '2025-04-01',
+2026-04-27T10:12:07:   endDate: '2025-04-30'
+2026-04-27T10:12:07: }
+2026-04-27T10:12:07: 📈 [Service] getChartData called {
+2026-04-27T10:12:07:   metric: 'averageDuration',
+2026-04-27T10:12:07:   groupBy: 'platform',
+2026-04-27T10:12:07:   startDate: '2025-04-01',
+2026-04-27T10:12:07:   endDate: '2025-04-30'
+2026-04-27T10:12:07: }
+2026-04-27T10:12:07: 🔍 [Service] fetchAllArticles called {
+2026-04-27T10:12:07:   startDate: '2025-04-01',
+2026-04-27T10:12:07:   endDate: '2025-04-30',
+2026-04-27T10:12:07:   category: undefined,
+2026-04-27T10:12:07:   page: 1,
+2026-04-27T10:12:07:   pageSize: 1000
+2026-04-27T10:12:07: }
+2026-04-27T10:12:07: 💾 [Service] Returning cached articles: 0
+2026-04-27T10:12:07: 🔍 [Service] fetchAllSessions called {
+2026-04-27T10:12:07:   startDate: '2025-04-01',
+2026-04-27T10:12:07:   endDate: '2025-04-30',
+2026-04-27T10:12:07:   platform: undefined,
+2026-04-27T10:12:07:   sessionMedium: undefined,
+2026-04-27T10:12:07:   streamName: undefined
+2026-04-27T10:12:07: }
+2026-04-27T10:12:07: 🌐 [Service] Fetching sessions for chunk: 2025-04-01 - 2025-05-01
+2026-04-27T10:12:07: 🔐 [Service] Using Bearer token authentication
+2026-04-27T11:18:22: ➡️ [Controller] cross-platform-engagement HIT [Object: null prototype] {
+2026-04-27T11:18:22:   startDate: '2025-04-01',
+2026-04-27T11:18:22:   endDate: '2025-04-30'
+2026-04-27T11:18:22: }
+2026-04-27T11:18:22: 📈 [Service] getChartData called {
+2026-04-27T11:18:22:   metric: 'averageDuration',
+2026-04-27T11:18:22:   groupBy: 'platform',
+2026-04-27T11:18:22:   startDate: '2025-04-01',
+2026-04-27T11:18:22:   endDate: '2025-04-30'
+2026-04-27T11:18:22: }
+2026-04-27T11:18:22: 🔍 [Service] fetchAllArticles called {
+2026-04-27T11:18:22:   startDate: '2025-04-01',
+2026-04-27T11:18:22:   endDate: '2025-04-30',
+2026-04-27T11:18:22:   category: undefined,
+2026-04-27T11:18:22:   page: 1,
+2026-04-27T11:18:22:   pageSize: 1000
+2026-04-27T11:18:22: }
+2026-04-27T11:18:22: 🌐 [Service] Fetching articles at offset 0, pageSize 1000
+2026-04-27T11:18:22: 🔐 [Service] Using Bearer token authentication
+2026-04-27T11:18:22: ✅ [Service] Fetched articles: 0 (page 1, totalCount: 0)
+2026-04-27T11:18:22: 🔍 [Service] fetchAllSessions called {
+2026-04-27T11:18:22:   startDate: '2025-04-01',
+2026-04-27T11:18:22:   endDate: '2025-04-30',
+2026-04-27T11:18:22:   platform: undefined,
+2026-04-27T11:18:22:   sessionMedium: undefined,
+2026-04-27T11:18:22:   streamName: undefined
+2026-04-27T11:18:22: }
+2026-04-27T11:18:22: 🌐 [Service] Fetching sessions for chunk: 2025-04-01 - 2025-05-01
+2026-04-27T11:18:22: 🔐 [Service] Using Bearer token authentication
+2026-04-27T11:26:02: ➡️ [Controller] social-amplification HIT [Object: null prototype] {
+2026-04-27T11:26:02:   startDate: '2026-02-28',
+2026-04-27T11:26:02:   endDate: '2026-03-30'
+2026-04-27T11:26:02: }
+2026-04-27T11:26:02: 📈 [Service] getChartData called {
+2026-04-27T11:26:02:   metric: 'averageDuration',
+2026-04-27T11:26:02:   groupBy: 'title',
+2026-04-27T11:26:02:   startDate: '2026-02-28',
+2026-04-27T11:26:02:   endDate: '2026-03-30',
+2026-04-27T11:26:02:   sessionMedium: 'social'
+2026-04-27T11:26:02: }
+2026-04-27T11:26:02: 🔍 [Service] fetchAllArticles called {
+2026-04-27T11:26:02:   startDate: '2026-02-28',
+2026-04-27T11:26:02:   endDate: '2026-03-30',
+2026-04-27T11:26:02:   category: undefined,
+2026-04-27T11:26:02:   page: 1,
+2026-04-27T11:26:02:   pageSize: 1000
+2026-04-27T11:26:02: }
+2026-04-27T11:26:02: 🌐 [Service] Fetching articles at offset 0, pageSize 1000
+2026-04-27T11:26:02: 🔐 [Service] Using Bearer token authentication
+2026-04-27T11:26:04: ✅ [Service] Fetched articles: 10 (page 1, totalCount: 1883)
+2026-04-27T11:26:04: 🔍 [Service] fetchAllSessions called {
+2026-04-27T11:26:04:   startDate: '2026-02-28',
+2026-04-27T11:26:04:   endDate: '2026-03-30',
+2026-04-27T11:26:04:   platform: undefined,
+2026-04-27T11:26:04:   sessionMedium: 'social',
+2026-04-27T11:26:04:   streamName: undefined
+2026-04-27T11:26:04: }
+2026-04-27T11:26:04: 🌐 [Service] Fetching sessions for chunk: 2026-02-28 - 2026-03-31
+2026-04-27T11:26:04: 🔐 [Service] Using Bearer token authentication
+2026-04-27T11:26:12: ➡️ [Controller] audience-demographics HIT [Object: null prototype] {
+2026-04-27T11:26:12:   startDate: '2026-02-28',
+2026-04-27T11:26:12:   endDate: '2026-03-30',
+2026-04-27T11:26:12:   topN: '12',
+2026-04-27T11:26:12:   minSessions: '0'
+2026-04-27T11:26:12: }
+2026-04-27T11:26:12: 📈 [Service] getChartData called {
+2026-04-27T11:26:12:   metric: 'averageDuration',
+2026-04-27T11:26:12:   groupBy: 'sessionMedium',
+2026-04-27T11:26:12:   startDate: '2026-02-28',
+2026-04-27T11:26:12:   endDate: '2026-03-30'
+2026-04-27T11:26:12: }
+2026-04-27T11:26:12: 🔍 [Service] fetchAllArticles called {
+2026-04-27T11:26:12:   startDate: '2026-02-28',
+2026-04-27T11:26:12:   endDate: '2026-03-30',
+2026-04-27T11:26:12:   category: undefined,
+2026-04-27T11:26:12:   page: 1,
+2026-04-27T11:26:12:   pageSize: 1000
+2026-04-27T11:26:12: }
+2026-04-27T11:26:12: 💾 [Service] Returning cached articles: 10
+2026-04-27T11:26:12: 🔍 [Service] fetchAllSessions called {
+2026-04-27T11:26:12:   startDate: '2026-02-28',
+2026-04-27T11:26:12:   endDate: '2026-03-30',
+2026-04-27T11:26:12:   platform: undefined,
+2026-04-27T11:26:12:   sessionMedium: undefined,
+2026-04-27T11:26:12:   streamName: undefined
+2026-04-27T11:26:12: }
+2026-04-27T11:26:12: 🌐 [Service] Fetching sessions for chunk: 2026-02-28 - 2026-03-31
+2026-04-27T11:26:12: 🔐 [Service] Using Bearer token authentication
+2026-04-27T11:28:19: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T11:28:19:   page: '1',
+2026-04-27T11:28:19:   pageSize: '10',
+2026-04-27T11:28:19:   startDate: '',
+2026-04-27T11:28:19:   endDate: ''
+2026-04-27T11:28:19: }
+2026-04-27T11:28:19: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-27T11:28:19: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T11:28:19:   page: '1',
+2026-04-27T11:28:19:   pageSize: '10',
+2026-04-27T11:28:19:   startDate: '',
+2026-04-27T11:28:19:   endDate: ''
+2026-04-27T11:28:19: }
+2026-04-27T11:29:36: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T11:29:36:   page: '1',
+2026-04-27T11:29:36:   pageSize: '10',
+2026-04-27T11:29:36:   startDate: '',
+2026-04-27T11:29:36:   endDate: ''
+2026-04-27T11:29:36: }
+2026-04-27T11:29:42: ➡️ [Controller] quota-attainment HIT [Object: null prototype] { page: '1', pageSize: '50' }
+2026-04-27T11:29:45: ➡️ [Controller] account-penetration HIT [Object: null prototype] { page: '1', pageSize: '50' }
+2026-04-27T11:29:51: ➡️ [Controller] corporate-account-health HIT [Object: null prototype] { page: '1', pageSize: '50' }
+2026-04-27T12:13:36: 🔍 getFinancialData called with filters: {
+2026-04-27T12:13:36:   startDate: '2021-08-01',
+2026-04-27T12:13:36:   endDate: '2021-10-31',
+2026-04-27T12:13:36:   documentType: 'Payment',
+2026-04-27T12:13:36:   accountNo: '10060',
+2026-04-27T12:13:36:   limit: '5000'
+2026-04-27T12:13:36: }
+2026-04-27T12:13:36: 🌐 API endpoint: /bc-datasets/2021-08-01/2021-10-31
+2026-04-27T12:13:36: 🌐 API params: { gl_account_no: '10060', document_type: 'Payment', limit: '5000' }
+2026-04-27T12:13:36: 🔐 Using Bearer token authentication
+2026-04-27T12:13:38: ✅ Fetched 20000 financial records from CMC API
+2026-04-27T12:13:38: 🔄 Transformed 20000 records
+2026-04-27T12:13:38: 📊 Sample transformed data: {
+2026-04-27T12:13:38:   "id": 39027,
+2026-04-27T12:13:38:   "entryNo": "19511",
+2026-04-27T12:13:38:   "transactionNo": "2223",
+2026-04-27T12:13:38:   "accountNo": "10060",
+2026-04-27T12:13:38:   "accountName": "Mbarara Cash Control",
+2026-04-27T12:13:38:   "postingDate": "2021-08-10",
+2026-04-27T12:13:38:   "documentDate": "2021-08-10",
+2026-04-27T12:13:38:   "documentType": "Payment",
+2026-04-27T12:13:38:   "documentNo": "B-SK000020RN",
+2026-04-27T12:13:38:   "sourceCode": "CASHRECJNL",
+2026-04-27T12:13:38:   "amount": "19000",
+2026-04-27T12:13:38:   "debitAmount": "19000",
+2026-04-27T12:13:38:   "creditAmount": "0",
+2026-04-27T12:13:38:   "vatAmount": "0",
+2026-04-27T12:13:38:   "additionalCurrencyAmount": "0",
+2026-04-27T12:13:38:   "addCurrencyDebitAmount": "0",
+2026-04-27T12:13:38:   "addCurrencyCreditAmount": "0",
+2026-04-27T12:13:38:   "genPostingType": null,
+2026-04-27T12:13:38:   "genBusPostingGroup": null,
+2026-04-27T12:13:38:   "genProdPostingGroup": null,
+2026-04-27T12:13:38:   "vatBusPostingGroup": null,
+2026-04-27T12:13:38:   "vatProdPostingGroup": null,
+2026-04-27T12:13:38:   "taxAreaCode": null,
+2026-04-27T12:13:38:   "taxLiable": false,
+2026-04-27T12:13:38:   "taxGroupCode": null,
+2026-04-27T12:13:38:   "useTax": false,
+2026-04-27T12:13:38:   "jobNo": null,
+2026-04-27T12:13:38:   "businessUnitCode": null,
+2026-04-27T12:13:38:   "reasonCode": null,
+2026-04-27T12:13:38:   "icPartnerCode": null,
+2026-04-27T12:13:38:   "dimensionSetId": "1736",
+2026-04-27T12:13:38:   "locale": null,
+2026-04-27T12:13:38:   "raw": {
+2026-04-27T12:13:38:     "locale": null,
+2026-04-27T12:13:38:     "Entry_No": "19511",
+2026-04-27T12:13:38:     "Transaction_No": "2223",
+2026-04-27T12:13:38:     "G_L_Account_No": "10060",
+2026-04-27T12:13:38:     "Posting_Date": "2021-08-10",
+2026-04-27T12:13:38:     "Document_Date": "2021-08-10",
+2026-04-27T12:13:38:     "Document_Type": "Payment",
+2026-04-27T12:13:38:     "Document_No": "B-SK000020RN",
+2026-04-27T12:13:38:     "Source_Code": "CASHRECJNL",
+2026-04-27T12:13:38:     "Job_No": null,
+2026-04-27T12:13:38:     "Business_Unit_Code": null,
+2026-04-27T12:13:38:     "Reason_Code": null,
+2026-04-27T12:13:38:     "Gen_Posting_Type": null,
+2026-04-27T12:13:38:     "Gen_Bus_Posting_Group": null,
+2026-04-27T12:13:38:     "Gen_Prod_Posting_Group": null,
+2026-04-27T12:13:38:     "Tax_Area_Code": null,
+2026-04-27T12:13:38:     "Tax_Liable": false,
+2026-04-27T12:13:38:     "Tax_Group_Code": null,
+2026-04-27T12:13:38:     "Use_Tax": false,
+2026-04-27T12:13:38:     "VAT_Bus_Posting_Group": null,
+2026-04-27T12:13:38:     "VAT_Prod_Posting_Group": null,
+2026-04-27T12:13:38:     "IC_Partner_Code": null,
+2026-04-27T12:13:38:     "Amount": "19000",
+2026-04-27T12:13:38:     "Debit_Amount": "19000",
+2026-04-27T12:13:38:     "Credit_Amount": "0",
+2026-04-27T12:13:38:     "VAT_Amount": "0",
+2026-04-27T12:13:38:     "Additional_Currency_Amount": "0",
+2026-04-27T12:13:38:     "Add_Currency_Debit_Amount": "0",
+2026-04-27T12:13:38:     "Add_Currency_Credit_Amount": "0",
+2026-04-27T12:13:38:     "Dimension_Set_ID": "1736",
+2026-04-27T12:13:38:     "G_L_Account_Name": "Mbarara Cash Control"
+2026-04-27T12:13:38:   }
+2026-04-27T12:13:38: }
+2026-04-27T12:13:48: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T12:13:48:   page: '1',
+2026-04-27T12:13:48:   pageSize: '10',
+2026-04-27T12:13:48:   startDate: '',
+2026-04-27T12:13:48:   endDate: ''
+2026-04-27T12:13:48: }
+2026-04-27T12:13:49: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T12:13:49:   page: '1',
+2026-04-27T12:13:49:   pageSize: '10',
+2026-04-27T12:13:49:   startDate: '',
+2026-04-27T12:13:49:   endDate: ''
+2026-04-27T12:13:49: }
+2026-04-27T17:52:18: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-27T17:52:18: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:52:18:   page: '1',
+2026-04-27T17:52:18:   pageSize: '10',
+2026-04-27T17:52:18:   startDate: '',
+2026-04-27T17:52:18:   endDate: ''
+2026-04-27T17:52:18: }
+2026-04-27T17:52:18: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:52:18:   page: '1',
+2026-04-27T17:52:18:   pageSize: '10',
+2026-04-27T17:52:18:   startDate: '',
+2026-04-27T17:52:18:   endDate: ''
+2026-04-27T17:52:18: }
+2026-04-27T17:52:25: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:52:25:   page: '1',
+2026-04-27T17:52:25:   pageSize: '10',
+2026-04-27T17:52:25:   startDate: '',
+2026-04-27T17:52:25:   endDate: ''
+2026-04-27T17:52:25: }
+2026-04-27T17:52:25: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:52:25:   page: '1',
+2026-04-27T17:52:25:   pageSize: '10',
+2026-04-27T17:52:25:   startDate: '',
+2026-04-27T17:52:25:   endDate: ''
+2026-04-27T17:52:25: }
+2026-04-27T17:52:25: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-27T17:52:37: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:52:37:   page: '1',
+2026-04-27T17:52:37:   pageSize: '10',
+2026-04-27T17:52:37:   startDate: '',
+2026-04-27T17:52:37:   endDate: ''
+2026-04-27T17:52:37: }
+2026-04-27T17:52:51: ➡️ [Controller] quota-attainment HIT [Object: null prototype] { page: '1', pageSize: '50' }
+2026-04-27T17:53:10: ➡️ [Controller] quota-attainment HIT [Object: null prototype] { page: '1', pageSize: '50' }
+2026-04-27T17:55:22: 🔧 [Production Service] Initialized with CMC API credentials
+2026-04-27T17:57:23: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:57:23:   page: '1',
+2026-04-27T17:57:23:   pageSize: '10',
+2026-04-27T17:57:23:   startDate: '',
+2026-04-27T17:57:23:   endDate: ''
+2026-04-27T17:57:23: }
+2026-04-27T17:57:23: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-27T17:57:23: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-27T17:57:23:   page: '1',
+2026-04-27T17:57:23:   pageSize: '10',
+2026-04-27T17:57:23:   startDate: '',
+2026-04-27T17:57:23:   endDate: ''
+2026-04-27T17:57:23: }
+2026-04-27T17:58:41: ➡️ [Controller] case-resolution HIT [Object: null prototype] { page: '1', pageSize: '20' }
+2026-04-27T17:58:55: ➡️ [Controller] compliance-breach HIT [Object: null prototype] { page: '1', pageSize: '20' }
+2026-04-27T17:59:24: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-27T17:59:46: ➡️ [Controller] storage HIT [Object: null prototype] { diskName: '', page: '1', pageSize: '10' }
+2026-04-27T17:59:53: ➡️ [Controller] patch-compliance HIT [Object: null prototype] { osVersion: '', page: '1', pageSize: '10' }
+2026-04-28T06:04:11: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-28T06:04:11: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:04:11:   page: '1',
+2026-04-28T06:04:11:   pageSize: '10',
+2026-04-28T06:04:11:   startDate: '',
+2026-04-28T06:04:11:   endDate: ''
+2026-04-28T06:04:11: }
+2026-04-28T06:04:11: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:04:11:   page: '1',
+2026-04-28T06:04:11:   pageSize: '10',
+2026-04-28T06:04:11:   startDate: '',
+2026-04-28T06:04:11:   endDate: ''
+2026-04-28T06:04:11: }
+2026-04-28T06:05:23: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:05:23:   page: '1',
+2026-04-28T06:05:23:   pageSize: '10',
+2026-04-28T06:05:23:   startDate: '',
+2026-04-28T06:05:23:   endDate: ''
+2026-04-28T06:05:23: }
+2026-04-28T06:05:23: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-28T06:05:23: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:05:23:   page: '1',
+2026-04-28T06:05:23:   pageSize: '10',
+2026-04-28T06:05:23:   startDate: '',
+2026-04-28T06:05:23:   endDate: ''
+2026-04-28T06:05:23: }
+2026-04-28T06:06:19: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:06:19:   page: '1',
+2026-04-28T06:06:19:   pageSize: '10',
+2026-04-28T06:06:19:   startDate: '',
+2026-04-28T06:06:19:   endDate: ''
+2026-04-28T06:06:19: }
+2026-04-28T06:06:19: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-28T06:06:19: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:06:19:   page: '1',
+2026-04-28T06:06:19:   pageSize: '10',
+2026-04-28T06:06:19:   startDate: '',
+2026-04-28T06:06:19:   endDate: ''
+2026-04-28T06:06:19: }
+2026-04-28T06:08:01: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:08:01:   page: '1',
+2026-04-28T06:08:01:   pageSize: '10',
+2026-04-28T06:08:01:   startDate: '',
+2026-04-28T06:08:01:   endDate: ''
+2026-04-28T06:08:01: }
+2026-04-28T06:08:01: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-28T06:08:01: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:08:01:   page: '1',
+2026-04-28T06:08:01:   pageSize: '10',
+2026-04-28T06:08:01:   startDate: '',
+2026-04-28T06:08:01:   endDate: ''
+2026-04-28T06:08:01: }
+2026-04-28T06:09:46: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:09:46:   page: '1',
+2026-04-28T06:09:46:   pageSize: '10',
+2026-04-28T06:09:46:   startDate: '',
+2026-04-28T06:09:46:   endDate: ''
+2026-04-28T06:09:46: }
+2026-04-28T06:09:46: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-28T06:09:46: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:09:46:   page: '1',
+2026-04-28T06:09:46:   pageSize: '10',
+2026-04-28T06:09:46:   startDate: '',
+2026-04-28T06:09:46:   endDate: ''
+2026-04-28T06:09:46: }
+2026-04-28T06:11:45: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:11:45:   page: '1',
+2026-04-28T06:11:45:   pageSize: '10',
+2026-04-28T06:11:45:   startDate: '',
+2026-04-28T06:11:45:   endDate: ''
+2026-04-28T06:11:45: }
+2026-04-28T06:11:45: ➡️ [Controller] server-load HIT [Object: null prototype] { hostname: '', page: '1', pageSize: '10' }
+2026-04-28T06:11:45: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:11:45:   page: '1',
+2026-04-28T06:11:45:   pageSize: '10',
+2026-04-28T06:11:45:   startDate: '',
+2026-04-28T06:11:45:   endDate: ''
+2026-04-28T06:11:45: }
+2026-04-28T06:13:05: ➡️ [Controller] pipeline-velocity HIT [Object: null prototype] {
+2026-04-28T06:13:05:   page: '1',
+2026-04-28T06:13:05:   pageSize: '10',
+2026-04-28T06:13:05:   startDate: '',
+2026-04-28T06:13:05:   endDate: ''
+2026-04-28T06:13:05: }
+2026-04-28T06:18:43: ➡️ [Controller] cross-platform-engagement HIT [Object: null prototype] {
+2026-04-28T06:18:43:   startDate: '2025-04-01',
+2026-04-28T06:18:43:   endDate: '2025-04-30'
+2026-04-28T06:18:43: }
+2026-04-28T06:18:43: 📈 [Service] getChartData called {
+2026-04-28T06:18:43:   metric: 'averageDuration',
+2026-04-28T06:18:43:   groupBy: 'platform',
+2026-04-28T06:18:43:   startDate: '2025-04-01',
+2026-04-28T06:18:43:   endDate: '2025-04-30'
+2026-04-28T06:18:43: }
+2026-04-28T06:18:43: 🔍 [Service] fetchAllArticles called {
+2026-04-28T06:18:43:   startDate: '2025-04-01',
+2026-04-28T06:18:43:   endDate: '2025-04-30',
+2026-04-28T06:18:43:   category: undefined,
+2026-04-28T06:18:43:   page: 1,
+2026-04-28T06:18:43:   pageSize: 1000
+2026-04-28T06:18:43: }
+2026-04-28T06:18:43: 🌐 [Service] Fetching articles at offset 0, pageSize 1000
+2026-04-28T06:18:43: 🔐 [Service] Using Bearer token authentication
+2026-04-28T06:18:45: ✅ [Service] Fetched articles: 0 (page 1, totalCount: 0)
+2026-04-28T06:18:45: 🔍 [Service] fetchAllSessions called {
+2026-04-28T06:18:45:   startDate: '2025-04-01',
+2026-04-28T06:18:45:   endDate: '2025-04-30',
+2026-04-28T06:18:45:   platform: undefined,
+2026-04-28T06:18:45:   sessionMedium: undefined,
+2026-04-28T06:18:45:   streamName: undefined
+2026-04-28T06:18:45: }
+2026-04-28T06:18:45: 🌐 [Service] Fetching sessions for chunk: 2025-04-01 - 2025-05-01
+2026-04-28T06:18:45: 🔐 [Service] Using Bearer token authentication
