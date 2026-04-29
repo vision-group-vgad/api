@@ -1,67 +1,7 @@
-node_modules
-coverage
-.env
 
-/generated/prisma
-/coverage
-./coverage
+# Logs
+logs/*.log
 
-./config/firebase/*.json
-./config/firebase/*.txt
-firebase/*.json
-firebase/*.txt
-users.json
-roles_collections.json
-unfunded.txt
-user-mappings.json
-role-code-mappings.json
-endpoints.json
-swag.js
-
-# Test files
-test-*.js
-debug-*.js
-quicktest-*.js
-quick-editorial-*.js
-quick-ai-*.js
-check-roles.js
-check-role-access.js
-quick-*.js
-test-all-*.js
-test-data-*.js
-test-mock-*.js
-test-access-*.js
-test-direct-*.js
-
-# Comprehensive test patterns
-*test*.js
-*Test*.js
-*TEST*.js
-spec-*.js
-*.spec.js
-*.test.js
-
-# Test results and documentation
-*TEST_RESULTS*.md
-*_TEST_*.md
-test-results/
-test-reports/
-
-# Demo and debugging files
-*-demo.js
-*-debug.js
-*-test.js
-swagger-test-*.js
-api-test-*.js
-
-# Backup files
-*_backup.js
-*.backup.js
-backup-*/
-
-# Generated reports and previews
-*.pdf
-preview-*.html
-report-*.pdf
-
-ecosystem.config.cjs
+# Runtime / generated files
+src/auth/access-audit.json
+src/auth/role-overrides.json
