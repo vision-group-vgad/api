@@ -1,0 +1,373 @@
+[
+  {
+    "email": "admin@vision.com",
+    "name": "Admin",
+    "department": "Administration",
+    "role": "super_admin",
+    "password": "Admin@2024!"
+  },
+  {
+    "email": "headofit@vision.com",
+    "name": "Head of IT",
+    "department": "IT",
+    "role": "head_of_it",
+    "password": "HeadIT@2024!"
+  },
+  {
+    "email": "systemsadministrator@vision.com",
+    "name": "Systems Administrator",
+    "department": "IT",
+    "role": "head_of_it",
+    "password": "SysAdmin@2024!"
+  },
+  {
+    "email": "managertechinfra@vision.com",
+    "name": "Manager Tech Infrastructure",
+    "department": "IT",
+    "role": "it_staff",
+    "password": "TechMgr@2024!"
+  },
+  {
+    "email": "managerinfosec@vision.com",
+    "name": "Manager InfoSec",
+    "department": "IT",
+    "role": "it_staff",
+    "password": "InfoSec@2024!"
+  },
+  {
+    "email": "managerservicedelivery@vision.com",
+    "name": "Manager Service Delivery",
+    "department": "IT",
+    "role": "it_staff",
+    "password": "ServiceDel@2024!"
+  },
+  {
+    "email": "networkadmin@vision.com",
+    "name": "Network Admin",
+    "department": "IT",
+    "role": "it_staff",
+    "password": "NetAdmin@2024!"
+  },
+  {
+    "email": "itsupport@vision.com",
+    "name": "IT Support",
+    "department": "IT",
+    "role": "it_staff",
+    "password": "ITSupport@2024!"
+  },
+  {
+    "email": "headofsales@vision.com",
+    "name": "Head of Sales",
+    "department": "Sales",
+    "role": "head_of_sales",
+    "password": "HeadSales@2024!"
+  },
+  {
+    "email": "advertisingmanager@vision.com",
+    "name": "Advertising Manager",
+    "department": "Sales",
+    "role": "head_of_sales",
+    "password": "AdMgr@2024!"
+  },
+  {
+    "email": "marketingmanager@vision.com",
+    "name": "Marketing Manager",
+    "department": "Sales",
+    "role": "head_of_sales",
+    "password": "MktMgr@2024!"
+  },
+  {
+    "email": "salesmanager@vision.com",
+    "name": "Sales Manager",
+    "department": "Sales",
+    "role": "head_of_sales",
+    "password": "SalesMgr@2024!"
+  },
+  {
+    "email": "digitalmktopt@vision.com",
+    "name": "Digital Marketing Optimizer",
+    "department": "Sales",
+    "role": "sales_staff",
+    "password": "DigiMkt@2024!"
+  },
+  {
+    "email": "corporatesalessup@vision.com",
+    "name": "Corporate Sales Supervisor",
+    "department": "Sales",
+    "role": "sales_staff",
+    "password": "CorpSales@2024!"
+  },
+  {
+    "email": "headofprinting@vision.com",
+    "name": "Head of Printing",
+    "department": "Operations",
+    "role": "head_of_operations",
+    "password": "HeadPrint@2024!"
+  },
+  {
+    "email": "printingsupervisor@vision.com",
+    "name": "Printing Supervisor",
+    "department": "Operations",
+    "role": "operations_staff",
+    "password": "PrintSup@2024!"
+  },
+  {
+    "email": "broadcasteng@vision.com",
+    "name": "Broadcast Engineer",
+    "department": "Operations",
+    "role": "operations_staff",
+    "password": "BroadcastEng@2024!"
+  },
+  {
+    "email": "technician@vision.com",
+    "name": "Technician",
+    "department": "Operations",
+    "role": "operations_staff",
+    "password": "Technician@2024!"
+  },
+  {
+    "email": "transport@vision.com",
+    "name": "Transport Officer",
+    "department": "Operations",
+    "role": "operations_staff",
+    "password": "Transport@2024!"
+  },
+  {
+    "email": "financialcontroller@vision.com",
+    "name": "Financial Controller",
+    "department": "Finance",
+    "role": "head_of_finance",
+    "password": "FinCtrl@2024!"
+  },
+  {
+    "email": "senioraccount@vision.com",
+    "name": "Senior Accountant",
+    "department": "Finance",
+    "role": "finance_staff",
+    "password": "SeniorAcc@2024!"
+  },
+  {
+    "email": "principalaccountant@vision.com",
+    "name": "Principal Accountant",
+    "department": "Finance",
+    "role": "finance_staff",
+    "password": "PrinAcc@2024!"
+  },
+  {
+    "email": "accountant@vision.com",
+    "name": "Accountant",
+    "department": "Finance",
+    "role": "finance_staff",
+    "password": "Accountant@2024!"
+  },
+  {
+    "email": "asaccountant@vision.com",
+    "name": "Assistant Accountant",
+    "department": "Finance",
+    "role": "finance_staff",
+    "password": "AssAcc@2024!"
+  },
+  {
+    "email": "creditcontroller@vision.com",
+    "name": "Credit Controller",
+    "department": "Finance",
+    "role": "finance_staff",
+    "password": "CreditCtrl@2024!"
+  },
+  {
+    "email": "sysaccountant@vision.com",
+    "name": "Systems Accountant",
+    "department": "Finance",
+    "role": "finance_staff",
+    "password": "SysAcc@2024!"
+  },
+  {
+    "email": "editorinchief@vision.com",
+    "name": "Editor in Chief",
+    "department": "Editorial",
+    "role": "head_of_editorial",
+    "password": "EditorChief@2024!"
+  },
+  {
+    "email": "reporter@vision.com",
+    "name": "Reporter",
+    "department": "Editorial",
+    "role": "editorial_staff",
+    "password": "Reporter@2024!"
+  },
+  {
+    "email": "editor@vision.com",
+    "name": "Editor",
+    "department": "Editorial",
+    "role": "editorial_staff",
+    "password": "Editor@2024!"
+  },
+  {
+    "email": "managingeditor@vision.com",
+    "name": "Managing Editor",
+    "department": "Editorial",
+    "role": "editorial_staff",
+    "password": "ManagEditor@2024!"
+  },
+  {
+    "email": "newseditor@vision.com",
+    "name": "News Editor",
+    "department": "Editorial",
+    "role": "editorial_staff",
+    "password": "NewsEditor@2024!"
+  },
+  {
+    "email": "deputyeditor@vision.com",
+    "name": "Deputy Editor",
+    "department": "Editorial",
+    "role": "editorial_staff",
+    "password": "DepEditor@2024!"
+  },
+  {
+    "email": "subeditor@vision.com",
+    "name": "Sub Editor",
+    "department": "Editorial",
+    "role": "editorial_staff",
+    "password": "SubEditor@2024!"
+  },
+  {
+    "email": "photovideojournalist@vision.com",
+    "name": "Photo/Video Journalist",
+    "department": "Editorial",
+    "role": "editorial_staff",
+    "password": "PhotoVid@2024!"
+  },
+  {
+    "email": "presenteranchor@vision.com",
+    "name": "Presenter/Anchor",
+    "department": "Editorial",
+    "role": "editorial_staff",
+    "password": "Presenter@2024!"
+  },
+  {
+    "email": "administrationmanager@vision.com",
+    "name": "Administration Manager",
+    "department": "Administration",
+    "role": "admin_staff",
+    "password": "AdminMgr@2024!"
+  },
+  {
+    "email": "executiveassistant@vision.com",
+    "name": "Executive Assistant",
+    "department": "Administration",
+    "role": "admin_staff",
+    "password": "ExecAsst@2024!"
+  },
+  {
+    "email": "administrativeassistant@vision.com",
+    "name": "Administrative Assistant",
+    "department": "Administration",
+    "role": "admin_staff",
+    "password": "AdminAsst@2024!"
+  },
+  {
+    "email": "administrator@vision.com",
+    "name": "Administrator",
+    "department": "Administration",
+    "role": "administrator",
+    "password": "Administrator@2024!"
+  },
+  {
+    "email": "support@vision.com",
+    "name": "Support Officer",
+    "department": "Administration",
+    "role": "support",
+    "password": "Support@2024!"
+  },
+  {
+    "email": "managingdirector@vision.com",
+    "name": "Managing Director",
+    "department": "Executive",
+    "role": "managingdirector",
+    "password": "ManagDir@2024!"
+  },
+  {
+    "email": "mandir@vision.com",
+    "name": "Managing Director",
+    "department": "Executive",
+    "role": "managingdirector",
+    "password": "mandir@vision2025"
+  },
+  {
+    "email": "ceo@vision.com",
+    "name": "Chief Executive Officer",
+    "department": "Executive",
+    "role": "ceo",
+    "password": "CEO@Vision2024!"
+  },
+  {
+    "email": "deputymd@vision.com",
+    "name": "Deputy Managing Director",
+    "department": "Executive",
+    "role": "deputymanagingdirector",
+    "password": "DeputyMD@2024!"
+  },
+  {
+    "email": "companysecretary@vision.com",
+    "name": "Company Secretary",
+    "department": "Executive",
+    "role": "companysecretary",
+    "password": "CompSec@2024!"
+  },
+  {
+    "email": "chiefhr@vision.com",
+    "name": "Chief Human Resource Officer",
+    "department": "Executive",
+    "role": "chiefhumanresourceofficer",
+    "password": "ChiefHR@2024!"
+  },
+  {
+    "email": "chiefinternalauditor@vision.com",
+    "name": "Chief Internal Auditor",
+    "department": "Executive",
+    "role": "chiefinternalauditor",
+    "password": "ChiefAudit@2024!"
+  },
+  {
+    "email": "legalofficer@vision.com",
+    "name": "Legal Officer",
+    "department": "SpecializedRoles",
+    "role": "legalofficer",
+    "password": "LegalOfficer@2024!"
+  },
+  {
+    "email": "riskmanager@vision.com",
+    "name": "Risk Manager",
+    "department": "SpecializedRoles",
+    "role": "riskmanager",
+    "password": "RiskMgr@2024!"
+  },
+  {
+    "email": "eventsmanager@vision.com",
+    "name": "Events Manager",
+    "department": "SpecializedRoles",
+    "role": "eventsmanager",
+    "password": "EventsMgr@2024!"
+  },
+  {
+    "email": "hrmanager@vision.com",
+    "name": "HR Manager",
+    "department": "SpecializedRoles",
+    "role": "hrroles",
+    "password": "HRMgr@2024!"
+  },
+  {
+    "email": "researchmanager@vision.com",
+    "name": "Research & Data Manager",
+    "department": "SpecializedRoles",
+    "role": "research&datamanager",
+    "password": "ResearchMgr@2024!"
+  },
+  {
+    "email": "specializedroles@vision.com",
+    "name": "Specialized Roles Officer",
+    "department": "SpecializedRoles",
+    "role": "specialized_roles",
+    "password": "Specialized@2024!"
+  }
+]
